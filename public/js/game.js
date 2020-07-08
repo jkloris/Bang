@@ -1,7 +1,7 @@
 class Game{
     constructor(){
-        this.hraci = [];
-        this.karty = [];
+        this.players = [];
+        this.cards = [];
     }
 }
 

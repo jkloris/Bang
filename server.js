@@ -12,7 +12,7 @@ const Game = require("./public/js/game.js");
 
 app.use(express.static(path.join(__dirname, "public")));
 
-var hra = new Game();
+var game = new Game();
 
 io.on("connection", socket =>{
     //niekto sa pripojil
@@ -40,18 +40,20 @@ server.listen(PORT, IP, ()=>console.log("running on " + PORT));
 //update hry
 function gameUpdate(){
       //zatial si len posielam info o hre
-    io.emit("update", hra);
+    io.emit("update", game);
 }
 
 function playerDisconnect(id){
-    var index = hra.hraci.findIndex(user => user.id === id);
+    var index = game.players.findIndex(user => user.id === id);
         if(index != -1){
-            hra.hraci.splice(index,1);
+            game.players.splice(index,1);
             io.emit("message", id + "sa odpojil");
+            console.log(id, 'disconnected');
         }     
 }
 
 function playerConnected(id){
-    io.emit("message", id+ "sa pripojil");
-    hra.hraci.push(new Player(id, 4, null, null, null));
+    //io.emit("message", id+ "connected");
+    console.log(id, 'connected');
+    game.players.push(new Player(id, 4, null, null, null));
 }

@@ -1,11 +1,10 @@
 class Player{
-    constructor(id,maxHP, postava, schopnost, poradie){
+    constructor(id, maxHP, character, ability){
         this.id = id;
         this.maxHP = maxHP;
-        this.postava = postava;
-        this.schopnost = schopnost;
-        this.karty = [];
-        this.poradie = poradie;
+        this.character = character; //TODO
+        this.ability = ability; //TODO
+        this.cards = []; //karty tohto hraca
     }
 }
 

@@ -46,6 +46,8 @@ function gameUpdate(){
 function playerDisconnect(id){
     var index = hra.hraci.findIndex(user => user.id === id);
         if(index != -1){
+            
+
             hra.hraci.splice(index,1);
             io.emit("message", id + "sa odpojil");
         }     

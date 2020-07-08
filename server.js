@@ -53,6 +53,7 @@ function gameUpdate(){
 function playerDisconnect(id){
     var index = game.players.findIndex(user => user.id === id);
         if(index != -1){
+
             game.players.splice(index,1);
             io.emit("message", id, 'disconnected');
             //console.log(id, 'disconnected');

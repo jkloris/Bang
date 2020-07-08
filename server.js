@@ -12,12 +12,21 @@ const Game = require("./public/js/game.js");
 
 app.use(express.static(path.join(__dirname, "public")));
 
-var hra = new Game();
+var game = new Game();
 
 io.on("connection", socket =>{
     //niekto sa pripojil
     playerConnected(socket.id);
     gameUpdate();
+
+    //hrac si nastavi meno
+    socket.on('set-name', name => {
+        let index = game.players.findIndex(user => user.id === socket.id);
+        game.players[index].name = name;
+        // console.log(game.players[index].name);
+        // console.log(index);
+        gameUpdate();
+    });
 
     //zachytenie suradnice kliknutia
     socket.on("clicked", (mouse, id)=>{
@@ -34,26 +43,27 @@ io.on("connection", socket =>{
 
 const PORT = process.env.PORT || 8888;
 const IP = 'localhost';
-server.listen(PORT, IP, ()=>console.log("running on " + PORT));
+server.listen(PORT, IP, ()=>console.log("server running on " + PORT));
 
 
 //update hry
 function gameUpdate(){
       //zatial si len posielam info o hre
-    io.emit("message", hra);
+    io.emit("update", game);
 }
 
 function playerDisconnect(id){
-    var index = hra.hraci.findIndex(user => user.id === id);
+    var index = game.players.findIndex(user => user.id === id);
         if(index != -1){
-            
 
-            hra.hraci.splice(index,1);
-            io.emit("message", id + "sa odpojil");
+            game.players.splice(index,1);
+            io.emit("message", id, 'disconnected');
+            //console.log(id, 'disconnected');
         }     
 }
 
 function playerConnected(id){
-    io.emit("message", id+ "sa pripojil");
-    hra.hraci.push(new Player(id, 4, null, null, null));
+    //io.emit("message", id+ "connected");
+    //console.log(id, 'connected');
+    game.players.push(new Player(id, 4, null, null, null));
 }

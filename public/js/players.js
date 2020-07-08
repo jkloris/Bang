@@ -5,6 +5,7 @@ class Player{
         this.character = character; //TODO
         this.ability = ability; //TODO
         this.cards = []; //karty tohto hraca
+        this.name;
     }
 }
 

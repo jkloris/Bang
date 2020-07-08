@@ -21,7 +21,7 @@ io.on("connection", socket =>{
 
     //zachytenie suradnice kliknutia
     socket.on("clicked", (mouse, id)=>{
-
+        console.log("Click: ", mouse, id);
     })
 
     //odpojenie hraca
@@ -40,7 +40,7 @@ server.listen(PORT, IP, ()=>console.log("running on " + PORT));
 //update hry
 function gameUpdate(){
       //zatial si len posielam info o hre
-    io.emit("message", hra,);
+    io.emit("message", hra);
 }
 
 function playerDisconnect(id){

@@ -40,7 +40,7 @@ server.listen(PORT, IP, ()=>console.log("running on " + PORT));
 //update hry
 function gameUpdate(){
       //zatial si len posielam info o hre
-    io.emit("message", hra);
+    io.emit("update", hra);
 }
 
 function playerDisconnect(id){

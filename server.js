@@ -23,8 +23,6 @@ io.on("connection", socket =>{
     socket.on('set-name', name => {
         let index = game.players.findIndex(user => user.id === socket.id);
         game.players[index].name = name;
-        // console.log(game.players[index].name);
-        // console.log(index);
         gameUpdate();
     });
 

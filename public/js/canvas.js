@@ -2,6 +2,7 @@
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+const tile_size = canvas.width / 10;
 
 ctx.canvas.width = window.innerWidth * 0.9;
 ctx.canvas.height = window.innerHeight * 0.9;

@@ -24,7 +24,7 @@ document.addEventListener("click", e => {
     var mouse = {x: e.clientX-rect.left, y: e.clientY-rect.top};
     console.log(mouse.x, mouse.y);
     //socket.emit("clicked", mouse, socket.id );
-    game_scene.onclick();
+    game_scene.onclick(mouse);
 })
 
 function drawGame() {

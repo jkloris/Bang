@@ -16,19 +16,22 @@ socket.on("message", (msg) => {
 socket.on("update", game => {
     game_client = game;
     updatePlayers();
-    //drawGame();
+    drawGame();
 })
 
 document.addEventListener("click", e => {
     var rect = canvas.getBoundingClientRect();
     var mouse = {x: e.clientX-rect.left, y: e.clientY-rect.top};
-    console.log(mouse.x, mouse.y);
+    //console.log(mouse.x, mouse.y);
     //socket.emit("clicked", mouse, socket.id );
     game_scene.onclick(mouse);
 })
 
 function drawGame() {
     clear();
+    for (i in game_scene.tiles) {
+        game_scene.tiles[i].drawTile();
+    }
 }
 
 function updatePlayers() {

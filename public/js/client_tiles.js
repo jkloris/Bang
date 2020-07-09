@@ -7,9 +7,9 @@ class Tile {
         this.lives = null;
     }
 
-    drawTile = function() {
+    drawTile = function(color) {
         ctx.save();
-        ctx.strokeStyle = "black";
+        ctx.strokeStyle = color;
         ctx.strokeRect(this.x, this.y, tile_size, tile_size);
         ctx.font = "18px Calibri";
         ctx.strokeText(this.name, this.x, this.y);

@@ -18,6 +18,11 @@ function clear() {
 function drawGame() {
     clear();
     for (i in game_scene.tiles) {
-        game_scene.tiles[i].drawTile();
+        if(game_scene.tiles[i].id == socket.id){
+            var color = "red";
+        }else{
+            var color = "black";
+        }
+        game_scene.tiles[i].drawTile(color);
     }
 }

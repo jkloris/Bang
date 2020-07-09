@@ -34,15 +34,15 @@ io.on("connection", socket =>{
     //basic layout pre buducu komunikaciu medzi clientami
     socket.on("interaction", id=>{
         var index_sender = game.players.findIndex(user => user.id === socket.id);
-        var index_reciever = game.players.findIndex(user => user.id === id);
+        var index_target = game.players.findIndex(user => user.id === id);
 
         for(i in game.players){
             if(game.players[i].id == id){
                 socket.broadcast.to(id).emit("message", game.players[index_sender].name + " interacts with you");
             }else if(game.players[i].id == socket.id){
-                socket.emit("message",  "you interact with " + game.players[index_reciever].name );
+                socket.emit("message",  "you interact with " + game.players[index_target].name );
             }else{
-                socket.broadcast.to(game.players[i].id).emit("message", game.players[index_sender].name + " interacts with " + game.players[index_reciever].name);
+                socket.broadcast.to(game.players[i].id).emit("message", game.players[index_sender].name + " interacts with " + game.players[index_target].name);
             }
         }
     })
@@ -71,7 +71,7 @@ function playerDisconnect(id){
         if(index != -1){
 
             game.players.splice(index,1);
-            io.emit("message", id, 'disconnected');
+            io.emit("message", id + ' disconnected');
             //console.log(id, 'disconnected');
         }     
 }

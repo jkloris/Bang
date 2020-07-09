@@ -17,6 +17,7 @@ class Tile {
     }
 
     onclick = function() {
-        alert(this.name, this.id);
+        socket.emit("interaction", this.id);
+        // alert(this.name +"  (" + this.id + ") "+" interacts with " + socket_id);
     }
 }

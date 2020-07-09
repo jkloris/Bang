@@ -14,3 +14,10 @@ function clear() {
     ctx.fillRect(0,0,canvas.width,canvas.height);
     ctx.restore();
 }
+
+function drawGame() {
+    clear();
+    for (i in game_scene.tiles) {
+        game_scene.tiles[i].drawTile();
+    }
+}

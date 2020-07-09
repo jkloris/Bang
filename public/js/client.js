@@ -27,12 +27,7 @@ document.addEventListener("click", e => {
     game_scene.onclick(mouse);
 })
 
-function drawGame() {
-    clear();
-    for (i in game_scene.tiles) {
-        game_scene.tiles[i].drawTile();
-    }
-}
+
 
 function updatePlayers() {
     game_scene.tiles.length = 0;

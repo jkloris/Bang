@@ -22,7 +22,8 @@ socket.on("update", game => {
 
 //bang
 socket.on("bang", arg=>{
-    alert(socket.id + " bang " + arg);
+    //alert(socket.id + "bang");
+    console.log("bang");
 })
 
 

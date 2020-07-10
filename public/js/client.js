@@ -11,13 +11,19 @@ var game_scene = new Scene;
 
 socket.on("message", (msg) => {
     console.log(msg);
-})
+});
 
 socket.on("update", game => {
     game_client = game;
     updatePlayers();
     drawGame();
+});
+
+//bang
+socket.on("bang", arg=>{
+    alert(socket.id + "bang");
 })
+
 
 document.addEventListener("click", e => {
     var rect = canvas.getBoundingClientRect();

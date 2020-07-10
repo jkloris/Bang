@@ -8,6 +8,7 @@ socket.emit('set-name', name);
 
 var game_client; //stav hry ulozeny na strane klienta
 var game_scene = new Scene;
+game_scene.init();
 
 socket.on("message", (msg) => {
     console.log(msg);
@@ -21,7 +22,7 @@ socket.on("update", game => {
 
 //bang
 socket.on("bang", arg=>{
-    alert(socket.id + "bang");
+    alert(socket.id + " bang " + arg);
 })
 
 
@@ -29,7 +30,7 @@ document.addEventListener("click", e => {
     var rect = canvas.getBoundingClientRect();
     var mouse = {x: e.clientX-rect.left, y: e.clientY-rect.top};
     //console.log(mouse.x, mouse.y);
-    //socket.emit("clicked", mouse, socket.id );
+    socket.emit("clicked", mouse, socket.id );
     game_scene.onclick(mouse);
 })
 

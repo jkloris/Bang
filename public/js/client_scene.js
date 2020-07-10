@@ -3,10 +3,17 @@ class Scene {
         this.tiles = [];
     }
 
-    add_tile = function(tile) {
+    
+    add_tile(tile) {
         this.tiles.push(tile);
+        console.log( this.tiles);
     }
-
+    
+    init() {
+        var new_tile = new Button(canvas.width - 100, canvas.height - 100, 50, 50, "button", "yellow");
+        this.add_tile(new_tile);
+        // console.log(this);
+    }
     onclick = function(point) {
         var i;
         for (i in this.tiles) {            

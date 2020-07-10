@@ -17,8 +17,34 @@ class Tile {
         ctx.restore();
     }
 
-    onclick = function() {
-        socket.emit("interaction", this.id, "bang", "neviem");
+    onclick = function() {//event , arg
+        socket.emit("interaction", this.id, "bang", null );
         // alert(this.name +"  (" + this.id + ") "+" interacts with " + socket_id);
     }
+}
+
+class Button {
+    constructor(x, y, sizeX, sizeY, text, color){
+        this.x = x;
+        this.y = y;
+        this.text = text;
+        this.color = color;
+        this.sizeX = sizeX * Math.floor(canvas.width / 100);
+        this.sizeY = sizeY* Math.floor(canvas.height / 100);
+    }
+
+    drawTile = function() {
+        ctx.save();
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, this.sizeX, this.sizeY);
+        ctx.font = "18px Calibri";
+        ctx.fillText(this.text, this.x + this.sizeX / 2, this.y+ this.sizeY / 2);
+        ctx.restore();
+    }
+
+    onclick = function() {
+        alert( this.text);
+    }
+
+
 }

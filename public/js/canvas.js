@@ -17,6 +17,7 @@ function clear() {
 
 function drawGame() {
     clear();
+    // console.log(game_scene.tiles);
     for (i in game_scene.tiles) {
         if(game_scene.tiles[i].id == socket.id){
             var color = "green";

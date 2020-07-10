@@ -28,7 +28,10 @@ io.on("connection", socket =>{
 
     //zachytenie suradnice kliknutia
     socket.on("clicked", (mouse, id)=>{
-        console.log("Click: ", mouse, id);
+        if(game.players[game.turn].id == id){
+            console.log("Click: ", mouse, id);
+
+        }
     })
 
     //basic layout pre buducu komunikaciu medzi clientami
@@ -42,9 +45,9 @@ io.on("connection", socket =>{
                 socket.broadcast.to(id).emit(event, arg);
                 socket.broadcast.to(id).emit("message", game.players[index_sender].name + ' used card ' +event + ' -> you');
             }else if(game.players[i].id == socket.id){
-                socket.emit("message",   "you used card "+ event + ' -> '+ game.players[index_reciever].name );
+                socket.emit("message",   "you used card "+ event + ' -> '+ game.players[index_target].name );
             }else{
-                socket.broadcast.to(game.players[i].id).emit("message", game.players[index_sender].name + " used card " +event + ' -> ' + game.players[index_reciever].name);
+                socket.broadcast.to(game.players[i].id).emit("message", game.players[index_sender].name + " used card " +event + ' -> ' + game.players[index_target].name);
             }
         }
     })
@@ -82,4 +85,5 @@ function playerConnected(id){
     //io.emit("message", id+ "connected");
     //console.log(id, 'connected');
     game.players.push(new Player(id, 4, null, null, null));
+    io.emit("message", game);
 }

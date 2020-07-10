@@ -19,7 +19,7 @@ function drawGame() {
     clear();
     for (i in game_scene.tiles) {
         if(game_scene.tiles[i].id == socket.id){
-            var color = "red";
+            var color = "green";
         }else{
             var color = "black";
         }

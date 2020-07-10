@@ -35,7 +35,7 @@ io.on("connection", socket =>{
     socket.on("interaction", (id,event,arg)=>{
 
         var index_sender = game.players.findIndex(user => user.id === socket.id);
-        var index_reciever = game.players.findIndex(user => user.id === id);
+        var index_target = game.players.findIndex(user => user.id === id);
 
         for(i in game.players){
             if(game.players[i].id == id){
@@ -73,7 +73,7 @@ function playerDisconnect(id){
         if(index != -1){
 
             game.players.splice(index,1);
-            io.emit("message", id+ ' disconnected');
+            io.emit("message", id + ' disconnected');
             //console.log(id, 'disconnected');
         }     
 }

@@ -5,7 +5,6 @@ const asdfg = Math.floor(Math.random() * 10);
 const name = `Arne Birkenstock${asdfg}`;
 socket.emit('set-name', name);
 
-
 var game_client; //stav hry ulozeny na strane klienta
 var game_scene = new Scene;
 game_scene.init();

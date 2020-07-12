@@ -26,4 +26,8 @@ function drawGame() {
         }
         game_scene.tiles[i].drawTile(color);
     }
+
+    for(var i in game_scene.buttons){
+        game_scene.buttons[i].draw();
+    }
 }

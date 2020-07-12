@@ -29,15 +29,17 @@ class Button {
         this.y = y;
         this.text = text;
         this.color = color;
-        this.sizeX = sizeX * Math.floor(canvas.width / 100);
-        this.sizeY = sizeY* Math.floor(canvas.height / 100);
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
     }
 
-    drawTile = function() {
+    draw = function() {
         ctx.save();
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, this.sizeX, this.sizeY);
+        ctx.fillStyle = "black";
         ctx.font = "18px Calibri";
+        ctx.textAlign = "center";
         ctx.fillText(this.text, this.x + this.sizeX / 2, this.y+ this.sizeY / 2);
         ctx.restore();
     }

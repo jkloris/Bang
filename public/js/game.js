@@ -10,6 +10,10 @@ class Game{
         //play
 
         
+        
+    }
+
+    nextTurn(){
         if(this.turn + 1 < this.players.length){
             this.turn++;
         }else{

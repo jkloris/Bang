@@ -25,7 +25,14 @@ function drawGame() {
             var color = "black";
         }
         game_scene.tiles[i].drawTile(color);
+        
+        if(i == game_client.turn){
+            ctx.fillStyle = "red";
+            ctx.fillRect(game_scene.tiles[i].x,game_scene.tiles[i].y,10,10);
+            ctx.fillStyle = "black";
+        }
     }
+
 
     for(var i in game_scene.buttons){
         game_scene.buttons[i].draw();

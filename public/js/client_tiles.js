@@ -45,7 +45,12 @@ class Button {
     }
 
     onclick = function() {
-        alert( this.text);
+        this.action();
+
+    }
+
+    action(){
+
     }
 
 

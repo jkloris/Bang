@@ -30,9 +30,16 @@ io.on("connection", socket =>{
     socket.on("clicked", (mouse, id)=>{
         if(game.players[game.turn].id == id){
             console.log("Click: ", mouse, id);
+            socket.emit("clickAccept",mouse);
 
         }
     })
+
+    socket.on("nextTurn", ()=>{
+        console.log("next");
+        game.nextTurn();
+        gameUpdate();
+    });
 
     //basic layout pre buducu komunikaciu medzi clientami
     socket.on("interaction", (id,event,arg)=>{

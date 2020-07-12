@@ -11,7 +11,11 @@ class Scene {
     }
     
     init() {
-        this.buttons.push( new Button(canvas.width - 100, canvas.height - 100, 80, 50, "button", "rgb(255, 153, 0)"));
+        var endTurn  = new Button(canvas.width - 100, canvas.height - 100, 80, 50, "Next", "rgb(255, 153, 0)");
+        endTurn.action = function() {
+            socket.emit("nextTurn",null);
+        };
+        this.buttons.push(endTurn);
     }
     onclick = function(point) {
         var i;

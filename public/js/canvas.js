@@ -48,7 +48,7 @@ function drawGame() {
     var y = canvas.height - Sprites.bang.height / Sprites.bang.width * ratio - 10;
     for(i in game_client.players[index].cards){
     
-        // game_client.players[index].cards[i].draw(x,y,ratio); //vraj to nie je funcia, netusim preco
+        //game_client.players[index].cards[i].draw(x,y,ratio); //vraj to nie je funcia, netusim preco
 
         //vzorka na zistenie kolko kariet sa zmesti
         ctx.save();

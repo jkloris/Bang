@@ -101,5 +101,5 @@ function playerConnected(id){
     //io.emit("message", id+ "connected");
     //console.log(id, 'connected');
     game.players.push(new Player(id, 12, null, null, null));
-    io.emit("message", game);
+    //io.emit("message", game);
 }

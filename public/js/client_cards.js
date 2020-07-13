@@ -61,5 +61,3 @@ class Vedle extends ActionCard{
         // ctx.restore();
     }
 }
-
-module.exports = [Bang, Vedle];

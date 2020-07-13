@@ -14,10 +14,9 @@ socket.on("message", (msg) => {
 });
 
 socket.on("update", game => {
-    game_client = game;
-    // game_client.cards.push(new Bang());
+    game_client = _.clone(game);
 
-    updatePlayers();
+    updatePlayers(game);
     drawGame();
 });
 
@@ -40,7 +39,30 @@ socket.on("clickAccept", (mouse)=>{
 
 
 
-function updatePlayers() {
+function updatePlayers(game_server) {
+    
+    console.log(game_client.players[0].cards);
+    console.log(game_server.players[0].cards);
+
+    for (wtf in game_client.players) {
+        game_client.players[wtf].cards.length = 0;
+    }
+
+    console.log('toto sa ma zmazat', game_client.players[0].cards);
+    console.log('toto sa nema zmazat', game_server.players[0].cards);
+
+
+    //z game objektu, ktory pride zo servera spravi FUNKCNY objekt s kartami pre kazdeho hraca
+    for (i in game_server.players) {
+        for (card in game_server.players[i].cards) {
+            console.log(card);
+            game_client.players[i].cards.push(new Bang());
+        }
+    }
+
+    
+
+
     game_scene.tiles.length = 0;
     for (number in game_client.players) {
         let x; let y;

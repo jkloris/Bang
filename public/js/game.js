@@ -13,7 +13,7 @@ class Game{
             var bang = new Bang();
             this.cards.push(bang);
         }
-        for(i = 0; i < 10; i++){
+        for(i = 0; i < 30; i++){
             this.cards.push(new Vedle);
         }
         for(i in this.players){

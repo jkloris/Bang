@@ -44,12 +44,19 @@ function drawGame() {
     //draw cards
     let index = game_client.players.findIndex(user => user.id === socket.id);
     var x = 10;
-    var y = canvas.height - 100;
-    var ratio = canvas.width / 10;
-    console.log(game_client.players[index].cards);
+    var ratio = canvas.width / 15;
+    var y = canvas.height - Sprites.bang.height / Sprites.bang.width * ratio - 10;
     for(i in game_client.players[index].cards){
-        game_client.players[index].cards[i].draw(x,y,ratio); //vraj to nie je funcia, netusim preco
-        x+=ratio*Sprites.bang.width + 10;
+    
+        // game_client.players[index].cards[i].draw(x,y,ratio); //vraj to nie je funcia, netusim preco
+
+        //vzorka na zistenie kolko kariet sa zmesti
+        ctx.save();
+        ctx.drawImage(Sprites.vedle, x, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio); 
+        ctx.restore();
+
+        x+=ratio - 10;
+        console.log(x,ratio);
     }
 
 }

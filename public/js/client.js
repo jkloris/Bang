@@ -19,7 +19,6 @@ socket.on("update", game => {
 
     updatePlayers();
     drawGame();
-    console.log(game_client);
 });
 
 //bang

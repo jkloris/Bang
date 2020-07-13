@@ -40,7 +40,7 @@ class Bang extends ActionCard{
     }
     draw = function(x, y, ratio){
         // ctx.drawImage(Sprites.bang, x, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio);
-        console.log(x,y,this);
+        console.log('TODO',x,y,this);
         
     }
 }

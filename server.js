@@ -7,8 +7,8 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 
-const Player = require("./public/js/players.js");
-const Game = require("./public/js/game.js");
+const Player = require("./players.js");
+const Game = require("./game.js");
 
 app.use(express.static(path.join(__dirname, "public")));
 

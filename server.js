@@ -14,6 +14,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 var game = new Game();
 
+
+
 io.on("connection", socket =>{
     //niekto sa pripojil
     playerConnected(socket.id);
@@ -40,6 +42,12 @@ io.on("connection", socket =>{
         game.nextTurn();
         gameUpdate();
     });
+    
+    socket.on("startGame", ()=>{
+        game.shuffleDeck();
+        game.dealCards();
+        gameUpdate();
+    })
 
     //basic layout pre buducu komunikaciu medzi clientami
     socket.on("interaction", (id,event,arg)=>{

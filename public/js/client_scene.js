@@ -7,15 +7,20 @@ class Scene {
     
     add_tile(tile) {
         this.tiles.push(tile);
-        console.log( this.tiles);
     }
     
     init() {
-        var endTurn  = new Button(canvas.width - 100, canvas.height - 100, 80, 50, "Next", "rgb(255, 153, 0)");
-        endTurn.action = function() {
+        var EndTurn  = new Button(canvas.width - 100, canvas.height - 100, 80, 50, "Next", "rgb(255, 153, 0)");
+        EndTurn.action = function() {
             socket.emit("nextTurn",null);
         };
-        this.buttons.push(endTurn);
+        this.buttons.push(EndTurn);
+
+        var StartGame = new Button(canvas.width - 200, canvas.height - 100, 80, 50, "Start", "rgb(255, 153, 0)");
+        StartGame.action = function(){
+            socket.emit("startGame", null);
+        }
+        this.buttons.push(StartGame);
     }
     onclick = function(point) {
         var i;

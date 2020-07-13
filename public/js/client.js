@@ -15,8 +15,11 @@ socket.on("message", (msg) => {
 
 socket.on("update", game => {
     game_client = game;
+    // game_client.cards.push(new Bang());
+
     updatePlayers();
     drawGame();
+    console.log(game_client);
 });
 
 //bang

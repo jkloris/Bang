@@ -16,7 +16,6 @@ socket.on("message", (msg) => {
 socket.on("update", game => {
     game_client = {}; //zmaze to co tam bolo doteraz
     game_client = $.extend(true, {}, game); //skopiruje tam novy stav pomocou jQuery.extend()
-
     updatePlayers(game);
     drawGame();
 });
@@ -46,7 +45,17 @@ function updatePlayers(game_server) {
     for (i in game_client.players) game_client.players[i].cards.length = 0;
     for (i in game_server.players) {
         for (card in game_server.players[i].cards) {
-            game_client.players[i].cards.push(new Bang());
+            switch (game_server.players[i].cards[card].name) {
+                case "Bang":
+                    game_client.players[i].cards.push(new Bang());                    
+                    break;
+                case "Vedle":
+                    game_client.players[i].cards.push(new Vedle());                    
+                    break;
+            
+                default:
+                    break;
+            }
         }
     }
     //YES KONECNE TOTO VYZERA ZE FUNGUJE

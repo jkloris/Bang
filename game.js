@@ -17,26 +17,27 @@ class Game{
         for(i = 0; i < 30; i++){
             this.cards.push(new Vedle);
         }
-        // for(i in this.players){
-        //     this.players[i].cards = [];
-        // }
+        for(i in this.players){
+            this.players[i].cards = [];
+        }
     }
 
 
     dealCards(){
         for(var i in this.players){
             for(var e = 0; e < this.players[i].HP; e++){
-                //jerglov kod
-                // var i_card = Math.floor(Math.random()*this.cards.length);
-                // while(this.cards[i_card].available == false){
-                //     var i_card = Math.floor(Math.random()*this.cards.length);
-                // }
-                // this.players[i].cards.push(this.cards[i_card]);
-                // this.cards[i_card].available = false;
+                //jerglov kod ...zatial nechame a ked bude miesanie, tak ho odstranime 
+                var i_card = Math.floor(Math.random()*this.cards.length);
 
-                //moj kod
-                var drawn_card = this.cards.pop();
-                this.players[i].cards.push(drawn_card);
+                while(this.cards[i_card].available == false){
+                    var i_card = Math.floor(Math.random()*this.cards.length);
+                }
+                
+                this.players[i].cards.push(this.cards[i_card]);
+                this.cards[i_card].available = false;
+                //moj kod.... je zly lebo nehadze nahodne
+                // var drawn_card = this.cards.pop();
+                // this.players[i].cards.push(drawn_card);
             }            
         }
         

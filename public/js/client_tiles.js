@@ -1,10 +1,11 @@
 class Tile {
-    constructor(x, y, name, id, HP) { //TODO - ostatne vlastnosti, ked ich budeme vediet zobrazit
+    constructor(x, y, name, id, HP, cards) { //TODO - ostatne vlastnosti, ked ich budeme vediet zobrazit
         this.x = x;
         this.y = y;
         this.name = name;
         this.id = id;
         this.HP = HP;
+        this.cards = cards;
     }
 
     drawTile = function(color) {
@@ -14,6 +15,7 @@ class Tile {
         ctx.font = "18px Calibri";
         ctx.fillText(this.name, this.x, this.y);
         ctx.fillText(this.HP + 'HP', this.x + 0.2*tile_size, this.y + 0.2*tile_size);
+        ctx.fillText(this.cards + ' Cards', this.x + 0.2*tile_size, this.y + 0.4*tile_size);
         ctx.restore();
     }
 

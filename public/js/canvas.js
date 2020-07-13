@@ -18,6 +18,7 @@ function clear() {
 function drawGame() {
     clear();
     // console.log(game_scene.tiles);
+    //draw players
     for (i in game_scene.tiles) {
         if(game_scene.tiles[i].id == socket.id){
             var color = "green";
@@ -34,7 +35,21 @@ function drawGame() {
     }
 
 
+
+    //draw buttons
     for(var i in game_scene.buttons){
         game_scene.buttons[i].draw();
     }
+
+    //draw cards
+    let index = game_client.players.findIndex(user => user.id === socket.id);
+    var x = 10;
+    var y = canvas.height - 100;
+    var ratio = canvas.width / 10;
+    console.log(game_client.players[index].cards);
+    for(i in game_client.players[index].cards){
+        game_client.players[index].cards[i].draw(x,y,ratio); //vraj to nie je funcia, netusim preco
+        x+=ratio*Sprites.bang.width + 10;
+    }
+
 }

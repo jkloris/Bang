@@ -30,9 +30,14 @@ io.on("connection", socket =>{
 
     //zachytenie suradnice kliknutia
     socket.on("clicked", (mouse, id)=>{
-        if(game.players[game.turn].id == id){
+        if(game.requestedPlayer == null && game.players[game.turn].id == id){
             console.log("Click: ", mouse, id);
             socket.emit("clickAccept",mouse);
+
+        }
+        if(game.requestedPlayer != null && game.players[game.requestedPlayer].id == id){
+            console.log("Requested Click: ", mouse, id);
+            socket.emit("partial_clickAccept",mouse);
 
         }
     })
@@ -48,9 +53,15 @@ io.on("connection", socket =>{
         game.dealCards();
         gameUpdate();
     })
+    socket.on("useCard",(card,index)=>{
+        console.log(card);
+        var index_sender = game.players.findIndex(user => user.id === socket.id);
+        game.players[index_sender].cards[index].action(game,index_sender,index);
+        gameUpdate();
+    })
 
     //basic layout pre buducu komunikaciu medzi clientami
-    socket.on("interaction", (id,event,arg)=>{
+    socket.on("interaction", (id,event,arg, card_index)=>{
 
         var index_sender = game.players.findIndex(user => user.id === socket.id);
         var index_target = game.players.findIndex(user => user.id === id);
@@ -66,6 +77,9 @@ io.on("connection", socket =>{
 
             }
         }
+        game.requestedPlayer = index_target;
+        game.players[index_sender].cards.splice(card_index, 1);
+        gameUpdate();
     })
 
     //odpojenie hraca

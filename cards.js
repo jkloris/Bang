@@ -1,13 +1,22 @@
 class Card {
     constructor(){
         this.name = null;
-        this.available = true;   
+        this.available = true;  
+        this.selected = false; 
+        this.IMG = null;
     }
     acion(){
 
     }
-    draw(){
-
+    draw = function(x, y, ratio){
+        ctx.save();
+        ctx.drawImage(this.IMG, x, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio); 
+        if(this.selected){
+            ctx.strokeStyle = "red";
+            ctx.lineWidth = 4;
+            ctx.strokeRect(x, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio);
+        }
+        ctx.restore();
     }
 }
 
@@ -35,15 +44,10 @@ class Bang extends ActionCard{
         this.name = "Bang";
     }
     action(){
-        alert("bang");
+        // alert("bang");
         // socket.emit("bang", );
     }
-    draw = function(x, y, ratio){
-        ctx.save();
-        ctx.drawImage(Sprites.bang, x, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio); 
-        ctx.restore();
-        
-    }
+   
 }
 
 class Vedle extends ActionCard{
@@ -51,15 +55,16 @@ class Vedle extends ActionCard{
         super();
         this.name = "Vedle";
     }
-    action(){
-        alert("vedle");
-        // socket.emit("", );
+    action(game,player,card){
+        if(game.requestedPlayer !=null){
+            game.requestedPlayer = null;
+            console.log("Vedle");
+            game.players[player].cards.splice(card,1);
+        }
+        
     }
-    draw = function(x, y, ratio){
-        ctx.save();
-        ctx.drawImage(Sprites.vedle, x, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio); 
-        ctx.restore();
-    }
+    
 }
+
 
 module.exports = [Bang, Vedle];

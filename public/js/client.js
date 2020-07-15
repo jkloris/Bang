@@ -21,9 +21,10 @@ socket.on("update", game => {
 });
 
 //bang
-socket.on("bang", arg=>{
-    //alert(socket.id + "bang");
-    console.log("bang");
+socket.on("Bang", arg=>{
+    // alert(socket.id + "bang");
+    
+
 })
 
 
@@ -35,6 +36,11 @@ document.addEventListener("click", e => {
 })
 socket.on("clickAccept", (mouse)=>{
     game_scene.onclick(mouse);
+})
+
+socket.on("partial_clickAccept", (mouse)=>{
+    game_scene.checkButtons(mouse);
+    game_scene.checkCardSelect(mouse);
 })
 
 

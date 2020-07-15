@@ -20,7 +20,10 @@ class Tile {
     }
 
     onclick = function() {//event , arg
-        socket.emit("interaction", this.id, "bang", null );
+        var player_i = game_client.players.findIndex(user => user.id === socket.id);
+        var card_i = game_client.players[player_i].cards.findIndex(card => card.selected === true);
+       
+        socket.emit("interaction", this.id, game_client.players[player_i].cards[card_i].name, null, card_i );
         // alert(this.name +"  (" + this.id + ") "+" interacts with " + socket_id);
     }
 }
@@ -33,11 +36,17 @@ class Button {
         this.color = color;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
+        this.visible = true;
     }
 
     draw = function() {
         ctx.save();
-        ctx.fillStyle = this.color;
+
+        if(this.visible)    
+            ctx.fillStyle = this.color;
+        else
+            ctx.fillStyle = "rgb(209,209,209)";
+
         ctx.fillRect(this.x, this.y, this.sizeX, this.sizeY);
         ctx.fillStyle = "black";
         ctx.font = "18px Calibri";

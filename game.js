@@ -5,6 +5,7 @@ class Game{
         this.players = [];
         this.cards = [];
         this.turn = 0;
+        this.requestedPlayer = null;
     }
 
     //naplni deck nejakymi kartami

@@ -37,8 +37,22 @@ function drawGame() {
 
 
     //draw buttons
-    for(var i in game_scene.buttons){
-        game_scene.buttons[i].draw();
+    if(game_client.turn != null && socket.id == game_client.players[game_client.turn].id ){
+        for(var i in game_scene.buttons){
+            game_scene.buttons[i].visible = true;
+            game_scene.buttons[i].draw();
+        }                                           //tuna upravit osetrenia
+    } else if(game_client.requestedPlayer != null && socket.id != game_client.players[game_client.turn].id && socket.id == game_client.players[game_client.requestedPlayer].id){
+        for(var i in game_scene.buttons){
+            if(i==2){ //use button je na indexe 2
+                game_scene.buttons[i].visible = true;
+                game_scene.buttons[i].draw();
+            }else{
+
+                game_scene.buttons[i].visible = false;
+                game_scene.buttons[i].draw();
+            }
+        }
     }
 
     //draw cards
@@ -46,6 +60,7 @@ function drawGame() {
     var x = 10;
     var ratio = canvas.width / 15;
     var y = canvas.height - Sprites.bang.height / Sprites.bang.width * ratio - 10;
+
     for(i in game_client.players[index].cards){
     
         game_client.players[index].cards[i].draw(x,y,ratio);         

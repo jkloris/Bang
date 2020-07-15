@@ -23,8 +23,9 @@ class Tile {
         var player_i = game_client.players.findIndex(user => user.id === socket.id);
         var card_i = game_client.players[player_i].cards.findIndex(card => card.selected === true);
        
-        socket.emit("interaction", this.id, game_client.players[player_i].cards[card_i].name, null, card_i );
-        // alert(this.name +"  (" + this.id + ") "+" interacts with " + socket_id);
+        if(game_client.players[player_i].cards[card_i].offensive == true && this.id != socket.id){
+            socket.emit("interaction", this.id, game_client.players[player_i].cards[card_i].name, null, card_i );
+        }
     }
 }
 

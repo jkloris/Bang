@@ -25,9 +25,11 @@ class Scene {
 
         var UseCard = new Button(canvas.width - 100, canvas.height - 200, 80, 50, "Use card", "rgb(255, 153, 0)");
         UseCard.action = function(){
+            
             var player_i = game_client.players.findIndex(user => user.id === socket.id);
             var card_i = game_client.players[player_i].cards.findIndex(card => card.selected === true);
-            if(card_i != -1){
+
+            if(card_i != -1 && game_client.requestedCard == game_client.players[player_i].cards[card_i].name){
                 socket.emit("useCard", game_client.players[player_i].cards[card_i].name, card_i);
             }
         }

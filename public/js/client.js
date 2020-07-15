@@ -23,8 +23,7 @@ socket.on("update", game => {
 //bang
 socket.on("Bang", arg=>{
     // alert(socket.id + "bang");
-    
-
+    game_client.requestedCard = "Vedle";
 })
 
 

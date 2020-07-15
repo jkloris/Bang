@@ -57,6 +57,7 @@ io.on("connection", socket =>{
         console.log(card);
         var index_sender = game.players.findIndex(user => user.id === socket.id);
         game.players[index_sender].cards[index].action(game,index_sender,index);
+        game.requestedCard = null;
         gameUpdate();
     })
 
@@ -65,6 +66,9 @@ io.on("connection", socket =>{
 
         var index_sender = game.players.findIndex(user => user.id === socket.id);
         var index_target = game.players.findIndex(user => user.id === id);
+        game.requestedPlayer = index_target;
+        discardCard(index_sender, card_index);
+        gameUpdate();
 
         for(i in game.players){
             if(game.players[i].id == id){
@@ -77,9 +81,6 @@ io.on("connection", socket =>{
 
             }
         }
-        game.requestedPlayer = index_target;
-        game.players[index_sender].cards.splice(card_index, 1);
-        gameUpdate();
     })
 
     //odpojenie hraca
@@ -116,4 +117,15 @@ function playerConnected(id){
     //console.log(id, 'connected');
     game.players.push(new Player(id, 12, null, null, null));
     //io.emit("message", game);
+}
+
+function discardCard(player_i, card_i){
+    for(var i in game.cards){
+        if(game.cards[i] == game.players[player_i].cards[card_i].name && game.cards[i].available == false){
+            game.cards[i].available = true;
+        }
+        break;
+    }
+    game.players[player_i].cards.splice(card_i,1);
+
 }

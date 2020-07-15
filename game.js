@@ -5,7 +5,8 @@ class Game{
         this.players = [];
         this.cards = [];
         this.turn = 0;
-        this.requestedPlayer = null;
+        this.requestedPlayer = null; //hrac od ktoreho sa caka reakcia
+        this.requestedCard = null; //pozadovana karta (vedle pri bangovani)
     }
 
     //naplni deck nejakymi kartami

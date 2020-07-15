@@ -10,20 +10,20 @@ class Scene {
     }
     
     init() {
-        var EndTurn  = new Button(canvas.width - 100, canvas.height - 100, 80, 50, "Next", "rgb(255, 153, 0)");
+        var EndTurn  = new Button(canvas.width - 100, canvas.height - 60, 80, 40, "Next", "rgb(255, 153, 0)");
         EndTurn.action = function() {
             socket.emit("nextTurn",null);
         };
         this.buttons.push(EndTurn);
 
         
-        var StartGame = new Button(canvas.width - 200, canvas.height - 100, 80, 50, "Start", "rgb(255, 153, 0)");
+        var StartGame = new Button(canvas.width - 200, canvas.height - 60, 80, 40, "Start", "rgb(255, 153, 0)");
         StartGame.action = function(){
             socket.emit("startGame", null);
         }
         this.buttons.push(StartGame);
 
-        var UseCard = new Button(canvas.width - 100, canvas.height - 200, 80, 50, "Use card", "rgb(255, 153, 0)");
+        var UseCard = new Button(canvas.width - 100, canvas.height - 120, 80, 40, "Use card", "rgb(255, 153, 0)");
         UseCard.action = function(){
             
             var player_i = game_client.players.findIndex(user => user.id === socket.id);
@@ -34,6 +34,12 @@ class Scene {
             }
         }
         this.buttons.push(UseCard);
+
+        var LoseLife = new Button(canvas.width - 200, canvas.height - 120, 80, 40, "Lose life", "rgb(255, 153, 0)");
+        LoseLife.action = function(){
+            socket.emit("loseLife",socket.id);
+        }
+        this.buttons.push(LoseLife);
     }
     onclick = function(point) {
         this.chechTiles(point);

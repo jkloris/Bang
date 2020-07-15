@@ -41,19 +41,21 @@ function drawGame() {
         for(var i in game_scene.buttons){
             game_scene.buttons[i].visible = true;
             game_scene.buttons[i].draw();
-        }                                           //tuna upravit osetrenia
+        }         
+        game_scene.buttons[3].visible = false;  //3 je index lose life     
+        game_scene.buttons[i].draw();
     } else if(game_client.requestedPlayer != null && socket.id != game_client.players[game_client.turn].id && socket.id == game_client.players[game_client.requestedPlayer].id){
-        for(var i in game_scene.buttons){
-            if(i==2){ //use button je na indexe 2
-                game_scene.buttons[i].visible = true;
-                game_scene.buttons[i].draw();
-            }else{
-
-                game_scene.buttons[i].visible = false;
-                game_scene.buttons[i].draw();
-            }
+        for(var i in game_scene.buttons){    
+            game_scene.buttons[i].draw();
         }
     }
+    if(game_client.requestedPlayer != null && socket.id == game_client.players[game_client.turn].id && socket.id != game_client.players[game_client.requestedPlayer].id){
+        for(var i in game_scene.buttons){    
+            game_scene.buttons[i].visible = false;
+            game_scene.buttons[i].draw();
+        }
+    }
+
 
     //draw cards
     let index = game_client.players.findIndex(user => user.id === socket.id);

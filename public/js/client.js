@@ -22,8 +22,23 @@ socket.on("update", game => {
 
 //bang
 socket.on("Bang", arg=>{
-    // alert(socket.id + "bang");
     game_client.requestedCard = "Vedle";
+    for(var i in game_scene.buttons){
+        if(i==2 || i==3){ //use button je na indexe 2 a lose life na 3
+            game_scene.buttons[i].visible = true;
+        }else{
+            game_scene.buttons[i].visible = false;
+        }
+        game_scene.buttons[i].draw();
+    }
+
+    ctx.save();
+    ctx.textAlign = "center";
+    ctx.fillStyle = "red";
+    ctx.font = "40px Arial";
+    ctx.fillText("BANG",canvas.width / 2, canvas.height /2)
+    ctx.restore();
+
 })
 
 

@@ -57,7 +57,16 @@ io.on("connection", socket =>{
         console.log(card);
         var index_sender = game.players.findIndex(user => user.id === socket.id);
         game.players[index_sender].cards[index].action(game,index_sender,index);
-        game.requestedCard = null;
+        gameUpdate();
+    })
+    socket.on("loseLife",(id)=>{
+        var index = game.players.findIndex(user => user.id === id);
+        if(game.players[index].HP-- <= 0){
+            Death(game.players[index]);
+        }
+        if(game.requestedPlayer != null){
+            game.requestedPlayer = null;
+        }
         gameUpdate();
     })
 
@@ -128,4 +137,8 @@ function discardCard(player_i, card_i){
     }
     game.players[player_i].cards.splice(card_i,1);
 
+}
+
+function Death(player){ //TODO
+    console.log(player + " is dead")
 }

@@ -62,6 +62,7 @@ class Vedle extends ActionCard{
             for(var i in game.cards){
                 if(game.cards[i].name == game.players[player].cards[card].name && game.cards[i].available == false){
                     game.cards[i].available = true;
+                    game.trashedCard = game.cards[i];
                     break;
                 }
             }

@@ -132,6 +132,7 @@ function discardCard(player_i, card_i){
     for(var i in game.cards){
         if(game.cards[i].name == game.players[player_i].cards[card_i].name && game.cards[i].available == false){
             game.cards[i].available = true;
+            game.trashedCard = game.cards[i];
             break;
         }
     }

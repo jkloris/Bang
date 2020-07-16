@@ -21,6 +21,14 @@ class Card {
     }
 }
 
+class Back extends Card{
+    constructor(){
+        super();
+        this.name = "Back";
+        this.IMG = Sprites.back;
+    }
+}
+
 class BlueCard extends Card{
     constructor(){
         super();

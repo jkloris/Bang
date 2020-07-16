@@ -71,4 +71,10 @@ function drawGame() {
         //console.log(x,ratio);
     }
 
-}
+    //draw deck
+    // x = canvas.width / 14; y = canvas.height / 10;
+    var deck = new Back();
+    deck.draw(canvas.height / 2, canvas.width / 10, ratio);
+    // if(game_client.trashedCard)
+    //     game_client.trashedCard.draw(canvas.height / 2 + ratio + 5, canvas.width / 10, ratio)   ;        //toto potom
+}   

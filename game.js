@@ -7,6 +7,7 @@ class Game{
         this.turn = 0;
         this.requestedPlayer = null; //hrac od ktoreho sa caka reakcia
         this.requestedCard = null; //pozadovana karta (vedle pri bangovani)
+        this.trashedCard = null;
     }
 
     //naplni deck nejakymi kartami

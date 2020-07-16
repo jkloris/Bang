@@ -26,6 +26,7 @@ function loadAssets(){
 
     Sprites.bang = loadIMG("imgs/", "bang.png");
     Sprites.vedle = loadIMG("imgs/", "missed.png");
+    Sprites.back = loadIMG("imgs/", "back.png");
 
     AssetsLoading_loop();
 }

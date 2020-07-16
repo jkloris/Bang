@@ -59,22 +59,23 @@ function drawGame() {
 
     //draw cards
     let index = game_client.players.findIndex(user => user.id === socket.id);
-    var x = 10;
-    var ratio = canvas.width / 15;
-    var y = canvas.height - Sprites.bang.height / Sprites.bang.width * ratio - 10;
+    if (game_client.players[index].cards.length > 0) {
+        var x = 10;
+        var ratio = canvas.width / 15;
+        var y = canvas.height - Sprites.bang.height / Sprites.bang.width * ratio - 10;
 
-    for(i in game_client.players[index].cards){
-    
-        game_client.players[index].cards[i].draw(x,y,ratio);         
+        for(i in game_client.players[index].cards){
+        
+            game_client.players[index].cards[i].draw(x,y,ratio);         
 
-        x+=ratio - 10;
-        //console.log(x,ratio);
+            x+=ratio - 10;
+            //console.log(x,ratio);
+        }
+        //draw deck
+        var deck = new Back();
+        deck.draw(canvas.height / 2, canvas.width / 10, ratio);
+        //toto potom
+        // if(game_client.trashedCard)
+        //game_client.trashedCard.draw(canvas.height / 2 + ratio + 5, canvas.width / 10, ratio);
     }
-
-    //draw deck
-    // x = canvas.width / 14; y = canvas.height / 10;
-    var deck = new Back();
-    deck.draw(canvas.height / 2, canvas.width / 10, ratio);
-    // if(game_client.trashedCard)
-    //     game_client.trashedCard.draw(canvas.height / 2 + ratio + 5, canvas.width / 10, ratio)   ;        //toto potom
 }   

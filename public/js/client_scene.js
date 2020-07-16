@@ -4,7 +4,6 @@ class Scene {
         this.buttons = [];
     }
 
-    
     add_tile(tile) {
         this.tiles.push(tile);
     }
@@ -42,13 +41,13 @@ class Scene {
         this.buttons.push(LoseLife);
     }
     onclick = function(point) {
-        this.chechTiles(point);
+        this.checkTiles(point);
         this.checkButtons(point);
         this.checkCardSelect(point);
         
     }
 
-    chechTiles(point){
+    checkTiles(point){
         for (var i in this.tiles) {            
             var current = this.tiles[i];
             if (point.x >= current.x && point.x <= current.x + tile_size && point.y >= current.y && point.y <= current.y + tile_size) {

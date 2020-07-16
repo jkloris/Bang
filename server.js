@@ -81,13 +81,13 @@ io.on("connection", socket =>{
 
         for(i in game.players){
             if(game.players[i].id == id){
-                socket.broadcast.to(id).emit(event, arg);
+                //console.log(`sending index: ${index_sender}`)
+                socket.broadcast.to(id).emit(event, arg, index_sender);
                 socket.broadcast.to(id).emit("message", game.players[index_sender].name + ' used card ' + event + ' -> you');
             }else if(game.players[i].id == socket.id){
                 socket.emit("message", "you used card " + event + ' -> ' + game.players[index_target].name);
             }else{
                 socket.broadcast.to(game.players[i].id).emit("message", game.players[index_sender].name + " used card " + event + ' -> ' + game.players[index_target].name);
-
             }
         }
     })

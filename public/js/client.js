@@ -16,13 +16,13 @@ socket.on("message", (msg) => {
 socket.on("update", game => {
     game_client = {}; //zmaze to co tam bolo doteraz
     game_client = $.extend(true, {}, game); //skopiruje tam novy stav pomocou jQuery.extend()
+    //console.log(game_client.players[0].name);
     updatePlayers(game);
     drawGame();
-    console.log(game_client);
 });
 
 //bang
-socket.on("Bang", arg=>{
+socket.on("Bang", (arg, index_shooter) =>{
     game_client.requestedCard = "Vedle";
     for(var i in game_scene.buttons){
         if(i==2 || i==3){ //use button je na indexe 2 a lose life na 3
@@ -33,11 +33,14 @@ socket.on("Bang", arg=>{
         game_scene.buttons[i].draw();
     }
 
+    //console.log(index_shooter, game_client.players[index_shooter].name);
+
     ctx.save();
     ctx.textAlign = "center";
     ctx.fillStyle = "red";
     ctx.font = "40px Arial";
-    ctx.fillText("BANG",canvas.width / 2, canvas.height /2)
+    let shooter = game_client.players[0].name;
+    ctx.fillText(`${shooter} PLAYED BANG ON YOU!`, canvas.width / 2, canvas.height / 3)
     ctx.restore();
 
 })

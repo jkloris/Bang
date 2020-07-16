@@ -16,7 +16,6 @@ socket.on("message", (msg) => {
 socket.on("update", game => {
     game_client = {}; //zmaze to co tam bolo doteraz
     game_client = $.extend(true, {}, game); //skopiruje tam novy stav pomocou jQuery.extend()
-    //console.log(game_client.players[0].name);
     updatePlayers(game);
     drawGame();
 });
@@ -32,8 +31,6 @@ socket.on("Bang", (arg, index_shooter) =>{
         }
         game_scene.buttons[i].draw();
     }
-
-    //console.log(index_shooter, game_client.players[index_shooter].name);
 
     ctx.save();
     ctx.textAlign = "center";
@@ -61,7 +58,9 @@ socket.on("partial_clickAccept", (mouse)=>{
     game_scene.checkCardSelect(mouse);
 })
 
-
+socket.on("discardRequest", () => {
+    alert("Nemozes ukoncit kolo. Musis zahodit nejake karty.");
+});
 
 function updatePlayers(game_server) {
     

@@ -38,27 +38,29 @@ io.on("connection", socket =>{
         if(game.requestedPlayer != null && game.players[game.requestedPlayer].id == id){
             console.log("Requested Click: ", mouse, id);
             socket.emit("partial_clickAccept",mouse);
-
         }
     })
 
-    socket.on("nextTurn", ()=>{
-        console.log("next");
-        game.nextTurn();
-        gameUpdate();
+    socket.on("nextTurn", (id)=>{
+        var index_sender = game.players.findIndex(user => user.id === socket.id);
+        console.log('next');
+        if (game.nextTurn(index_sender)) gameUpdate();
+        else io.to(id).emit("discardRequest");
     });
     
     socket.on("startGame", ()=>{
         game.shuffleDeck();
         game.dealCards();
         gameUpdate();
-    })
+    });
+
     socket.on("useCard",(card,index)=>{
         console.log(card);
         var index_sender = game.players.findIndex(user => user.id === socket.id);
         game.players[index_sender].cards[index].action(game,index_sender,index);
         gameUpdate();
-    })
+    });
+
     socket.on("loseLife",(id)=>{
         var index = game.players.findIndex(user => user.id === id);
         if(game.players[index].HP-- <= 0){
@@ -68,7 +70,15 @@ io.on("connection", socket =>{
             game.requestedPlayer = null;
         }
         gameUpdate();
-    })
+    });
+
+    socket.on("discard", (id, card_i) => {
+        var player_index = game.players.findIndex(user => user.id === socket.id);
+        discardCard(player_index, card_i);
+        gameUpdate();
+    });
+
+
 
     //basic layout pre buducu komunikaciu medzi clientami
     socket.on("interaction", (id,event,arg, card_index)=>{
@@ -81,7 +91,6 @@ io.on("connection", socket =>{
 
         for(i in game.players){
             if(game.players[i].id == id){
-                //console.log(`sending index: ${index_sender}`)
                 socket.broadcast.to(id).emit(event, arg, index_sender);
                 socket.broadcast.to(id).emit("message", game.players[index_sender].name + ' used card ' + event + ' -> you');
             }else if(game.players[i].id == socket.id){

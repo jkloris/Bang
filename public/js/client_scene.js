@@ -11,7 +11,7 @@ class Scene {
     init() {
         var EndTurn  = new Button(canvas.width - 100, canvas.height - 60, 80, 40, "Next", "rgb(255, 153, 0)");
         EndTurn.action = function() {
-            socket.emit("nextTurn",null);
+            socket.emit("nextTurn", socket.id);
         };
         this.buttons.push(EndTurn);
 
@@ -39,6 +39,19 @@ class Scene {
             socket.emit("loseLife",socket.id);
         }
         this.buttons.push(LoseLife);
+
+        var Discard = new Button(canvas.width - 200, canvas.height - 180, 80, 40, "Discard", "rgb(255, 153, 0)");
+        Discard.action = function() {
+            var player_i = game_client.players.findIndex(user => user.id === socket.id);
+            var card_i = game_client.players[player_i].cards.findIndex(card => card.selected === true);
+
+            if(card_i != -1 && game_client.players[player_i].cards.length > game_client.players[player_i].HP){
+                socket.emit("discard", socket.id, card_i);
+            }
+            else alert("Musis selectnut kartu ALEBO nemas moznost vyhadzovat.");
+        }
+        Discard.visible = false;
+        this.buttons.push(Discard);
     }
     onclick = function(point) {
         this.checkTiles(point);

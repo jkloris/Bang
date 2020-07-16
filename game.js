@@ -47,11 +47,18 @@ class Game{
     }
 
 
-    nextTurn(){
-        if(this.turn + 1 < this.players.length){
-            this.turn++;
-        }else{
-            this.turn = 0;
+    nextTurn(index_sender) {
+        //kontrola, ci moze ukoncit kolo
+        if (this.players[index_sender].cards.length > this.players[index_sender].HP) {
+            return 0;
+        }
+        else {
+            if(this.turn + 1 < this.players.length){
+                this.turn++;
+            } else{
+                this.turn = 0;
+            }
+            return 1;
         }
     }
 }

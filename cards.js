@@ -1,9 +1,9 @@
 class Card {
     constructor(){
         this.name = null;
-        this.available = true;  
+        //this.available = true;
         this.selected = false; 
-        this.IMG = null;
+        //this.IMG = null;
     }
     acion(){
 

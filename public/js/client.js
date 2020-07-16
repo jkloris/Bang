@@ -18,6 +18,7 @@ socket.on("update", game => {
     game_client = $.extend(true, {}, game); //skopiruje tam novy stav pomocou jQuery.extend()
     updatePlayers(game);
     drawGame();
+    console.log(game_client);
 });
 
 //bang

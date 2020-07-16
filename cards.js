@@ -57,8 +57,14 @@ class Vedle extends ActionCard{
     }
     action(game,player,card){
         if(game.requestedPlayer !=null){
-            game.requestedPlayer = null;
             console.log("Vedle");
+            game.requestedPlayer = null;
+            for(var i in game.cards){
+                if(game.cards[i].name == game.players[player].cards[card].name && game.cards[i].available == false){
+                    game.cards[i].available = true;
+                    break;
+                }
+            }
             game.players[player].cards.splice(card,1);
         }
         

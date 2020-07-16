@@ -146,7 +146,7 @@ function discardCard(player_i, card_i){
         }
     }
     game.players[player_i].cards.splice(card_i,1);
-    gameUpdate();
+    //gameUpdate();
 }
 
 function Death(player){ //TODO

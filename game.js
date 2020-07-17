@@ -9,6 +9,7 @@ class Game{
         this.requestedPlayer = null; //hrac od ktoreho sa caka reakcia
         this.requestedCard = null; //pozadovana karta (vedle pri bangovani)
         this.trashedCards = 0;
+        this.moveStage = 0; //urcuje povolene akcie hraca pocas tahu (0 - tahanie kariet/dynamit,.., 1 - priebeh tahu,.. mozno 2 na ukoncenie tahu)
     }
 
     //naplni deck nejakymi kartami
@@ -74,6 +75,11 @@ class Game{
         
     }
 
+    dealOneCard(player_i){
+        var drawn_card = this.cards.pop();
+        this.players[player_i].cards.push(drawn_card);
+    }
+
 
     nextTurn(index_sender) {
         //kontrola, ci moze ukoncit kolo
@@ -86,6 +92,7 @@ class Game{
             } else{
                 this.turn = 0;
             }
+            this.moveStage = 0;
             return 1;
         }
     }

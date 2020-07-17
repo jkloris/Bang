@@ -79,6 +79,16 @@ io.on("connection", socket =>{
         gameUpdate();
     });
 
+    socket.on("dealOneCard", (player_i)=>{
+        game.dealOneCard(player_i);
+        gameUpdate();
+    })
+
+    socket.on("moveStage++", ()=>{
+        game.moveStage++;
+        gameUpdate();
+    })
+
 
 
     //basic layout pre buducu komunikaciu medzi clientami

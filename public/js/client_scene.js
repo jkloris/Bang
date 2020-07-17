@@ -54,9 +54,17 @@ class Scene {
         this.buttons.push(Discard);
     }
     onclick = function(point) {
+        if(game_client.moveStage == 0){
+            game_scene.buttons[0].visible = false;
+        }
+
+        this.checkDeck(point);
         this.checkTiles(point);
         this.checkButtons(point);
-        this.checkCardSelect(point);
+        
+        if(game_client.moveStage == 1){
+            this.checkCardSelect(point);
+        }
         
     }
 
@@ -74,6 +82,19 @@ class Scene {
             var current = this.buttons[i];
             if (current.visible && point.x >= current.x && point.x <= current.x + current.sizeX && point.y >= current.y && point.y <= current.y + current.sizeY) {
                 current.onclick();
+            }
+        }
+    }
+
+    checkDeck(point){
+        var ratio = canvas.width / 15;
+        var current = {x : canvas.width / 2, y : canvas.height / 10};
+        if (point.x >= current.x && point.x <= current.x + ratio && point.y >= current.y && point.y <= current.y + Sprites.bang.height / Sprites.bang.width * ratio) {
+            if(game_client.moveStage == 0){
+                var index = game_client.players.findIndex(user => user.id === socket.id);
+                socket.emit("dealOneCard", index);
+                socket.emit("dealOneCard", index);
+                socket.emit("moveStage++");
             }
         }
     }

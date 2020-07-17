@@ -17,7 +17,7 @@ function clear() {
 
 function drawGame() {
     clear();
-    // console.log(game_scene.tiles);
+
     //draw players
     for (i in game_scene.tiles) {
         if(game_scene.tiles[i].id == socket.id){
@@ -33,8 +33,6 @@ function drawGame() {
             ctx.fillStyle = "black";
         }
     }
-
-
 
     //draw buttons
     if(game_client.turn != null && socket.id == game_client.players[game_client.turn].id ){
@@ -59,6 +57,7 @@ function drawGame() {
 
     //draw cards
     let index = game_client.players.findIndex(user => user.id === socket.id);
+    //tento if v podstate kontroluje, ci uz bola zacata hra
     if (game_client.players[index].cards.length > 0) {
         var x = 10;
         var ratio = canvas.width / 15;
@@ -76,5 +75,14 @@ function drawGame() {
         deck.draw(canvas.width / 2, canvas.height / 10, ratio);
         if(game_client.trashedCards > 0)
             game_client.cards[0].draw(canvas.width / 2 - ratio - 10, canvas.height / 10, ratio);
+        
+        if (game_client.moveStage == 0 && index == game_client.turn) {
+            ctx.save();
+            ctx.textAlign = "center";
+            ctx.fillStyle = "green";
+            ctx.font = "30px Arial";
+            ctx.fillText(`Start turn by drawing cards!`, canvas.width / 2, canvas.height / 3)
+            ctx.restore();
+        }
     }
 }   

@@ -73,9 +73,8 @@ function drawGame() {
         }
         //draw deck
         var deck = new Back();
-        deck.draw(canvas.height / 2, canvas.width / 10, ratio);
-        //toto potom
-        // if(game_client.trashedCard)
-        //game_client.trashedCard.draw(canvas.height / 2 + ratio + 5, canvas.width / 10, ratio);
+        deck.draw(canvas.width / 2, canvas.height / 10, ratio);
+        if(game_client.trashedCards > 0)
+            game_client.cards[0].draw(canvas.width / 2 - ratio - 10, canvas.height / 10, ratio);
     }
 }   

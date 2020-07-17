@@ -147,6 +147,7 @@ function discardCard(player_i, card_i){
     //         break;
     //     }
     // }
+    game.trashedCards++;
     game.players[player_i].cards.splice(card_i,1);
     //gameUpdate();
 }

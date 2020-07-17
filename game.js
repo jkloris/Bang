@@ -8,7 +8,7 @@ class Game{
         this.turn = 0;
         this.requestedPlayer = null; //hrac od ktoreho sa caka reakcia
         this.requestedCard = null; //pozadovana karta (vedle pri bangovani)
-        this.trashedCard = null;
+        this.trashedCards = 0;
     }
 
     //naplni deck nejakymi kartami
@@ -22,6 +22,7 @@ class Game{
         //     this.cards.push(new Vedle);
         // }
         this.cards = [];
+        this.trashedCards = 0;
 
         for(i in this.players){
             this.players[i].cards = [];

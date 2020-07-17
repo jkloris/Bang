@@ -59,6 +59,7 @@ class Vedle extends ActionCard{
         if(game.requestedPlayer !=null){
             console.log("Vedle");
             game.requestedPlayer = null;
+            game.trashedCards++;
             game.cards.unshift(game.players[player].cards[card]);
             game.players[player].cards.splice(card,1);
         }

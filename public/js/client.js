@@ -16,9 +16,10 @@ socket.on("message", (msg) => {
 socket.on("update", game => {
     game_client = {}; //zmaze to co tam bolo doteraz
     game_client = $.extend(true, {}, game); //skopiruje tam novy stav pomocou jQuery.extend()
-    console.log(game_client);
+    copyDeck(game);    
     updatePlayers(game);
     drawGame();
+    console.log(game_client);
 });
 
 //bang
@@ -107,5 +108,22 @@ function updatePlayers(game_server) {
         var new_tile = new Tile(x, y, game_client.players[number].name, game_client.players[number].id, game_client.players[number].HP,game_client.players[number].cards.length);
         game_scene.add_tile(new_tile);
 
+    }
+}
+
+function copyDeck(game_server){
+    game_client.cards = [];
+    for (card in game_server.cards) {
+        switch (game_server.cards[card].name) {
+            case "Bang":
+                game_client.cards.push(new Bang());                    
+                break;
+            case "Vedle":
+                game_client.cards.push(new Vedle());                    
+                break;
+        
+            default:
+                break;
+        }
     }
 }

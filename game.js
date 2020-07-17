@@ -21,6 +21,8 @@ class Game{
         // for(i = 0; i < 40; i++){
         //     this.cards.push(new Vedle);
         // }
+        this.cards = [];
+
         for(i in this.players){
             this.players[i].cards = [];
         }

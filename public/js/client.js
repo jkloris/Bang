@@ -16,6 +16,7 @@ socket.on("message", (msg) => {
 socket.on("update", game => {
     game_client = {}; //zmaze to co tam bolo doteraz
     game_client = $.extend(true, {}, game); //skopiruje tam novy stav pomocou jQuery.extend()
+    console.log(game_client);
     updatePlayers(game);
     drawGame();
 });

@@ -45,10 +45,10 @@ class Scene {
             var player_i = game_client.players.findIndex(user => user.id === socket.id);
             var card_i = game_client.players[player_i].cards.findIndex(card => card.selected === true);
 
-            if(card_i != -1 && game_client.players[player_i].cards.length > game_client.players[player_i].HP){
+            if(card_i != -1){
                 socket.emit("discard", socket.id, card_i);
             }
-            else alert("Musis selectnut kartu ALEBO nemas moznost vyhadzovat.");
+            else alert("Nemas oznacenu ziadnu kartu.");
         }
         Discard.visible = false;
         this.buttons.push(Discard);

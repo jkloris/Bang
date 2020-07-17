@@ -64,6 +64,10 @@ socket.on("discardRequest", () => {
     alert("Nemozes ukoncit kolo. Musis zahodit nejake karty.");
 });
 
+socket.on("discardDeny", () => {
+    alert("Nemozes vyhodit kartu.");
+});
+
 function updatePlayers(game_server) {
     
     //z game objektu, ktory pride zo servera spravi FUNKCNY objekt s kartami pre kazdeho hraca

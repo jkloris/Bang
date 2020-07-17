@@ -75,8 +75,8 @@ io.on("connection", socket =>{
 
     socket.on("discard", (id, card_i) => {
         var player_index = game.players.findIndex(user => user.id === socket.id);
-        discardCard(player_index, card_i);
-        gameUpdate();
+        if (discardCard(player_index, card_i)) gameUpdate();
+        else io.to(id).emit("discardDeny");
     });
 
     socket.on("dealOneCard", (player_i)=>{
@@ -148,18 +148,16 @@ function playerConnected(id){
     //io.emit("message", game);
 }
 
-function discardCard(player_i, card_i){
-    game.cards.unshift(game.players[player_i].cards[card_i]);
-    // for(var i in game.cards){
-    //     if(game.cards[i].name == game.players[player_i].cards[card_i].name && game.cards[i].available == false){
-    //         game.cards[i].available = true;
-    //         game.trashedCard = game.cards[i];
-    //         break;
-    //     }
-    // }
-    game.trashedCards++;
-    game.players[player_i].cards.splice(card_i,1);
-    //gameUpdate();
+function discardCard(player_i, card_i) {
+    if (game.players[player_i].cards.length > game.players[player_i].HP) {
+        game.cards.unshift(game.players[player_i].cards[card_i]);    
+        game.trashedCards++;
+        game.players[player_i].cards.splice(card_i,1);
+        return 1;
+    }
+    else {
+        return 0;
+    }    
 }
 
 function Death(player){ //TODO

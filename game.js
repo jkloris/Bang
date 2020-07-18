@@ -15,13 +15,6 @@ class Game{
     //naplni deck nejakymi kartami
     shuffleDeck() {
         var i;
-        // for(i = 0; i < 30; i++){
-        //     var bang = new Bang();
-        //     this.cards.push(bang);
-        // }
-        // for(i = 0; i < 40; i++){
-        //     this.cards.push(new Vedle);
-        // }
         this.cards = [];
         this.trashedCards = 0;
 

@@ -89,6 +89,9 @@ function updatePlayers(game_server) {
                 case "Pivo":
                     game_client.players[i].cards.push(new Pivo());                    
                     break;
+                case "Salon":
+                    game_client.players[i].cards.push(new Salon());                    
+                    break;
             
                 default:
                     break;
@@ -141,6 +144,9 @@ function copyDeck(game_server){
                 break;
             case "Pivo":
                 game_client.cards.push(new Pivo());                    
+                break;
+            case "Salon":
+                game_client.cards.push(new Salon());                    
                 break;
 
             default:

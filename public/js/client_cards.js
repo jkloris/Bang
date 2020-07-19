@@ -120,3 +120,23 @@ class Pivo extends ActionCard{
 
 }
 
+class Salon extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Salon";
+        this.IMG = Sprites.salon;
+    }
+
+    // action(game, player, card){
+    //     if(game.requestedPlayer == null){
+    //         for(var i in game.players){
+                
+    //             if( game.players[i].HP < game.players[i].maxHP ){
+    //                 game.players[i].HP++;
+    //             }
+    //         }
+    //         discardCard(game, player, card);
+    //     }
+    // }
+
+}

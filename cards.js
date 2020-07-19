@@ -112,9 +112,29 @@ class Pivo extends ActionCard{
 
 }
 
+class Salon extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Salon";
+    }
+
+    action(game, player, card){
+        if(game.requestedPlayer == null){
+            for(var i in game.players){
+                
+                if( game.players[i].HP < game.players[i].maxHP ){
+                    game.players[i].HP++;
+                }
+            }
+            discardCard(game, player, card);
+        }
+    }
+
+}
+
 function discardCard(game, player_i, card_i) {
     game.cards.unshift(game.players[player_i].cards[card_i]);    
     game.trashedCards++;
     game.players[player_i].cards.splice(card_i,1);
 }
-module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo];
+module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon];

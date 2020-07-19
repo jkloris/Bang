@@ -55,18 +55,51 @@ class Vedle extends ActionCard{
         super();
         this.name = "Vedle";
     }
-    action(game,player,card){
-        if(game.requestedPlayer !=null){
+    action(game, player, card){
+        if(game.requestedPlayer != null){
             console.log("Vedle");
             game.requestedPlayer = null;
-            game.trashedCards++;
-            game.cards.unshift(game.players[player].cards[card]);
-            game.players[player].cards.splice(card,1);
+            discardCard(game, player, card);
         }
         
     }
     
 }
 
+class Dostavnik extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Dostavnik";
+    }
+    
+    action(game, player, card){
+        if(game.requestedPlayer == null){
+            game.dealOneCard(player);
+            game.dealOneCard(player);
+            discardCard(game, player, card);
+        }
+    }
+}
 
-module.exports = [Bang, Vedle];
+class Wellsfargo extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Wellsfargo";
+    }
+    
+    action(game, player, card){
+        if(game.requestedPlayer == null){
+            game.dealOneCard(player);
+            game.dealOneCard(player);
+            game.dealOneCard(player);
+            discardCard(game, player, card);
+        }
+    }
+}
+
+function discardCard(game, player_i, card_i) {
+    game.cards.unshift(game.players[player_i].cards[card_i]);    
+    game.trashedCards++;
+    game.players[player_i].cards.splice(card_i,1);
+}
+module.exports = [Bang, Vedle, Dostavnik, Wellsfargo];

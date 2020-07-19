@@ -30,6 +30,8 @@ class Scene {
 
             if(card_i != -1 && game_client.requestedCard == game_client.players[player_i].cards[card_i].name){
                 socket.emit("useCard", game_client.players[player_i].cards[card_i].name, card_i);
+            } else if( card_i != -1 && game_client.players[player_i].cards[card_i].offensive == false ){
+                socket.emit("useCard", game_client.players[player_i].cards[card_i].name, card_i);
             }
         }
         this.buttons.push(UseCard);

@@ -1,7 +1,7 @@
 class Card {
     constructor(){
         this.name = null;
-        this.available = true;  
+        // this.available = true;  
         this.selected = false; 
         this.offensive = false; //karta, ktora sa aktivuje kliknutim na hraca. Vymysli lepsi nazov
         this.IMG = null;
@@ -73,3 +73,34 @@ class Vedle extends ActionCard{
     }
     
 }
+
+class Dostavnik extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Dostavnik";
+        this.IMG = Sprites.dostavnik;
+    }
+
+    // action(game, player, card){
+    //     game.dealOneCard(player);
+    //     game.dealOneCard(player);
+    // }
+}
+
+class Wellsfargo extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Wellsfargo";
+        this.IMG = Sprites.wellsfargo
+    }
+    
+    // action(game, player, card){
+    //     if(game.requestedPlayer == null){
+    //         game.dealOneCard(player);
+    //         game.dealOneCard(player);
+    //         game.dealOneCard(player);
+    //         discardCard(game, player, card);
+    //     }
+    // }
+}
+

@@ -80,6 +80,12 @@ function updatePlayers(game_server) {
                 case "Vedle":
                     game_client.players[i].cards.push(new Vedle());                    
                     break;
+                case "Dostavnik":
+                    game_client.players[i].cards.push(new Dostavnik());                    
+                    break;
+                case "Wellsfargo":
+                    game_client.players[i].cards.push(new Wellsfargo());                    
+                    break;
             
                 default:
                     break;
@@ -124,7 +130,13 @@ function copyDeck(game_server){
             case "Vedle":
                 game_client.cards.push(new Vedle());                    
                 break;
-        
+            case "Dostavnik":
+                game_client.cards.push(new Dostavnik());                    
+                break;
+            case "Wellsfargo":
+                game_client.cards.push(new Wellsfargo());                    
+                break;
+
             default:
                 break;
         }

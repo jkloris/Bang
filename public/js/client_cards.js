@@ -104,3 +104,19 @@ class Wellsfargo extends ActionCard{
     // }
 }
 
+class Pivo extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Pivo";
+        this.IMG = Sprites.pivo;
+    }
+
+    // action(game, player, card){
+    //     if(game.requestedPlayer == null && game.player[player].HP < game.player[player].maxHP ){
+    //         game.player[player].HP++;
+    //         discardCard(game, player, card);
+    //     }
+    // }
+
+}
+

@@ -86,6 +86,9 @@ function updatePlayers(game_server) {
                 case "Wellsfargo":
                     game_client.players[i].cards.push(new Wellsfargo());                    
                     break;
+                case "Pivo":
+                    game_client.players[i].cards.push(new Pivo());                    
+                    break;
             
                 default:
                     break;
@@ -135,6 +138,9 @@ function copyDeck(game_server){
                 break;
             case "Wellsfargo":
                 game_client.cards.push(new Wellsfargo());                    
+                break;
+            case "Pivo":
+                game_client.cards.push(new Pivo());                    
                 break;
 
             default:

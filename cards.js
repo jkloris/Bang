@@ -97,9 +97,24 @@ class Wellsfargo extends ActionCard{
     }
 }
 
+class Pivo extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Pivo";
+    }
+
+    action(game, player, card){
+        if(game.requestedPlayer == null && game.players[player].HP < game.players[player].maxHP ){
+            game.players[player].HP++;
+            discardCard(game, player, card);
+        }
+    }
+
+}
+
 function discardCard(game, player_i, card_i) {
     game.cards.unshift(game.players[player_i].cards[card_i]);    
     game.trashedCards++;
     game.players[player_i].cards.splice(card_i,1);
 }
-module.exports = [Bang, Vedle, Dostavnik, Wellsfargo];
+module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo];

@@ -16,6 +16,18 @@ class Tile {
         ctx.fillText(this.name, this.x, this.y);
         ctx.fillText(this.HP + 'HP', this.x + 0.2*tile_size, this.y + 0.2*tile_size);
         ctx.fillText(this.cards + ' Cards', this.x + 0.2*tile_size, this.y + 0.4*tile_size);
+
+        if (this.HP == 0) {
+            ctx.beginPath();
+            ctx.lineWidth = 7;
+            ctx.strokeStyle = "black";
+            ctx.moveTo(this.x, this.y);
+            ctx.lineTo(this.x + tile_size, this.y + tile_size);
+            ctx.moveTo(this.x + tile_size, this.y);
+            ctx.lineTo(this.x, this.y + tile_size);
+            ctx.stroke();
+        }
+
         ctx.restore();
     }
 

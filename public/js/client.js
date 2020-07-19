@@ -19,7 +19,6 @@ socket.on("update", game => {
     copyDeck(game);    
     updatePlayers(game);
     drawGame();
-    console.log(game_client);
 });
 
 //bang

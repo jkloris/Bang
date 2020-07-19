@@ -80,11 +80,18 @@ class Game{
             return 0;
         }
         else {
-            if(this.turn + 1 < this.players.length){
+            if (this.turn + 1 < this.players.length) {
                 this.turn++;
-            } else{
+            } else {
                 this.turn = 0;
             }
+
+            //preskoci hracov, ktori su mrtvi
+            while(this.players[this.turn].HP == 0) {
+                this.turn++;
+                if (this.turn >= this.players.length) this.turn = 0;
+            }
+
             this.moveStage = 0;
             return 1;
         }

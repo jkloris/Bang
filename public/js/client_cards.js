@@ -140,3 +140,15 @@ class Salon extends ActionCard{
     // }
 
 }
+
+class Indiani extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Indiani"
+        this.IMG = Sprites.indiani;
+    }
+
+    action(){
+        
+    }
+}

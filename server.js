@@ -68,7 +68,18 @@ io.on("connection", socket =>{
             Death(player_index);
         }
         if(game.requestedPlayer != null){
-            game.requestedPlayer = null;
+            if(game.playedCard == "Indiani"){
+                game.requestedPlayer = (player_index + 1 == game.players.length)? 0 : player_index + 1;
+
+                if(game.requestedPlayer == game.turn){
+                    game.requestedPlayer = null;
+                    game.playedCard = null;
+                    game.requestedCard = null;
+                }
+            }else{
+                game.requestedPlayer = null;
+                
+            }
         }
         gameUpdate();
     });

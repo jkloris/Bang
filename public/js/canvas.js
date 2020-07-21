@@ -34,6 +34,7 @@ function drawGame() {
         }
     }
 
+
     //draw buttons
     if(game_client.turn != null && socket.id == game_client.players[game_client.turn].id ){
         for(var i in game_scene.buttons){
@@ -43,7 +44,12 @@ function drawGame() {
         game_scene.buttons[3].visible = false;  //3 je index lose life     
         game_scene.buttons[i].draw();
     } else if(game_client.requestedPlayer != null && socket.id != game_client.players[game_client.turn].id && socket.id == game_client.players[game_client.requestedPlayer].id){
-        for(var i in game_scene.buttons){    
+        for(var i in game_scene.buttons){
+            if(i==2 || i==3){ //use button je na indexe 2 a lose life na 3
+                game_scene.buttons[i].visible = true;
+            }else{
+                game_scene.buttons[i].visible = false;
+            }
             game_scene.buttons[i].draw();
         }
     }

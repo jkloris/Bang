@@ -43,6 +43,26 @@ socket.on("Bang", (arg, index_shooter) =>{
 
 })
 
+// socket.on("Indiani", ()=>{
+//     game_client.requestedCard = "Bang";
+//     for(var i in game_scene.buttons){
+//         if(i==2 || i==3){ //use button je na indexe 2 a lose life na 3
+//             game_scene.buttons[i].visible = true;
+//         }else{
+//             game_scene.buttons[i].visible = false;
+//         }
+//         game_scene.buttons[i].draw();
+//     }
+
+//     ctx.save();
+//     ctx.textAlign = "center";
+//     ctx.fillStyle = "red";
+//     ctx.font = "40px Arial";
+//     let shooter = game_client.players[index_shooter].name;
+//     ctx.fillText(`${shooter} PLAYED INDIANS!`, canvas.width / 2, canvas.height / 3)
+//     ctx.restore();
+// })
+
 
 document.addEventListener("click", e => {
     var rect = canvas.getBoundingClientRect();
@@ -91,6 +111,9 @@ function updatePlayers(game_server) {
                     break;
                 case "Salon":
                     game_client.players[i].cards.push(new Salon());                    
+                    break;
+                case "Indiani":
+                    game_client.players[i].cards.push(new Indiani());                    
                     break;
             
                 default:
@@ -147,6 +170,9 @@ function copyDeck(game_server){
                 break;
             case "Salon":
                 game_client.cards.push(new Salon());                    
+                break;
+            case "Indiani":
+                game_client.cards.push(new Indiani());                    
                 break;
 
             default:

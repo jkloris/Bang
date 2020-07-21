@@ -1,3 +1,9 @@
+const socketIO = require("socket.io");
+const express = require("express");
+
+
+
+
 class Card {
     constructor(){
         this.name = null;
@@ -43,9 +49,17 @@ class Bang extends ActionCard{
         super();
         this.name = "Bang";
     }
-    action(){
-        // alert("bang");
-        // socket.emit("bang", );
+    action(game, player, card){
+        if(game.playedCard == "Indiani"){
+            game.requestedPlayer = (player + 1 == game.players.length)? 0 : player + 1;
+            discardCard(game, player, card);
+
+            if(game.requestedPlayer == game.turn){
+                game.requestedPlayer = null;
+                game.playedCard = null;
+                game.requestedCard = null;
+            } 
+        }
     }
    
 }
@@ -129,12 +143,47 @@ class Salon extends ActionCard{
             discardCard(game, player, card);
         }
     }
-
+    
 }
+
+class Indiani extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Indiani"
+    }
+    
+    action(game, player, card){
+        if(game.requestedPlayer == null){
+            var i;
+            if(player + 1 == game.players.length){
+                i = 0;
+            }else{
+                i = player+1;
+            }
+            game.requestedCard = "Bang";
+            game.requestedPlayer = i;
+            game.playedCard = "Indiani";
+            // socket.broadcast.to(game.players[i].id).emit("Indiani", null);
+
+            discardCard(game, player, card);
+        }
+    }
+}
+
+// class Catbalou extends ActionCard{
+//     constructor(){
+//         super();
+//         this.name = "Catbalou"
+//     }
+
+//     action(){
+        
+//     }
+// }
 
 function discardCard(game, player_i, card_i) {
     game.cards.unshift(game.players[player_i].cards[card_i]);    
     game.trashedCards++;
     game.players[player_i].cards.splice(card_i,1);
 }
-module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon];
+module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani];

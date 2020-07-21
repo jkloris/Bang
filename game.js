@@ -1,4 +1,4 @@
-const [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon] = require("./cards.js");
+const [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani] = require("./cards.js");
 const fs = require("fs");
 
 class Game{
@@ -10,6 +10,7 @@ class Game{
         this.requestedCard = null; //pozadovana karta (vedle pri bangovani)
         this.trashedCards = 0;
         this.moveStage = 0; //urcuje povolene akcie hraca pocas tahu (0 - tahanie kariet/dynamit,.., 1 - priebeh tahu,.. mozno 2 na ukoncenie tahu)
+        this.playedCard = null;
     }
 
     //naplni deck nejakymi kartami
@@ -47,6 +48,7 @@ class Game{
                     case "WELLSFARGO": this.cards.push(new Wellsfargo()); break;
                     case "PIVO": this.cards.push(new Pivo()); break;
                     case "SALON": this.cards.push(new Salon()); break;
+                    case "INDIANI": this.cards.push(new Indiani()); break;
                     default: break;
                 };
 

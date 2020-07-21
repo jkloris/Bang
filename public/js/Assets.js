@@ -31,6 +31,9 @@ function loadAssets(){
     Sprites.wellsfargo = loadIMG("imgs/", "wellsfargo.png");
     Sprites.pivo = loadIMG("imgs/", "beer.png");
     Sprites.salon = loadIMG("imgs/", "saloon.png");
+    Sprites.catbalou = loadIMG("imgs/", "catbalou.png");
+    Sprites.indiani = loadIMG("imgs/", "indians.png");
+
 
     AssetsLoading_loop();
 }

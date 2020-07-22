@@ -59,6 +59,7 @@ function drawGame() {
             }else{
                 game_scene.buttons[i].visible = false;
             }
+            if (game_client.started) game_scene.buttons[1].visible = false; //ak je zacata hra, tak tlacitko Start game sa nezobrazuje
             game_scene.buttons[i].draw();
         }
     }
@@ -72,8 +73,8 @@ function drawGame() {
 
     //draw cards
     let index = game_client.players.findIndex(user => user.id === socket.id);
-    //tento if v podstate kontroluje, ci uz bola zacata hra
-    if (game_client.players[index].cards.length > 0) {
+
+    if (game_client.started) { //kontroluje, ci uz bola zacata hra
         var x = 10;
         var ratio = canvas.width / 15;
         var y = canvas.height - Sprites.bang.height / Sprites.bang.width * ratio - 10;
@@ -85,6 +86,7 @@ function drawGame() {
             x+=ratio - 10;
             //console.log(x,ratio);
         }
+
         //draw deck
         var deck = new Back();
         deck.draw(canvas.width / 2, canvas.height / 10, ratio);

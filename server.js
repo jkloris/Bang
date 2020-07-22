@@ -157,7 +157,7 @@ function playerDisconnect(id){
 function playerConnected(id){
     //io.emit("message", id+ "connected");
     //console.log(id, 'connected');
-    game.players.push(new Player(id, 1, null, null, null));
+    game.players.push(new Player(id, 5, null, null, null));
     //io.emit("message", game);
 }
 

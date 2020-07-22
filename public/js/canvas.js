@@ -19,10 +19,19 @@ function clear() {
 function drawGame() {
     clear();
 
+
     //draw players
     for (i in game_scene.tiles) {
         if(game_scene.tiles[i].id == socket.id){
             var color = "green";
+            //ak je client mrtvy, napise mu to
+            if (!game_scene.tiles[i].alive) {
+                ctx.save();
+                ctx.fillStyle = "red";
+                ctx.font = "60px Arial";
+                ctx.fillText(`BYLS ZABIT`, 10, canvas.height - 70);
+                ctx.restore();
+            }
         }else{
             var color = "black";
         }
@@ -73,7 +82,7 @@ function drawGame() {
         }
     }
     else for (var i in game_scene.buttons) game_scene.buttons[i].visible = false;
-    
+
     if (game_client.started) game_scene.buttons[1].visible = false; //ak je zacata hra, nezobrazuje sa Start button
     
     //teraz su nastavene visibility na buttonoch a iba ich vykreslime

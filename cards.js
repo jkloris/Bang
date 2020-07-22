@@ -132,10 +132,10 @@ class Salon extends ActionCard{
     }
 
     action(game, player, card){
-        if(game.requestedPlayer == null){
-            for(var i in game.players){
+        if (game.requestedPlayer == null) {
+            for(var i in game.players) {
                 
-                if( game.players[i].HP < game.players[i].maxHP ){
+                if (game.players[i].alive && game.players[i].HP < game.players[i].maxHP) {
                     game.players[i].HP++;
                 }
             }

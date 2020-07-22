@@ -35,7 +35,7 @@ class BlueCard extends Card{
     }
 }
 
-class ActionCard extends Card{
+class ActionCard extends Card{ //toto bolo fakt zbytocne
     constructor(){
         super();
     }
@@ -71,7 +71,6 @@ class Vedle extends ActionCard{
     }
     action(game, player, card){
         if(game.requestedPlayer != null){
-            console.log("Vedle");
             game.requestedPlayer = null;
             discardCard(game, player, card);
         }

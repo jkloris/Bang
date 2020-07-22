@@ -29,7 +29,7 @@ class Tile {
         }
         this.drawCards();
         this.drawLife();
-
+        // this.blueTest();
         ctx.restore();
     }
 
@@ -48,6 +48,18 @@ class Tile {
             }
         }
     }
+
+    blueTest(){
+        var x = this.x + 1;
+        var ratio = tile_size.x / 4
+        var y = this.y  ;
+        ctx.save();
+        for(var i = 0; i < 6; i++){
+            ctx.drawImage(Sprites.schofield, x, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio);
+            x+=ratio / 1.7;
+        }
+        ctx.restore();
+    }
     
     drawLife(){
         var x = this.x + tile_size.x - 2;
@@ -56,7 +68,7 @@ class Tile {
         var character = Sprites.bart_cassidy; //TODO
         ctx.save();
         ctx.drawImage(Sprites.back_character, x, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio); 
-        ctx.drawImage(character, x, y - (this.HP * tile_size.y / 10) - 2, ratio, Sprites.bang.height / Sprites.bang.width * ratio); 
+        ctx.drawImage(character, x, y - (this.HP * (tile_size.y-2) / 10) + 1, ratio, Sprites.bang.height / Sprites.bang.width * ratio); 
         ctx.restore();
     }
 

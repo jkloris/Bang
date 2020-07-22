@@ -135,7 +135,7 @@ io.on("connection", socket =>{
 })
 
 const PORT = process.env.PORT || 8888;
-const IP = 'localhost';
+const IP = 'localhost'; //192.168.1.18
 server.listen(PORT, IP, ()=>console.log("server running on " + PORT));
 
 

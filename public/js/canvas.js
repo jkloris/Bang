@@ -40,10 +40,10 @@ function drawGame() {
     if(game_client.turn != null && socket.id == game_client.players[game_client.turn].id ){
         for(var i in game_scene.buttons){
             game_scene.buttons[i].visible = true;
-            game_scene.buttons[i].draw();
+            //game_scene.buttons[i].draw();
         }         
         game_scene.buttons[3].visible = false;  //3 je index lose life     
-        game_scene.buttons[i].draw();
+        //game_scene.buttons[i].draw();
     } else if(game_client.requestedPlayer != null && socket.id != game_client.players[game_client.turn].id && socket.id == game_client.players[game_client.requestedPlayer].id){
         if (game_client.playedCard == "Indiani") {
             ctx.save();
@@ -59,16 +59,18 @@ function drawGame() {
             }else{
                 game_scene.buttons[i].visible = false;
             }
-            if (game_client.started) game_scene.buttons[1].visible = false; //ak je zacata hra, tak tlacitko Start game sa nezobrazuje
-            game_scene.buttons[i].draw();
+            //game_scene.buttons[i].draw();
         }
     }
     if(game_client.requestedPlayer != null && socket.id == game_client.players[game_client.turn].id && socket.id != game_client.players[game_client.requestedPlayer].id){
         for(var i in game_scene.buttons){    
             game_scene.buttons[i].visible = false;
-            game_scene.buttons[i].draw();
+            //game_scene.buttons[i].draw();
         }
     }
+    if (game_client.started) game_scene.buttons[1].visible = false; //ak je zacata hra, nezobrazuje sa Start button
+    //teraz su nastavene visibility na buttonoch a iba ich vykreslime
+    for (var i in game_scene.buttons) game_scene.buttons[i].draw();
 
 
     //draw cards

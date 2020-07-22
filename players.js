@@ -2,6 +2,7 @@ class Player{
     constructor(id, maxHP, character, ability){
         this.id = id;
         this.HP = maxHP;
+        this.alive = true;
         this.maxHP = maxHP;
         this.character = character; //TODO
         this.ability = ability; //TODO

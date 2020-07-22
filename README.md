@@ -1,6 +1,7 @@
 TODO
 * Kontrola, ci hrac zije pri jednotlivych akciach (bang, indiani,..)
 * Vylepsit indianov - AKO??????
+* (?) kontrola, ci sa striela na mrtveho hraca je zatial client-side. Prerobit na server side?
 * ~~Ked hrac nema pocas hry ziadne karty, nedovoli mu to normalne hrat..vyskoci mu tlacitko na start hry a pod. Treba fixnut, ale neviem kde :D~~
 * ~~Discard() presunut komplet na server-side (nech klient robi iba request, nech kontrola kariet a zivotov nie je na client-side...)~~
     * ~~opravit - pridat podmienky do socket handlu~~

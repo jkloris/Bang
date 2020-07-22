@@ -94,7 +94,7 @@ class Game{
             }
 
             //preskoci hracov, ktori su mrtvi
-            while(this.players[this.turn].HP == 0) {
+            while(!this.players[this.turn].alive) {
                 this.turn++;
                 if (this.turn >= this.players.length) this.turn = 0;
             }

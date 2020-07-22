@@ -6,6 +6,8 @@ class Tile {
         this.id = id;
         this.HP = HP;
         this.cards = cards;
+        if (this.HP <= 0) this.alive = false;
+        else this.alive = true;
     }
 
     drawTile = function(color) {
@@ -17,7 +19,8 @@ class Tile {
         // ctx.fillText(this.HP + 'HP', this.x + 0.2*tile_size.x, this.y + 0.2*tile_size.y);
         // ctx.fillText(this.cards + ' Cards', this.x + 0.2*tile_size.x, this.y + 0.4*tile_size.y);
 
-        if (this.HP == 0) {
+        //ak je mrtef
+        if (!this.alive) {
             ctx.beginPath();
             ctx.lineWidth = 7;
             ctx.strokeStyle = "black";
@@ -73,12 +76,14 @@ class Tile {
     }
 
     onclick = function() {//event , arg
-        var player_i = game_client.players.findIndex(user => user.id === socket.id);
-        var card_i = game_client.players[player_i].cards.findIndex(card => card.selected === true);
-       
-        if(game_client.players[player_i].cards[card_i].offensive == true && this.id != socket.id){
-            socket.emit("interaction", this.id, game_client.players[player_i].cards[card_i].name, null, card_i );
-        }
+        if (this.alive) {
+            var player_i = game_client.players.findIndex(user => user.id === socket.id);
+            var card_i = game_client.players[player_i].cards.findIndex(card => card.selected === true);
+        
+            if(game_client.players[player_i].cards[card_i].offensive == true && this.id != socket.id){
+                socket.emit("interaction", this.id, game_client.players[player_i].cards[card_i].name, null, card_i );
+            }
+        } else alert('Ten je us mrtef kamosko');
     }
 }
 

@@ -157,7 +157,7 @@ function playerDisconnect(id){
 function playerConnected(id){
     //io.emit("message", id+ "connected");
     //console.log(id, 'connected');
-    game.players.push(new Player(id, 5, null, null, null));
+    game.players.push(new Player(id, 1, null, null, null));
     //io.emit("message", game);
 }
 
@@ -168,8 +168,8 @@ function discardCard(player_i, card_i) {
 }
 
 function Death(dead_player_index){ //TODO
-    //game.players.splice(player, 1);
-    // console.log(player + " is dead")
+    console.log(game.players[dead_player_index] + 'is dead');
+    game.players[dead_player_index].alive = false;
 
     //karty mrtveho hraca sa poslu hracovi, ktory je momentalne na tahu
     while (game.players[dead_player_index].cards.length > 0) {

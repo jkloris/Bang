@@ -152,17 +152,23 @@ class Indiani extends ActionCard{
     }
     
     action(game, player, card){
-        if(game.requestedPlayer == null){
+        if (game.requestedPlayer == null) {
             var i;
-            if(player + 1 == game.players.length){
+            if (player + 1 == game.players.length) {
                 i = 0;
-            }else{
-                i = player+1;
+            } else {
+                i = player + 1;
             }
+
+            //preskoci hracov, ktori su mrtvi
+            while (!game.players[i].alive) {
+                i++;
+                if (i >= game.players.length) i = 0;
+            }
+
             game.requestedCard = "Bang";
             game.requestedPlayer = i;
             game.playedCard = "Indiani";
-            // socket.broadcast.to(game.players[i].id).emit("Indiani", null);
 
             discardCard(game, player, card);
         }

@@ -45,6 +45,14 @@ function drawGame() {
         game_scene.buttons[3].visible = false;  //3 je index lose life     
         game_scene.buttons[i].draw();
     } else if(game_client.requestedPlayer != null && socket.id != game_client.players[game_client.turn].id && socket.id == game_client.players[game_client.requestedPlayer].id){
+        if (game_client.playedCard == "Indiani") {
+            ctx.save();
+            ctx.textAlign = "center";
+            ctx.fillStyle = "red";
+            ctx.font = "40px Arial";
+            ctx.fillText(`DIE INDIANEN, SPIEL EIN BANG BITTE!!!`, canvas.width / 2, canvas.height / 2 - 20);
+            ctx.restore();
+        }
         for(var i in game_scene.buttons){
             if(i==2 || i==3){ //use button je na indexe 2 a lose life na 3
                 game_scene.buttons[i].visible = true;
@@ -88,7 +96,7 @@ function drawGame() {
             ctx.textAlign = "center";
             ctx.fillStyle = "green";
             ctx.font = "30px Arial";
-            ctx.fillText(`Start turn by drawing cards!`, canvas.width / 2, canvas.height / 3)
+            ctx.fillText(`Bitte starte bei Karten nehmen!`, canvas.width / 2, canvas.height / 2 - 20)
             ctx.restore();
         }
     }

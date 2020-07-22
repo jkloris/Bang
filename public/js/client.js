@@ -38,7 +38,7 @@ socket.on("Bang", (arg, index_shooter) =>{
     ctx.fillStyle = "red";
     ctx.font = "40px Arial";
     let shooter = game_client.players[index_shooter].name;
-    ctx.fillText(`${shooter} PLAYED BANG ON YOU!`, canvas.width / 2, canvas.height / 3)
+    ctx.fillText(`${shooter} PLAYED BANG ON YOU!`, canvas.width / 2, canvas.height / 2 - 20)
     ctx.restore();
 
 })

@@ -29,7 +29,7 @@ class Tile {
         }
         this.drawCards();
         this.drawLife();
-        // this.blueTest();
+        //this.blueTest();
         ctx.restore();
     }
 

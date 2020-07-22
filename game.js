@@ -11,6 +11,7 @@ class Game{
         this.trashedCards = 0;
         this.moveStage = 0; //urcuje povolene akcie hraca pocas tahu (0 - tahanie kariet/dynamit,.., 1 - priebeh tahu,.. mozno 2 na ukoncenie tahu)
         this.playedCard = null;
+        this.started = false;
     }
 
     //naplni deck nejakymi kartami

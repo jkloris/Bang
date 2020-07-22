@@ -2,7 +2,6 @@ const http = require("http");
 const express = require("express");
 const socketIO = require("socket.io");
 const path = require("path");
-//const fs = require("fs");
 
 const app = express();
 const server = http.createServer(app);
@@ -50,6 +49,7 @@ io.on("connection", socket =>{
     });
     
     socket.on("startGame", ()=>{
+        game.started = true;
         game.shuffleDeck();
         game.dealCards();
         gameUpdate();
@@ -67,18 +67,17 @@ io.on("connection", socket =>{
         if(--game.players[player_index].HP == 0){
             Death(player_index);
         }
-        if(game.requestedPlayer != null){
-            if(game.playedCard == "Indiani"){
+        if (game.requestedPlayer != null){
+            if (game.playedCard == "Indiani") {
                 game.requestedPlayer = (player_index + 1 == game.players.length)? 0 : player_index + 1;
 
-                if(game.requestedPlayer == game.turn){
+                if (game.requestedPlayer == game.turn) {
                     game.requestedPlayer = null;
                     game.playedCard = null;
                     game.requestedCard = null;
                 }
-            }else{
-                game.requestedPlayer = null;
-                
+            } else {
+                game.requestedPlayer = null;                
             }
         }
         gameUpdate();
@@ -158,7 +157,7 @@ function playerDisconnect(id){
 function playerConnected(id){
     //io.emit("message", id+ "connected");
     //console.log(id, 'connected');
-    game.players.push(new Player(id, game.players.length , null, null, null));
+    game.players.push(new Player(id, 5, null, null, null));
     //io.emit("message", game);
 }
 

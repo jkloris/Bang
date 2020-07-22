@@ -49,8 +49,8 @@ class Bang extends ActionCard{
         super();
         this.name = "Bang";
     }
-    action(game, player, card){
-        if(game.playedCard == "Indiani"){
+    action (game, player, card) {
+        if (game.playedCard == "Indiani") {
             game.requestedPlayer = (player + 1 == game.players.length)? 0 : player + 1;
             discardCard(game, player, card);
 

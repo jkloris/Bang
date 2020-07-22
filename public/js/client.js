@@ -24,14 +24,14 @@ socket.on("update", game => {
 //bang
 socket.on("Bang", (arg, index_shooter) =>{
     game_client.requestedCard = "Vedle";
-    for(var i in game_scene.buttons){
-        if(i==2 || i==3){ //use button je na indexe 2 a lose life na 3
-            game_scene.buttons[i].visible = true;
-        }else{
-            game_scene.buttons[i].visible = false;
-        }
-        game_scene.buttons[i].draw();
-    }
+    // for(var i in game_scene.buttons){
+    //     if(i==2 || i==3){ //use button je na indexe 2 a lose life na 3
+    //         game_scene.buttons[i].visible = true;
+    //     }else{
+    //         game_scene.buttons[i].visible = false;
+    //     }
+    //     game_scene.buttons[i].draw();
+    // }
 
     ctx.save();
     ctx.textAlign = "center";
@@ -43,25 +43,6 @@ socket.on("Bang", (arg, index_shooter) =>{
 
 })
 
-// socket.on("Indiani", ()=>{
-//     game_client.requestedCard = "Bang";
-//     for(var i in game_scene.buttons){
-//         if(i==2 || i==3){ //use button je na indexe 2 a lose life na 3
-//             game_scene.buttons[i].visible = true;
-//         }else{
-//             game_scene.buttons[i].visible = false;
-//         }
-//         game_scene.buttons[i].draw();
-//     }
-
-//     ctx.save();
-//     ctx.textAlign = "center";
-//     ctx.fillStyle = "red";
-//     ctx.font = "40px Arial";
-//     let shooter = game_client.players[index_shooter].name;
-//     ctx.fillText(`${shooter} PLAYED INDIANS!`, canvas.width / 2, canvas.height / 3)
-//     ctx.restore();
-// })
 
 
 document.addEventListener("click", e => {
@@ -131,13 +112,13 @@ function updatePlayers(game_server) {
         
         //nastavenie pozicie vykreslenia hraca
         switch (parseInt(number)) {
-            case 0: x = canvas.width / 14; y = canvas.height / 10; break;
-            case 1: x = canvas.width / 14; y = canvas.height / 10 + tile_size * 1.5; break;
-            case 2: x = canvas.width / 4; y = canvas.height / 2; break;
-            case 3: x = canvas.width / 2 - tile_size / 2; y = canvas.height / 2; break;
-            case 4: x = canvas.width - (canvas.width / 3); y = canvas.height / 2; break;
-            case 5: x = canvas.width - (canvas.width / 14) - tile_size; y = canvas.height / 10 + tile_size * 1.5; break;
-            case 6: x = canvas.width - (canvas.width / 14) - tile_size; y = canvas.height / 10; break;
+            case 0: x = canvas.width / 18; y = canvas.height / 10; break;
+            case 1: x = canvas.width / 18; y = canvas.height / 10 + tile_size.y * 1.5; break;
+            case 2: x = canvas.width / 4.2; y = canvas.height / 2; break;
+            case 3: x = canvas.width / 2 - tile_size.x / 2; y = canvas.height / 2 + 10; break;
+            case 4: x = canvas.width - (canvas.width / 2.6); y = canvas.height / 2; break;
+            case 5: x = canvas.width - (canvas.width / 18) - tile_size.x; y = canvas.height / 10 + tile_size.y * 1.5; break;
+            case 6: x = canvas.width - (canvas.width / 18) - tile_size.x; y = canvas.height / 10; break;
         }
 
         x = Math.floor(x);

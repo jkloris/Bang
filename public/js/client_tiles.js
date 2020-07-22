@@ -11,23 +11,52 @@ class Tile {
     drawTile = function(color) {
         ctx.save();
         ctx.strokeStyle = color;
-        ctx.strokeRect(this.x, this.y, tile_size, tile_size);
+        ctx.strokeRect(this.x, this.y, tile_size.x, tile_size.y);
         ctx.font = "18px Calibri";
-        ctx.fillText(this.name, this.x, this.y);
-        ctx.fillText(this.HP + 'HP', this.x + 0.2*tile_size, this.y + 0.2*tile_size);
-        ctx.fillText(this.cards + ' Cards', this.x + 0.2*tile_size, this.y + 0.4*tile_size);
+        ctx.fillText(this.name, this.x, this.y- 5);
+        // ctx.fillText(this.HP + 'HP', this.x + 0.2*tile_size.x, this.y + 0.2*tile_size.y);
+        // ctx.fillText(this.cards + ' Cards', this.x + 0.2*tile_size.x, this.y + 0.4*tile_size.y);
 
         if (this.HP == 0) {
             ctx.beginPath();
             ctx.lineWidth = 7;
             ctx.strokeStyle = "black";
             ctx.moveTo(this.x, this.y);
-            ctx.lineTo(this.x + tile_size, this.y + tile_size);
-            ctx.moveTo(this.x + tile_size, this.y);
-            ctx.lineTo(this.x, this.y + tile_size);
+            ctx.lineTo(this.x + tile_size.x, this.y + tile_size.y);
+            ctx.moveTo(this.x + tile_size.x, this.y);
+            ctx.lineTo(this.x, this.y + tile_size.y);
             ctx.stroke();
         }
+        this.drawCards();
+        this.drawLife();
 
+        ctx.restore();
+    }
+
+    drawCards(){
+        var x = this.x + 1;
+        var ratio = tile_size.x / 4
+        var y = this.y + tile_size.y -  Sprites.bang.height / Sprites.bang.width * ratio - 1;
+        for(var i = 0; i < this.cards; i++){
+            ctx.save();
+            ctx.drawImage(Sprites.back, x, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio); 
+            ctx.restore();
+            if(this.cards < 6){
+                x += ratio - 10;
+            }else{
+                x += Math.floor(tile_size.x / (this.cards + 2));
+            }
+        }
+    }
+    
+    drawLife(){
+        var x = this.x + tile_size.x - 2;
+        var ratio = tile_size.x / 4
+        var y = this.y + tile_size.y - Sprites.bang.height / Sprites.bang.width * ratio + 1;
+        var character = Sprites.bart_cassidy; //TODO
+        ctx.save();
+        ctx.drawImage(Sprites.back_character, x, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio); 
+        ctx.drawImage(character, x, y - (this.HP * tile_size.y / 10) - 2, ratio, Sprites.bang.height / Sprites.bang.width * ratio); 
         ctx.restore();
     }
 

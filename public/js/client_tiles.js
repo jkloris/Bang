@@ -77,13 +77,27 @@ class Tile {
 
     onclick = function() {//event , arg
         if (this.alive) {
+
             var player_i = game_client.players.findIndex(user => user.id === socket.id);
             var card_i = game_client.players[player_i].cards.findIndex(card => card.selected === true);
-        
-            if(game_client.players[player_i].cards[card_i].offensive == true && this.id != socket.id){
+            var distance = this.getDistance(player_i);
+            console.log(distance);
+
+            if(game_client.players[player_i].cards[card_i].offensive == true && this.id != socket.id && distance <= 1 ){ // (distance <= 1 || game_client.players[player_i].cards[card_i].(rangeless) )
                 socket.emit("interaction", this.id, game_client.players[player_i].cards[card_i].name, null, card_i );
             }
         } else alert('Ten je us mrtef kamosko');
+    }
+
+    getDistance(player_i){
+        var tile_i = game_client.players.findIndex(user => user.id === this.id);
+        if (player_i > tile_i) {
+            var distance = (player_i - tile_i) < (game_client.players.length - player_i + tile_i) ? (player_i - tile_i) : (game_client.players.length - player_i + tile_i);
+        } else{
+            var distance = (tile_i - player_i) < (game_client.players.length - tile_i + player_i) ? (tile_i - player_i) : (game_client.players.length - tile_i + player_i);
+        }
+
+        return distance;
     }
 }
 

@@ -80,6 +80,16 @@ class Game{
         this.players[player_i].cards.push(drawn_card);
     }
 
+    getDistance(sender_i, target_i){
+        if (sender_i > target_i) {
+            var distance = (sender_i - target_i) < (this.players.length - sender_i + target_i) ? (sender_i - target_i) : (this.players.length - sender_i + target_i);
+        } else{
+            var distance = (target_i - sender_i) < (this.players.length - target_i + sender_i) ? (target_i - sender_i) : (this.players.length - target_i + sender_i);
+        }
+
+        return distance;
+    }
+
 
     nextTurn(index_sender) {
         //kontrola, ci moze ukoncit kolo

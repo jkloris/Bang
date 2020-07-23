@@ -9,6 +9,7 @@ class Card {
         this.name = null;
         //this.available = true;
         this.selected = false; 
+        this.onRange = false;
         //this.IMG = null;
     }
     acion(){
@@ -48,6 +49,7 @@ class Bang extends ActionCard{
     constructor(){
         super();
         this.name = "Bang";
+        this.onRange = true;
     }
     action (game, player, card) {
         if (game.playedCard == "Indiani") {

@@ -5,6 +5,7 @@ class Card {
         this.selected = false; 
         this.offensive = false; //karta, ktora sa aktivuje kliknutim na hraca. Vymysli lepsi nazov
         this.IMG = null;
+        this.onRange = false;
     }
     acion(){
 
@@ -53,6 +54,7 @@ class Bang extends ActionCard{
         this.name = "Bang";
         this.IMG = Sprites.bang;
         this.offensive = true;
+        this.onRange = true;
     }
     action(){
         // alert("bang");

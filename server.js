@@ -109,22 +109,26 @@ io.on("connection", socket =>{
 
         var index_sender = game.players.findIndex(user => user.id === socket.id);
         var index_target = game.players.findIndex(user => user.id === id);
-        game.requestedPlayer = index_target;
-        discardCard(index_sender, card_index);
-        gameUpdate();
 
-        for(i in game.players){
-            if(game.players[i].id == id){
-                socket.broadcast.to(id).emit(event, arg, index_sender);
-                socket.broadcast.to(id).emit("message", game.players[index_sender].name + ' used card ' + event + ' -> you');
-            }else if(game.players[i].id == socket.id){
-                socket.emit("message", "you used card " + event + ' -> ' + game.players[index_target].name);
-            }else{
-                socket.broadcast.to(game.players[i].id).emit("message", game.players[index_sender].name + " used card " + event + ' -> ' + game.players[index_target].name);
+        if (game.getDistance(index_sender, index_target) <= 1 || game.players[index_sender].cards[card_index].onRange == false ) {
+
+            game.requestedPlayer = index_target;
+            discardCard(index_sender, card_index);
+            gameUpdate();
+            
+            for(i in game.players){
+                if(game.players[i].id == id){
+                    socket.broadcast.to(id).emit(event, arg, index_sender);
+                    socket.broadcast.to(id).emit("message", game.players[index_sender].name + ' used card ' + event + ' -> you');
+                }else if(game.players[i].id == socket.id){
+                    socket.emit("message", "you used card " + event + ' -> ' + game.players[index_target].name);
+                }else{
+                    socket.broadcast.to(game.players[i].id).emit("message", game.players[index_sender].name + " used card " + event + ' -> ' + game.players[index_target].name);
+                }
             }
         }
+        
     })
-
     //odpojenie hraca
     socket.on("disconnect",()=>{
         playerDisconnect(socket.id);

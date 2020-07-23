@@ -110,7 +110,7 @@ io.on("connection", socket =>{
         var index_sender = game.players.findIndex(user => user.id === socket.id);
         var index_target = game.players.findIndex(user => user.id === id);
 
-        if (game.getDistance(index_sender, index_target) <= 1 || game.players[index_sender].cards[card_index].onRange == false ) {
+        if (game.getDistance(index_sender, index_target, card_index) <= 1 || game.players[index_sender].cards[card_index].onRange == false ) {
 
             game.requestedPlayer = index_target;
             discardCard(index_sender, card_index);

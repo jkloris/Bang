@@ -154,3 +154,11 @@ class Indiani extends ActionCard{
         
     }
 }
+
+class Schofield extends BlueCard{
+    constructor(){
+        super();
+        this.name = "Schofield";
+        this.IMG = Sprites.schofield;
+    }
+}

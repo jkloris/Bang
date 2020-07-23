@@ -56,6 +56,9 @@ class Scene {
         Discard.visible = false;
         this.buttons.push(Discard);
     }
+
+
+    
     onclick = function(point) {
         if(game_client.moveStage == 0){
             game_scene.buttons[0].visible = false;

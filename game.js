@@ -1,4 +1,4 @@
-const [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani] = require("./cards.js");
+const [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield] = require("./cards.js");
 const fs = require("fs");
 
 class Game{
@@ -50,6 +50,7 @@ class Game{
                     case "PIVO": this.cards.push(new Pivo()); break;
                     case "SALON": this.cards.push(new Salon()); break;
                     case "INDIANI": this.cards.push(new Indiani()); break;
+                    case "SCHOFIELD": this.cards.push(new Schofield()); break;
                     default: break;
                 };
 
@@ -80,11 +81,17 @@ class Game{
         this.players[player_i].cards.push(drawn_card);
     }
 
-    getDistance(sender_i, target_i){
+    getDistance(sender_i, target_i, card){
         if (sender_i > target_i) {
             var distance = (sender_i - target_i) < (this.players.length - sender_i + target_i) ? (sender_i - target_i) : (this.players.length - sender_i + target_i);
         } else{
             var distance = (target_i - sender_i) < (this.players.length - target_i + sender_i) ? (target_i - sender_i) : (this.players.length - target_i + sender_i);
+        }
+
+        if (this.players[sender_i].cards[card].name == "Bang") {
+            distance = distance - this.players[sender_i].scope.gun - this.players[sender_i].scope.appaloosa + this.players[target_i].scope.mustang;
+        } else if (this.players[sender_i].cards[card].name == "Panika") {
+            distance = distance - this.players[sender_i].scope.appaloosa + this.players[target_i].scope.mustang;
         }
 
         return distance;

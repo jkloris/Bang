@@ -32,7 +32,7 @@ class Tile {
         }
         this.drawCards();
         this.drawLife();
-        //this.blueTest();
+        this.blueTest();
         ctx.restore();
     }
 
@@ -53,12 +53,14 @@ class Tile {
     }
 
     blueTest(){
+        var player_i = game_client.players.findIndex(user => user.id === this.id);
+
         var x = this.x + 1;
         var ratio = tile_size.x / 4
         var y = this.y  ;
         ctx.save();
-        for(var i = 0; i < 6; i++){
-            ctx.drawImage(Sprites.schofield, x, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio);
+        for(var i in game_client.players[player_i].blueCards){
+            ctx.drawImage(game_client.players[player_i].blueCards[i].IMG, x, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio);
             x+=ratio / 1.7;
         }
         ctx.restore();

@@ -19,6 +19,7 @@ socket.on("update", game => {
     copyDeck(game);    
     updatePlayers(game);
     drawGame();
+    // console.log(game);
 });
 
 //bang
@@ -89,9 +90,26 @@ function updatePlayers(game_server) {
                 case "Indiani":
                     game_client.players[i].cards.push(new Indiani());                    
                     break;
+                case "Schofield":
+                    game_client.players[i].cards.push(new Schofield());                    
+                    break;
             
                 default:
                     break;
+            }
+        }
+        for (i in game_client.players) {
+            game_client.players[i].blueCards.length = 0;
+
+            for (card in game_server.players[i].blueCards) {
+                switch (game_server.players[i].blueCards[card].name) {
+                    case "Schofield":
+                        game_client.players[i].blueCards.push(new Schofield());                    
+                        break;
+                        
+                    default:
+                        break;
+                }
             }
         }
     }
@@ -147,6 +165,9 @@ function copyDeck(game_server){
                 break;
             case "Indiani":
                 game_client.cards.push(new Indiani());                    
+                break;
+            case "Schofield":
+                game_client.cards.push(new Schofield());                    
                 break;
 
             default:

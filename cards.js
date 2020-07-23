@@ -10,7 +10,7 @@ class Card {
         //this.available = true;
         this.selected = false; 
         this.onRange = false;
-        //this.IMG = null;
+        // this.IMG = null;
     }
     acion(){
 
@@ -31,8 +31,13 @@ class BlueCard extends Card{
     constructor(){
         super();
     }
-    effect(){
+    action (game, player, card){
+        this.use(game, player, card);
+    }
 
+    use(game, player, card){
+        game.players[player].blueCards.push(game.players[player].cards[card]);
+        game.players[player].cards.splice(card, 1);
     }
 }
 
@@ -188,9 +193,22 @@ class Indiani extends ActionCard{
 //     }
 // }
 
+
+class Schofield extends BlueCard{
+    constructor(){
+        super();
+        this.name = "Schofield";
+    }
+
+    action(game, player, card){ //TODO
+        game.players[player].scope.gun = 1;
+        this.use(game, player, card);
+    }
+}
+
 function discardCard(game, player_i, card_i) {
     game.cards.unshift(game.players[player_i].cards[card_i]);    
     game.trashedCards++;
     game.players[player_i].cards.splice(card_i,1);
 }
-module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani];
+module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield];

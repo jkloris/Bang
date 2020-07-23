@@ -13,6 +13,7 @@ class Player{
         this.cards = []; //karty tohto hraca
         this.blueCards = [];
         this.name;
+        this.scope = {gun : 0, mustang : 0, appaloosa : 0};
     }
 }
 

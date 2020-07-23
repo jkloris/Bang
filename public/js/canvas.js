@@ -98,7 +98,6 @@ function drawGame() {
         var y = canvas.height - Sprites.bang.height / Sprites.bang.width * ratio - 10;
 
         for(i in game_client.players[index].cards){
-        
             game_client.players[index].cards[i].draw(x,y,ratio);         
 
             x+=ratio - 10;

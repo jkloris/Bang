@@ -105,6 +105,12 @@ function updatePlayers(game_server) {
                 case "Winchester":
                     game_client.players[i].cards.push(new Winchester());                    
                     break;
+                case "Mustang":
+                    game_client.players[i].cards.push(new Mustang());                    
+                    break;
+                case "Appaloosa":
+                    game_client.players[i].cards.push(new Appaloosa());                    
+                    break;
             
                 default:
                     break;
@@ -130,6 +136,12 @@ function updatePlayers(game_server) {
                     case "Winchester":
                         game_client.players[i].blueCards.push(new Winchester());                    
                         break;
+                    case "Mustang":
+                        game_client.players[i].blueCards.push(new Mustang());                    
+                        break;
+                    case "Appaloosa":
+                        game_client.players[i].blueCards.push(new Appaloosa());                    
+                        break;    
                         
                     default:
                         break;
@@ -204,6 +216,12 @@ function copyDeck(game_server){
                 break;
             case "Winchester":
                 game_client.cards.push(new Winchester());                    
+                break;
+            case "Mustang":
+                game_client.cards.push(new Mustang());                    
+                break;
+            case "Appaloosa":
+                game_client.cards.push(new Appaloosa());                    
                 break;
             
 

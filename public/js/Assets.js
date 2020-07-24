@@ -26,19 +26,24 @@ function loadAssets(){
 
     Sprites.bang = loadIMG("imgs/", "bang.png");
     Sprites.vedle = loadIMG("imgs/", "missed.png");
-    Sprites.back = loadIMG("imgs/", "back.png");
     Sprites.dostavnik = loadIMG("imgs/", "diligenza.png");
     Sprites.wellsfargo = loadIMG("imgs/", "wellsfargo.png");
     Sprites.pivo = loadIMG("imgs/", "beer.png");
     Sprites.salon = loadIMG("imgs/", "saloon.png");
     Sprites.catbalou = loadIMG("imgs/", "catbalou.png");
     Sprites.indiani = loadIMG("imgs/", "indians.png");
+    
     Sprites.schofield = loadIMG("imgs/", "schofield.png");
     Sprites.remington = loadIMG("imgs/", "remington.png");
     Sprites.carabine = loadIMG("imgs/", "carabine.png");
     Sprites.winchester = loadIMG("imgs/", "winchester.png");
     Sprites.volcanic = loadIMG("imgs/", "volcanic.png");
+    Sprites.appaloosa = loadIMG("imgs/", "appaloosa.png");
+    Sprites.mustang = loadIMG("imgs/", "mustang.png");
+    
+    Sprites.back = loadIMG("imgs/", "back.png");
     Sprites.back_character = loadIMG("imgs/", "back-character.png");
+
     Sprites.bart_cassidy = loadIMG("imgs/", "bart-cassidy.png");
 
 

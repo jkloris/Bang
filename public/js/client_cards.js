@@ -178,7 +178,6 @@ class Remington extends Gun{
         this.IMG = Sprites.remington;
     }
 
-    
 }
 
 class Carabine extends Gun{
@@ -187,8 +186,6 @@ class Carabine extends Gun{
         this.name = "Carabine";
         this.IMG = Sprites.carabine;
     }
-
-    
 }
 
 class Winchester extends Gun{
@@ -197,8 +194,6 @@ class Winchester extends Gun{
         this.name = "Winchester";
         this.IMG = Sprites.winchester;
     }
-
-    
 }
 
 class Volcanic extends Gun{
@@ -207,6 +202,21 @@ class Volcanic extends Gun{
         this.name = "Volcanic";
         this.IMG = Sprites.volcanic;
     }
+}
 
-    
+
+class Mustang extends BlueCard{
+    constructor(){
+        super();
+        this.name = "Mustang";
+        this.IMG = Sprites.mustang;
+    }
+}
+
+class Appaloosa extends BlueCard{
+    constructor(){
+        super();
+        this.name = "Appaloosa";
+        this.IMG = Sprites.appaloosa;
+    }
 }

@@ -266,12 +266,57 @@ class Volcanic extends Gun{
         super();
         this.name = "Volcanic";
     }
-
+    
     action(game, player, card){
         this.checkGuns(game, player);
         this.use(game, player, card);
         game.players[player].scope.gun = 0;
         //game.players[player].bangLimit = 100 TODO
+    }
+}
+
+class Mustang extends BlueCard{
+    constructor(){
+        super();
+        this.name = "Mustang";
+    }
+    
+    action(game, player, card){
+        if(this.checkMustang(game, player)){
+            this.use(game, player, card); 
+            game.players[player].scope.mustang = 1;
+        }
+    }
+    
+    checkMustang(game, player){
+        for(var i in game.players[player].blueCards){
+            if (game.players[player].blueCards[i].name == "Mustang"){
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+class Appaloosa extends BlueCard{
+    constructor(){
+        super();
+        this.name = "Appaloosa";
+    }
+    
+    action(game, player, card){
+        if(this.checkAppaloosa(game, player)){
+            this.use(game, player, card); 
+            game.players[player].scope.appaloosa = 1;
+        }
+    }
+    
+    checkAppaloosa(game, player){
+        for(var i in game.players[player].blueCards){
+            if (game.players[player].blueCards[i].name == "Appaloosa")
+                return false;
+        }
+        return true;
     }
 }
 
@@ -287,4 +332,4 @@ function discardBlueCard(game, player_i, card_i) {
         game.players[player_i].scope.gun = 0;
     game.players[player_i].blueCards.splice(card_i,1);
 }
-module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic];
+module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang];

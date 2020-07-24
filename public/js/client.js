@@ -93,6 +93,18 @@ function updatePlayers(game_server) {
                 case "Schofield":
                     game_client.players[i].cards.push(new Schofield());                    
                     break;
+                case "Volcanic":
+                    game_client.players[i].cards.push(new Volcanic());                    
+                    break;
+                case "Remington":
+                    game_client.players[i].cards.push(new Remington());                    
+                    break;
+                case "Carabine":
+                    game_client.players[i].cards.push(new Carabine());                    
+                    break;
+                case "Winchester":
+                    game_client.players[i].cards.push(new Winchester());                    
+                    break;
             
                 default:
                     break;
@@ -105,6 +117,18 @@ function updatePlayers(game_server) {
                 switch (game_server.players[i].blueCards[card].name) {
                     case "Schofield":
                         game_client.players[i].blueCards.push(new Schofield());                    
+                        break;
+                    case "Volcanic":
+                        game_client.players[i].blueCards.push(new Volcanic());                    
+                        break;
+                    case "Remington":
+                        game_client.players[i].blueCards.push(new Remington());                    
+                        break;
+                    case "Carabine":
+                        game_client.players[i].blueCards.push(new Carabine());                    
+                        break;
+                    case "Winchester":
+                        game_client.players[i].blueCards.push(new Winchester());                    
                         break;
                         
                     default:
@@ -169,6 +193,19 @@ function copyDeck(game_server){
             case "Schofield":
                 game_client.cards.push(new Schofield());                    
                 break;
+            case "Volcanic":
+                game_client.cards.push(new Volcanic());                    
+                break;
+            case "Remington":
+                game_client.cards.push(new Remington());                    
+                break;
+            case "Carabine":
+                game_client.cards.push(new Carabine());                    
+                break;
+            case "Winchester":
+                game_client.cards.push(new Winchester());                    
+                break;
+            
 
             default:
                 break;

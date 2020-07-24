@@ -193,16 +193,85 @@ class Indiani extends ActionCard{
 //     }
 // }
 
+class Gun extends BlueCard{
+    constructor(){
+        super();
+        this.gun = true;
+    }
 
-class Schofield extends BlueCard{
+    checkGuns(game, player){
+        for(var i in game.players[player].blueCards){
+            if(game.players[player].blueCards[i].gun == true){
+                discardBlueCard(game, player, i);
+            }
+        }
+    }
+}
+
+
+class Schofield extends Gun{
     constructor(){
         super();
         this.name = "Schofield";
     }
 
-    action(game, player, card){ //TODO
-        game.players[player].scope.gun = 1;
+    action(game, player, card){ 
+        this.checkGuns(game, player);
         this.use(game, player, card);
+        game.players[player].scope.gun = 1;
+    }
+}
+
+class Remington extends Gun{
+    constructor(){
+        super();
+        this.name = "Remington";
+    }
+
+    action(game, player, card){ 
+        this.checkGuns(game, player);
+        this.use(game, player, card);
+        game.players[player].scope.gun = 2;
+    }
+}
+
+class Carabine extends Gun{
+    constructor(){
+        super();
+        this.name = "Carabine";
+    }
+
+    action(game, player, card){
+        this.checkGuns(game, player);
+        this.use(game, player, card);
+        game.players[player].scope.gun = 3;
+    }
+}
+
+class Winchester extends Gun{
+    constructor(){
+        super();
+        this.name = "Winchester";
+    }
+
+    action(game, player, card){
+        this.checkGuns(game, player);
+        this.use(game, player, card);
+        game.players[player].scope.gun = 4;
+    }
+}
+
+class Volcanic extends Gun{
+    constructor(){
+        super();
+        this.name = "Volcanic";
+    }
+
+    action(game, player, card){
+        this.checkGuns(game, player);
+        this.use(game, player, card);
+        game.players[player].scope.gun = 0;
+        //game.players[player].bangLimit = 100 TODO
     }
 }
 
@@ -211,4 +280,11 @@ function discardCard(game, player_i, card_i) {
     game.trashedCards++;
     game.players[player_i].cards.splice(card_i,1);
 }
-module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield];
+function discardBlueCard(game, player_i, card_i) {
+    game.cards.unshift(game.players[player_i].blueCards[card_i]);    
+    game.trashedCards++;
+    if (game.players[player_i].blueCards.gun == true) 
+        game.players[player_i].scope.gun = 0;
+    game.players[player_i].blueCards.splice(card_i,1);
+}
+module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic];

@@ -155,10 +155,58 @@ class Indiani extends ActionCard{
     }
 }
 
-class Schofield extends BlueCard{
+class Gun extends BlueCard{
+    constructor(){
+        super();
+        this.gun = true;
+    }
+
+}
+
+class Schofield extends Gun{
     constructor(){
         super();
         this.name = "Schofield";
         this.IMG = Sprites.schofield;
     }
+}
+
+class Remington extends Gun{
+    constructor(){
+        super();
+        this.name = "Remington";
+        this.IMG = Sprites.remington;
+    }
+
+    
+}
+
+class Carabine extends Gun{
+    constructor(){
+        super();
+        this.name = "Carabine";
+        this.IMG = Sprites.carabine;
+    }
+
+    
+}
+
+class Winchester extends Gun{
+    constructor(){
+        super();
+        this.name = "Winchester";
+        this.IMG = Sprites.winchester;
+    }
+
+    
+}
+
+class Volcanic extends Gun{
+    constructor(){
+        super();
+        this.name = "Volcanic";
+        this.IMG = Sprites.volcanic;
+    }
+
+    
 }

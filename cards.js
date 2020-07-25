@@ -65,7 +65,7 @@ class Bang extends ActionCard{
                 if (player >= game.players.length) player = 0;
             }
             game.requestedPlayer = player;
-            
+
             discardCard(game, player, card);
 
             if(game.requestedPlayer == game.turn){
@@ -372,6 +372,7 @@ class Catbalou extends ActionCard{
     }
 
     action(game, sender, target, card, arg){
+        discardCard(game, sender, card);
         if(arg != null){
             discardBlueCard(game, target, arg);
         }
@@ -379,7 +380,6 @@ class Catbalou extends ActionCard{
             var rand = Math.floor(Math.random()*game.players[target].cards.length);
             discardCard(game, target, rand);
         }
-        discardCard(game, sender, card);
     }
 }
 
@@ -391,6 +391,7 @@ class Panika extends ActionCard{
     }
 
     action(game, sender, target, card, arg){
+        discardCard(game, sender, card);
         if(arg != null){
             game.players[sender].cards.push(game.players[target].blueCards[arg]);
             discardBlueCard(game, target, arg);
@@ -400,7 +401,6 @@ class Panika extends ActionCard{
             game.players[sender].cards.push(game.players[target].cards[rand]);
             discardCard(game, target, rand);
         }
-        discardCard(game, sender, card);
     }
 }
 

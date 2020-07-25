@@ -11,7 +11,7 @@ const tile_size = {x : canvas.width / 7, y : canvas.width / 9};
 
 function clear() {
     ctx.save();
-    ctx.fillStyle="white";
+    ctx.fillStyle="rgb(250, 230, 198)";
     ctx.fillRect(0,0,canvas.width,canvas.height);
     ctx.restore();
 }
@@ -113,9 +113,15 @@ function drawGame() {
 
         //draw deck
         var deck = new Back();
-        deck.draw(canvas.width / 2, canvas.height / 10, ratio);
-        if(game_client.trashedCards > 0)
-            game_client.cards[0].draw(canvas.width / 2 - ratio - 10, canvas.height / 10, ratio);
+        var bang = new Bang();
+        for(var i = 0; i < 15; i++){
+            bang.draw(canvas.width / 2 + i, canvas.height / 10 - i, ratio); //duplikovana karta Bang vytvara krajsi tien ako zadna strana
+        }
+        deck.draw(canvas.width / 2 + i, canvas.height / 10 - i, ratio); 
+
+        for(var i = 0; i < game_client.trashedCards && i < 10; i++){
+            game_client.cards[0].draw(canvas.width / 2 - ratio - 10 + i, canvas.height / 10 - i, ratio);
+        }
         
         if (game_client.moveStage == 0 && index == game_client.turn) {
             ctx.save();

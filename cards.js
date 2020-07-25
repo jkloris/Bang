@@ -182,16 +182,7 @@ class Indiani extends ActionCard{
     }
 }
 
-// class Catbalou extends ActionCard{
-//     constructor(){
-//         super();
-//         this.name = "Catbalou"
-//     }
 
-//     action(){
-        
-//     }
-// }
 
 class Gun extends BlueCard{
     constructor(){
@@ -320,16 +311,43 @@ class Appaloosa extends BlueCard{
     }
 }
 
+class Catbalou extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Catbalou"
+    }
+
+    action(game, sender, target, card, arg){
+        console.log(sender, card, arg);
+        if(arg != null){
+            discardBlueCard(game, target, arg);
+        }
+        else{
+            var rand = Math.floor(Math.random()*game.players[target].cards.length);
+            discardCard(game, target, rand);
+        }
+        discardCard(game, sender, card);
+    }
+}
+
 function discardCard(game, player_i, card_i) {
     game.cards.unshift(game.players[player_i].cards[card_i]);    
     game.trashedCards++;
     game.players[player_i].cards.splice(card_i,1);
 }
+
 function discardBlueCard(game, player_i, card_i) {
     game.cards.unshift(game.players[player_i].blueCards[card_i]);    
     game.trashedCards++;
+
     if (game.players[player_i].blueCards.gun == true) 
         game.players[player_i].scope.gun = 0;
+    else if(game.players[player_i].blueCards.name == "Appaloosa")
+        game.players[player_i].scope.appaloosa = 0;
+    else if(game.players[player_i].blueCards.name == "Mustang")
+        game.players[player_i].scope.mustang = 0;
+
     game.players[player_i].blueCards.splice(card_i,1);
 }
-module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang];
+
+module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang, Catbalou];

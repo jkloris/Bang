@@ -37,6 +37,16 @@ socket.on("Bang", (arg, index_shooter) =>{
 
 })
 
+socket.on("Catbalou", (arg, index_shooter) =>{
+    ctx.save();
+    ctx.textAlign = "center";
+    ctx.fillStyle = "red";
+    ctx.font = "40px Arial";
+    let shooter = game_client.players[index_shooter].name;
+    ctx.fillText(`${shooter} PLAYED CATBALOU ON YOU!`, canvas.width / 2, canvas.height / 2 - 20)
+    ctx.restore();
+
+})
 
 
 document.addEventListener("click", e => {
@@ -110,6 +120,9 @@ function updatePlayers(game_server) {
                     break;
                 case "Appaloosa":
                     game_client.players[i].cards.push(new Appaloosa());                    
+                    break;
+                case "Catbalou":
+                    game_client.players[i].cards.push(new Catbalou());                    
                     break;
             
                 default:
@@ -222,6 +235,9 @@ function copyDeck(game_server){
                 break;
             case "Appaloosa":
                 game_client.cards.push(new Appaloosa());                    
+                break;
+            case "Catbalou":
+                game_client.cards.push(new Catbalou());                    
                 break;
             
 

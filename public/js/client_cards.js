@@ -220,3 +220,16 @@ class Appaloosa extends BlueCard{
         this.IMG = Sprites.appaloosa;
     }
 }
+
+class Catbalou extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Catbalou"
+        this.IMG = Sprites.catbalou;
+        this.offensive = true;
+    }
+
+    action(){
+        
+    }
+}

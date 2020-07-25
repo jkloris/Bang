@@ -78,9 +78,26 @@ class Scene {
         for (var i in this.tiles) {            
             var current = this.tiles[i];
             if (point.x >= current.x && point.x <= current.x + tile_size.x && point.y >= current.y && point.y <= current.y + tile_size.y) {
-                current.onclick();
+                var arg = this.checkBlueCards(point, current, i);
+                current.onclick(arg);
             }
+            
         }
+    }
+
+    checkBlueCards(point, current, player){
+        var x = current.x + 1;
+        var ratio = tile_size.x / 4;
+        var y = current.y;
+
+        for(var i in game_client.players[player].blueCards){
+            if(point.x >= x && point.x <= x + ratio / 1.7 && point.y >= y && point.y <= y + Sprites.bang.height / Sprites.bang.width * ratio){
+                console.log(game_client.players[player].blueCards[i]);
+                return i;
+            }
+            x+=ratio / 1.7;
+        }
+        return null;
     }
 
     checkButtons(point){

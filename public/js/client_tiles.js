@@ -56,7 +56,7 @@ class Tile {
         var player_i = game_client.players.findIndex(user => user.id === this.id);
 
         var x = this.x + 1;
-        var ratio = tile_size.x / 4
+        var ratio = tile_size.x / 4;
         var y = this.y  ;
         ctx.save();
         for(var i in game_client.players[player_i].blueCards){
@@ -77,14 +77,14 @@ class Tile {
         ctx.restore();
     }
 
-    onclick = function() {//event , arg
+    onclick = function(arg) {//event , arg
         if (this.alive) {
 
             var player_i = game_client.players.findIndex(user => user.id === socket.id);
             var card_i = game_client.players[player_i].cards.findIndex(card => card.selected === true);
 
-            if(game_client.players[player_i].cards[card_i].offensive == true && this.id != socket.id  ){ // (distance <= 1 || game_client.players[player_i].cards[card_i].(rangeless) )
-                socket.emit("interaction", this.id, game_client.players[player_i].cards[card_i].name, null, card_i );
+            if(game_client.players[player_i].cards[card_i] != undefined && game_client.players[player_i].cards[card_i].offensive == true && this.id != socket.id  ){ 
+                socket.emit("interaction", this.id, game_client.players[player_i].cards[card_i].name, arg, card_i );
             }
         } else alert('Ten je us mrtef kamosko');
     }

@@ -318,12 +318,32 @@ class Catbalou extends ActionCard{
     }
 
     action(game, sender, target, card, arg){
-        console.log(sender, card, arg);
         if(arg != null){
             discardBlueCard(game, target, arg);
         }
         else{
             var rand = Math.floor(Math.random()*game.players[target].cards.length);
+            discardCard(game, target, rand);
+        }
+        discardCard(game, sender, card);
+    }
+}
+
+class Panika extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Panika"
+        this.onRange = true;
+    }
+
+    action(game, sender, target, card, arg){
+        if(arg != null){
+            game.players[sender].cards.push(game.players[target].blueCards[arg]);
+            discardBlueCard(game, target, arg);
+        }
+        else{
+            var rand = Math.floor(Math.random()*game.players[target].cards.length);
+            game.players[sender].cards.push(game.players[target].cards[rand]);
             discardCard(game, target, rand);
         }
         discardCard(game, sender, card);
@@ -342,12 +362,14 @@ function discardBlueCard(game, player_i, card_i) {
 
     if (game.players[player_i].blueCards.gun == true) 
         game.players[player_i].scope.gun = 0;
-    else if(game.players[player_i].blueCards.name == "Appaloosa")
+    else if(game.players[player_i].blueCards[card_i].name == "Appaloosa"){
         game.players[player_i].scope.appaloosa = 0;
-    else if(game.players[player_i].blueCards.name == "Mustang")
+    }
+    else if(game.players[player_i].blueCards[card_i].name == "Mustang"){
         game.players[player_i].scope.mustang = 0;
+    }
 
     game.players[player_i].blueCards.splice(card_i,1);
 }
 
-module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang, Catbalou];
+module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang, Catbalou, Panika];

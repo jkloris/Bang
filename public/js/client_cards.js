@@ -233,3 +233,14 @@ class Catbalou extends ActionCard{
         
     }
 }
+
+
+class Panika extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Panika"
+        this.IMG = Sprites.panika;
+        this.offensive = true;
+        this.onRange = true;
+    }
+}

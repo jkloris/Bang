@@ -32,6 +32,8 @@ function loadAssets(){
     Sprites.salon = loadIMG("imgs/", "saloon.png");
     Sprites.catbalou = loadIMG("imgs/", "catbalou.png");
     Sprites.indiani = loadIMG("imgs/", "indians.png");
+    Sprites.gulomet = loadIMG("imgs/", "gatling.png");
+    Sprites.panika = loadIMG("imgs/", "panico.png");
     
     Sprites.schofield = loadIMG("imgs/", "schofield.png");
     Sprites.remington = loadIMG("imgs/", "remington.png");

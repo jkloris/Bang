@@ -68,14 +68,36 @@ io.on("connection", socket =>{
             Death(player_index);
         }
         if (game.requestedPlayer != null){
-            if (game.playedCard == "Indiani") {
-                game.requestedPlayer = (player_index + 1 == game.players.length)? 0 : player_index + 1;
+            // if (game.playedCard == "Indiani") {
+            //     player = (player_index + 1 == game.players.length)? 0 : player_index + 1;
 
-                if (game.requestedPlayer == game.turn) {
+            //     while (!game.players[player_index].alive) {
+            //         player_index++;
+            //         if (player_index >= game.players.length) player_index = 0;
+            //     }
+            //     game.requestedPlayer = player_index;
+
+            //     if (game.requestedPlayer == game.turn) {
+            //         game.requestedPlayer = null;
+            //         game.playedCard = null;
+            //         game.requestedCard = null;
+            //     }
+            if (game.playedCard == "Gulomet" || game.playedCard == "Indiani") {
+
+                player_index = (player_index + 1 == game.players.length)? 0 : player_index + 1;
+
+                while (!game.players[player_index].alive) {
+                    player_index++;
+                    if (player_index >= game.players.length) player_index = 0;
+                }
+                game.requestedPlayer = player_index;
+    
+                if(game.requestedPlayer == game.turn){
                     game.requestedPlayer = null;
                     game.playedCard = null;
                     game.requestedCard = null;
-                }
+                } 
+    
             } else {
                 game.requestedPlayer = null;                
             }

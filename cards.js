@@ -58,7 +58,14 @@ class Bang extends ActionCard{
     }
     action (game, player, card) {
         if (game.playedCard == "Indiani") {
-            game.requestedPlayer = (player + 1 == game.players.length)? 0 : player + 1;
+            player = (player + 1 == game.players.length)? 0 : player + 1;
+
+            while (!game.players[player].alive) {
+                player++;
+                if (player >= game.players.length) player = 0;
+            }
+            game.requestedPlayer = player;
+            
             discardCard(game, player, card);
 
             if(game.requestedPlayer == game.turn){
@@ -77,7 +84,23 @@ class Vedle extends ActionCard{
         this.name = "Vedle";
     }
     action(game, player, card){
-        if(game.requestedPlayer != null){
+        if (game.playedCard == "Gulomet") {
+            player = (player + 1 == game.players.length)? 0 : player + 1;
+
+            while (!game.players[player].alive) {
+                player++;
+                if (player >= game.players.length) player = 0;
+            }
+            game.requestedPlayer = player;
+            discardCard(game, player, card);
+
+            if(game.requestedPlayer == game.turn){
+                game.requestedPlayer = null;
+                game.playedCard = null;
+                game.requestedCard = null;
+            } 
+
+        }else if(game.requestedPlayer != null){
             game.requestedPlayer = null;
             discardCard(game, player, card);
         }
@@ -176,6 +199,37 @@ class Indiani extends ActionCard{
             game.requestedCard = "Bang";
             game.requestedPlayer = i;
             game.playedCard = "Indiani";
+
+            discardCard(game, player, card);
+        }
+    }
+}
+
+class Gulomet extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Gulomet"
+    }
+    
+    action(game, player, card){
+        if (game.requestedPlayer == null) {
+            var i;
+            if (player + 1 == game.players.length) {
+                i = 0;
+            } else {
+                i = player + 1;
+            }
+
+            //preskoci hracov, ktori su mrtvi
+            console.log(game.players[i]);
+            while (!game.players[i].alive) {
+                i++;
+                if (i >= game.players.length) i = 0;
+            }
+
+            game.requestedCard = "Vedle";
+            game.requestedPlayer = i;
+            game.playedCard = "Gulomet";
 
             discardCard(game, player, card);
         }
@@ -372,4 +426,4 @@ function discardBlueCard(game, player_i, card_i) {
     game.players[player_i].blueCards.splice(card_i,1);
 }
 
-module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang, Catbalou, Panika];
+module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang, Catbalou, Panika, Gulomet];

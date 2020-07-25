@@ -155,6 +155,14 @@ class Indiani extends ActionCard{
     }
 }
 
+class Gulomet extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Gulomet"
+        this.IMG = Sprites.gulomet;
+    }
+}
+
 class Gun extends BlueCard{
     constructor(){
         super();

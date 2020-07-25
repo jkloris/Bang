@@ -92,7 +92,6 @@ class Scene {
 
         for(var i in game_client.players[player].blueCards){
             if(point.x >= x && point.x <= x + ratio / 1.7 && point.y >= y && point.y <= y + Sprites.bang.height / Sprites.bang.width * ratio){
-                console.log(game_client.players[player].blueCards[i]);
                 return i;
             }
             x+=ratio / 1.7;

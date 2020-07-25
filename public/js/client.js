@@ -127,6 +127,9 @@ function updatePlayers(game_server) {
                 case "Panika":
                     game_client.players[i].cards.push(new Panika());                    
                     break;
+                case "Gulomet":
+                    game_client.players[i].cards.push(new Gulomet());                    
+                    break;
             
                 default:
                     break;
@@ -244,6 +247,9 @@ function copyDeck(game_server){
                 break;
             case "Panika":
                 game_client.cards.push(new Panika());                    
+                break;
+            case "Gulomet":
+                game_client.cards.push(new Gulomet());                    
                 break;
             
 

@@ -109,7 +109,7 @@ class Scene {
     }
 
     checkDeck(point){
-        var ratio = canvas.width / 15;
+        var ratio = canvas.width / 18;
         var current = {x : canvas.width / 2, y : canvas.height / 10};
         if (point.x >= current.x && point.x <= current.x + ratio && point.y >= current.y && point.y <= current.y + Sprites.bang.height / Sprites.bang.width * ratio) {
             if(game_client.moveStage == 0){
@@ -122,7 +122,7 @@ class Scene {
     }
 
     checkCardSelect(point){ 
-        var ratio = canvas.width / 15;
+        var ratio = canvas.width / 18;
         var minY = canvas.height - Sprites.bang.height / Sprites.bang.width * ratio - 10;
         var maxY = minY  + Sprites.bang.height / Sprites.bang.width * ratio
     

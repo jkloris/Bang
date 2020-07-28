@@ -404,6 +404,20 @@ class Panika extends ActionCard{
     }
 }
 
+class Hokynarstvo extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Hokynarstvo";
+    
+    }
+
+    action(game, player, card){
+        game.playedCard = "Hokynarstvo";
+
+        discardCard(game, player, card);
+    }
+}
+
 function discardCard(game, player_i, card_i) {
     game.cards.unshift(game.players[player_i].cards[card_i]);    
     game.trashedCards++;
@@ -426,4 +440,4 @@ function discardBlueCard(game, player_i, card_i) {
     game.players[player_i].blueCards.splice(card_i,1);
 }
 
-module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang, Catbalou, Panika, Gulomet];
+module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang, Catbalou, Panika, Gulomet, Hokynarstvo];

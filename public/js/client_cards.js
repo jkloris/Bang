@@ -252,3 +252,13 @@ class Panika extends ActionCard{
         this.onRange = true;
     }
 }
+
+class Hokynarstvo extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Hokynarstvo";
+        this.IMG = Sprites.hokynarstvo;
+    
+    }
+
+}

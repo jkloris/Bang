@@ -131,6 +131,10 @@ function updatePlayers(game_server) {
                     game_client.players[i].cards.push(new Gulomet());                    
                     break;
             
+                case "Hokynarstvo":
+                    game_client.players[i].cards.push(new Hokynarstvo());                    
+                    break;
+            
                 default:
                     break;
             }
@@ -250,6 +254,9 @@ function copyDeck(game_server){
                 break;
             case "Gulomet":
                 game_client.cards.push(new Gulomet());                    
+                break;
+            case "Hokynarstvo":
+                game_client.cards.push(new Hokynarstvo());                    
                 break;
             
 

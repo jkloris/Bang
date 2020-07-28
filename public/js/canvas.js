@@ -101,7 +101,7 @@ function drawGame() {
 
     if (game_client.started) { //kontroluje, ci uz bola zacata hra
         var x = 10;
-        var ratio = canvas.width / 15;
+        var ratio = canvas.width / 18;
         var y = canvas.height - Sprites.bang.height / Sprites.bang.width * ratio - 10;
 
         for(i in game_client.players[index].cards){
@@ -115,12 +115,12 @@ function drawGame() {
         var deck = new Back();
         var bang = new Bang();
         for(var i = 0; i < 15; i++){
-            bang.draw(canvas.width / 2 + i, canvas.height / 10 - i, ratio); //duplikovana karta Bang vytvara krajsi tien ako zadna strana
+            bang.draw(canvas.width / 2 + i, canvas.height / 13 - i, ratio); //duplikovana karta Bang vytvara krajsi tien ako zadna strana
         }
-        deck.draw(canvas.width / 2 + i, canvas.height / 10 - i, ratio); 
+        deck.draw(canvas.width / 2 + i, canvas.height / 13 - i, ratio); 
 
         for(var i = 0; i < game_client.trashedCards && i < 10; i++){
-            game_client.cards[0].draw(canvas.width / 2 - ratio - 10 + i, canvas.height / 10 - i, ratio);
+            game_client.cards[0].draw(canvas.width / 2 - ratio - 10 + i, canvas.height / 13 - i, ratio);
         }
         
         if (game_client.moveStage == 0 && index == game_client.turn) {
@@ -131,5 +131,17 @@ function drawGame() {
             ctx.fillText(`Bitte starte bei Karten nehmen!`, canvas.width / 2, canvas.height / 2 - 20)
             ctx.restore();
         }
+
+        //draw emporio
+        // if(game_client.playedCard == "Hokynarstvo"){
+        //     var n = 1;
+        //     var dl = game_client.players.length * ratio / 1.6 ;
+        //     for(var i in game_client.players){
+        //         if(game_client.players[i].alive){
+        //             game_client.cards[game_client.cards.length - n].draw(canvas.width / 2 + n * ratio - dl, canvas.height / 3.7, ratio);
+        //             n++;
+        //         }
+        //     }
+        // }
     }
 }   

@@ -36,9 +36,16 @@ io.on("connection", socket =>{
 
         }
         if(game.requestedPlayer != null && game.players[game.requestedPlayer].id == id){
-            console.log("Requested Click: ", mouse, id);
-            socket.emit("partial_clickAccept",mouse);
+            if(game.playedCard == "Hokynarstvo" ){
+                socket.emit("emporio_clickAccept",mouse);
+
+            }else{
+
+                console.log("Requested Click: ", mouse, id);
+                socket.emit("partial_clickAccept",mouse);
+            }
         }
+        
     })
 
     socket.on("nextTurn", (id)=>{
@@ -52,6 +59,24 @@ io.on("connection", socket =>{
         game.started = true;
         game.shuffleDeck();
         game.dealCards();
+        gameUpdate();
+    });
+
+    socket.on("hokynarstvo", (card)=>{
+        game.dealAnyCard(game.requestedPlayer, card);
+        
+        var player_index = (game.requestedPlayer + 1 == game.players.length)? 0 : game.requestedPlayer + 1;
+ 
+        while (!game.players[player_index].alive) {
+            player_index++;
+            if (player_index >= game.players.length) player_index = 0;
+        }
+        game.requestedPlayer = player_index;
+
+        if(game.requestedPlayer == game.turn){
+            game.requestedPlayer = null;
+            game.playedCard = null;
+        } 
         gameUpdate();
     });
 
@@ -209,6 +234,7 @@ function discardCard(player_i, card_i) {
 function Death(dead_player_index){ //TODO
     console.log(game.players[dead_player_index] + 'is dead');
     game.players[dead_player_index].alive = false;
+    game.deadPlayers++;
 
     //karty mrtveho hraca sa poslu hracovi, ktory je momentalne na tahu
     while (game.players[dead_player_index].cards.length > 0) {
@@ -216,3 +242,5 @@ function Death(dead_player_index){ //TODO
         game.players[game.turn].cards.push(card);
     }
 }
+
+

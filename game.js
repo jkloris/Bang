@@ -12,6 +12,7 @@ class Game{
         this.moveStage = 0; //urcuje povolene akcie hraca pocas tahu (0 - tahanie kariet/dynamit,.., 1 - priebeh tahu,.. mozno 2 na ukoncenie tahu)
         this.playedCard = null;
         this.started = false;
+        this.deadPlayers = 0;
     }
 
     //naplni deck nejakymi kartami
@@ -89,6 +90,13 @@ class Game{
     dealOneCard(player_i){
         var drawn_card = this.cards.pop();
         this.players[player_i].cards.push(drawn_card);
+    }
+    
+    dealAnyCard(player, card){
+        if(this.players[player].alive){
+            this.players[player].cards.push(this.cards[card]);
+            this.cards.splice(card, 1);
+        }
     }
 
     getDistance(sender_i, target_i, card){

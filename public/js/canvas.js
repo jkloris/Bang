@@ -133,15 +133,19 @@ function drawGame() {
         }
 
         //draw emporio
-        // if(game_client.playedCard == "Hokynarstvo"){
-        //     var n = 1;
-        //     var dl = game_client.players.length * ratio / 1.6 ;
-        //     for(var i in game_client.players){
-        //         if(game_client.players[i].alive){
-        //             game_client.cards[game_client.cards.length - n].draw(canvas.width / 2 + n * ratio - dl, canvas.height / 3.7, ratio);
-        //             n++;
-        //         }
-        //     }
-        // }
+        if(game_client.playedCard == "Hokynarstvo"){
+            var n = 1;
+            var dl = game_client.players.length * ratio / 1.6 ;
+            var turn = (game_client.requestedPlayer >= game_client.turn)?game_client.requestedPlayer - game_client.turn: game_client.players.length - game_client.deadPlayers + game_client.requestedPlayer - game_client.turn ; 
+
+            for(var i = 0; i < game_client.players.length - turn; i++){
+                if(game_client.players[i].alive){
+                    game_client.cards[game_client.cards.length - n].draw(canvas.width / 2 + n * ratio - dl, canvas.height / 3.7, ratio);
+                    n++;
+                }
+            }
+        }
     }
 }   
+
+

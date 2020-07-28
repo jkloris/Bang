@@ -64,6 +64,10 @@ socket.on("partial_clickAccept", (mouse)=>{
     game_scene.checkCardSelect(mouse);
 })
 
+socket.on("emporio_clickAccept", (mouse)=>{ //TODO
+    game_scene.checkEmporio(mouse);
+});
+
 socket.on("discardRequest", () => {
     alert("Nemozes ukoncit kolo. Musis zahodit nejake karty.");
 });

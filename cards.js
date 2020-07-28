@@ -413,6 +413,7 @@ class Hokynarstvo extends ActionCard{
 
     action(game, player, card){
         game.playedCard = "Hokynarstvo";
+        game.requestedPlayer = player;
 
         discardCard(game, player, card);
     }

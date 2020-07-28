@@ -110,7 +110,7 @@ class Scene {
 
     checkDeck(point){
         var ratio = canvas.width / 18;
-        var current = {x : canvas.width / 2, y : canvas.height / 10};
+        var current = {x : canvas.width / 2, y : canvas.height / 13};
         if (point.x >= current.x && point.x <= current.x + ratio && point.y >= current.y && point.y <= current.y + Sprites.bang.height / Sprites.bang.width * ratio) {
             if(game_client.moveStage == 0){
                 var index = game_client.players.findIndex(user => user.id === socket.id);
@@ -141,6 +141,23 @@ class Scene {
                 }
             }
         }
+    }
+
+    checkEmporio(point){
+        var ratio = canvas.width / 18;
+        var dl = game_client.players.length * ratio / 1.6 ;
+        var n = 1;
+        var turn = (game_client.requestedPlayer >= game_client.turn)?game_client.requestedPlayer - game_client.turn: game_client.players.length - game_client.deadPlayers + game_client.requestedPlayer - game_client.turn ; 
+
+        for(var i = 0; i < game_client.players.length - turn; i++){
+            if(game_client.players[i].alive){
+                if(point.x >= (canvas.width / 2) + (n * ratio) - dl  && point.x <= ratio + (canvas.width / 2) + (n * ratio - dl) && point.y >= canvas.height / 3.7 && point.y <= canvas.height / 3.7 + Sprites.bang.height / Sprites.bang.width * ratio){
+                    socket.emit("hokynarstvo", game_client.cards.length - n);
+                }         
+                n++;
+            }
+        }
+        
     }
 }
 

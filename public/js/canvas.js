@@ -134,15 +134,20 @@ function drawGame() {
 
         //draw emporio
         if(game_client.playedCard == "Hokynarstvo"){
-            var n = 1;
             var dl = game_client.players.length * ratio / 1.6 ;
-            var turn = (game_client.requestedPlayer >= game_client.turn)?game_client.requestedPlayer - game_client.turn: game_client.players.length - game_client.deadPlayers + game_client.requestedPlayer - game_client.turn ; 
+            // var turn = (game_client.requestedPlayer >= game_client.turn)?game_client.requestedPlayer - game_client.turn:
+            //      game_client.players.length + game_client.deadPlayers + game_client.requestedPlayer - game_client.turn ;
+            var turn = game_client.requestedPlayer;
+            var count = 0;
+            while(turn != game_client.turn || count == 0){
+                turn++;
+                if(turn >= game_client.players.length)
+                    turn = 0;
+                if(game_client.players[turn].alive) count++;
+            }
 
-            for(var i = 0; i < game_client.players.length - turn; i++){
-                if(game_client.players[i].alive){
-                    game_client.cards[game_client.cards.length - n].draw(canvas.width / 2 + n * ratio - dl, canvas.height / 3.7, ratio);
-                    n++;
-                }
+            for(var i = 0; i < count; i++){
+                    game_client.cards[game_client.cards.length - i - 1].draw(canvas.width / 2 + (i+1) * ratio - dl, canvas.height / 3.7, ratio);
             }
         }
     }

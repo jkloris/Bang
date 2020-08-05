@@ -100,12 +100,16 @@ class Game{
     }
 
     getDistance(sender_i, target_i, card){
-        if (sender_i > target_i) {
-            var distance = (sender_i - target_i) < (this.players.length - sender_i + target_i) ? (sender_i - target_i) : (this.players.length - sender_i + target_i);
-        } else{
-            var distance = (target_i - sender_i) < (this.players.length - target_i + sender_i) ? (target_i - sender_i) : (this.players.length - target_i + sender_i);
-        } 
 
+        var turn = sender_i;
+        var distance = 0;
+            while(turn != target_i){
+                turn++;
+                if(turn >= this.players.length)
+                    turn = 0;
+                if(this.players[turn].alive) distance++;
+            }
+        
         if (this.players[sender_i].cards[card].name == "Bang") {
             distance = distance - this.players[sender_i].scope.gun - this.players[sender_i].scope.appaloosa + this.players[target_i].scope.mustang;
         } else if (this.players[sender_i].cards[card].name == "Panika") {

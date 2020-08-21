@@ -104,12 +104,22 @@ class Game{
 
         var turn = sender_i;
         var distance = 0;
-            while(turn != target_i){
-                turn++;
-                if(turn >= this.players.length)
-                    turn = 0;
-                if(this.players[turn].alive) distance++;
-            }
+        while(turn != target_i){
+            turn++;
+            if(turn >= this.players.length)
+                turn = 0;
+            if(this.players[turn].alive) distance++;
+        }
+
+        var turn = sender_i;
+        var distance2 = 0;
+        while(turn != target_i){
+            turn--;
+            if(turn < 0)
+                turn = this.players.length - 1;
+            if(this.players[turn].alive) distance2++;
+        }
+        if(distance2 < distance) distance = distance2;
         
         if (this.players[sender_i].cards[card].name == "Bang") {
             distance = distance - this.players[sender_i].scope.gun - this.players[sender_i].scope.appaloosa + this.players[target_i].scope.mustang;

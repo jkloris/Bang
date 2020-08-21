@@ -62,6 +62,7 @@ socket.on("clickAccept", (mouse)=>{
 socket.on("partial_clickAccept", (mouse)=>{
     game_scene.checkButtons(mouse);
     game_scene.checkCardSelect(mouse);
+    // game_scene.checkTiles(mouse);
 })
 
 socket.on("emporio_clickAccept", (mouse)=>{ //TODO

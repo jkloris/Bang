@@ -28,7 +28,9 @@ class Scene {
             var player_i = game_client.players.findIndex(user => user.id === socket.id);
             var card_i = game_client.players[player_i].cards.findIndex(card => card.selected === true);
             
-            // console.log(game_client.requestedCard);
+            // console.log(game_client.requestedCard );
+            // console.log(card_i);
+            // console.log(game_client.players[player_i].cards[card_i]);
             if(card_i != -1 && game_client.requestedCard == game_client.players[player_i].cards[card_i].name){
                 socket.emit("useCard", game_client.players[player_i].cards[card_i].name, card_i);
             } else if( card_i != -1 && game_client.players[player_i].cards[card_i].offensive == false && game_client.requestedCard == null){

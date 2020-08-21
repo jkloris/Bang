@@ -80,7 +80,7 @@ io.on("connection", socket =>{
         gameUpdate();
     });
 
-    socket.on("useCard",(card,index)=>{
+    socket.on("useCard", (card,index)=>{
         console.log(card);
         var index_sender = game.players.findIndex(user => user.id === socket.id);
         game.players[index_sender].cards[index].action(game,index_sender,index);
@@ -110,7 +110,10 @@ io.on("connection", socket =>{
                 } 
     
             } else {
-                game.requestedPlayer = null;                
+                game.requestedPlayer = null;  
+                
+                game.playedCard = null;
+                game.requestedCard = null;              
             }
         }
         gameUpdate();

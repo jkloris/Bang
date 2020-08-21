@@ -59,6 +59,8 @@ class Bang extends ActionCard{
     }
     action (game, player, card) {
         if (game.playedCard == "Indiani") {
+            discardCard(game, player, card);
+
             player = (player + 1 == game.players.length)? 0 : player + 1;
 
             while (!game.players[player].alive) {
@@ -67,7 +69,6 @@ class Bang extends ActionCard{
             }
             game.requestedPlayer = player;
 
-            discardCard(game, player, card);
 
             if(game.requestedPlayer == game.turn){
                 game.requestedPlayer = null;
@@ -86,6 +87,7 @@ class Vedle extends ActionCard{
     }
     action(game, player, card){
         if (game.playedCard == "Gulomet") {
+            discardCard(game, player, card);
             player = (player + 1 == game.players.length)? 0 : player + 1;
 
             while (!game.players[player].alive) {
@@ -93,7 +95,6 @@ class Vedle extends ActionCard{
                 if (player >= game.players.length) player = 0;
             }
             game.requestedPlayer = player;
-            discardCard(game, player, card);
 
             if(game.requestedPlayer == game.turn){
                 game.requestedPlayer = null;
@@ -103,6 +104,9 @@ class Vedle extends ActionCard{
 
         }else if(game.requestedPlayer != null){
             game.requestedPlayer = null;
+            game.playedCard = null;
+            game.requestedCard = null;
+            
             discardCard(game, player, card);
         }
         
@@ -445,6 +449,7 @@ class Barel extends BlueCard{
 }
 
 function discardCard(game, player_i, card_i) {
+
     game.cards.unshift(game.players[player_i].cards[card_i]);    
     game.trashedCards++;
     game.players[player_i].cards.splice(card_i,1);

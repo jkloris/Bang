@@ -9,7 +9,6 @@ const io = socketIO(server);
 
 const Player = require("./players.js");
 const Game = require("./game.js");
-const { CONNREFUSED } = require("dns");
 
 app.use(express.static(path.join(__dirname, "public")));
 

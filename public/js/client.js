@@ -24,8 +24,9 @@ socket.on("update", game => {
 
 //bang
 socket.on("Bang", (arg, index_shooter) =>{
-    game_client.requestedCard = "Vedle";
-
+    
+    socket.emit("RequestedCard", "Vedle");
+    console.log("test");
     //info o tom, ze na mna niekto striela
     ctx.save();
     ctx.textAlign = "center";
@@ -36,17 +37,6 @@ socket.on("Bang", (arg, index_shooter) =>{
     ctx.restore();
 
 })
-
-// socket.on("Catbalou", (arg, index_shooter) =>{
-//     ctx.save();
-//     ctx.textAlign = "center";
-//     ctx.fillStyle = "red";
-//     ctx.font = "40px Arial";
-//     let shooter = game_client.players[index_shooter].name;
-//     ctx.fillText(`${shooter} PLAYED CATBALOU ON YOU!`, canvas.width / 2, canvas.height / 2 - 20)
-//     ctx.restore();
-
-// })
 
 
 document.addEventListener("click", e => {
@@ -64,7 +54,7 @@ socket.on("partial_clickAccept", (mouse)=>{
     game_scene.checkCardSelect(mouse);
 
     var arg = game_scene.checkBlueCards(mouse, game_scene.tiles[game_client.requestedPlayer], game_client.requestedPlayer);
-    
+    if(arg != null) socket.emit("ownBlueClicked", arg);
 })
 
 socket.on("emporio_clickAccept", (mouse)=>{ //TODO

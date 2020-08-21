@@ -44,6 +44,10 @@ function loadAssets(){
     Sprites.appaloosa = loadIMG("imgs/", "appaloosa.png");
     Sprites.mustang = loadIMG("imgs/", "mustang.png");
     
+    Sprites.barel = loadIMG("imgs/", "barrel.png");
+    Sprites.dynamit = loadIMG("imgs/", "dynamite.png");
+    Sprites.vazenie = loadIMG("imgs/", "jail.png");
+
     Sprites.back = loadIMG("imgs/", "back.png");
     Sprites.back_character = loadIMG("imgs/", "back-character.png");
 

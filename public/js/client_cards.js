@@ -6,6 +6,7 @@ class Card {
         this.offensive = false; //karta, ktora sa aktivuje kliknutim na hraca. Vymysli lepsi nazov
         this.IMG = null;
         this.onRange = false;
+        this.suit = null;
     }
     acion(){
 
@@ -111,6 +112,7 @@ class Pivo extends ActionCard{
         super();
         this.name = "Pivo";
         this.IMG = Sprites.pivo;
+        this.suit = "heart";
     }
 
     // action(game, player, card){
@@ -261,4 +263,12 @@ class Hokynarstvo extends ActionCard{
     
     }
 
+}
+
+class Barel extends BlueCard{
+    constructor(){
+        super();
+        this.name = "Barel";
+        this.IMG = Sprites.barel;
+    }
 }

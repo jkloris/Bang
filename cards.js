@@ -10,6 +10,7 @@ class Card {
         //this.available = true;
         this.selected = false; 
         this.onRange = false;
+        this.suit = null;
         // this.IMG = null;
     }
     acion(){
@@ -144,6 +145,8 @@ class Pivo extends ActionCard{
     constructor(){
         super();
         this.name = "Pivo";
+        this.suit = "heart";
+
     }
 
     action(game, player, card){
@@ -419,6 +422,28 @@ class Hokynarstvo extends ActionCard{
     }
 }
 
+class Barel extends BlueCard{
+    constructor(){
+        super();
+        this.name = "Barel";
+    }
+
+    action(game, player, card){
+        if(this.checkBarel(game, player)){
+            this.use(game, player, card); 
+        }
+    }
+
+    checkBarel(game, player){
+        for(var i in game.players[player].blueCards){
+            if (game.players[player].blueCards[i].name == "Barel"){
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
 function discardCard(game, player_i, card_i) {
     game.cards.unshift(game.players[player_i].cards[card_i]);    
     game.trashedCards++;
@@ -441,4 +466,4 @@ function discardBlueCard(game, player_i, card_i) {
     game.players[player_i].blueCards.splice(card_i,1);
 }
 
-module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang, Catbalou, Panika, Gulomet, Hokynarstvo];
+module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang, Catbalou, Panika, Gulomet, Hokynarstvo, Barel];

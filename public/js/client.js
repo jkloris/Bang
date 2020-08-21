@@ -134,9 +134,11 @@ function updatePlayers(game_server) {
                 case "Gulomet":
                     game_client.players[i].cards.push(new Gulomet());                    
                     break;
-            
                 case "Hokynarstvo":
                     game_client.players[i].cards.push(new Hokynarstvo());                    
+                    break;
+                case "Barel":
+                    game_client.players[i].cards.push(new Barel());                    
                     break;
             
                 default:
@@ -168,6 +170,9 @@ function updatePlayers(game_server) {
                         break;
                     case "Appaloosa":
                         game_client.players[i].blueCards.push(new Appaloosa());                    
+                        break;    
+                    case "Barel":
+                        game_client.players[i].blueCards.push(new Barel());                    
                         break;    
                         
                     default:
@@ -261,6 +266,9 @@ function copyDeck(game_server){
                 break;
             case "Hokynarstvo":
                 game_client.cards.push(new Hokynarstvo());                    
+                break;
+            case "Barel":
+                game_client.cards.push(new Barel());                    
                 break;
             
 

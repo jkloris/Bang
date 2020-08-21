@@ -26,8 +26,8 @@ socket.on("update", game => {
 socket.on("Bang", (arg, index_shooter) =>{
     
     socket.emit("RequestedCard", "Vedle");
-    console.log("test");
     //info o tom, ze na mna niekto striela
+    //toto preco zrazu neukazuje?
     ctx.save();
     ctx.textAlign = "center";
     ctx.fillStyle = "red";

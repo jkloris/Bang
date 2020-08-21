@@ -93,20 +93,6 @@ io.on("connection", socket =>{
             Death(player_index);
         }
         if (game.requestedPlayer != null){
-            // if (game.playedCard == "Indiani") {
-            //     player = (player_index + 1 == game.players.length)? 0 : player_index + 1;
-
-            //     while (!game.players[player_index].alive) {
-            //         player_index++;
-            //         if (player_index >= game.players.length) player_index = 0;
-            //     }
-            //     game.requestedPlayer = player_index;
-
-            //     if (game.requestedPlayer == game.turn) {
-            //         game.requestedPlayer = null;
-            //         game.playedCard = null;
-            //         game.requestedCard = null;
-            //     }
             if (game.playedCard == "Gulomet" || game.playedCard == "Indiani") {
 
                 player_index = (player_index + 1 == game.players.length)? 0 : player_index + 1;
@@ -149,6 +135,45 @@ io.on("connection", socket =>{
         gameUpdate();
     })
 
+    socket.on("RequestedCard", card=>{
+        game.requestedCard = card;
+        gameUpdate();
+    })
+
+    //mechanika barelu a mozno viac
+    socket.on("ownBlueClicked", (arg)=>{
+        if (game.players[game.requestedPlayer].blueCards[arg].name == "Barel"){
+
+            if (game.requestedCard == "Vedle") {
+                var last = game.cards.pop();
+                if (last.suit == "heart" && game.playedCard == "Gulomet"){
+                    var player_index = game.requestedPlayer;
+
+                    player_index = (player_index + 1 == game.players.length)? 0 : player_index + 1;
+
+                    while (!game.players[player_index].alive) {
+                        player_index++;
+                        if (player_index >= game.players.length) player_index = 0;
+                    }
+                    game.requestedPlayer = player_index;
+                    
+                    if(game.requestedPlayer == game.turn){
+                        game.requestedPlayer = null;
+                        game.playedCard = null;
+                        game.requestedCard = null;
+                    } 
+
+                } else if(last.suit == "heart"){
+                    game.requestedPlayer = null;
+                    game.requestedCard = null;
+                    game.playedCard = null;
+                }
+                
+                game.cards.unshift(last);
+            }
+        }
+        gameUpdate();
+    });
 
 
     //basic layout pre buducu komunikaciu medzi clientami

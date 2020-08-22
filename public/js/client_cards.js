@@ -6,14 +6,34 @@ class Card {
         this.offensive = false; //karta, ktora sa aktivuje kliknutim na hraca. Vymysli lepsi nazov
         this.IMG = null;
         this.onRange = false;
-        this.suit = null;
+        this.suit = "heart";
     }
     acion(){
 
     }
     draw = function(x, y, ratio){
+        let cardSuit;
+        switch (this.suit) {
+            case "heart": 
+            cardSuit = Sprites.srdce;
+            break;
+            case "spades": 
+            cardSuit = Sprites.pika;
+            break;
+            case "clubs": 
+            cardSuit = Sprites.tref;
+            break;
+            case "diamonds": 
+            cardSuit = Sprites.kara;
+            break;
+            default:
+                break;
+        }
+
         ctx.save();
         ctx.drawImage(this.IMG, x, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio); 
+        ctx.drawImage(cardSuit, x + ratio / 7, y + Sprites.bang.height / Sprites.bang.width * ratio - ratio / 5, ratio / 10, ratio / 10); 
+        // ctx.fillText("A", x + ratio / 11, y + Sprites.bang.height / Sprites.bang.width * ratio - ratio / 5 + ratio / 10 - 2)
         if(this.selected){
             ctx.strokeStyle = "red";
             ctx.lineWidth = 4;

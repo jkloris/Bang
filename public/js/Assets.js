@@ -47,6 +47,11 @@ function loadAssets(){
     Sprites.barel = loadIMG("imgs/", "barrel.png");
     Sprites.dynamit = loadIMG("imgs/", "dynamite.png");
     Sprites.vazenie = loadIMG("imgs/", "jail.png");
+    
+    Sprites.srdce = loadIMG("imgs/", "srdce.png");
+    Sprites.pika = loadIMG("imgs/", "pika.png");
+    Sprites.kara = loadIMG("imgs/", "kara.png");
+    Sprites.tref = loadIMG("imgs/", "tref.png");
 
     Sprites.back = loadIMG("imgs/", "back.png");
     Sprites.back_character = loadIMG("imgs/", "back-character.png");

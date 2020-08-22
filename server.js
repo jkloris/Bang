@@ -142,7 +142,12 @@ io.on("connection", socket =>{
         game.requestedCard = card;
         gameUpdate();
     })
-
+    
+    socket.on("PlayedCard", card=>{
+        game.playedCard = card;
+        gameUpdate();
+    })
+    
     //mechanika barelu a mozno viac
     socket.on("ownBlueClicked", (arg)=>{
         if (game.players[game.requestedPlayer].blueCards[arg].name == "Barel"){

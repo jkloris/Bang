@@ -71,6 +71,14 @@ function drawGame() {
             ctx.font = "40px Arial";
             ctx.fillText(`DAS MACHINENGEWEHR, SPIEL EINE AUSWEICHE BITTE!!!`, canvas.width / 2, canvas.height / 2 - 20);
             ctx.restore();
+        } else if (game_client.playedCard == "Bang") {
+            ctx.save();
+            ctx.textAlign = "center";
+            ctx.fillStyle = "red";
+            ctx.font = "40px Arial";
+            let shooter = game_client.players[game_client.turn].name;
+            ctx.fillText(`${shooter} PLAYED BANG ON YOU!`, canvas.width / 2, canvas.height / 2 - 20);
+            ctx.restore(); 
         }
         for (var i in game_scene.buttons) {
             if(i==2 || i==3){ //use button je na indexe 2 a lose life na 3

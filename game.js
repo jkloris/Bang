@@ -1,4 +1,4 @@
-const [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang, Catbalou, Panika, Gulomet, Hokynarstvo, Barel] = require("./cards.js");
+const [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang, Catbalou, Panika, Gulomet, Hokynarstvo, Barel, Vazenie] = require("./cards.js");
 const fs = require("fs");
 
 class Game{
@@ -63,6 +63,7 @@ class Game{
                     case "GULOMET": this.cards.push(new Gulomet()); break;
                     case "HOKYNARSTVO": this.cards.push(new Hokynarstvo()); break;
                     case "BAREL": this.cards.push(new Barel()); break;
+                    case "VAZENIE": this.cards.push(new Vazenie()); break;
                     default: break;
                 };
 

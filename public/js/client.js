@@ -125,6 +125,9 @@ function updatePlayers(game_server) {
                 case "Barel":
                     game_client.players[i].cards.push(new Barel());                    
                     break;
+                case "Vazenie":
+                    game_client.players[i].cards.push(new Vazenie());                    
+                    break;
             
                 default:
                     break;
@@ -158,6 +161,9 @@ function updatePlayers(game_server) {
                         break;    
                     case "Barel":
                         game_client.players[i].blueCards.push(new Barel());                    
+                        break;    
+                    case "Vazenie":
+                        game_client.players[i].blueCards.push(new Vazenie());                    
                         break;    
                         
                     default:
@@ -254,6 +260,9 @@ function copyDeck(game_server){
                 break;
             case "Barel":
                 game_client.cards.push(new Barel());                    
+                break;
+            case "Vazenie":
+                game_client.cards.push(new Vazenie());                    
                 break;
             
 

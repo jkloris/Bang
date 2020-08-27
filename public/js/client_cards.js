@@ -323,3 +323,14 @@ class Barel extends BlueCard{
         this.IMG = Sprites.barel;
     }
 }
+
+class Vazenie extends BlueCard{
+    constructor(){
+        super();
+        this.name = "Vazenie";
+        this.IMG = Sprites.vazenie;
+        this.offensive = true;
+    
+    }
+
+}

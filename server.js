@@ -183,6 +183,19 @@ io.on("connection", socket =>{
         gameUpdate();
     });
 
+    socket.on("prisonClick", (player, card)=>{
+        if(game.moveStage == 0 && game.players[player].prison == true){
+            game.players[player].prison = false;
+            
+            game.cards.unshift(game.players[player].blueCards[card]);    
+            game.trashedCards++;
+            game.players[player].blueCards.splice(card,1);
+            
+            console.log("prison#######x");
+            gameUpdate();
+        }
+    });
+
 
     //basic layout pre buducu komunikaciu medzi clientami
     socket.on("interaction", (id,event, arg, card_index)=>{
@@ -190,11 +203,15 @@ io.on("connection", socket =>{
         var index_sender = game.players.findIndex(user => user.id === socket.id);
         var index_target = game.players.findIndex(user => user.id === id);
 
-        if(event == "Catbalou"){
+        if(event == "Catbalou" || event == "Vazenie"){
             game.players[index_sender].cards[card_index].action(game, index_sender, index_target, card_index, arg);
             // socket.broadcast.to(id).emit(event, arg, index_sender);
             gameUpdate();
-
+            
+        // } else if(event == "Vazenie"){
+        //     game.players[index_sender].cards[card_index].action(game, index_sender, index_target, card_index, arg);
+        //     gameUpdate();
+            
         } else if (game.getDistance(index_sender, index_target, card_index) <= 1 || game.players[index_sender].cards[card_index].onRange == false ) {
 
             if(event == "Panika"){

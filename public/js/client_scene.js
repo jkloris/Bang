@@ -65,8 +65,11 @@ class Scene {
         if(game_client.moveStage == 0){
             game_scene.buttons[0].visible = false;
         }
+        var player_i = game_client.players.findIndex(user => user.id === socket.id);
 
-        this.checkDeck(point);
+        if(game_client.players[player_i].prison == false){
+            this.checkDeck(point);
+        }
         this.checkTiles(point);
         this.checkButtons(point);
         

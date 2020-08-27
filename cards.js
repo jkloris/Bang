@@ -468,6 +468,25 @@ class Barel extends BlueCard{
     }
 }
 
+class Vazenie extends BlueCard{
+    constructor(){
+        super();
+        this.name = "Vazenie";
+    
+    }
+
+    action(game, sender, target, card){
+        if(game.players[target].prison == false){
+            var prison = game.players[sender].cards[card];
+            game.players[target].blueCards.push(prison);
+            game.players[target].prison = true;
+            
+            discardCard(game, sender, card);
+        }
+    }
+}
+
+
 function discardCard(game, player_i, card_i) {
 
     game.cards.unshift(game.players[player_i].cards[card_i]);    
@@ -491,4 +510,4 @@ function discardBlueCard(game, player_i, card_i) {
     game.players[player_i].blueCards.splice(card_i,1);
 }
 
-module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang, Catbalou, Panika, Gulomet, Hokynarstvo, Barel];
+module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang, Catbalou, Panika, Gulomet, Hokynarstvo, Barel, Vazenie];

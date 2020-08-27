@@ -186,13 +186,17 @@ io.on("connection", socket =>{
     socket.on("prisonClick", (player, card)=>{
         if(game.moveStage == 0 && game.players[player].prison == true){
             game.players[player].prison = false;
-            
+                
             game.cards.unshift(game.players[player].blueCards[card]);    
-            game.trashedCards++;
+            game.cards.unshift(game.cards[game.cards.length - 1]);
             game.players[player].blueCards.splice(card,1);
-            
-            console.log("prison#######x");
-            gameUpdate();
+            game.cards.splice(game.cards.length - 1 , 1);
+            game.trashedCards+2;
+
+            if(game.cards[0].suit != "heart"){
+                game.nextTurn(player);
+            }
+            gameUpdate(); 
         }
     });
 

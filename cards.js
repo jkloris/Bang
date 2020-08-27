@@ -505,6 +505,8 @@ function discardBlueCard(game, player_i, card_i) {
     }
     else if(game.players[player_i].blueCards[card_i].name == "Mustang"){
         game.players[player_i].scope.mustang = 0;
+    } else if(game.players[player_i].blueCards[card_i].name == "Vazenie"){
+        game.players[player_i].prison = false;
     }
 
     game.players[player_i].blueCards.splice(card_i,1);

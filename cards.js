@@ -11,6 +11,7 @@ class Card {
         this.selected = false; 
         this.onRange = false;
         this.suit = null;
+        this.rank = null;
         // this.IMG = null;
     }
     acion(){
@@ -118,6 +119,8 @@ class Dostavnik extends ActionCard{
     constructor(){
         super();
         this.name = "Dostavnik";
+        this.suit = "spades";
+        this.rank = "9";
     }
     
     action(game, player, card){
@@ -133,6 +136,8 @@ class Wellsfargo extends ActionCard{
     constructor(){
         super();
         this.name = "Wellsfargo";
+        this.suit = "heart";
+        this.rank = "3";
     }
     
     action(game, player, card){
@@ -166,6 +171,9 @@ class Salon extends ActionCard{
     constructor(){
         super();
         this.name = "Salon";
+        this.suit = "heart";
+        this.rank = "5";
+        
     }
 
     action(game, player, card){
@@ -186,6 +194,7 @@ class Indiani extends ActionCard{
     constructor(){
         super();
         this.name = "Indiani"
+        this.suit = "diamonds";
     }
     
     action(game, player, card){
@@ -216,6 +225,8 @@ class Gulomet extends ActionCard{
     constructor(){
         super();
         this.name = "Gulomet"
+        this.suit = "heart";
+        this.rank = "10";
     }
     
     action(game, player, card){
@@ -278,6 +289,8 @@ class Remington extends Gun{
     constructor(){
         super();
         this.name = "Remington";
+        this.suit = "clubs";
+        this.rank = 'K'
     }
 
     action(game, player, card){ 
@@ -291,6 +304,8 @@ class Carabine extends Gun{
     constructor(){
         super();
         this.name = "Carabine";
+        this.suit = "clubs";
+        this.rank = "A";
     }
 
     action(game, player, card){
@@ -304,6 +319,8 @@ class Winchester extends Gun{
     constructor(){
         super();
         this.name = "Winchester";
+        this.suit = "spades";
+        this.rank = "8";
     }
 
     action(game, player, card){
@@ -331,6 +348,7 @@ class Mustang extends BlueCard{
     constructor(){
         super();
         this.name = "Mustang";
+        this.suit = "heart";
     }
     
     action(game, player, card){
@@ -354,6 +372,8 @@ class Appaloosa extends BlueCard{
     constructor(){
         super();
         this.name = "Appaloosa";
+        this.suit = "spades";
+        this.rank = "A";
     }
     
     action(game, player, card){

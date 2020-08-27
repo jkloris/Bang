@@ -6,7 +6,8 @@ class Card {
         this.offensive = false; //karta, ktora sa aktivuje kliknutim na hraca. Vymysli lepsi nazov
         this.IMG = null;
         this.onRange = false;
-        this.suit = "heart";
+        this.suit = null;
+        this.rank = null;
     }
     acion(){
 
@@ -32,9 +33,21 @@ class Card {
 
         ctx.save();
         ctx.drawImage(this.IMG, x, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio); 
-        ctx.drawImage(cardSuit, x + ratio / 7, y + Sprites.bang.height / Sprites.bang.width * ratio - ratio / 5, ratio / 10, ratio / 10); 
-        // ctx.fillText("A", x + ratio / 11, y + Sprites.bang.height / Sprites.bang.width * ratio - ratio / 5 + ratio / 10 - 2)
-        if(this.selected){
+        if (this.rank != null){
+
+            var fontSize = ratio / 9 ;
+            ctx.lineWidth = ratio / 40;
+            ctx.strokeStyle = "white";
+            ctx.fillStyle = "black";
+            // ctx.lineJoin="round";
+            // ctx.miterLimit=2;
+            ctx.font = `bold ${fontSize}px Comic Sans MS`;
+            ctx.strokeText(this.rank, x + ratio / 12 - 1, y + Sprites.bang.height / Sprites.bang.width * ratio - ratio / 5 + ratio / 10 - 1)
+            ctx.fillText(this.rank, x + ratio / 12 - 1, y + Sprites.bang.height / Sprites.bang.width * ratio - ratio / 5 + ratio / 10 - 1)
+        }
+        if (cardSuit != null)    ctx.drawImage(cardSuit, x + ratio / 6, y + Sprites.bang.height / Sprites.bang.width * ratio - ratio / 5, ratio / 10, ratio / 10); 
+        
+        if (this.selected){
             ctx.strokeStyle = "red";
             ctx.lineWidth = 4;
             ctx.strokeRect(x, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio);
@@ -102,6 +115,8 @@ class Dostavnik extends ActionCard{
         super();
         this.name = "Dostavnik";
         this.IMG = Sprites.dostavnik;
+        this.suit = "spades";
+        this.rank = "9";
     }
 
     // action(game, player, card){
@@ -114,7 +129,10 @@ class Wellsfargo extends ActionCard{
     constructor(){
         super();
         this.name = "Wellsfargo";
-        this.IMG = Sprites.wellsfargo
+        this.IMG = Sprites.wellsfargo;
+        this.suit = "heart";
+        this.rank = "3";
+
     }
     
     // action(game, player, card){
@@ -149,6 +167,9 @@ class Salon extends ActionCard{
         super();
         this.name = "Salon";
         this.IMG = Sprites.salon;
+        this.suit = "heart";
+        this.rank = "5";
+
     }
 
     // action(game, player, card){
@@ -158,8 +179,6 @@ class Salon extends ActionCard{
     //             if( game.players[i].HP < game.players[i].maxHP ){
     //                 game.players[i].HP++;
     //             }
-    //         }
-    //         discardCard(game, player, card);
     //     }
     // }
 
@@ -170,6 +189,7 @@ class Indiani extends ActionCard{
         super();
         this.name = "Indiani"
         this.IMG = Sprites.indiani;
+        this.suit = "diamonds";
     }
 
     action(){
@@ -182,6 +202,8 @@ class Gulomet extends ActionCard{
         super();
         this.name = "Gulomet"
         this.IMG = Sprites.gulomet;
+        this.suit = "heart";
+        this.rank = "10";
     }
 }
 
@@ -206,6 +228,8 @@ class Remington extends Gun{
         super();
         this.name = "Remington";
         this.IMG = Sprites.remington;
+        this.suit = "clubs";
+        this.rank = 'K';
     }
 
 }
@@ -215,6 +239,8 @@ class Carabine extends Gun{
         super();
         this.name = "Carabine";
         this.IMG = Sprites.carabine;
+        this.suit = "clubs";
+        this.rank = "A";
     }
 }
 
@@ -223,6 +249,8 @@ class Winchester extends Gun{
         super();
         this.name = "Winchester";
         this.IMG = Sprites.winchester;
+        this.suit = "spades";
+        this.rank = "8";
     }
 }
 
@@ -240,6 +268,7 @@ class Mustang extends BlueCard{
         super();
         this.name = "Mustang";
         this.IMG = Sprites.mustang;
+        this.suit = "heart";
     }
 }
 
@@ -248,6 +277,8 @@ class Appaloosa extends BlueCard{
         super();
         this.name = "Appaloosa";
         this.IMG = Sprites.appaloosa;
+        this.suit = "spades";
+        this.rank = "A";
     }
 }
 

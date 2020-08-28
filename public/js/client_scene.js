@@ -67,7 +67,7 @@ class Scene {
         }
         var player_i = game_client.players.findIndex(user => user.id === socket.id);
 
-        if(game_client.players[player_i].prison == false){
+        if(game_client.players[player_i].prison == false && game_client.players[player_i].dynamit == false){
             this.checkDeck(point);
         }
         this.checkTiles(point);

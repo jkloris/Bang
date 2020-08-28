@@ -15,6 +15,7 @@ class Player{
         this.name;
         this.scope = {gun : 0, mustang : 0, appaloosa : 0};
         this.prison = false;
+        this.dynamit = false;
     }
 }
 

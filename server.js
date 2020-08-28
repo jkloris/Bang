@@ -194,9 +194,54 @@ io.on("connection", socket =>{
             game.trashedCards+2;
 
             if(game.cards[0].suit != "heart"){
-                game.nextTurn(player);
+                game.nextTurn(player, true);
             }
             gameUpdate(); 
+        }
+    });
+
+    socket.on("dynamiteClick", (player, card)=>{
+        if(game.moveStage == 0 && game.dynamit == true){
+            game.players[player].dynamit = false;
+            var checkCard = game.cards[game.cards.length - 1];
+
+            if (checkCard.suit == "spades" && checkCard.rank >= 2 && checkCard.rank <= 9 ){
+                game.dynamit = false;
+                game.cards.unshift(game.players[player].blueCards[card]);
+                game.players[player].blueCards.splice(card, 1);
+                game.trashedCards+=2;
+                
+                game.players[player].HP = ( game.players[player].HP - 3 > 0) ? (game.players[player].HP - 3) : 0;
+                if (game.players[player].HP == 0){
+                    game.players[player].alive = false;
+                    game.nextTurn(player, true);
+                } 
+
+            }else{
+
+                var nextPlayer = player;
+                if (nextPlayer + 1 < game.players.length) {
+                    nextPlayer++;
+                } else {
+                    nextPlayer = 0;
+                }
+                
+                //preskoci hracov, ktori su mrtvi
+                while(!game.players[nextPlayer].alive) {
+                    nextPlayer++;
+                    if (nextPlayer >= game.players.length) nextPlayer = 0;
+                }
+            
+                game.players[nextPlayer].blueCards.push(game.players[player].blueCards[card]);
+                game.players[player].blueCards.splice(card, 1);
+                game.players[nextPlayer].dynamit = true;
+                game.trashedCards++;
+            }
+            game.cards.unshift(checkCard);
+            game.cards.splice(game.cards.length - 1, 1);
+
+            gameUpdate();
+
         }
     });
 

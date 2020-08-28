@@ -8,6 +8,7 @@ class Card {
         this.onRange = false;
         this.suit = null;
         this.rank = null;
+        
     }
     acion(){
 
@@ -334,3 +335,13 @@ class Vazenie extends BlueCard{
     }
 
 }
+
+class Dynamit extends BlueCard{
+    constructor(){
+        super();
+        this.name = "Dynamit";
+        this.IMG = Sprites.dynamit;    
+    }
+
+}
+

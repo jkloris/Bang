@@ -1,4 +1,4 @@
-const [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang, Catbalou, Panika, Gulomet, Hokynarstvo, Barel, Vazenie] = require("./cards.js");
+const [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang, Catbalou, Panika, Gulomet, Hokynarstvo, Barel, Vazenie, Dynamit] = require("./cards.js");
 const fs = require("fs");
 
 class Game{
@@ -13,6 +13,7 @@ class Game{
         this.playedCard = null;
         this.started = false;
         this.deadPlayers = 0;
+        this.dynamit = false;
     }
 
     //naplni deck nejakymi kartami
@@ -64,6 +65,7 @@ class Game{
                     case "HOKYNARSTVO": this.cards.push(new Hokynarstvo()); break;
                     case "BAREL": this.cards.push(new Barel()); break;
                     case "VAZENIE": this.cards.push(new Vazenie()); break;
+                    case "DYNAMIT": this.cards.push(new Dynamit()); break;
                     default: break;
                 };
 
@@ -132,12 +134,13 @@ class Game{
     }
 
 
-    nextTurn(index_sender) {
+    nextTurn(index_sender, force) {
         //kontrola, ci moze ukoncit kolo
-        if (this.players[index_sender].cards.length > this.players[index_sender].HP) {
+        if (this.players[index_sender].cards.length > this.players[index_sender].HP && force != true) {
             return 0;
         }
         else {
+
             if (this.turn + 1 < this.players.length) {
                 this.turn++;
             } else {
@@ -149,6 +152,7 @@ class Game{
                 this.turn++;
                 if (this.turn >= this.players.length) this.turn = 0;
             }
+
 
             this.moveStage = 0;
             return 1;

@@ -83,7 +83,11 @@ class Tile {
             var player_i = game_client.players.findIndex(user => user.id === socket.id);
             var card_i = game_client.players[player_i].cards.findIndex(card => card.selected === true);
 
-            if(game_client.players[player_i].blueCards[arg] != undefined && game_client.players[player_i].blueCards[arg].name == "Vazenie"){
+            if(game_client.players[player_i].blueCards[arg] != undefined && game_client.players[player_i].blueCards[arg].name == "Dynamit"){
+                socket.emit("dynamiteClick", player_i, arg);
+            }
+
+            if(game_client.players[player_i].blueCards[arg] != undefined && game_client.players[player_i].blueCards[arg].name == "Vazenie" && game_client.players[player_i].dynamit == false){
                 socket.emit("prisonClick", player_i, arg);
             }
 

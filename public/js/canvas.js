@@ -131,7 +131,15 @@ function drawGame() {
             game_client.cards[0].draw(canvas.width / 2 - ratio - 10 + i, canvas.height / 13 - i, ratio);
         }
         
-        if (game_client.moveStage == 0 && index == game_client.turn && game_client.players[index].prison == true){
+        if (game_client.moveStage == 0 && index == game_client.turn && game_client.players[index].dynamit){
+            ctx.save();
+            ctx.textAlign = "center";
+            ctx.fillStyle = "green";
+            ctx.font = "30px Arial";
+            ctx.fillText(`Achten Sie auf Dynamit!`, canvas.width / 2, canvas.height / 2 - 20)
+            ctx.restore();
+        } 
+        else if (game_client.moveStage == 0 && index == game_client.turn && game_client.players[index].prison == true){
             ctx.save();
             ctx.textAlign = "center";
             ctx.fillStyle = "green";

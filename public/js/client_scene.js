@@ -83,8 +83,8 @@ class Scene {
         for (var i in this.tiles) {            
             var current = this.tiles[i];
             if (point.x >= current.x && point.x <= current.x + tile_size.x && point.y >= current.y && point.y <= current.y + tile_size.y) {
-                var arg = this.checkBlueCards(point, current, i);
-                current.onclick(arg);
+                var clickedBlue_index = this.checkBlueCards(point, current, i);
+                current.onclick(clickedBlue_index);
             }
             
         }
@@ -103,7 +103,6 @@ class Scene {
             //pre poslednu kartu sa skontroluje cela sirka
             if(i == game_client.players[player].blueCards.length - 1) {
                 if(point.x >= x && point.x <= x + ratio && point.y >= y && point.y <= y + Sprites.bang.height / Sprites.bang.width * ratio){
-                    alert(i);
                     return i;
                 }
             }

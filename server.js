@@ -247,25 +247,20 @@ io.on("connection", socket =>{
 
 
     //basic layout pre buducu komunikaciu medzi clientami
-    socket.on("interaction", (id,event, arg, card_index)=>{
+    socket.on("interaction", (id,event, clickedBlue_index, card_index)=>{
         console.log('interaction ' + event)
         var index_sender = game.players.findIndex(user => user.id === socket.id);
         var index_target = game.players.findIndex(user => user.id === id);
 
         if(event == "Catbalou" || event == "Vazenie"){
-            game.players[index_sender].cards[card_index].action(game, index_sender, index_target, card_index, arg);
-            // socket.broadcast.to(id).emit(event, arg, index_sender);
+            game.players[index_sender].cards[card_index].action(game, index_sender, index_target, card_index, clickedBlue_index);
+            
             gameUpdate();
-            
-        // } else if(event == "Vazenie"){
-        //     game.players[index_sender].cards[card_index].action(game, index_sender, index_target, card_index, arg);
-        //     gameUpdate();
-            
         } else if (game.getDistance(index_sender, index_target, card_index) <= 1 || game.players[index_sender].cards[card_index].onRange == false ) {
 
             if(event == "Panika"){
-                game.players[index_sender].cards[card_index].action(game, index_sender, index_target, card_index, arg);
-                // socket.broadcast.to(id).emit(event, arg, index_sender);
+                game.players[index_sender].cards[card_index].action(game, index_sender, index_target, card_index, clickedBlue_index);
+
                 gameUpdate();
     
             }else{

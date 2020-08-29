@@ -77,22 +77,22 @@ class Tile {
         ctx.restore();
     }
 
-    onclick = function(arg) {//event , arg
+    onclick = function(clickedBlue_index) {
         if (this.alive) {
 
             var player_i = game_client.players.findIndex(user => user.id === socket.id);
             var card_i = game_client.players[player_i].cards.findIndex(card => card.selected === true);
 
-            if(game_client.players[player_i].blueCards[arg] != undefined && game_client.players[player_i].blueCards[arg].name == "Dynamit"){
-                socket.emit("dynamiteClick", player_i, arg);
+            if(game_client.players[player_i].blueCards[clickedBlue_index] != undefined && game_client.players[player_i].blueCards[clickedBlue_index].name == "Dynamit"){
+                socket.emit("dynamiteClick", player_i, clickedBlue_index);
             }
 
-            if(game_client.players[player_i].blueCards[arg] != undefined && game_client.players[player_i].blueCards[arg].name == "Vazenie" && game_client.players[player_i].dynamit == false){
-                socket.emit("prisonClick", player_i, arg);
+            if(game_client.players[player_i].blueCards[clickedBlue_index] != undefined && game_client.players[player_i].blueCards[clickedBlue_index].name == "Vazenie" && game_client.players[player_i].dynamit == false){
+                socket.emit("prisonClick", player_i, clickedBlue_index);
             }
 
             if(game_client.players[player_i].cards[card_i] != undefined && game_client.players[player_i].cards[card_i].offensive == true && this.id != socket.id  ){ 
-                socket.emit("interaction", this.id, game_client.players[player_i].cards[card_i].name, arg, card_i );
+                socket.emit("interaction", this.id, game_client.players[player_i].cards[card_i].name, clickedBlue_index, card_i );
             }
         } else alert('Ten je us mrtef kamosko');
     }

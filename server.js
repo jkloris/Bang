@@ -260,9 +260,7 @@ io.on("connection", socket =>{
 
             if(event == "Panika"){
                 game.players[index_sender].cards[card_index].action(game, index_sender, index_target, card_index, clickedBlue_index);
-
                 gameUpdate();
-    
             }else{
 
                 game.requestedPlayer = index_target;
@@ -271,7 +269,7 @@ io.on("connection", socket =>{
                 
                 for(i in game.players){
                     if(game.players[i].id == id){
-                        socket.broadcast.to(id).emit(event, arg, index_sender);
+                        socket.broadcast.to(id).emit(event, clickedBlue_index, index_sender);
                         socket.broadcast.to(id).emit("message", game.players[index_sender].name + ' used card ' + event + ' -> you');
                     }else if(game.players[i].id == socket.id){
                         socket.emit("message", "you used card " + event + ' -> ' + game.players[index_target].name);

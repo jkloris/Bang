@@ -399,10 +399,10 @@ class Catbalou extends ActionCard{
         this.name = "Catbalou"
     }
 
-    action(game, sender, target, card, arg){
+    action(game, sender, target, card, clickedBlue_index){
         discardCard(game, sender, card);
-        if(arg != null){
-            discardBlueCard(game, target, arg);
+        if(clickedBlue_index != null){
+            discardBlueCard(game, target, clickedBlue_index);
         }
         else{
             var rand = Math.floor(Math.random()*game.players[target].cards.length);
@@ -418,17 +418,24 @@ class Panika extends ActionCard{
         this.onRange = true;
     }
 
-    action(game, sender, target, card, arg){
-        discardCard(game, sender, card);
-        if(arg != null){
-            game.players[sender].cards.push(game.players[target].blueCards[arg]);
-            discardBlueCard(game, target, arg);
+    //card je ta panika, ktoru zahral niekto
+    action(game, sender, target, card, clickedBlue_index) {
+        discardCard(game, sender, card); //hodi paniku do kopky zahodenych
+        game.playedCard = "Panika";
+        if(clickedBlue_index != null){
+            game.players[sender].cards.push(game.players[target].blueCards[clickedBlue_index]);
+            discardBlueCard(game, target, clickedBlue_index);
         }
         else{
             var rand = Math.floor(Math.random()*game.players[target].cards.length);
             game.players[sender].cards.push(game.players[target].cards[rand]);
+            
+            //kartu hraca, ktory je obetou paniky nemozeme discardovat takto, lebo toto ju hodi do kopky
             discardCard(game, target, rand);
+            //game.players[target].cards.splice(rand,1);
+
         }
+        game.playedCard = null;
     }
 }
 
@@ -505,15 +512,18 @@ class Dynamit extends BlueCard{
 
 
 function discardCard(game, player_i, card_i) {
-
-    game.cards.unshift(game.players[player_i].cards[card_i]);    
-    game.trashedCards++;
+    if (game.playedCard != "Panika") {
+        game.cards.unshift(game.players[player_i].cards[card_i]);    
+        game.trashedCards++;
+    }
     game.players[player_i].cards.splice(card_i,1);
 }
 
 function discardBlueCard(game, player_i, card_i) {
-    game.cards.unshift(game.players[player_i].blueCards[card_i]);    
-    game.trashedCards++;
+    if (game.playedCard != "Panika") {
+        game.cards.unshift(game.players[player_i].blueCards[card_i]);    
+        game.trashedCards++;
+    }
 
     if (game.players[player_i].blueCards.gun == true) 
         game.players[player_i].scope.gun = 0;

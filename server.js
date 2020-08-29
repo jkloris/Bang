@@ -324,14 +324,16 @@ function discardCard(player_i, card_i) {
 }
 
 function Death(dead_player_index){ //TODO
-    console.log(game.players[dead_player_index] + 'is dead');
+    console.log(game.players[dead_player_index] + 'died');
     game.players[dead_player_index].alive = false;
     game.deadPlayers++;
 
     //karty mrtveho hraca sa poslu hracovi, ktory je momentalne na tahu
     while (game.players[dead_player_index].cards.length > 0) {
         var card = game.players[dead_player_index].cards.pop();
-        game.players[game.turn].cards.push(card);
+        game.cards.unshift(card);
+        game.trashedCards++;
+        //game.players[game.turn].cards.push(card);
     }
 }
 

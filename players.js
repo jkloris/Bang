@@ -3,8 +3,8 @@ class Player{
         this.id = id;
         
         //docasne kvoli dev
-        this.HP = 5;
-        // this.HP = maxHP; //inak to je takto
+        //this.HP = 5;
+        this.HP = maxHP; //inak to je takto
 
         this.alive = true;
         this.maxHP = maxHP;

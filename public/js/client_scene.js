@@ -60,7 +60,7 @@ class Scene {
     }
 
 
-    
+    //point je objekt so suradnicami kliku mysou
     onclick = function(point) {
         if(game_client.moveStage == 0){
             game_scene.buttons[0].visible = false;
@@ -97,9 +97,17 @@ class Scene {
 
         for(var i in game_client.players[player].blueCards){
             if(point.x >= x && point.x <= x + ratio / 1.7 && point.y >= y && point.y <= y + Sprites.bang.height / Sprites.bang.width * ratio){
-                console.log(game_client.players[player].blueCards[i]);
                 return i;
             }
+            
+            //pre poslednu kartu sa skontroluje cela sirka
+            if(i == game_client.players[player].blueCards.length - 1) {
+                if(point.x >= x && point.x <= x + ratio && point.y >= y && point.y <= y + Sprites.bang.height / Sprites.bang.width * ratio){
+                    alert(i);
+                    return i;
+                }
+            }
+
             x+=ratio / 1.7;
         }
         return null;

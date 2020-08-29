@@ -248,7 +248,7 @@ io.on("connection", socket =>{
 
     //basic layout pre buducu komunikaciu medzi clientami
     socket.on("interaction", (id,event, arg, card_index)=>{
-
+        console.log('interaction ' + event)
         var index_sender = game.players.findIndex(user => user.id === socket.id);
         var index_target = game.players.findIndex(user => user.id === id);
 

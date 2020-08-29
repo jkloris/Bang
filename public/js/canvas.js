@@ -131,6 +131,7 @@ function drawGame() {
             game_client.cards[0].draw(canvas.width / 2 - ratio - 10 + i, canvas.height / 13 - i, ratio);
         }
         
+        //informacie o tom, co treba robit na zaciatku kola
         if (game_client.moveStage == 0 && index == game_client.turn && game_client.players[index].dynamit){
             ctx.save();
             ctx.textAlign = "center";
@@ -156,7 +157,7 @@ function drawGame() {
             ctx.restore();
         }
 
-        //draw emporio
+        //draw emporio (hokynarstvi)
         if(game_client.playedCard == "Hokynarstvo"){
             var dl = game_client.players.length * ratio / 1.6 ;
             // var turn = (game_client.requestedPlayer >= game_client.turn)?game_client.requestedPlayer - game_client.turn:

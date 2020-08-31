@@ -1,16 +1,18 @@
 class Tile {
-    constructor(x, y, name, id, HP, cards) { //TODO - ostatne vlastnosti, ked ich budeme vediet zobrazit
+    constructor(x, y, name, id, HP, cards, role) { //TODO - ostatne vlastnosti, ked ich budeme vediet zobrazit
         this.x = x;
         this.y = y;
         this.name = name;
         this.id = id;
         this.HP = HP;
         this.cards = cards;
+        this.role = role;
         if (this.HP <= 0) this.alive = false;
         else this.alive = true;
     }
 
     drawTile = function(color) {
+        var ratio = tile_size.x / 4;
         ctx.save();
         ctx.strokeStyle = color;
         ctx.strokeRect(this.x, this.y, tile_size.x, tile_size.y);
@@ -21,6 +23,25 @@ class Tile {
 
         //ak je mrtef
         if (!this.alive) {
+
+            var roleIMG;
+            switch (this.role) {
+                case "Sheriff":
+                    roleIMG = Sprites.sheriff;
+                    break;
+                case "Vice":
+                    roleIMG = Sprites.vice;
+                    break;
+                case "Bandita":
+                    roleIMG = Sprites.bandita;
+                    break;
+                case "Odpadlik":
+                    roleIMG = Sprites.odpadlik;
+                    break;
+                
+                default:
+                    break;
+            }
             ctx.beginPath();
             ctx.lineWidth = 7;
             ctx.strokeStyle = "black";
@@ -29,6 +50,7 @@ class Tile {
             ctx.moveTo(this.x + tile_size.x, this.y);
             ctx.lineTo(this.x, this.y + tile_size.y);
             ctx.stroke();
+            ctx.drawImage(roleIMG, this.x + tile_size.x / 2.5, this.y + tile_size.y / 2.5, ratio, Sprites.bang.height / Sprites.bang.width * ratio);
         }
         this.drawCards();
         this.drawLife();

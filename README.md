@@ -1,5 +1,7 @@
 TODO
 * Oznamenie hracovi, ze na neho bola pouzita panika/catbalou
+    * Klikanie na log by malo fungovat vzdy, teraz funguje iba ked je hrac na tahu. Da sa to spravit nejako jednoducho? Lebo klikanie handluje server a posiela click accepty
+* Mrtvemu hracovi po smrti vykreslilo karty, ktore ma (mal) na ruke - opravit
 * Kontrola, ci hrac zije pri jednotlivych akciach (bang, indiani,..)
     * (!) kontrola vzdialenosti berie do vypoctu aj mrtvych hracov - opravit
     * (?) kontrola, ci sa striela na mrtveho hraca je zatial client-side. Prerobit na server side?

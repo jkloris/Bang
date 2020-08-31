@@ -11,7 +11,26 @@
     <div id="canvas_container">
         <canvas id="canvas"></canvas>
     </div>
-    <!-- <textarea id="chat" cols="50" rows="10"> Alojz Novak pouzil bang na Arneho69</textarea> -->
+    
+    <!-- log -->
+    <!-- <button id="myBtn">Open Modal</button> -->
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2>Log</h2>
+        </div>
+        <div class="modal-body">
+        <p id="log_paragraph">
+            <!-- Ked v JS appendujeme do tohto paragraphu, treba namiesto <br> pisat "\r\n" (ako newline) -->
+        </p>
+        </div>
+    </div>
+
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>

@@ -61,6 +61,12 @@ socket.on("discardDeny", () => {
     alert("Nemozes vyhodit kartu.");
 });
 
+socket.on("log", (content) => {
+    console.log("sme tady, update");
+    var paragraph = document.getElementById("log_paragraph");
+    paragraph.innerHTML += content + "<br>";
+});
+
 function updatePlayers(game_server) {
     
     //z game objektu, ktory pride zo servera spravi FUNKCNY objekt s kartami pre kazdeho hraca

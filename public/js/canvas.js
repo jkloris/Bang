@@ -110,14 +110,16 @@ function drawGame() {
     else for (var i in game_scene.buttons) game_scene.buttons[i].visible = false;
 
     if (game_client.started) game_scene.buttons[1].visible = false; //ak je zacata hra, nezobrazuje sa Start button
+    game_scene.buttons[5].visible = true; //log button je visible vzdy
     
     //teraz su nastavene visibility na buttonoch a iba ich vykreslime
     for (var i in game_scene.buttons) game_scene.buttons[i].draw();
 
 
-    //draw cards
+    //draw hand (cards)
     let index = game_client.players.findIndex(user => user.id === socket.id);
-
+    //index = index toho hraca, ktoremu zobrazujeme karty, co ma na ruke
+    
     if (game_client.started) { //kontroluje, ci uz bola zacata hra
         var x = 10;
         var ratio = canvas.width / 18;
@@ -211,3 +213,21 @@ function drawGame() {
 }   
 
 
+// LOG
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}

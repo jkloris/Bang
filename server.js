@@ -56,6 +56,7 @@ io.on("connection", socket =>{
     });
     
     socket.on("startGame", ()=>{
+        if (game.players.length <= 1) return; //crashuje to, ak pustime hru s iba 1 hracom
         game.started = true;
         game.dealRoles();
         game.shuffleDeck();
@@ -253,6 +254,7 @@ io.on("connection", socket =>{
         console.log('interaction ' + event)
         var index_sender = game.players.findIndex(user => user.id === socket.id);
         var index_target = game.players.findIndex(user => user.id === id);
+        io.emit("log", event + ": (" + game.players[index_sender].name + " >>> " + game.players[index_target].name + ")");
 
         if(event == "Catbalou" || event == "Vazenie"){
             game.players[index_sender].cards[card_index].action(game, index_sender, index_target, card_index, clickedBlue_index);
@@ -298,8 +300,9 @@ server.listen(PORT, IP, ()=>console.log("server running on " + PORT));
 
 //update hry
 function gameUpdate(){
-      //zatial si len posielam info o hre
+    //zatial si len posielam info o hre
     io.emit("update", game);
+    // io.emit("log", "Der updater"); //tymto sposobom sa posiela klientovi nejaky text, ktory sa u klienta zapise do logu
 }
 
 function playerDisconnect(id){

@@ -57,6 +57,13 @@ class Scene {
         }
         Discard.visible = false;
         this.buttons.push(Discard);
+
+        //opens log (history of actions)
+        var OpenLog  = new Button(canvas.width - 100, canvas.height - 180, 80, 40, "Log", "rgb(255, 153, 0)");
+        OpenLog.action = function() {
+            modal.style.display = "block";
+        };
+        this.buttons.push(OpenLog);
     }
 
 

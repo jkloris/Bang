@@ -64,7 +64,11 @@ h1{
     color: white;
   }
   
-  .modal-body {padding: 2px 16px;}
+  .modal-body {
+    padding: 2px 16px;
+    overflow-y: scroll;
+    max-height: 30vh;
+  }
   
   .modal-footer {
     padding: 2px 16px;

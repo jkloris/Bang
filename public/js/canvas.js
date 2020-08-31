@@ -37,6 +37,17 @@ function drawGame() {
         }
         game_scene.tiles[i].drawTile(color);
         
+        //nakresli sheriffa
+        if(game_client.players[i].role == "Sheriff"){
+            console.log(game_client.players[i]);
+            var ratio_tile = tile_size.x / 4
+            var x = game_scene.tiles[i].x + tile_size.x + ratio_tile;
+            var y = game_scene.tiles[i].y + tile_size.y - Sprites.bang.height / Sprites.bang.width * ratio_tile + 1;
+            ctx.save();
+            ctx.drawImage(Sprites.sheriff, x, y, ratio_tile, Sprites.bang.height / Sprites.bang.width * ratio_tile); 
+            ctx.restore();
+        }
+        
         if(i == game_client.turn){
             ctx.fillStyle = "red";
             ctx.fillRect(game_scene.tiles[i].x,game_scene.tiles[i].y,10,10);
@@ -118,6 +129,27 @@ function drawGame() {
             x+=ratio - 10;
             //console.log(x,ratio);
         }
+
+        //draw role
+        var roleIMG;
+        switch (game_client.players[index].role) {
+            case "Sheriff":
+                roleIMG = Sprites.sheriff;
+                break;
+            case "Vice":
+                roleIMG = Sprites.vice;
+                break;
+            case "Bandita":
+                roleIMG = Sprites.bandita;
+                break;
+            case "Odpadlik":
+                roleIMG = Sprites.odpadlik;
+                break;
+        
+            default:
+                break;
+        }
+        ctx.drawImage(roleIMG, canvas.width - 220 - ratio, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio);
 
         //draw deck
         var deck = new Back();

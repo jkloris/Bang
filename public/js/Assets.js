@@ -56,6 +56,11 @@ function loadAssets(){
     Sprites.back = loadIMG("imgs/", "back.png");
     Sprites.back_character = loadIMG("imgs/", "back-character.png");
 
+    Sprites.sheriff = loadIMG("imgs/", "sheriff.png");
+    Sprites.vice = loadIMG("imgs/", "vice.png");
+    Sprites.bandita = loadIMG("imgs/", "outlaw.png");
+    Sprites.odpadlik = loadIMG("imgs/", "renegade.png");
+
     Sprites.bart_cassidy = loadIMG("imgs/", "bart-cassidy.png");
 
 

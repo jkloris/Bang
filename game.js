@@ -221,7 +221,7 @@ function shuffle(array) {
 class Role{
     constructor(player){
         this.player = player;
-        this.player.role = "postava";
+        this.player.role = null;
     }
 }
 class Sheriff extends Role{

@@ -8,7 +8,7 @@ class Player{
 
         this.alive = true;
         this.maxHP = maxHP;
-        this.role = role; //TODO
+        this.role = role //TODO
         this.ability = ability; //TODO
         this.cards = []; //karty tohto hraca
         this.blueCards = [];

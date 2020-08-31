@@ -57,8 +57,10 @@ io.on("connection", socket =>{
     
     socket.on("startGame", ()=>{
         game.started = true;
+        game.dealRoles();
         game.shuffleDeck();
         game.dealCards();
+        io.emit("message", game);
         gameUpdate();
     });
 
@@ -313,7 +315,7 @@ function playerDisconnect(id){
 function playerConnected(id){
     //io.emit("message", id+ "connected");
     //console.log(id, 'connected');
-    game.players.push(new Player(id, 5, null, null, null));
+    game.players.push(new Player(id, 4, null, null, null));
     //io.emit("message", game);
 }
 

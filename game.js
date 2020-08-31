@@ -16,6 +16,42 @@ class Game{
         this.dynamit = false;
     }
 
+    dealRoles(){
+        //nahodne poradie hracov bez ohladu na poradie prihlasenia sa
+        shuffle(this.players);
+        switch (this.players.length) {
+            case 2:
+                [new Sheriff(this.players[0]), new Bandita(this.players[1])]
+                break;
+            case 3:
+                [new Sheriff(this.players[0]), new Bandita(this.players[1]), new Odpadlik(this.players[2])];
+                break;
+            case 4:
+                [new Sheriff(this.players[0]), new Bandita(this.players[1]), new Odpadlik(this.players[2]), new Bandita(this.players[3])];
+                break;
+            case 5:
+                [new Sheriff(this.players[0]), new Bandita(this.players[1]), new Odpadlik(this.players[2]), new Bandita(this.players[3]), new Vice(this.players[4])];
+                break;
+            case 6:
+                [new Sheriff(this.players[0]), new Bandita(this.players[1]), new Odpadlik(this.players[2]), new Bandita(this.players[3]), new Bandita(this.players[4]), new Vice(this.players[5])];
+                break;
+            case 7:
+                [new Sheriff(this.players[0]), new Bandita(this.players[1]), new Odpadlik(this.players[2]), new Bandita(this.players[3]), new Bandita(this.players[4]), new Vice(this.players[5]), new Vice(this.players[6])];
+                break;
+        
+            default:
+                break;
+        }
+        //nahodne poradie postav
+        shuffle(this.players);
+        //prehodenie sheriffa na prve miesto
+        var sheriff_i = this.players.findIndex(player => (player.role == "Sheriff"));
+        var temp = this.players[0];
+        this.players[0] = this.players[sheriff_i];
+        this.players[sheriff_i] = temp;
+
+    }
+
     //naplni deck nejakymi kartami
     shuffleDeck() {
         var i;
@@ -160,24 +196,62 @@ class Game{
     }
 }
 
-module.exports = Game;
 
 //shamelessly stolen from the internet
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
-  
+    
     // While there remain elements to shuffle...
     while (0 !== currentIndex) {
-  
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-  
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
+        
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
     }
-  
+    
     return array;
-  }
+}
+
+
+class Role{
+    constructor(player){
+        this.player = player;
+        this.player.role = "postava";
+    }
+}
+class Sheriff extends Role{
+    constructor(player){
+        super(player);
+        this.player.role = "Sheriff";
+        this.player.maxHP++;
+        this.player.HP = this.player.maxHP;
+    }
+    
+}
+class Vice extends Role{
+    constructor(player){
+        super(player);
+        this.player.role = "Vice";
+    }
+}
+class Odpadlik extends Role{
+    constructor(player){
+        super(player);
+        this.player.role = "Odpadlik";
+    }
+}
+class Bandita extends Role{
+    constructor(player){
+        super(player);
+        this.player.role = "Bandita";
+    }
+
+}
+
+
+module.exports = Game;

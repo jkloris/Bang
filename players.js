@@ -1,5 +1,5 @@
 class Player{
-    constructor(id, maxHP, character, ability){
+    constructor(id, maxHP, role, ability){
         this.id = id;
         
         //docasne kvoli dev
@@ -8,7 +8,7 @@ class Player{
 
         this.alive = true;
         this.maxHP = maxHP;
-        this.character = character; //TODO
+        this.role = role; //TODO
         this.ability = ability; //TODO
         this.cards = []; //karty tohto hraca
         this.blueCards = [];
@@ -18,5 +18,6 @@ class Player{
         this.dynamit = false;
     }
 }
+
 
 module.exports = Player;

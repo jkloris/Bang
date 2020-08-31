@@ -9,4 +9,12 @@ h1{
 #canvas_container{
     width: 100%;
     text-align: center;
+    /* position: absolute; */
 }
+/* #chat{
+    margin-top: 20vh;
+    margin-left: 50vw;
+    position: relative;
+    visibility: hidden;
+
+} */

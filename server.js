@@ -328,12 +328,17 @@ function Death(dead_player_index){ //TODO
     game.players[dead_player_index].alive = false;
     game.deadPlayers++;
 
-    //karty mrtveho hraca sa poslu hracovi, ktory je momentalne na tahu
+    //karty mrtveho hraca sa poslu do kopky
     while (game.players[dead_player_index].cards.length > 0) {
         var card = game.players[dead_player_index].cards.pop();
         game.cards.unshift(card);
         game.trashedCards++;
         //game.players[game.turn].cards.push(card);
+    }
+    while (game.players[dead_player_index].blueCards.length > 0){
+        var card = game.players[dead_player_index].blueCards.pop();
+        game.cards.unshift(card);
+        game.trashedCards++;
     }
 }
 

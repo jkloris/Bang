@@ -39,7 +39,6 @@ function drawGame() {
         
         //nakresli sheriffa
         if(game_client.players[i].role == "Sheriff"){
-            console.log(game_client.players[i]);
             var ratio_tile = tile_size.x / 4
             var x = game_scene.tiles[i].x + tile_size.x + ratio_tile;
             var y = game_scene.tiles[i].y + tile_size.y - Sprites.bang.height / Sprites.bang.width * ratio_tile + 1;

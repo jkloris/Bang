@@ -45,6 +45,7 @@ io.on("connection", socket =>{
                 socket.emit("partial_clickAccept",mouse);
             }
         }
+        socket.emit("logClick", mouse);
         
     })
 

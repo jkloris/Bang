@@ -49,6 +49,13 @@ socket.on("partial_clickAccept", (mouse)=>{
     if(arg != null) socket.emit("ownBlueClicked", arg);
 })
 
+socket.on("logClick", (point)=>{
+    var current = game_scene.buttons[5];
+    if (current.visible && point.x >= current.x && point.x <= current.x + current.sizeX && point.y >= current.y && point.y <= current.y + current.sizeY) {
+        current.onclick();
+    }
+})
+
 socket.on("emporio_clickAccept", (mouse)=>{ //TODO
     game_scene.checkEmporio(mouse);
 });

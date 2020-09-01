@@ -19,7 +19,6 @@ socket.on("update", game => {
     copyDeck(game);    
     updatePlayers(game);
     drawGame();
-    // console.log(game);
 });
 
 //bang
@@ -69,9 +68,13 @@ socket.on("discardDeny", () => {
 });
 
 socket.on("log", (content) => {
-    console.log("sme tady, update");
     var paragraph = document.getElementById("log_paragraph");
     paragraph.innerHTML += content + "<br>";
+});
+
+socket.on("winner", (winner) => {
+    drawWinner(winner);
+    alert(`${winner} won!`);
 });
 
 function updatePlayers(game_server) {

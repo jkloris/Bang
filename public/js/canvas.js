@@ -211,8 +211,20 @@ function drawGame() {
     }
 }   
 
+function drawWinner(winner) {
+    clear();
 
-// LOG
+    ctx.save();
+    ctx.textAlign = "center";
+    ctx.fillStyle = "green";
+    ctx.font = "60px Arial";
+    ctx.fillText(`GAME OVER! ${winner} WON!`, canvas.width / 2, canvas.height / 2 - 20)
+    ctx.restore();
+
+}
+
+
+// LOG (partially stolen from W3)
 // Get the modal
 var modal = document.getElementById("myModal");
 

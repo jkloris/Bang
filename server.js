@@ -95,7 +95,17 @@ io.on("connection", socket =>{
         var player_index = game.players.findIndex(user => user.id === id);
         if(--game.players[player_index].HP == 0){
             Death(player_index);
+            let result = game.gameOver();
+            console.log("checking for game over... with result: " + result.result);
+            if (result.result) io.emit("winner", result.winner);
         }
+
+        //gameOver testing...
+        // var result = game.gameOver();
+        // console.log("checking for game over... ");
+        // console.log(result.result);
+        // console.log(result.winner);
+
         if (game.requestedPlayer != null){
             if (game.playedCard == "Gulomet" || game.playedCard == "Indiani") {
 
@@ -217,8 +227,13 @@ io.on("connection", socket =>{
                 
                 game.players[player].HP = ( game.players[player].HP - 3 > 0) ? (game.players[player].HP - 3) : 0;
                 if (game.players[player].HP == 0){
-                    game.players[player].alive = false;
+                    //game.players[player].alive = false; //nestaci - nezahodi karty do kopky (ci? - netestoval som)
+                    Death(player); //aby sa jeho karty zahodili do kopky
                     game.nextTurn(player, true);
+
+                    let result = game.gameOver();
+                    console.log("checking for game over... with result: " + result.result);
+                    if (result.result) io.emit("winner", result.winner);
                 } 
 
             }else{
@@ -319,7 +334,7 @@ function playerDisconnect(id){
 function playerConnected(id){
     //io.emit("message", id+ "connected");
     //console.log(id, 'connected');
-    game.players.push(new Player(id, 3, null, null, null));
+    game.players.push(new Player(id, 1, null, null, null));
     //io.emit("message", game);
 }
 
@@ -330,7 +345,7 @@ function discardCard(player_i, card_i) {
 }
 
 function Death(dead_player_index){ //TODO
-    console.log(game.players[dead_player_index] + 'died');
+    console.log(game.players[dead_player_index].name + ' died');
     game.players[dead_player_index].alive = false;
     game.deadPlayers++;
 

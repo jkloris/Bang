@@ -194,7 +194,42 @@ class Game{
             return 1;
         }
     }
+
+    //checks for game over
+    gameOver() {
+        var sheriff_i = this.players.findIndex(player => (player.role == "Sheriff"));
+        var odpadlik_i = this.players.findIndex(player => (player.role == "Odpadlik")); //vrati -1, ak nenajde odpadlika
+
+        //kontrola vyhry odpadlika:
+        let odpadlik_win = true;
+        if (odpadlik_i != -1) { //ak je odpadlik v hre
+            for (var i in this.players) {
+                if (i == odpadlik_i) continue;
+                if (this.players[i].alive) {odpadlik_win = false; break;}
+            }
+            if (odpadlik_win) return {result: true, winner: "der Odpadlik"};
+        }
+
+        //kontrola vyhry banditov:
+        //ak nevyhral odpadlik a je mrtvy serif, znamena to, ze vyhrali banditi
+        if (!this.players[sheriff_i].alive) return {result: true, winner: "banditas"};
+
+
+        //kontrola vyhry serifa
+        let sheriff_win = true;
+        for (var i in this.players) {
+            if (this.players[i].role == "Bandita" && this.players[i].alive) sheriff_win = false;
+        }
+        //ak aj su mrtvi banditi a este zije odpadlik, tak serif stale nevyhral:
+        if (odpadlik_i != -1 && this.players[odpadlik_i].alive) sheriff_win = false;
+        if (sheriff_win) return {result: true, winner: "Die Polizeiten gewinnt"};
+        
+        
+        //ak zatial nie je vitaz:
+        return {result: false, winner: null};
+    }
 }
+
 
 
 //shamelessly stolen from the internet

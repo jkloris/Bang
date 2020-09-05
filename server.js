@@ -60,6 +60,7 @@ io.on("connection", socket =>{
         if (game.players.length <= 1) return; //crashuje to, ak pustime hru s iba 1 hracom
         game.started = true;
         game.dealRoles();
+        game.dealCharacters();
         game.shuffleDeck();
         game.dealCards();
         io.emit("message", game);
@@ -97,7 +98,11 @@ io.on("connection", socket =>{
             Death(player_index);
             let result = game.gameOver();
             console.log("checking for game over... with result: " + result.result);
-            if (result.result) io.emit("winner", result.winner);
+            if (result.result){
+                io.emit("winner", result.winner);
+                game.started = false;
+                gameUpdate();
+            } 
         }
 
         //gameOver testing...

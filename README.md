@@ -1,4 +1,5 @@
 TODO
+* Vazenie ked zahram, tak sa da aj hracovi, ktoreho chcem dat do vazenia, AJ do vyhodenej kopky - opravit !!!
 * ~~Spravit celu hru tak, aby sa dala restartnut (zaca odznova) priamo z aplikacie, bez nutnosti restartovat server~~
     * hotovo - kontrolovať, či to funguje správne
 * Logovat iba eventy, ktore sa naozaj uskutocnia. Teraz do logu zapise aj "pokus o vystrel", ktory sa realne neuskutocni (ked hrac nema dostrel)

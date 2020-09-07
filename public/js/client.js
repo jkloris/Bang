@@ -1,8 +1,12 @@
 const socket = io();
 
-//const name = prompt('Meno?');
+//name setting
+//toto vytvori defaultne meno Arne BirkenstockXY
 const asdfg = Math.floor(Math.random() * 10);
-const name = `Arne Birkenstock${asdfg}`;
+name_default = `Arne Birkenstock${asdfg}`;
+
+//prompt nevyskoci, ak je tab v prehliadaci inaktivny (in background). Vtedy sa pouzije defaultne meno.
+const name = prompt('Meno?') || name_default;
 socket.emit('set-name', name);
 
 var game_client; //stav hry ulozeny na strane klienta

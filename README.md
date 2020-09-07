@@ -1,8 +1,9 @@
 TODO
-* Spravit celu hru tak, aby sa dala restartnut (zaca odznova) priamo z aplikacie, bez nutnosti restartovat server
+* ~~Spravit celu hru tak, aby sa dala restartnut (zaca odznova) priamo z aplikacie, bez nutnosti restartovat server~~
+    * hotovo - kontrolovať, či to funguje správne
 * Logovat iba eventy, ktore sa naozaj uskutocnia. Teraz do logu zapise aj "pokus o vystrel", ktory sa realne neuskutocni (ked hrac nema dostrel)
 * Nejake normalne zobrazenie konca hry + ukoncit moznost pokracovat v hre, ktora ma vitaza
-    * kontrolovat, ci naozaj funguje - ci spravne vyhodnocuje, kto vyhral
+    * ~~kontrolovat, ci naozaj funguje - ci spravne vyhodnocuje, kto vyhral - myslím, že áno, tak dávam preč~~
 * Otestovat smrt po vybuchu dynamitu - ci mrtvy hrac zahodi karty do kopky
 * ~~Oznamenie hracovi, ze na neho bola pouzita panika/catbalou~~
     * ~~Klikanie na log by malo fungovat vzdy, teraz funguje iba ked je hrac na tahu. Da sa to spravit nejako jednoducho? Lebo klikanie handluje server a posiela click accepty~~
@@ -25,6 +26,13 @@ TODO
     * ~~cat belou myslim, ze nie~~
 
 POZNAMKI
+* Reštart hry z ktoréhokoľvek klienta: cez konzolu treba poslať riadok
+
+    ```javascript
+    socket.emit('restart');
+    ```
+
 * Ak niekedy bude blbnut citanie suboru, tak to moze byt kvoli CRLF vs LF. Kod funguje na LF kodovanie
+    
     * za poslednou kartou v subore **nesmie** byt newline
 

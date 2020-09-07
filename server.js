@@ -14,7 +14,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 var game = new Game();
 
-
+//spaja socket.id klienta s menom, ktore si nastavi
+var names = {};
 
 io.on("connection", socket =>{
     //niekto sa pripojil
@@ -23,6 +24,8 @@ io.on("connection", socket =>{
 
     //hrac si nastavi meno
     socket.on('set-name', name => {
+        names[`${socket.id}`] = name; //priradi do pola "names" k socket.id meno, ake si vybral
+
         let index = game.players.findIndex(user => user.id === socket.id);
         game.players[index].name = name;
         gameUpdate();
@@ -63,7 +66,7 @@ io.on("connection", socket =>{
         game.dealCharacters();
         game.shuffleDeck();
         game.dealCards();
-        io.emit("message", game);
+        //io.emit("message", game);
         gameUpdate();
     });
 
@@ -98,18 +101,12 @@ io.on("connection", socket =>{
             Death(player_index);
             let result = game.gameOver();
             console.log("checking for game over... with result: " + result.result);
-            if (result.result){
+            if (result.result){ //ak nastal koniec hry
                 io.emit("winner", result.winner);
                 game.started = false;
                 gameUpdate();
             } 
         }
-
-        //gameOver testing...
-        // var result = game.gameOver();
-        // console.log("checking for game over... ");
-        // console.log(result.result);
-        // console.log(result.winner);
 
         if (game.requestedPlayer != null){
             if (game.playedCard == "Gulomet" || game.playedCard == "Indiani") {
@@ -310,7 +307,26 @@ io.on("connection", socket =>{
     socket.on("disconnect",()=>{
         playerDisconnect(socket.id);
         gameUpdate();
-    })
+    });
+
+    socket.on("restart", () => {
+        if (game.started) {
+            console.log("Zly restart request - hra stale prebieha");
+            return; //ak je hra v priebehu, tak sa nestane nic
+        }
+        game = new Game();
+        
+        //loop through connected sockets and add them as players to the next game
+        let connected_sockets = io.sockets.sockets;
+        for (var socketId in connected_sockets) {
+            playerConnected(socketId); //vytvori noveho hraca
+            
+            //nastavi mu meno podla toho, co je priradene k jeho socketId v poli "names"
+            game.players[game.players.length - 1].name = names[socketId];
+        }
+
+        gameUpdate();
+    });
 
 })
 
@@ -321,7 +337,6 @@ server.listen(PORT, IP, ()=>console.log("server running on " + PORT));
 
 //update hry
 function gameUpdate(){
-    //zatial si len posielam info o hre
     io.emit("update", game);
     // io.emit("log", "Der updater"); //tymto sposobom sa posiela klientovi nejaky text, ktory sa u klienta zapise do logu
 }

@@ -232,7 +232,7 @@ class Game{
         }
         //ak aj su mrtvi banditi a este zije odpadlik, tak serif stale nevyhral:
         if (odpadlik_i != -1 && this.players[odpadlik_i].alive) sheriff_win = false;
-        if (sheriff_win) return {result: true, winner: "Die Polizeiten gewinnt"};
+        if (sheriff_win) return {result: true, winner: "Die Polizeiten"};
         
         
         //ak zatial nie je vitaz:

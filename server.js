@@ -236,7 +236,11 @@ io.on("connection", socket =>{
 
                     let result = game.gameOver();
                     console.log("checking for game over... with result: " + result.result);
-                    if (result.result) io.emit("winner", result.winner);
+                    if (result.result) {
+                        io.emit("winner", result.winner);
+                        game.started = false;
+                        gameUpdate();
+                    }
                 } 
 
             }else{

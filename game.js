@@ -14,13 +14,13 @@ class Game{
         this.started = false;
         this.deadPlayers = 0;
         this.dynamit = false;
-        this.characters = ["paul_regret", "bart_cassidy", "suzy_lafayette", "willy_the_kid" , "vulture_sam", "slab_the_killer", "sid_ketchum", "rose_doolan" , "pedro_ramirez", "lucky_duke", "kit_carlson", "jesse_jones", "el_gringo", "calamity_janet", "black_jack"];
+        this.characters = ["paul_regret", "bart_cassidy", "suzy_lafayette", "willy_the_kid" , "vulture_sam", "slab_the_killer", "sid_ketchum", "rose_doolan" , "pedro_ramirez", "lucky_duke", "kit_carlson", "jesse_jones", "el_gringo", "calamity_janet", "black_jack","jourdonnais"];
     }
 
     dealCharacters(){
         for(var i in this.players){
             var rand_i = Math.floor(Math.random() * (this.characters.length - 1));
-            console.log(this.characters.length);
+            this.players[i].characters = this.characters[rand_i];
             this.characters.splice(rand_i, 1);
         }
     }

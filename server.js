@@ -19,7 +19,8 @@ var names = {};
 
 io.on("connection", socket =>{
     //niekto sa pripojil
-    playerConnected(socket.id);
+    // io.emit("message", game);
+    playerConnected(socket.id); 
     gameUpdate();
 
     //hrac si nastavi meno
@@ -331,7 +332,7 @@ io.on("connection", socket =>{
 })
 
 const PORT = process.env.PORT || 8888;
-const IP = 'localhost'; //192.168.1.18
+const IP = 'localhost'; 
 server.listen(PORT, IP, ()=>console.log("server running on " + PORT));
 
 

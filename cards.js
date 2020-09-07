@@ -401,13 +401,17 @@ class Catbalou extends ActionCard{
 
     action(game, sender, target, card, clickedBlue_index){
         discardCard(game, sender, card);
+        var trashed_card_name;
         if(clickedBlue_index != null){
+            trashed_card_name = game.players[target].blueCards[clickedBlue_index].name;
             discardBlueCard(game, target, clickedBlue_index);
         }
         else{
             var rand = Math.floor(Math.random()*game.players[target].cards.length);
+            trashed_card_name = game.players[target].cards[rand].name;
             discardCard(game, target, rand);
         }
+        return trashed_card_name;
     }
 }
 
@@ -421,21 +425,21 @@ class Panika extends ActionCard{
     //card je ta panika, ktoru zahral niekto
     action(game, sender, target, card, clickedBlue_index) {
         discardCard(game, sender, card); //hodi paniku do kopky zahodenych
+        var stolen_card_name;
         game.playedCard = "Panika";
         if(clickedBlue_index != null){
+            stolen_card_name = game.players[target].blueCards[clickedBlue_index].name;
             game.players[sender].cards.push(game.players[target].blueCards[clickedBlue_index]);
             discardBlueCard(game, target, clickedBlue_index);
         }
         else{
             var rand = Math.floor(Math.random()*game.players[target].cards.length);
+            stolen_card_name = game.players[target].cards[rand].name;
             game.players[sender].cards.push(game.players[target].cards[rand]);
-            
-            //kartu hraca, ktory je obetou paniky nemozeme discardovat takto, lebo toto ju hodi do kopky
             discardCard(game, target, rand);
-            //game.players[target].cards.splice(rand,1);
-
         }
         game.playedCard = null;
+        return stolen_card_name;
     }
 }
 

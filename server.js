@@ -279,14 +279,18 @@ io.on("connection", socket =>{
         var index_target = game.players.findIndex(user => user.id === id);
         io.emit("log", event + ": (" + game.players[index_sender].name + " >>> " + game.players[index_target].name + ")");
 
-        if(event == "Catbalou" || event == "Vazenie"){
-            game.players[index_sender].cards[card_index].action(game, index_sender, index_target, card_index, clickedBlue_index);
-            
+        if(event == "Vazenie") {
+            game.players[index_sender].cards[card_index].action(game, index_sender, index_target, card_index, clickedBlue_index);            
+            gameUpdate();
+        } else if(event == "Catbalou") {
+            let trashed_card_name = game.players[index_sender].cards[card_index].action(game, index_sender, index_target, card_index, clickedBlue_index);
+            io.emit("log", " - zahodena karta: " + trashed_card_name);
             gameUpdate();
         } else if (game.getDistance(index_sender, index_target, card_index) <= 1 || game.players[index_sender].cards[card_index].onRange == false ) {
 
             if(event == "Panika"){
-                game.players[index_sender].cards[card_index].action(game, index_sender, index_target, card_index, clickedBlue_index);
+                let stolen_card_name = game.players[index_sender].cards[card_index].action(game, index_sender, index_target, card_index, clickedBlue_index);
+                socket.broadcast.to(game.players[index_target].id).emit("log", " - zobrali ti kartu: " + stolen_card_name);
                 gameUpdate();
             }else{
 

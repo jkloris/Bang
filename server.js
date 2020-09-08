@@ -93,6 +93,7 @@ io.on("connection", socket =>{
         console.log(card);
         var index_sender = game.players.findIndex(user => user.id === socket.id);
         game.players[index_sender].cards[index].action(game,index_sender,index);
+        io.emit("log", card + ": (" + game.players[index_sender].name + ")");
         gameUpdate();
     });
 
@@ -108,6 +109,7 @@ io.on("connection", socket =>{
                 gameUpdate();
             } 
         }
+        else io.emit("log", " - " + game.players[player_index].name + " sa rozhodol zobrať si život.");
 
         if (game.requestedPlayer != null){
             if (game.playedCard == "Gulomet" || game.playedCard == "Indiani") {
@@ -376,6 +378,7 @@ function discardCard(player_i, card_i) {
 
 function Death(dead_player_index){ //TODO
     console.log(game.players[dead_player_index].name + ' died');
+    io.emit("log", game.players[dead_player_index].name + " je mrtef.");
     game.players[dead_player_index].alive = false;
     game.deadPlayers++;
 

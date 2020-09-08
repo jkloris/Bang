@@ -342,7 +342,7 @@ io.on("connection", socket =>{
 const PORT = process.env.PORT || 8888;
 const IP = 'localhost'; 
 //const IP = '10.156.0.2'; //pre Google Cloud VM
-server.listen(PORT, IP, ()=>console.log("server running on " + PORT));
+server.listen(PORT, IP, ()=>console.log(`server running on ${IP}:${PORT}`));
 
 
 //update hry

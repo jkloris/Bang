@@ -488,6 +488,7 @@ class Vazenie extends BlueCard{
     }
 
     action(game, sender, target, card){
+        game.playedCard = "Vazenie";
         if(game.players[target].prison == false){
             var prison = game.players[sender].cards[card];
             game.players[target].blueCards.push(prison);
@@ -495,6 +496,7 @@ class Vazenie extends BlueCard{
             
             discardCard(game, sender, card);
         }
+        game.playedCard = null;
     }
 }
 
@@ -516,7 +518,7 @@ class Dynamit extends BlueCard{
 
 
 function discardCard(game, player_i, card_i) {
-    if (game.playedCard != "Panika") {
+    if (game.playedCard != "Panika" && game.playedCard != "Vazenie") {
         game.cards.unshift(game.players[player_i].cards[card_i]);    
         game.trashedCards++;
     }

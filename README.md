@@ -1,22 +1,22 @@
 TODO
-* Vazenie ked zahram, tak sa da aj hracovi, ktoreho chcem dat do vazenia, AJ do vyhodenej kopky - opravit !!!
-* ~~Spravit celu hru tak, aby sa dala restartnut (zaca odznova) priamo z aplikacie, bez nutnosti restartovat server~~
-    * hotovo - kontrolovať, či to funguje správne
 * Logovat iba eventy, ktore sa naozaj uskutocnia. Teraz do logu zapise aj "pokus o vystrel", ktory sa realne neuskutocni (ked hrac nema dostrel)
+* Bang aj Barel je zatial mozne pouzit nekonecne vela krat (neponahla to)
 * Nejake normalne zobrazenie konca hry + ukoncit moznost pokracovat v hre, ktora ma vitaza
     * ~~kontrolovat, ci naozaj funguje - ci spravne vyhodnocuje, kto vyhral - myslím, že áno, tak dávam preč~~
 * Otestovat smrt po vybuchu dynamitu - ci mrtvy hrac zahodi karty do kopky
+* (?) kontrola, ci sa striela na mrtveho hraca je zatial client-side. Prerobit na server side?
 * ~~Oznamenie hracovi, ze na neho bola pouzita panika/catbalou~~
     * ~~Klikanie na log by malo fungovat vzdy, teraz funguje iba ked je hrac na tahu. Da sa to spravit nejako jednoducho? Lebo klikanie handluje server a posiela click accepty~~
 * ~~Mrtvemu hracovi po smrti vykreslilo karty, ktore ma (mal) na ruke - opravit~~
-* Kontrola, ci hrac zije pri jednotlivych akciach (bang, indiani,..)
+* ~~Kontrola, ci hrac zije pri jednotlivych akciach (bang, indiani,..)~~
     * ~~(!) kontrola vzdialenosti berie do vypoctu aj mrtvych hracov - opravit~~
-    * (?) kontrola, ci sa striela na mrtveho hraca je zatial client-side. Prerobit na server side?
     * ~~Indiani by mali preskakovat mrtvych hracov~~
     * ~~Takisto aj Salon by mal preskakovat mrtvych hracov~~
-    * mozeme tento bod zmazat, ked otestujeme, ci to naozaj funguje...nechce sa mi teraz robit nejake random testovanie, takze zistime praxou :D
-        * uz som nasiel nejaké chyby pri indianoch, tak to tu ešte nechame, ci sa nieco nenajde
-* Bang aj Barel je zatial mozne pouzit nekonecne vela krat (neponahla to)
+    * ~~mozeme tento bod zmazat, ked otestujeme, ci to naozaj funguje...nechce sa mi teraz robit nejake random testovanie, takze zistime praxou :D~~
+        * ~~uz som nasiel nejaké chyby pri indianoch, tak to tu ešte nechame, ci sa nieco nenajde~~
+* ~~Spravit celu hru tak, aby sa dala restartnut (zaca odznova) priamo z aplikacie, bez nutnosti restartovat server~~
+    * hotovo - kontrolovať, či to funguje správne
+* ~~Vazenie ked zahram, tak sa da aj hracovi, ktoreho chcem dat do vazenia, AJ do vyhodenej kopky - opravit !!!~~
 * ~~Vylepsit indianov - AKO??????~~
 * ~~Ked hrac nema pocas hry ziadne karty, nedovoli mu to normalne hrat..vyskoci mu tlacitko na start hry a pod. Treba fixnut, ale neviem kde :D~~
 * ~~Discard() presunut komplet na server-side (nech klient robi iba request, nech kontrola kariet a zivotov nie je na client-side...)~~

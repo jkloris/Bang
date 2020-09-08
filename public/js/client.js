@@ -1,13 +1,7 @@
 const socket = io();
 
-//name setting
-//toto vytvori defaultne meno Arne BirkenstockXY
-const asdfg = Math.floor(Math.random() * 10);
-name_default = `Arne Birkenstock${asdfg}`;
-
-//prompt nevyskoci, ak je tab v prehliadaci inaktivny (in background). Vtedy sa pouzije defaultne meno.
-const name = prompt('Meno?') || name_default;
-socket.emit('set-name', name);
+const player_name = setName();
+socket.emit('set-name', player_name);
 
 var game_client; //stav hry ulozeny na strane klienta
 var game_scene = new Scene;
@@ -299,4 +293,27 @@ function copyDeck(game_server){
                 break;
         }
     }
+}
+
+//name setting
+function setName() {
+    //toto vytvori defaultne meno Arne BirkenstockXY
+    const asdfg = Math.floor(Math.random() * 10);
+    var name_default = `Arne Birkenstock${asdfg}`;
+
+    //prompt nevyskoci, ak je tab v prehliadaci inaktivny (in background). Vtedy sa pouzije defaultne meno.
+    var name = null;
+    if (localStorage.getItem("bang-name") !== null) name = localStorage.getItem("bang-name"); //ak je v cache nejake meno, pouzije sa to;
+    // console.log("Po localstorage " + name + " typ: " + typeof(name));
+    if (name == null || name == "null") { //ak tam nebolo ziadne meno, bud promptne nove, alebo sa pouzije arne birkenstock
+        // console.log("name === null vyslo ako true. name = " + name);
+        name = prompt('Meno?') || name_default;
+        // console.log("po prompte " + name);
+        if (name === "undefined" || name === "null") name = name_default;
+    }
+    //ak sa pouzilo meno z promptu, tak sa zapise do cache (Arne Birkenstock nechceme do cache zapisovat)
+    if (name !== name_default) {
+        localStorage.setItem("bang-name", name);
+    }
+    return name;
 }

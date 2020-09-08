@@ -62,6 +62,8 @@ class Scene {
         var OpenLog  = new Button(canvas.width - 100, canvas.height - 180, 80, 40, "Log", "rgb(255, 153, 0)");
         OpenLog.action = function() {
             modal.style.display = "block";
+            let scroll_bar = document.getElementById("scrollable-modal");
+            scroll_bar.scrollTop = scroll_bar.scrollHeight;
         };
         this.buttons.push(OpenLog);
     }

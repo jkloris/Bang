@@ -22,7 +22,6 @@ function loadAssets(){
 
         return img;
     }
-   
 
     Sprites.bang = loadIMG("imgs/", "bang.png");
     Sprites.vedle = loadIMG("imgs/", "missed.png");
@@ -77,6 +76,7 @@ function loadAssets(){
     Sprites.suzy_lafayette = loadIMG("imgs/", "suzy-lafayette.png");
     Sprites.vulture_sam = loadIMG("imgs/", "vulture-sam.png");
     Sprites.willy_the_kid = loadIMG("imgs/", "willy-the-kid.png");
+    Sprites.felipe_prisonero = loadIMG("imgs/", "felipe_prisonero.png");
  
 
     AssetsLoading_loop();

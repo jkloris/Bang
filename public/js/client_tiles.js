@@ -1,5 +1,5 @@
 class Tile {
-    constructor(x, y, name, id, HP, cards, role) { //TODO - ostatne vlastnosti, ked ich budeme vediet zobrazit
+    constructor(x, y, name, id, HP, cards, role, character) { //TODO - ostatne vlastnosti, ked ich budeme vediet zobrazit
         this.x = x;
         this.y = y;
         this.name = name;
@@ -7,6 +7,7 @@ class Tile {
         this.HP = HP;
         this.cards = cards;
         this.role = role;
+        this.character = character;
         if (this.HP <= 0) this.alive = false;
         else this.alive = true;
     }
@@ -89,13 +90,69 @@ class Tile {
     }
     
     drawLife(){
+        var character = null;
+        switch (this.character){
+            case "paul_regret":
+                character = Sprites.paul_regret;
+                break;
+            case "bart_cassidy":
+                character = Sprites.bart_cassidy;
+                break;
+            case "suzy_lafayette":
+                character = Sprites.suzy_lafayette;
+                break;
+            case "willy_the_kid":
+                character = Sprites.willy_the_kid;
+                break;
+            case "vulture_sam":
+                character = Sprites.vulture_sam;
+                break;
+            case "slab_the_killer":
+                character = Sprites.slab_the_killer;
+                break;
+            case "sid_ketchum":
+                character = Sprites.sid_ketchum;
+                break;
+            case "rose_doolan":
+                character = Sprites.rose_doolan;       
+                break;
+            case "pedro_ramirez":
+                character = Sprites.pedro_ramirez;
+                break;
+            case "lucky_duke":
+                character = Sprites.lucky_duke;
+                break;
+            case "kit_carlson":
+                var character = Sprites.kit_carlson;
+                break;
+            case "jesse_jones":
+                character = Sprites.jesse_jones;
+                break;
+            case "jourdonnais":
+                character = Sprites.jourdonnais;
+                break;
+            case "calamity_janet":
+                character = Sprites.calamity_janet;
+                break;
+            case "black_jack":
+                character = Sprites.black_jack;
+                break;
+            case "el_gringo":
+                character = Sprites.el_gringo;
+                break;
+
+            default:
+                break;
+        }
+
+
         var x = this.x + tile_size.x - 2;
         var ratio = tile_size.x / 4
         var y = this.y + tile_size.y - Sprites.bang.height / Sprites.bang.width * ratio + 1;
-        var character = Sprites.bart_cassidy; //TODO
+         //TODO
         ctx.save();
         ctx.drawImage(Sprites.back_character, x, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio); 
-        ctx.drawImage(character, x, y - (this.HP * (tile_size.y-2) / 10) + 1, ratio, Sprites.bang.height / Sprites.bang.width * ratio); 
+        if(character != null) ctx.drawImage(character, x, y - (this.HP * (tile_size.y-2) / 10) + 1, ratio, Sprites.bang.height / Sprites.bang.width * ratio); 
         ctx.restore();
     }
 

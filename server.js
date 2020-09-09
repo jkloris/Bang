@@ -67,7 +67,7 @@ io.on("connection", socket =>{
         game.dealCharacters();
         game.shuffleDeck();
         game.dealCards();
-        //io.emit("message", game);
+        io.emit("message", game);
         gameUpdate();
     });
 

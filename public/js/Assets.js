@@ -34,6 +34,7 @@ function loadAssets(){
     Sprites.gulomet = loadIMG("imgs/", "gatling.png");
     Sprites.panika = loadIMG("imgs/", "panico.png");
     Sprites.hokynarstvo = loadIMG("imgs/", "emporio.png");
+    Sprites.duel = loadIMG("imgs/", "duel.png");
     
     Sprites.schofield = loadIMG("imgs/", "schofield.png");
     Sprites.remington = loadIMG("imgs/", "remington.png");

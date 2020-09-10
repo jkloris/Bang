@@ -345,3 +345,12 @@ class Dynamit extends BlueCard{
 
 }
 
+class Duel extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Duel";
+        this.IMG = Sprites.duel;
+        this.offensive = true;
+        this.onRange = false;
+    }   
+}

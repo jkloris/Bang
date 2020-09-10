@@ -146,7 +146,10 @@ function updatePlayers(game_server) {
                     game_client.players[i].cards.push(new Vazenie());                    
                     break;
                 case "Dynamit":
-                    game_client.players[i].cards.push(new Dynamit());                    
+                    game_client.players[i].cards.push(new Dynamit());
+                    break;
+                case "Duel":
+                    game_client.players[i].cards.push(new Duel()); 
                     break;
             
                 default:
@@ -287,9 +290,12 @@ function copyDeck(game_server){
                 game_client.cards.push(new Vazenie());                    
                 break;
             case "Dynamit":
-                game_client.cards.push(new Dynamit());                    
+                game_client.cards.push(new Dynamit());
                 break;
             
+            case "Duel":
+                game_client.cards.push(new Duel());
+                break;
 
             default:
                 break;

@@ -78,6 +78,9 @@ class Bang extends ActionCard{
                 game.requestedCard = null;
             } 
         }
+        else if (game.playedCard == "Duel") {
+
+        }
     }
    
 }
@@ -458,6 +461,7 @@ class Hokynarstvo extends ActionCard{
     }
 }
 
+
 class Barel extends BlueCard{
     constructor(){
         super();
@@ -484,9 +488,9 @@ class Vazenie extends BlueCard{
     constructor(){
         super();
         this.name = "Vazenie";
-    
+        
     }
-
+    
     action(game, sender, target, card){
         game.playedCard = "Vazenie";
         if(game.players[target].prison == false){
@@ -504,9 +508,9 @@ class Dynamit extends BlueCard{
     constructor(){
         super();
         this.name = "Dynamit";
-    
+        
     }
-
+    
     action(game, player, card){
         if(!game.dynamit){
             game.dynamit = true;
@@ -516,6 +520,17 @@ class Dynamit extends BlueCard{
     }
 }
 
+class Duel extends ActionCard{
+    constructor(){
+        super();
+        this.name = "Duel";
+        this.onRange = false;
+    }
+    action (game, player, card) {
+        
+    }
+   
+}
 
 function discardCard(game, player_i, card_i) {
     if (game.playedCard != "Panika" && game.playedCard != "Vazenie") {
@@ -550,4 +565,4 @@ function discardBlueCard(game, player_i, card_i) {
     game.players[player_i].blueCards.splice(card_i,1);
 }
 
-module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang, Catbalou, Panika, Gulomet, Hokynarstvo, Barel, Vazenie, Dynamit];
+module.exports = [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang, Catbalou, Panika, Gulomet, Hokynarstvo, Barel, Vazenie, Dynamit, Duel];

@@ -301,7 +301,7 @@ io.on("connection", socket =>{
                 gameUpdate();
                 
                 for(i in game.players){
-                    if(game.players[i].id == id){
+                    if(game.players[i].id == id){ //info pre targeta, ze co sa deje (ze nanho ide BANG alebo Duello)
                         socket.broadcast.to(id).emit(event, clickedBlue_index, index_sender);
                         socket.broadcast.to(id).emit("message", game.players[index_sender].name + ' used card ' + event + ' -> you');
                     }else if(game.players[i].id == socket.id){

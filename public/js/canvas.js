@@ -74,6 +74,10 @@ function drawGame() {
             ctx.font = "40px Arial";
             ctx.fillText(`DIE INDIANEN, SPIEL EIN BANG BITTE!!!`, canvas.width / 2, canvas.height / 2 - 20);
             ctx.restore();
+            if (play_audio) {
+                audio.indiani.play();
+                play_audio = false;
+            }
         } else if (game_client.playedCard == "Gulomet") {
             ctx.save();
             ctx.textAlign = "center";
@@ -81,6 +85,10 @@ function drawGame() {
             ctx.font = "40px Arial";
             ctx.fillText(`DAS MACHINENGEWEHR, SPIEL EINE AUSWEICHE BITTE!!!`, canvas.width / 2, canvas.height / 2 - 20);
             ctx.restore();
+            if (play_audio) {
+                audio.gulomet.play();
+                play_audio = false;
+            }
         } else if (game_client.playedCard == "Bang") {
             ctx.save();
             ctx.textAlign = "center";

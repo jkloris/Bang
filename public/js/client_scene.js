@@ -36,12 +36,14 @@ class Scene {
             } else if( card_i != -1 && game_client.players[player_i].cards[card_i].offensive == false && game_client.requestedCard == null){
                 socket.emit("useCard", game_client.players[player_i].cards[card_i].name, card_i);
             }
+            play_audio = true;
         }
         this.buttons.push(UseCard);
 
         var LoseLife = new Button(canvas.width - 200, canvas.height - 120, 80, 40, "Lose life", "rgb(255, 153, 0)");
         LoseLife.action = function(){
             socket.emit("loseLife",socket.id);
+            play_audio = true;
         }
         this.buttons.push(LoseLife);
 

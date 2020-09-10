@@ -7,6 +7,8 @@ var game_client; //stav hry ulozeny na strane klienta
 var game_scene = new Scene;
 game_scene.init();
 
+var play_audio = true;
+
 socket.on("message", (msg) => {
     console.log(msg);
 });

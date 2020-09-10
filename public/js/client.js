@@ -24,7 +24,8 @@ socket.on("Bang", (arg, index_shooter) =>{
     //presunul som to na server aj kvoli barelu
     socket.emit("RequestedCard", "Vedle");
     socket.emit("PlayedCard", "Bang");
-    
+    let random_bang_sound = Math.round(Math.random());
+    audio.bang[random_bang_sound].play();
 })
 
 

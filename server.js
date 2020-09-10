@@ -95,6 +95,9 @@ io.on("connection", socket =>{
         game.players[index_sender].cards[index].action(game,index_sender,index);
         io.emit("log", card + ": (" + game.players[index_sender].name + ")");
         gameUpdate();
+        console.log(game.requestedPlayer);
+        console.log(game.requestedCard);
+        console.log(game.playedCard);
     });
 
     socket.on("loseLife",(id)=>{
@@ -294,8 +297,7 @@ io.on("connection", socket =>{
                 let stolen_card_name = game.players[index_sender].cards[card_index].action(game, index_sender, index_target, card_index, clickedBlue_index);
                 socket.broadcast.to(game.players[index_target].id).emit("log", " - zobrali ti kartu: " + stolen_card_name);
                 gameUpdate();
-            }else{
-
+            } else if (event == "Bang") {
                 game.requestedPlayer = index_target;
                 discardCard(index_sender, card_index);
                 gameUpdate();
@@ -308,6 +310,19 @@ io.on("connection", socket =>{
                         socket.emit("message", "you used card " + event + ' -> ' + game.players[index_target].name);
                     }else{
                         socket.broadcast.to(game.players[i].id).emit("message", game.players[index_sender].name + " used card " + event + ' -> ' + game.players[index_target].name);
+                    }
+                }
+            } else if (event == "Duel") {
+                game.duelistPlayer = index_target;
+                game.requestedPlayer = index_target;
+                discardCard(index_sender, card_index);                
+                gameUpdate();
+                io.emit("Duel-announcement");
+                
+                for(i in game.players){
+                    if(game.players[i].id == id){ //info pre targeta, ze co sa deje (ze nanho ide BANG alebo Duello)
+                        socket.broadcast.to(id).emit(event, clickedBlue_index, index_sender);
+                        socket.broadcast.to(id).emit("message", game.players[index_sender].name + ' used card ' + event + ' -> you');
                     }
                 }
             }

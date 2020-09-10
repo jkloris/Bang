@@ -79,7 +79,9 @@ class Bang extends ActionCard{
             } 
         }
         else if (game.playedCard == "Duel") {
-
+            discardCard(game, player, card);
+            if (game.requestedPlayer == game.duelistPlayer) game.requestedPlayer = game.turn;
+            else game.requestedPlayer = game.duelistPlayer;
         }
     }
    

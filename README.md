@@ -1,4 +1,5 @@
 TODO
+* Kontrolovat, ci spravne funguje duel - nie je otestovany zatial
 * Logovat iba eventy, ktore sa naozaj uskutocnia. Teraz do logu zapise aj "pokus o vystrel", ktory sa realne neuskutocni (ked hrac nema dostrel)
 * Bang aj Barel je zatial mozne pouzit nekonecne vela krat (neponahla to)
 * Nejake normalne zobrazenie konca hry + ukoncit moznost pokracovat v hre, ktora ma vitaza

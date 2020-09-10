@@ -57,13 +57,29 @@ function drawGame() {
 
     //draw buttons
     //hrac co je na tahu
-    if (game_client.turn != null && socket.id == game_client.players[game_client.turn].id ){
+    if (game_client.turn != null && game_client.requestedPlayer == null && socket.id == game_client.players[game_client.turn].id ){
         for(var i in game_scene.buttons){
             game_scene.buttons[i].visible = true;
             //game_scene.buttons[i].draw();
         }         
         game_scene.buttons[3].visible = false;  //3 je index lose life     
         //game_scene.buttons[i].draw();
+    }
+    //hrac, co je na tahu, ale je v dueli
+    else if (game_client.turn != null && game_client.requestedPlayer != null && socket.id == game_client.players[game_client.turn].id && game_client.players[game_client.requestedPlayer].id == socket.id) {
+        ctx.save();
+        ctx.textAlign = "center";
+        ctx.fillStyle = "red";
+        ctx.font = "40px Arial";
+        ctx.fillText(`DUELLO`, canvas.width / 2, canvas.height / 2 - 20);
+        ctx.restore();
+        for (var i in game_scene.buttons) {
+            if(i==2 || i==3){ //use button je na indexe 2 a lose life na 3
+                game_scene.buttons[i].visible = true;
+            } else{
+                game_scene.buttons[i].visible = false;
+            }
+        }
     }
     //hrac, co nie je na tahu, ale je od neho vyzadovana nejaka akcia
     else if(game_client.requestedPlayer != null && socket.id != game_client.players[game_client.turn].id && socket.id == game_client.players[game_client.requestedPlayer].id){
@@ -96,6 +112,14 @@ function drawGame() {
             ctx.font = "40px Arial";
             let shooter = game_client.players[game_client.turn].name;
             ctx.fillText(`${shooter} PLAYED BANG ON YOU!`, canvas.width / 2, canvas.height / 2 - 20);
+            ctx.restore(); 
+        } else if (game_client.playedCard == "Duel") {
+            ctx.save();
+            ctx.textAlign = "center";
+            ctx.fillStyle = "red";
+            ctx.font = "40px Arial";
+            let shooter = game_client.players[game_client.turn].name;
+            ctx.fillText(`DUELLO MIT ${shooter}`, canvas.width / 2, canvas.height / 2 - 20);
             ctx.restore(); 
         }
         for (var i in game_scene.buttons) {

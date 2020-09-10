@@ -28,7 +28,16 @@ socket.on("Bang", (arg, index_shooter) =>{
     socket.emit("PlayedCard", "Bang");
     let random_bang_sound = Math.round(Math.random());
     audio.bang[random_bang_sound].play();
-})
+});
+
+socket.on("Duel", (arg, index_shooter) => {
+    socket.emit("RequestedCard", "Bang");
+    socket.emit("PlayedCard", "Duel");
+});
+
+socket.on("Duel-announcement", () => {
+    audio.duel.play();
+});
 
 
 document.addEventListener("click", e => {

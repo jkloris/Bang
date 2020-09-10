@@ -8,6 +8,7 @@ class Game{
         this.turn = 0;
         this.requestedPlayer = null; //hrac od ktoreho sa caka reakcia
         this.requestedCard = null; //pozadovana karta (vedle pri bangovani)
+        this.duelistPlayer = null;
         this.trashedCards = 0;
         this.moveStage = 0; //urcuje povolene akcie hraca pocas tahu (0 - tahanie kariet/dynamit,.., 1 - priebeh tahu,.. mozno 2 na ukoncenie tahu)
         this.playedCard = null;

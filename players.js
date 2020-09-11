@@ -19,19 +19,153 @@ class Player{
     }
 }
 
-// class Character{
-//     constructor(player){
-//         this.IMG = null;
-//         this.player = player;
-//     }
-// }
+class Character{
+    constructor(player){
+        this.player = player;
+        this.name = null;
+        this.HP = 4;
+        
+    }
 
-// class Paul_regret extends Character{
-//     constructor(player){
-//         super(player);
-//         this.name = "Paul Regret"
-//     }
-// }
+    init(){
+        this.player.character = this.name;
+        this.player.HP = this.HP;
+    }
+}
 
+class Paul_regret extends Character{
+    constructor(player){
+        super(player);
+        this.name = "paul_regret";
+        this.HP = 3;
+    }
+}
 
-module.exports = Player;
+class Bart_cassidy extends Character{
+    constructor(player){
+        super(player);
+        this.name = "bart_cassidy";
+        this.HP = 4;
+    }
+}
+
+class Suzy_lafayette extends Character{
+    constructor(player){
+        super(player);
+        this.name = "suzy_lafayette";
+        this.HP = 4;
+    }
+}
+
+class Willy_the_kid extends Character{
+    constructor(player){
+        super(player);
+        this.name = "willy_the_kid";
+        this.HP = 4;
+    }
+}
+
+class Vulture_sam extends Character{
+    constructor(player){
+        super(player);
+        this.name = "vulture_sam";
+        this.HP = 4;
+    }
+}
+
+class Slab_the_killer extends Character{
+    constructor(player){
+        super(player);
+        this.name = "slab_the_killer";
+        this.HP = 4;
+    }
+}
+
+class Sid_ketchum extends Character{
+    constructor(player){
+        super(player);
+        this.name = "sid_ketchum";
+        this.HP = 4;
+    }
+}
+
+class Rose_doolan extends Character{
+    constructor(player){
+        super(player);
+        this.name = "rose_doolan";
+        this.HP = 4;
+    }
+}
+
+class Pedro_ramirez extends Character{
+    constructor(player){
+        super(player);
+        this.name = "pedro_ramirez";
+        this.HP = 4;
+    }
+}
+class Lucky_duke extends Character{
+    constructor(player){
+        super(player);
+        this.name = "lucky_duke";
+        this.HP = 4;
+    }
+}
+
+class Kit_carlson extends Character{
+    constructor(player){
+        super(player);
+        this.name = "kit_carlson";
+        this.HP = 4;
+    }
+}
+
+class Jesse_jones extends Character{
+    constructor(player){
+        super(player);
+        this.name = "jesse_jones";
+        this.HP = 4;
+    }
+}
+
+class El_gringo extends Character{
+    constructor(player){
+        super(player);
+        this.name = "el_gringo";
+        this.HP = 3;
+    }
+}
+
+class Calamity_janet extends Character{
+    constructor(player){
+        super(player);
+        this.name = "calamity_janet";
+        this.HP = 4;
+    }
+}
+
+class Black_jack extends Character{
+    constructor(player){
+        super(player);
+        this.name = "black_jack";
+        this.HP = 4;
+    }
+}
+
+class Jourdonnais extends Character{
+    constructor(player){
+        super(player);
+        this.name = "jourdonnais";
+        this.HP = 4;
+    }
+}
+
+class Felipe_prisonero extends Character{
+    constructor(player){
+        super(player);
+        this.name = "felipe_prisonero";
+        this.HP = 4;
+    }
+}
+
+module.exports = [Player, Paul_regret, Rose_doolan, Bart_cassidy, Suzy_lafayette, Willy_the_kid, Vulture_sam, Slab_the_killer, Sid_ketchum, Pedro_ramirez, Lucky_duke, Kit_carlson, Jesse_jones, El_gringo, Calamity_janet, Jourdonnais, Black_jack, Felipe_prisonero];

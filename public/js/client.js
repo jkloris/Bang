@@ -240,6 +240,7 @@ function updatePlayers(game_server) {
 
         x = Math.floor(x);
         y = Math.floor(y);
+        
         var new_tile = new Tile(x, y, game_client.players[number].name, game_client.players[number].id, game_client.players[number].HP, game_client.players[number].cards.length, game_client.players[number].role, game_client.players[number].character);
         game_scene.add_tile(new_tile);
 

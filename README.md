@@ -1,4 +1,5 @@
 TODO
+* Zoomovanie na charactery som robil po 4 piffkach, takze je to dost dirty spravene, ale ak to nebudes chciet spravit krajsie, tak tento bod zmaz, dobru nocku idem spinkat
 * Kontrolovat, ci spravne funguje duel - nie je otestovany zatial
 * Logovat iba eventy, ktore sa naozaj uskutocnia. Teraz do logu zapise aj "pokus o vystrel", ktory sa realne neuskutocni (ked hrac nema dostrel)
 * Bang aj Barel je zatial mozne pouzit nekonecne vela krat (neponahla to)

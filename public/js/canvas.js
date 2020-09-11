@@ -17,6 +17,7 @@ function clear() {
 }
 
 function drawGame() {
+    if (game_finished) return;
     clear();
 
 

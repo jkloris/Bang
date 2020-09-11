@@ -8,6 +8,7 @@ var game_scene = new Scene;
 game_scene.init();
 
 var play_audio = true;
+var game_finished = false;
 
 socket.on("message", (msg) => {
     console.log(msg);
@@ -83,8 +84,12 @@ socket.on("log", (content) => {
 });
 
 socket.on("winner", (winner) => {
+    game_finished = true;
     drawWinner(winner);
-    alert(`${winner} won!`);
+});
+
+socket.on("restart", () => {
+    game_finished = false;
 });
 
 function updatePlayers(game_server) {

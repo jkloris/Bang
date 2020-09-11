@@ -46,7 +46,14 @@ document.addEventListener("click", e => {
     var mouse = {x: e.clientX-rect.left, y: e.clientY-rect.top};
     //console.log(mouse.x, mouse.y);
     socket.emit("clicked", mouse, socket.id );
-})
+});
+
+document.addEventListener("contextmenu", e => {
+    e.preventDefault();
+
+    if (game_scene.buttons[2].visible) game_scene.buttons[2].onclick();
+});
+
 socket.on("clickAccept", (mouse)=>{
     game_scene.onclick(mouse);
 })

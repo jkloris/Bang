@@ -22,70 +22,68 @@ class Game{
         let characters = ["paul_regret", "bart_cassidy", "suzy_lafayette", "willy_the_kid" , "vulture_sam", "slab_the_killer", "sid_ketchum", "rose_doolan" , "pedro_ramirez", "lucky_duke", "kit_carlson", "jesse_jones", "el_gringo", "calamity_janet", "black_jack","jourdonnais", "felipe_prisonero"];        
         for(var i in this.players){
             var rand_i = Math.floor(Math.random() * (characters.length));
-            this.players[i].character = characters[rand_i];
 
-            var character;
-
-            switch (this.players[i].character){
+            switch (characters[rand_i]){
                 case "paul_regret":
-                    character = new Paul_regret(this.players[i]);
+                    this.players[i].character = new Paul_regret(this.players[i]);
                     break;
                 case "bart_cassidy":
-                    character = new Bart_cassidy(this.players[i]);
+                    this.players[i].character = new Bart_cassidy(this.players[i]);
                     break;
                 case "suzy_lafayette":
-                    character = new Suzy_lafayette(this.players[i]);
+                    this.players[i].character = new Suzy_lafayette(this.players[i]);
                     break;
                 case "willy_the_kid":
-                    character = new Willy_the_kid(this.players[i]);
+                    this.players[i].character = new Willy_the_kid(this.players[i]);
                     break;
                 case "vulture_sam":
-                    character = new Vulture_sam(this.players[i]);
+                    this.players[i].character = new Vulture_sam(this.players[i]);
                     break;
                 case "slab_the_killer":
-                    character = new Slab_the_killer(this.players[i]);
+                    this.players[i].character = new Slab_the_killer(this.players[i]);
                     break;
                 case "sid_ketchum":
-                    character = new Sid_ketchum(this.players[i]);
+                    this.players[i].character = new Sid_ketchum(this.players[i]);
                     break;
                 case "rose_doolan":
-                    character = new Rose_doolan(this.players[i]);       
+                    this.players[i].character = new Rose_doolan(this.players[i]);       
                     break;
                 case "pedro_ramirez":
-                    character = new Pedro_ramirez(this.players[i]);
+                    this.players[i].character = new Pedro_ramirez(this.players[i]);
                     break;
                 case "lucky_duke":
-                    character = new Lucky_duke(this.players[i]);
+                    this.players[i].character = new Lucky_duke(this.players[i]);
                     break;
                 case "kit_carlson":
-                    var character = new Kit_carlson(this.players[i]);
+                    this.players[i].character = new Kit_carlson(this.players[i]);
                     break;
                 case "jesse_jones":
-                    character = new Jesse_jones(this.players[i]);
+                    this.players[i].character = new Jesse_jones(this.players[i]);
                     break;
                 case "jourdonnais":
-                    character = new Jourdonnais(this.players[i]);
+                    this.players[i].character = new Jourdonnais(this.players[i]);
                     break;
                 case "calamity_janet":
-                    character = new Calamity_janet(this.players[i]);
+                    this.players[i].character = new Calamity_janet(this.players[i]);
                     break;
                 case "black_jack":
-                    character = new Black_jack(this.players[i]);
+                    this.players[i].character = new Black_jack(this.players[i]);
                     break;
                 case "el_gringo":
-                    character = new El_gringo(this.players[i]);
+                    this.players[i].character = new El_gringo(this.players[i]);
                     break;
                 case "felipe_prisonero":
-                    character = new Felipe_prisonero(this.players[i]);
+                    this.players[i].character = new Felipe_prisonero(this.players[i]);
                     break;
                 
                 default:
                     break;
             }
-
-            character.init();
-
+            
+            this.players[i].character.init(this.players[i]);
+            
             characters.splice(rand_i, 1);
+
         }
     }
 

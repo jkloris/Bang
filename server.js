@@ -7,7 +7,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 
-const [Player, Paul_regret, Rose_doolan] = require("./players.js");
+const [Player, Paul_regret, Rose_doolan, Bart_cassidy, Suzy_lafayette, Willy_the_kid, Vulture_sam, Slab_the_killer, Sid_ketchum, Pedro_ramirez, Lucky_duke, Kit_carlson, Jesse_jones, El_gringo, Calamity_janet, Jourdonnais, Black_jack, Felipe_prisonero] = require("./players.js");
 const Game = require("./game.js");
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -63,8 +63,8 @@ io.on("connection", socket =>{
     socket.on("startGame", ()=>{
         if (game.players.length <= 1) return; //crashuje to, ak pustime hru s iba 1 hracom
         game.started = true;
-        game.dealRoles();
         game.dealCharacters();
+        game.dealRoles();
         game.shuffleDeck();
         game.dealCards();
         // io.emit("message", game);

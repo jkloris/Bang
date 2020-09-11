@@ -20,16 +20,16 @@ class Player{
 }
 
 class Character{
-    constructor(player){
-        this.player = player;
+    constructor(player){ //vlastnost player je asi zbytocna, ale nechce sa mi to odtranovat a ked ju odkomentujem tak sa to zacykli
+        // this.player = player;
         this.name = null;
         this.HP = 4;
         
     }
 
-    init(){
-        this.player.character = this.name;
-        this.player.HP = this.HP;
+    init(player){
+        player.HP = this.HP;
+        player.maxHP = this.HP;
     }
 }
 

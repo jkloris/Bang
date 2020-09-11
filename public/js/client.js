@@ -15,6 +15,7 @@ socket.on("message", (msg) => {
 });
 
 socket.on("update", game => {
+
     game_client = {}; //zmaze to co tam bolo doteraz
     game_client = $.extend(true, {}, game); //skopiruje tam novy stav pomocou jQuery.extend()
     copyDeck(game);    
@@ -241,7 +242,8 @@ function updatePlayers(game_server) {
         x = Math.floor(x);
         y = Math.floor(y);
         
-        var new_tile = new Tile(x, y, game_client.players[number].name, game_client.players[number].id, game_client.players[number].HP, game_client.players[number].cards.length, game_client.players[number].role, game_client.players[number].character);
+        var character = game_client.players[number].character == null ? null : game_client.players[number].character.name;
+        var new_tile = new Tile(x, y, game_client.players[number].name, game_client.players[number].id, game_client.players[number].HP, game_client.players[number].cards.length, game_client.players[number].role, character );
         game_scene.add_tile(new_tile);
 
     }

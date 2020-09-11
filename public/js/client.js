@@ -9,6 +9,8 @@ game_scene.init();
 
 var play_audio = true;
 var game_finished = false;
+var cardSelected = false;
+var zoomed = false;
 
 socket.on("message", (msg) => {
     console.log(msg);
@@ -51,8 +53,15 @@ document.addEventListener("click", e => {
 
 document.addEventListener("contextmenu", e => {
     e.preventDefault();
+    let rect = canvas.getBoundingClientRect();
+    let mouse = {x: e.clientX-rect.left, y: e.clientY-rect.top};
 
-    if (game_scene.buttons[2].visible) game_scene.buttons[2].onclick();
+    if (game_scene.buttons[2].visible && cardSelected) game_scene.buttons[2].onclick();
+    else if (!zoomed) game_scene.rightClickCheck(mouse); //ak nie je zoomnute
+    else {
+        zoomed = false;
+        drawGame();
+    }
 });
 
 socket.on("clickAccept", (mouse)=>{

@@ -2,6 +2,7 @@ class Scene {
     constructor() {
         this.tiles = [];
         this.buttons = [];
+        this.cardSelected = false;
     }
 
     add_tile(tile) {
@@ -27,6 +28,7 @@ class Scene {
             
             var player_i = game_client.players.findIndex(user => user.id === socket.id);
             var card_i = game_client.players[player_i].cards.findIndex(card => card.selected === true);
+            cardSelected = false;
             
             // console.log(game_client.requestedCard );
             // console.log(card_i);
@@ -172,6 +174,8 @@ class Scene {
                     if(point.x > x  && point.x < x + ratio - 10){
                         for(var o in player.cards) player.cards[o].selected = false;
                         player.cards[e].selected = true;
+                        console.log("selectujeme kartu");
+                        cardSelected = true;
                         drawGame();
                     }
                     x += ratio - 10;
@@ -199,6 +203,93 @@ class Scene {
                 }         
         }
         
+    }
+
+    rightClickCheck(point) {
+        //skontroluje, ci neklikame na kartu charakteru (ako je calamity a pod.)
+        for (var i in game_client.players) {
+            
+            var current = this.tiles[i];
+            var localRatio = tile_size.x / 4;
+            var x = current.x  + tile_size.x - 2;
+            var y = current.y + tile_size.y - Sprites.bang.height / Sprites.bang.width * localRatio + 1;
+            
+            if (point.x >= x && point.x <= x + localRatio && point.y >= y - (current.HP * (tile_size.y - 2) / 10) + 1 && point.y <= y - (current.HP * (tile_size.y - 2) / 10) + 1 + Sprites.bang.height / Sprites.bang.width * localRatio) {
+                console.log(game_client.players[i].character);
+
+                var character_img = null;
+                switch (game_client.players[i].character.name){
+                    case "paul_regret":
+                        character_img = Sprites.paul_regret;
+                        break;
+                    case "bart_cassidy":
+                        character_img = Sprites.bart_cassidy;
+                        break;
+                    case "suzy_lafayette":
+                        character_img = Sprites.suzy_lafayette;
+                        break;
+                    case "willy_the_kid":
+                        character_img = Sprites.willy_the_kid;
+                        break;
+                    case "vulture_sam":
+                        character_img = Sprites.vulture_sam;
+                        break;
+                    case "slab_the_killer":
+                        character_img = Sprites.slab_the_killer;
+                        break;
+                    case "sid_ketchum":
+                        character_img = Sprites.sid_ketchum;
+                        break;
+                    case "rose_doolan":
+                        character_img = Sprites.rose_doolan;       
+                        break;
+                    case "pedro_ramirez":
+                        character_img = Sprites.pedro_ramirez;
+                        break;
+                    case "lucky_duke":
+                        character_img = Sprites.lucky_duke;
+                        break;
+                    case "kit_carlson":
+                        character_img = Sprites.kit_carlson;
+                        break;
+                    case "jesse_jones":
+                        character_img = Sprites.jesse_jones;
+                        break;
+                    case "jourdonnais":
+                        character_img = Sprites.jourdonnais;
+                        break;
+                    case "calamity_janet":
+                        character_img = Sprites.calamity_janet;
+                        break;
+                    case "black_jack":
+                        character_img = Sprites.black_jack;
+                        break;
+                    case "el_gringo":
+                        character_img = Sprites.el_gringo;
+                        break;
+                    case "felipe_prisonero":
+                        character_img = Sprites.felipe_prisonero;
+                        break;
+
+                    default:
+                        character_img = "hovno";
+                        break;
+                }
+
+                //ak klikame na charakter, teraz je nastaveny v character_img
+                //console.log(character_img); 
+                if (character_img != null) {
+                    clear();
+                    zoomed = true;
+
+                    ctx.save();
+                    ctx.drawImage(character_img, canvas.width / 2 - character_img.width / 2, canvas.height / 2 - character_img.height / 2, character_img.width, character_img.height);
+                    ctx.restore();
+
+                    return;
+                }
+            }
+        }
     }
 }
 

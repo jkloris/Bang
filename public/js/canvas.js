@@ -67,7 +67,7 @@ function drawGame() {
         //game_scene.buttons[i].draw();
     }
     //hrac, co je na tahu, ale je v dueli
-    else if (game_client.turn != null && game_client.requestedPlayer != null && socket.id == game_client.players[game_client.turn].id && game_client.players[game_client.requestedPlayer].id == socket.id) {
+    else if (game_client.turn != null && game_client.requestedPlayer != null && socket.id == game_client.players[game_client.turn].id && game_client.players[game_client.requestedPlayer].id == socket.id && game_client.playedCard == "Duel") {
         ctx.save();
         ctx.textAlign = "center";
         ctx.fillStyle = "red";

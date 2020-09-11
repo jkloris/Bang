@@ -63,8 +63,8 @@ socket.on("partial_clickAccept", (mouse)=>{
     game_scene.checkButtons(mouse);
     game_scene.checkCardSelect(mouse);
 
-    var arg = game_scene.checkBlueCards(mouse, game_scene.tiles[game_client.requestedPlayer], game_client.requestedPlayer);
-    if(arg != null) socket.emit("ownBlueClicked", arg);
+    var clickedBlue = game_scene.checkBlueCards(mouse, game_scene.tiles[game_client.requestedPlayer], game_client.requestedPlayer);
+    if(clickedBlue != null) socket.emit("ownBlueClicked", clickedBlue);
 })
 
 socket.on("logClick", (point)=>{

@@ -1,7 +1,6 @@
 class Card {
     constructor(){
         this.name = null;
-        // this.available = true;  
         this.selected = false; 
         this.offensive = false; //karta, ktora sa aktivuje kliknutim na hraca. Vymysli lepsi nazov
         this.IMG = null;

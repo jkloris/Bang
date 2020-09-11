@@ -90,6 +90,20 @@ class Scene {
         
     }
 
+    checkCharacters(point){
+        var player_i = game_client.players.findIndex(user => user.id === socket.id);
+            
+            var current = this.tiles[player_i];
+            var localRatio = tile_size.x / 4;
+            var x = current.x  + tile_size.x - 2;
+            var y = current.y + tile_size.y - Sprites.bang.height / Sprites.bang.width * localRatio + 1;
+            
+            if (point.x >= x && point.x <= x + localRatio && point.y >= y - (current.HP * (tile_size.y - 2) / 10) + 1 && point.y <= y - (current.HP * (tile_size.y - 2) / 10) + 1 + Sprites.bang.height / Sprites.bang.width * localRatio) {
+                console.log(game_client.players[player_i].character); //TODO
+            }
+
+    }
+
     checkTiles(point){
         for (var i in this.tiles) {            
             var current = this.tiles[i];

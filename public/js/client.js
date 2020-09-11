@@ -72,6 +72,9 @@ socket.on("logClick", (point)=>{
     if (current.visible && point.x >= current.x && point.x <= current.x + current.sizeX && point.y >= current.y && point.y <= current.y + current.sizeY) {
         current.onclick();
     }
+
+    game_scene.checkCharacters(point); //postavy kontroluje stale
+
 })
 
 socket.on("emporio_clickAccept", (mouse)=>{ //TODO

@@ -2,7 +2,6 @@ class Scene {
     constructor() {
         this.tiles = [];
         this.buttons = [];
-        this.cardSelected = false;
     }
 
     add_tile(tile) {
@@ -28,17 +27,18 @@ class Scene {
             
             var player_i = game_client.players.findIndex(user => user.id === socket.id);
             var card_i = game_client.players[player_i].cards.findIndex(card => card.selected === true);
-            cardSelected = false;
             
-            // console.log(game_client.requestedCard );
-            // console.log(card_i);
-            // console.log(game_client.players[player_i].cards[card_i]);
             if(card_i != -1 && game_client.requestedCard == game_client.players[player_i].cards[card_i].name){
                 socket.emit("useCard", game_client.players[player_i].cards[card_i].name, card_i);
             } else if( card_i != -1 && game_client.players[player_i].cards[card_i].offensive == false && game_client.requestedCard == null){
                 socket.emit("useCard", game_client.players[player_i].cards[card_i].name, card_i);
             }
+
+            //po useCard nastavi tieto veci na defaultne resp. opacne hodnoty
+            cardSelected = false;
+            game_client.players[player_i].cards[card_i].selected = false;
             play_audio = true;
+            drawGame();
         }
         this.buttons.push(UseCard);
 
@@ -116,6 +116,7 @@ class Scene {
         }
     }
 
+    //vrati index modrej karty, na ktoru sa kliklo
     checkBlueCards(point, current, player){
         var x = current.x + 1;
         var ratio = tile_size.x / 4;
@@ -174,7 +175,6 @@ class Scene {
                     if(point.x > x  && point.x < x + ratio - 10){
                         for(var o in player.cards) player.cards[o].selected = false;
                         player.cards[e].selected = true;
-                        console.log("selectujeme kartu");
                         cardSelected = true;
                         drawGame();
                     }
@@ -215,7 +215,6 @@ class Scene {
             var y = current.y + tile_size.y - Sprites.bang.height / Sprites.bang.width * localRatio + 1;
             
             if (point.x >= x && point.x <= x + localRatio && point.y >= y - (current.HP * (tile_size.y - 2) / 10) + 1 && point.y <= y - (current.HP * (tile_size.y - 2) / 10) + 1 + Sprites.bang.height / Sprites.bang.width * localRatio) {
-                console.log(game_client.players[i].character);
 
                 var character_img = null;
                 switch (game_client.players[i].character.name){
@@ -272,12 +271,10 @@ class Scene {
                         break;
 
                     default:
-                        character_img = "hovno";
                         break;
                 }
 
                 //ak klikame na charakter, teraz je nastaveny v character_img
-                //console.log(character_img); 
                 if (character_img != null) {
                     clear();
                     zoomed = true;
@@ -288,6 +285,23 @@ class Scene {
 
                     return;
                 }
+            }
+        }
+
+        //skontroluje, ci neklikame na modre karty
+        for (var i in this.tiles) {
+            var current = this.tiles[i];
+            var rightClickedBlue = this.checkBlueCards(point, current, i);
+            if (rightClickedBlue != null) {
+                var card_img = game_client.players[i].blueCards[rightClickedBlue].IMG;
+                zoomed = true;
+
+                clear();
+                ctx.save();
+                ctx.drawImage(card_img, canvas.width / 2 - card_img.width / 2, canvas.height / 2 - card_img.height / 2, card_img.width, card_img.height);
+                ctx.restore();
+                
+                return;
             }
         }
     }

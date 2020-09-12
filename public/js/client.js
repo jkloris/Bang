@@ -45,6 +45,12 @@ socket.on("Duel-announcement", () => {
 
 
 document.addEventListener("click", e => {
+    //ak je zoomnute na nejaku kartu, tak aj LMB click to zrusi
+    if (zoomed) { 
+        zoomed = false;
+        drawGame();
+        return;
+    }
     var rect = canvas.getBoundingClientRect();
     var mouse = {x: e.clientX-rect.left, y: e.clientY-rect.top};
     //console.log(mouse.x, mouse.y);
@@ -56,9 +62,9 @@ document.addEventListener("contextmenu", e => {
     let rect = canvas.getBoundingClientRect();
     let mouse = {x: e.clientX-rect.left, y: e.clientY-rect.top};
 
-    if (game_scene.buttons[2].visible && cardSelected) game_scene.buttons[2].onclick();
+    if (game_scene.buttons[2].visible && cardSelected) game_scene.buttons[2].onclick(); //ak je selectnuta karta, tak rightclick = useCard.onclick();
     else if (!zoomed) game_scene.rightClickCheck(mouse); //ak nie je zoomnute
-    else {
+    else { //ak je zoomnute, tak sa zoomnutie zrusi a vykresli sa normalne hra
         zoomed = false;
         drawGame();
     }

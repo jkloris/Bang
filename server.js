@@ -95,9 +95,6 @@ io.on("connection", socket =>{
         game.players[index_sender].cards[index].action(game,index_sender,index);
         io.emit("log", card + ": (" + game.players[index_sender].name + ")");
         gameUpdate();
-        console.log(game.requestedPlayer);
-        console.log(game.requestedCard);
-        console.log(game.playedCard);
     });
 
     socket.on("loseLife",(id)=>{

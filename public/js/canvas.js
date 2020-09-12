@@ -17,7 +17,7 @@ function clear() {
 }
 
 function drawGame() {
-    if (game_finished) return;
+    if (game_finished || zoomed) return;
     clear();
 
 

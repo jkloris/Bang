@@ -1,3 +1,5 @@
+//const Game = require("./game");
+
 class Player{
     constructor(id, maxHP, role, character){
         this.id = id;
@@ -34,7 +36,7 @@ class Character{
         player.maxHP = this.HP;
     }
 
-    action() {
+    action(game, index_sender) {
         console.log(this.name + " action request.");
     }
 }
@@ -162,6 +164,21 @@ class Black_jack extends Character{
         super(player);
         this.name = "black_jack";
         this.HP = 4;
+    }
+
+    action(game, index_sender) {
+        if (game.turn == index_sender && game.moveStage == 0) {
+            game.moveStage++;
+            game.dealOneCard(index_sender);
+
+            //druha karta
+            var drawn_card = game.cards.pop();
+            game.players[index_sender].cards.push(drawn_card);
+            if (drawn_card.suit == "diamonds" || drawn_card.suit == "heart") {
+                game.dealOneCard(index_sender);
+            }
+            return drawn_card.name; //vratim nazov druhej karty, lebo tu ukazuje v kazdom pripade
+        }
     }
 }
 

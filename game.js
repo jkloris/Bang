@@ -80,6 +80,12 @@ class Game{
                     break;
             }
             
+            //nastavi na index 0 postavu, ktoru chceme napevno nastavit
+            if (i == 0) {
+                this.players[i].character = new Black_jack(this.players[i]);
+                this.players[i].character.init(this.players[i]);    
+            }
+
             this.players[i].character.init(this.players[i]);
             
             characters.splice(rand_i, 1);

@@ -234,9 +234,9 @@ class Game{
         if(distance2 < distance) distance = distance2;
         
         if (this.players[sender_i].cards[card].name == "Bang") {
-            distance = distance - this.players[sender_i].scope.gun - this.players[sender_i].scope.appaloosa + this.players[target_i].scope.mustang;
+            distance = distance - this.players[sender_i].scope.gun - this.players[sender_i].scope.appaloosa + this.players[target_i].scope.mustang + this.players[target_i].scope.paul_regret - this.players[sender_i].scope.rose_doolan ;
         } else if (this.players[sender_i].cards[card].name == "Panika") {
-            distance = distance - this.players[sender_i].scope.appaloosa + this.players[target_i].scope.mustang;
+            distance = distance - this.players[sender_i].scope.appaloosa + this.players[target_i].scope.mustang + this.players[target_i].scope.paul_regret - this.players[sender_i].scope.rose_doolan;
         }
 
         return distance;

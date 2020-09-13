@@ -13,7 +13,7 @@ class Player{
         this.cards = []; //karty tohto hraca
         this.blueCards = [];
         this.name;
-        this.scope = {gun : 0, mustang : 0, appaloosa : 0};
+        this.scope = {gun : 0, mustang : 0, appaloosa : 0, paul_regret : 0, rose_doolan : 0};
         this.prison = false;
         this.dynamit = false;
         this.bangLimit = 1;
@@ -44,6 +44,12 @@ class Paul_regret extends Character{
         super(player);
         this.name = "paul_regret";
         this.HP = 3;
+    }
+
+    init(player){
+        player.HP = this.HP;
+        player.maxHP = this.HP;
+        player.scope.paul_regret = 1;
     }
 }
 
@@ -107,6 +113,12 @@ class Rose_doolan extends Character{
         super(player);
         this.name = "rose_doolan";
         this.HP = 4;
+    }
+
+    init(player){
+        player.HP = this.HP;
+        player.maxHP = this.HP;
+        player.scope.rose_doolan = 1;
     }
 }
 

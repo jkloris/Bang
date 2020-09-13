@@ -99,6 +99,12 @@ io.on("connection", socket =>{
 
     socket.on("loseLife",(id)=>{
         var player_index = game.players.findIndex(user => user.id === id);
+
+        if(game.players[player_index].character.name == "bart_cassidy"){
+            game.dealOneCard(player_index);
+        }
+
+
         if(--game.players[player_index].HP == 0){
             Death(player_index);
             let result = game.gameOver();
@@ -243,7 +249,14 @@ io.on("connection", socket =>{
                         game.started = false;
                         gameUpdate();
                     }
-                } 
+                }else if(game.players[player].character.name == "bart_cassidy"){
+                    game.dealOneCard(player);
+                    game.dealOneCard(player);
+                    game.dealOneCard(player);
+                }
+        {
+
+                }
 
             }else{
 

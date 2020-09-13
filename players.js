@@ -165,7 +165,7 @@ class Kit_carlson extends Character{
 
     action(game, index_sender, io) {
         //io.emit("message", "Kit_carlson test");
-        if (game.turn == index_sender && game.moveStage == 0) {
+        if (game.turn == index_sender && game.moveStage == 0 && game.players[index_sender].prison == false && game.players[index_sender].dynamit == false) {
             //vyvola akciu, ktora u Kita zobrazi karty na vyber
             io.to(game.players[index_sender].id).emit("kit_carlson_card_draw");
             return null;
@@ -205,7 +205,7 @@ class Black_jack extends Character{
     }
 
     action(game, index_sender) {
-        if (game.turn == index_sender && game.moveStage == 0) {
+        if (game.turn == index_sender && game.moveStage == 0 && game.players[index_sender].prison == false && game.players[index_sender].dynamit == false) {
             game.moveStage++;
             game.dealOneCard(index_sender);
 

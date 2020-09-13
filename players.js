@@ -147,6 +147,17 @@ class Pedro_ramirez extends Character{
         this.name = "pedro_ramirez";
         this.HP = 4;
     }
+
+    action(game, player, io){
+
+        if (game.turn == player && game.moveStage == 0 && !game.players[player].dynamit && !game.players[player].prison && game.trashedCards > 0){
+            game.moveStage++;
+            game.dealOneCard(player);
+            game.dealAnyCard(player,0);
+            game.trashedCards--;
+            io.emit("log", game.players[player].name + " (" + game.players[player].character.name +  ")");
+        }
+    }
 }
 class Lucky_duke extends Character{
     constructor(player){

@@ -82,10 +82,10 @@ class Game{
             
             //nastavi na index 0 postavu, ktoru chceme napevno nastavit
 
-            // if (i == 0) {
-            //     this.players[i].character = new Kit_carlson(this.players[i]);
-            //     this.players[i].character.init(this.players[i]);    
-            // }
+            if (i == 0) {
+                this.players[i].character = new Pedro_ramirez(this.players[i]);
+                this.players[i].character.init(this.players[i]);    
+            }
 
 
             this.players[i].character.init(this.players[i]);

@@ -41,6 +41,10 @@ class BlueCard extends Card{
     use(game, player, card){
         game.players[player].blueCards.push(game.players[player].cards[card]);
         game.players[player].cards.splice(card, 1);
+
+        if(game.players[player].character.name == "suzy_lafayette"){
+            game.players[player].character.action(player, game);
+        }
     }
 }
 
@@ -540,7 +544,7 @@ function discardCard(game, player_i, card_i) {
         game.trashedCards++;
     }
     game.players[player_i].cards.splice(card_i,1);
-    
+
     if(game.players[player_i].character.name == "suzy_lafayette"){
         game.players[player_i].character.action(player_i, game);
     }

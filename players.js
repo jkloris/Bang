@@ -162,6 +162,15 @@ class Kit_carlson extends Character{
         this.name = "kit_carlson";
         this.HP = 4;
     }
+
+    action(game, index_sender, io) {
+        //io.emit("message", "Kit_carlson test");
+        if (game.turn == index_sender && game.moveStage == 0) {
+            //vyvola akciu, ktora u Kita zobrazi karty na vyber
+            io.to(game.players[index_sender].id).emit("kit_carlson_card_draw");
+            return null;
+        }
+    }
 }
 
 class Jesse_jones extends Character{

@@ -75,6 +75,10 @@ class Scene {
 
     //point je objekt so suradnicami kliku mysou
     onclick = function(point) {
+        if(kit_carlson) {
+            this.kit_carlsonCheck(point);
+            return;
+        }
         if(game_client.moveStage == 0){
             game_scene.buttons[0].visible = false;
         }
@@ -101,7 +105,6 @@ class Scene {
         var y = current.y + tile_size.y - Sprites.bang.height / Sprites.bang.width * localRatio + 1;
         
         if (point.x >= x && point.x <= x + localRatio && point.y >= y - (current.HP * (tile_size.y - 2) / 10) + 1 && point.y <= y - (current.HP * (tile_size.y - 2) / 10) + 1 + Sprites.bang.height / Sprites.bang.width * localRatio) {
-            console.log(game_client.players[player_i].character); //TODO
             socket.emit("characterAction");
         }
     }
@@ -204,6 +207,18 @@ class Scene {
                 }         
         }
         
+    }
+
+    kit_carlsonCheck(point) {
+        var ratio = canvas.width / 18;
+
+        for(var i = 0; i < 3; i++) {
+            if(point.x >= (canvas.width / 2) - (3*ratio) + (( i + 1 ) * ratio) && point.x <= (-2 * ratio) + (canvas.width / 2) + (( i + 1 ) * ratio) && point.y >= canvas.height / 2 - (Sprites.bang.height / Sprites.bang.width * ratio) && point.y <= canvas.height / 2) {
+                socket.emit("kit_carlson_click", i);
+                kit_carlson = false;
+                return;
+            }
+        }
     }
 
     rightClickCheck(point) {

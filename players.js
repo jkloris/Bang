@@ -99,7 +99,7 @@ class Vulture_sam extends Character{
         this.HP = 4;
     }
 
-    action(player,dead_player_index, game){
+    diff_action(player,dead_player_index, game){
         while (game.players[dead_player_index].cards.length > 0) {
             var card = game.players[dead_player_index].cards.pop();
             game.players[player].cards.unshift(card);

@@ -453,7 +453,7 @@ function Death(dead_player_index){ //TODO
             game.trashedCards++;
         }
     } else{
-        game.players[vulture_sam].character.action(vulture_sam, dead_player_index, game);
+        game.players[vulture_sam].character.diff_action(vulture_sam, dead_player_index, game);
     }
 }
 

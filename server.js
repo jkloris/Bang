@@ -425,7 +425,7 @@ function discardCard(player_i, card_i) {
     game.cards.unshift(game.players[player_i].cards[card_i]);    
     game.trashedCards++;
     game.players[player_i].cards.splice(card_i,1);
-    
+
     if(game.players[player_i].character.name == "suzy_lafayette"){
         game.players[player_i].character.action(player_i, game);
     }
@@ -438,17 +438,34 @@ function Death(dead_player_index){ //TODO
     game.deadPlayers++;
 
     //karty mrtveho hraca sa poslu do kopky
-    while (game.players[dead_player_index].cards.length > 0) {
-        var card = game.players[dead_player_index].cards.pop();
-        game.cards.unshift(card);
-        game.trashedCards++;
-        //game.players[game.turn].cards.push(card);
-    }
-    while (game.players[dead_player_index].blueCards.length > 0){
-        var card = game.players[dead_player_index].blueCards.pop();
-        game.cards.unshift(card);
-        game.trashedCards++;
+    var vulture_sam = vulture_samCheck();
+    if( vulture_sam == -1){
+
+        while (game.players[dead_player_index].cards.length > 0) {
+            var card = game.players[dead_player_index].cards.pop();
+            game.cards.unshift(card);
+            game.trashedCards++;
+            //game.players[game.turn].cards.push(card);
+        }
+        while (game.players[dead_player_index].blueCards.length > 0){
+            var card = game.players[dead_player_index].blueCards.pop();
+            game.cards.unshift(card);
+            game.trashedCards++;
+        }
+    } else{
+        game.players[vulture_sam].character.action(vulture_sam, dead_player_index, game);
     }
 }
+
+function vulture_samCheck(){
+    for(var i in game.players){
+        if(game.players[i].alive && game.players[i].character.name == "vulture_sam"){
+            return i;            
+        }
+    }
+    return -1;
+}
+
+
 
 

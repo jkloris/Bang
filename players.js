@@ -98,6 +98,17 @@ class Vulture_sam extends Character{
         this.name = "vulture_sam";
         this.HP = 4;
     }
+
+    action(player,dead_player_index, game){
+        while (game.players[dead_player_index].cards.length > 0) {
+            var card = game.players[dead_player_index].cards.pop();
+            game.players[player].cards.unshift(card);
+        }
+        while (game.players[dead_player_index].blueCards.length > 0){
+            var card = game.players[dead_player_index].blueCards.pop();
+            game.players[player].cards.unshift(card);
+        }
+    }
 }
 
 class Slab_the_killer extends Character{

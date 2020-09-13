@@ -205,7 +205,7 @@ class Black_jack extends Character{
     }
 
     action(game, index_sender) {
-        if (game.turn == index_sender && game.moveStage == 0) {
+        if (game.turn == index_sender && game.moveStage == 0 && game.players[index_sender].prison == false && game.players[index_sender].dynamit == false) {
             game.moveStage++;
             game.dealOneCard(index_sender);
 

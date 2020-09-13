@@ -117,6 +117,8 @@ socket.on("winner", (winner) => {
 
 socket.on("restart", () => {
     game_finished = false;
+    var paragraph = document.getElementById("log_paragraph");
+    paragraph.innerHTML = "";
 });
 
 socket.on("kit_carlson_card_draw", () => {

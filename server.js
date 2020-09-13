@@ -343,8 +343,24 @@ io.on("connection", socket =>{
 
     socket.on("characterAction", () => {
         var index_sender = game.players.findIndex(user => user.id === socket.id);
-        var result = game.players[index_sender].character.action(game, index_sender);
+        var result = game.players[index_sender].character.action(game, index_sender, io);
         if (result != null) io.emit("log", game.players[index_sender].name + " (" + game.players[index_sender].character.name + ") ... " + result);
+        gameUpdate();
+    });
+
+    socket.on("kit_carlson_click", (card_i) => {
+        var kit_index = game.players.findIndex(user => user.id === socket.id);
+        
+        for (var i = 0; i < 3; i++) {
+            var drawn_card = game.cards.pop();
+            if (card_i == i) {
+                var card_to_put_back = drawn_card;
+            }
+            else game.players[kit_index].cards.push(drawn_card);
+        }
+        game.cards.push(card_to_put_back);
+
+        game.moveStage++;
         gameUpdate();
     });
 

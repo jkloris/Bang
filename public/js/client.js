@@ -12,12 +12,13 @@ var game_finished = false;
 var cardSelected = false;
 var zoomed = false;
 
+var kit_carlson = false; //neviem jak to spravit krajsie
+
 socket.on("message", (msg) => {
     console.log(msg);
 });
 
 socket.on("update", game => {
-
     game_client = {}; //zmaze to co tam bolo doteraz
     game_client = $.extend(true, {}, game); //skopiruje tam novy stav pomocou jQuery.extend()
     copyDeck(game);    
@@ -116,6 +117,11 @@ socket.on("winner", (winner) => {
 
 socket.on("restart", () => {
     game_finished = false;
+});
+
+socket.on("kit_carlson_card_draw", () => {
+    kit_carlson = true;
+    kit_carlsonDraw();
 });
 
 function updatePlayers(game_server) {

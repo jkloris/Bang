@@ -17,7 +17,7 @@ function clear() {
 }
 
 function drawGame() {
-    if (game_finished || zoomed) return;
+    if (game_finished || zoomed || kit_carlson) return;
     clear();
 
 
@@ -226,8 +226,7 @@ function drawGame() {
         //draw emporio (hokynarstvi)
         if(game_client.playedCard == "Hokynarstvo"){
             var dl = game_client.players.length * ratio / 1.6 ;
-            // var turn = (game_client.requestedPlayer >= game_client.turn)?game_client.requestedPlayer - game_client.turn:
-            //      game_client.players.length + game_client.deadPlayers + game_client.requestedPlayer - game_client.turn ;
+
             var turn = game_client.requestedPlayer;
             var count = 0;
             while(turn != game_client.turn || count == 0){
@@ -242,7 +241,15 @@ function drawGame() {
             }
         }
     }
-}   
+}
+
+function kit_carlsonDraw() {
+    var ratio = canvas.width / 18;
+
+    for(var i = 0; i < 3; i++){
+        game_client.cards[game_client.cards.length - i - 1].draw(canvas.width / 2 + (i + 1) * ratio - 3 * ratio, canvas.height / 2 - (Sprites.bang.height / Sprites.bang.width * ratio), ratio);
+    }
+}
 
 function drawWinner(winner) {
     clear();

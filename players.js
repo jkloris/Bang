@@ -198,6 +198,15 @@ class El_gringo extends Character{
         this.name = "el_gringo";
         this.HP = 3;
     }
+
+    reaction(game, target, sender){
+
+        if (game.players[sender].cards.length > 0){
+            var rand = Math.floor(Math.random(game.players[sender].cards.length - 1));
+            game.players[target].cards.push(game.players[sender].cards[rand]);
+            game.players[sender].cards.splice(rand, 1);
+        }
+    }
 }
 
 class Calamity_janet extends Character{

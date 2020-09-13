@@ -104,6 +104,15 @@ io.on("connection", socket =>{
             game.dealOneCard(player_index);
         }
 
+        if(game.players[player_index].character.name == "el_gringo"){
+            if(game.turn != player_index){
+                game.players[player_index].character.reaction(game, player_index, game.turn);
+            }else{
+                game.players[player_index].character.reaction(game, player_index, game.duelistPlayer);
+
+            }
+        }
+
 
         if(--game.players[player_index].HP == 0){
             Death(player_index);

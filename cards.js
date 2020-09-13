@@ -245,7 +245,6 @@ class Gulomet extends ActionCard{
             }
 
             //preskoci hracov, ktori su mrtvi
-            console.log(game.players[i]);
             while (!game.players[i].alive) {
                 i++;
                 if (i >= game.players.length) i = 0;

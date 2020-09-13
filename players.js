@@ -16,6 +16,8 @@ class Player{
         this.scope = {gun : 0, mustang : 0, appaloosa : 0};
         this.prison = false;
         this.dynamit = false;
+        this.bangLimit = 1;
+        this.bangLeft = 1;
     }
 }
 
@@ -62,6 +64,13 @@ class Willy_the_kid extends Character{
         super(player);
         this.name = "willy_the_kid";
         this.HP = 4;
+    }
+
+    init(player){
+        player.HP = this.HP;
+        player.maxHP = this.HP;
+        player.bangLimit = 100;
+        player.bangLeft = 100;
     }
 }
 

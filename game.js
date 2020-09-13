@@ -249,6 +249,7 @@ class Game{
             return 0;
         }
         else {
+            this.players[index_sender].bangLeft = this.players[index_sender].bangLimit;
 
             if (this.turn + 1 < this.players.length) {
                 this.turn++;

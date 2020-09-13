@@ -294,8 +294,9 @@ io.on("connection", socket =>{
                 let stolen_card_name = game.players[index_sender].cards[card_index].action(game, index_sender, index_target, card_index, clickedBlue_index);
                 socket.broadcast.to(game.players[index_target].id).emit("log", " - zobrali ti kartu: " + stolen_card_name);
                 gameUpdate();
-            } else if (event == "Bang") {
+            } else if (event == "Bang" && game.players[index_sender].bangLeft > 0) {
                 game.requestedPlayer = index_target;
+                game.players[index_sender].bangLeft--;
                 discardCard(index_sender, card_index);
                 gameUpdate();
                 

@@ -346,7 +346,8 @@ class Volcanic extends Gun{
         this.checkGuns(game, player);
         this.use(game, player, card);
         game.players[player].scope.gun = 0;
-        //game.players[player].bangLimit = 100 TODO
+        game.players[player].bangLimit = 100;
+        game.players[player].bangLeft = 100;
     }
 }
 
@@ -562,6 +563,9 @@ function discardBlueCard(game, player_i, card_i) {
         game.players.forEach((player)=>{
             player.dynamit = false;
         })
+    } else if (game.players[player_i].blueCards[card_i].name == "Volcanic"){
+        game.players[player].bangLimit = 1;
+        game.players[player].bangLeft = 1;
     }
 
     game.players[player_i].blueCards.splice(card_i,1);

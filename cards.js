@@ -499,7 +499,7 @@ class Vazenie extends BlueCard{
     
     action(game, sender, target, card){
         game.playedCard = "Vazenie";
-        if(game.players[target].prison == false){
+        if(game.players[target].prison == false && game.players[target].role != "Sheriff"){
             var prison = game.players[sender].cards[card];
             game.players[target].blueCards.push(prison);
             game.players[target].prison = true;

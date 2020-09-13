@@ -278,9 +278,10 @@ class Scene {
                 if (character_img != null) {
                     clear();
                     zoomed = true;
-
+                    var imgWidth = canvas.width / 4;
+                    var imgHeight = imgWidth / Sprites.bang.width * Sprites.bang.height;
                     ctx.save();
-                    ctx.drawImage(character_img, canvas.width / 2 - character_img.width / 2, canvas.height / 2 - character_img.height / 2, character_img.width, character_img.height);
+                    ctx.drawImage(character_img, canvas.width / 2 - imgWidth / 2, canvas.height / 2 - imgHeight / 2, imgWidth, imgHeight);
                     ctx.restore();
 
                     return;
@@ -297,10 +298,12 @@ class Scene {
                 zoomed = true;
 
                 clear();
+                var imgWidth = canvas.width / 4;
+                var imgHeight = imgWidth / Sprites.bang.width * Sprites.bang.height;
                 ctx.save();
-                ctx.drawImage(card_img, canvas.width / 2 - card_img.width / 2, canvas.height / 2 - card_img.height / 2, card_img.width, card_img.height);
+                ctx.drawImage(card_img, canvas.width / 2 - imgWidth / 2, canvas.height / 2 - imgHeight / 2, imgWidth, imgHeight);
                 ctx.restore();
-                
+
                 return;
             }
         }

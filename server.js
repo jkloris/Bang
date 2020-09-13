@@ -329,7 +329,9 @@ io.on("connection", socket =>{
 
     socket.on("characterAction", () => {
         var index_sender = game.players.findIndex(user => user.id === socket.id);
-        game.players[index_sender].character.action();
+        var result = game.players[index_sender].character.action(game, index_sender);
+        if (result != null) io.emit("log", game.players[index_sender].name + " (" + game.players[index_sender].character.name + ") ... " + result);
+        gameUpdate();
     });
 
     //odpojenie hraca

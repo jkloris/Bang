@@ -326,7 +326,13 @@ io.on("connection", socket =>{
             }
         }
         
-    })
+    });
+
+    socket.on("characterAction", () => {
+        var index_sender = game.players.findIndex(user => user.id === socket.id);
+        game.players[index_sender].character.action();
+    });
+
     //odpojenie hraca
     socket.on("disconnect",()=>{
         playerDisconnect(socket.id);

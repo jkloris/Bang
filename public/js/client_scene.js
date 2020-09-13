@@ -102,6 +102,7 @@ class Scene {
         
         if (point.x >= x && point.x <= x + localRatio && point.y >= y - (current.HP * (tile_size.y - 2) / 10) + 1 && point.y <= y - (current.HP * (tile_size.y - 2) / 10) + 1 + Sprites.bang.height / Sprites.bang.width * localRatio) {
             console.log(game_client.players[player_i].character); //TODO
+            socket.emit("characterAction");
         }
     }
 

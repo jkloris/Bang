@@ -33,6 +33,10 @@ class Character{
         player.HP = this.HP;
         player.maxHP = this.HP;
     }
+
+    action() {
+        console.log(this.name + " action request.");
+    }
 }
 
 class Paul_regret extends Character{

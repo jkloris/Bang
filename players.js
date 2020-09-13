@@ -69,6 +69,12 @@ class Suzy_lafayette extends Character{
         this.name = "suzy_lafayette";
         this.HP = 4;
     }
+
+    action(player, game){
+        if(game.players[player].cards == 0){
+            game.dealOneCard(player);
+        }
+    }
 }
 
 class Willy_the_kid extends Character{

@@ -541,6 +541,10 @@ function discardCard(game, player_i, card_i) {
         game.trashedCards++;
     }
     game.players[player_i].cards.splice(card_i,1);
+    
+    if(game.players[player_i].character.name == "suzy_lafayette"){
+        game.players[player_i].character.action(player_i, game);
+    }
 }
 
 function discardBlueCard(game, player_i, card_i) {
@@ -564,8 +568,8 @@ function discardBlueCard(game, player_i, card_i) {
             player.dynamit = false;
         })
     } else if (game.players[player_i].blueCards[card_i].name == "Volcanic"){
-        game.players[player].bangLimit = 1;
-        game.players[player].bangLeft = 1;
+        game.players[player_i].bangLimit = 1;
+        game.players[player_i].bangLeft = 1;
     }
 
     game.players[player_i].blueCards.splice(card_i,1);

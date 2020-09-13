@@ -409,6 +409,10 @@ function discardCard(player_i, card_i) {
     game.cards.unshift(game.players[player_i].cards[card_i]);    
     game.trashedCards++;
     game.players[player_i].cards.splice(card_i,1);
+    
+    if(game.players[player_i].character.name == "suzy_lafayette"){
+        game.players[player_i].character.action(player_i, game);
+    }
 }
 
 function Death(dead_player_index){ //TODO

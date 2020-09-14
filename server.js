@@ -159,12 +159,17 @@ io.on("connection", socket =>{
 
     socket.on("discard", (id, card_i) => {
         var player_index = game.players.findIndex(user => user.id === socket.id);
-        if (game.players[player_index].cards.length > game.players[player_index].HP || game.players[player_index].character.name == "sid_ketchum") {
+        if (game.players[player_index].cards.length > game.players[player_index].HP) {
             discardCard(player_index, card_i);
 
             if(game.players[player_index].character.name == "sid_ketchum"){
                 game.players[player_index].character.discartedCards++;
             }
+            gameUpdate();
+        }
+        else if (game.players[player_index].character.name == "sid_ketchum" && game.players[player_index].HP < game.players[player_index].maxHP) {
+            discardCard(player_index, card_i);
+            game.players[player_index].character.discartedCards++;
             gameUpdate();
         }
         else io.to(id).emit("discardDeny");

@@ -145,12 +145,15 @@ io.on("connection", socket =>{
     
             } else {
                 game.requestedPlayer = null;  
-                
                 game.playedCard = null;
-                game.requestedCard = null;              
+                game.requestedCard = null;      
+
+                if (game.players[game.turn].character.name = "slab_the_killer"){ //ked dal hrac jedno vedle a zbavil sa zivota, druhy krat mu stacilo dat jedno vedle
+                    game.players[game.turn].character.vedleCount = 0;
+                }        
             }
         }
-        if (game.players[game.turn].character.name == "slab_the_killer") game.players[game.turn].character.vedleCount = 0;
+        
         gameUpdate();
     });
 

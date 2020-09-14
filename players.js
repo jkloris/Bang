@@ -118,6 +118,12 @@ class Slab_the_killer extends Character{
         this.HP = 4;
         this.vedleCount = 0;
     }
+
+    init(player){
+        player.HP = this.HP;
+        player.maxHP = this.HP;
+        player.character.vedleCount = 0;
+    }
 }
 
 class Sid_ketchum extends Character{

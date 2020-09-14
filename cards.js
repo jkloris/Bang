@@ -122,7 +122,7 @@ class Vedle extends ActionCard{
                     game.requestedPlayer = null;
                     game.playedCard = null;
                     game.requestedCard = null;
-                    ame.players[game.turn].character.vedleCount = 0;
+                    game.players[game.turn].character.vedleCount = 0;
                 }
                 return;
             }

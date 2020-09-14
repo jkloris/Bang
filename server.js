@@ -89,11 +89,16 @@ io.on("connection", socket =>{
         gameUpdate();
     });
 
-    socket.on("useCard", (card,index)=>{
-        console.log(card);
+    socket.on("useCard", (card_name, card_index)=>{
+        console.log(card_name);
         var index_sender = game.players.findIndex(user => user.id === socket.id);
-        game.players[index_sender].cards[index].action(game,index_sender,index);
-        io.emit("log", card + ": (" + game.players[index_sender].name + ")");
+        //calamity handler
+        if (game.players[index_sender].character.name == "calamity_janet") {
+            //ak calamity nehrala bang alebo vedle, tak sa akcia karty triggerne normalne
+            if (!calamityHandler(index_sender, card_index)) game.players[index_sender].cards[card_index].action(game,index_sender,card_index);
+        } else game.players[index_sender].cards[card_index].action(game,index_sender,card_index);
+
+        io.emit("log", card_name + ": (" + game.players[index_sender].name + ")");
         gameUpdate();
     });
 
@@ -271,16 +276,12 @@ io.on("connection", socket =>{
                         game.started = false;
                         gameUpdate();
                     }
-                }else if(game.players[player].character.name == "bart_cassidy"){
+                } else if(game.players[player].character.name == "bart_cassidy"){
                     game.dealOneCard(player);
                     game.dealOneCard(player);
                     game.dealOneCard(player);
                 }
-        {
-
-                }
-
-            }else{
+            } else {
 
                 var nextPlayer = player;
                 if (nextPlayer + 1 < game.players.length) {
@@ -488,6 +489,72 @@ function vulture_samCheck(){
     return -1;
 }
 
+function calamityHandler(player, card) {
+    if (!(game.players[player].cards[card].name == "Bang" || game.players[player].cards[card].name == "Vedle")) {
+        return false;
+    }
+
+    //ak zahrala Bang alebo vedle, tak sa iba cekne, ktore z toho mala zahrat a triggerne sa akcia tej karty:
+
+    if (game.requestedCard == "Bang") {
+        if (game.playedCard == "Indiani") {
+            discardCard(player, card);
+
+            player = (player + 1 == game.players.length)? 0 : player + 1;
+
+            while (!game.players[player].alive) {
+                player++;
+                if (player >= game.players.length) player = 0;
+            }
+            game.requestedPlayer = player;
 
 
+            if(game.requestedPlayer == game.turn){
+                game.requestedPlayer = null;
+                game.playedCard = null;
+                game.requestedCard = null;
+            } 
+        }
+        else if (game.playedCard == "Duel") {
+            discardCard(player, card);
+            if (game.requestedPlayer == game.duelistPlayer) game.requestedPlayer = game.turn;
+            else game.requestedPlayer = game.duelistPlayer;
+        }
+    } else if (game.requestedCard == "Vedle") {
+        if (game.playedCard == "Gulomet") {
+            discardCard(player, card);
+            player = (player + 1 == game.players.length)? 0 : player + 1;
 
+            while (!game.players[player].alive) {
+                player++;
+                if (player >= game.players.length) player = 0;
+            }
+            game.requestedPlayer = player;
+
+            if(game.requestedPlayer == game.turn){
+                game.requestedPlayer = null;
+                game.playedCard = null;
+                game.requestedCard = null;
+            } 
+
+        }else if(game.requestedPlayer != null) {
+            discardCard(player, card);
+
+            if (game.players[game.turn].character.name == "slab_the_killer") {
+                game.players[game.turn].character.vedleCount++;
+                if (game.players[game.turn].character.vedleCount == 2) {
+                    game.requestedPlayer = null;
+                    game.playedCard = null;
+                    game.requestedCard = null;
+                    game.players[game.turn].character.vedleCount = 0;
+                }
+                return true;
+            }
+
+            game.requestedPlayer = null;
+            game.playedCard = null;
+            game.requestedCard = null;
+        }
+    }
+    return true;
+}

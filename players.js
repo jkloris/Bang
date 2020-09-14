@@ -260,6 +260,42 @@ class Jourdonnais extends Character{
         this.name = "jourdonnais";
         this.HP = 4;
     }
+
+    action(game, player, io){
+
+        if (player == game.requestedPlayer){
+
+            if (game.requestedCard == "Vedle") {
+                var last = game.cards.pop();
+                if (last.suit == "heart" && game.playedCard == "Gulomet"){
+                    var player_index = game.requestedPlayer;
+
+                    player_index = (player_index + 1 == game.players.length)? 0 : player_index + 1;
+
+                    while (!game.players[player_index].alive) {
+                        player_index++;
+                        if (player_index >= game.players.length) player_index = 0;
+                    }
+                    game.requestedPlayer = player_index;
+                    
+                    if(game.requestedPlayer == game.turn){
+                        game.requestedPlayer = null;
+                        game.playedCard = null;
+                        game.requestedCard = null;
+                    } 
+
+                } else if(last.suit == "heart"){
+                    game.requestedPlayer = null;
+                    game.requestedCard = null;
+                    game.playedCard = null;
+                }
+                
+                game.cards.unshift(last);
+                io.emit("log", game.players[player].name + " (" + game.players[player].character.name +  ")");
+            }
+        }
+    }
+
 }
 
 class Felipe_prisonero extends Character{

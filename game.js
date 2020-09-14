@@ -83,7 +83,7 @@ class Game{
             //nastavi na index 0 postavu, ktoru chceme napevno nastavit
 
             if (i == 0) {
-                this.players[i].character = new Slab_the_killer(this.players[i]);
+                this.players[i].character = new Sid_ketchum(this.players[i]);
                 this.players[i].character.init(this.players[i]);    
             }
 
@@ -271,7 +271,9 @@ class Game{
                 if (this.turn >= this.players.length) this.turn = 0;
             }
 
-
+            if (this.players[this.turn].character.name == "sid_ketchum"){
+                this.players[this.turn].character.discartedCards = 0;
+            }
             this.moveStage = 0;
             return 1;
         }

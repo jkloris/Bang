@@ -148,7 +148,7 @@ io.on("connection", socket =>{
                 game.playedCard = null;
                 game.requestedCard = null;      
 
-                if (game.players[game.turn].character.name = "slab_the_killer"){ //ked dal hrac jedno vedle a zbavil sa zivota, druhy krat mu stacilo dat jedno vedle
+                if (game.players[game.turn].character.name == "slab_the_killer"){ 
                     game.players[game.turn].character.vedleCount = 0;
                 }        
             }
@@ -159,8 +159,12 @@ io.on("connection", socket =>{
 
     socket.on("discard", (id, card_i) => {
         var player_index = game.players.findIndex(user => user.id === socket.id);
-        if (game.players[player_index].cards.length > game.players[player_index].HP) {
+        if (game.players[player_index].cards.length > game.players[player_index].HP || game.players[player_index].character.name == "sid_ketchum") {
             discardCard(player_index, card_i);
+
+            if(game.players[player_index].character.name == "sid_ketchum"){
+                game.players[player_index].character.discartedCards++;
+            }
             gameUpdate();
         }
         else io.to(id).emit("discardDeny");

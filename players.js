@@ -119,11 +119,6 @@ class Slab_the_killer extends Character{
         this.vedleCount = 0;
     }
 
-    init(player){
-        player.HP = this.HP;
-        player.maxHP = this.HP;
-        player.character.vedleCount = 0;
-    }
 }
 
 class Sid_ketchum extends Character{
@@ -131,6 +126,18 @@ class Sid_ketchum extends Character{
         super(player);
         this.name = "sid_ketchum";
         this.HP = 4;
+        this.discartedCards = 0;
+    }
+
+    action(game, player, io){
+        if(game.turn == player){
+            if(game.players[player].character.discartedCards >= 2 && game.players[player].HP < game.players[player].maxHP ){
+                game.players[player].HP++;
+                game.players[player].character.discartedCards = 0;
+                
+                io.emit("log", game.players[player].name + " (" + game.players[player].character.name +  ")");
+            }
+        }
     }
 }
 

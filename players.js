@@ -134,7 +134,7 @@ class Sid_ketchum extends Character{
             if(game.players[player].character.discartedCards >= 2 && game.players[player].HP < game.players[player].maxHP ){
                 game.players[player].HP++;
                 game.players[player].character.discartedCards = 0;
-                
+
                 io.emit("log", game.players[player].name + " (" + game.players[player].character.name +  ")");
             }
         }

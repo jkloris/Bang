@@ -1,12 +1,14 @@
 TODO
-* Zoomovanie na charactery som robil po 4 piffkach, takze je to dost dirty spravene, ale ak to nebudes chciet spravit krajsie, tak tento bod zmaz, dobru nocku idem spinkat
-* Kontrolovat, ci spravne funguje duel - nie je otestovany zatial
+* Slab the killer vs. barel treba nejako poriesit, ale ja si ani nepamatam ako to byva v normalnej hre :D
 * Logovat iba eventy, ktore sa naozaj uskutocnia. Teraz do logu zapise aj "pokus o vystrel", ktory sa realne neuskutocni (ked hrac nema dostrel)
-* Bang aj Barel je zatial mozne pouzit nekonecne vela krat (neponahla to)
-* Nejake normalne zobrazenie konca hry + ukoncit moznost pokracovat v hre, ktora ma vitaza
-    * ~~kontrolovat, ci naozaj funguje - ci spravne vyhodnocuje, kto vyhral - myslím, že áno, tak dávam preč~~
+* ~~Bang aj~~ Barel je zatial mozne pouzit nekonecne vela krat (neponahla to)
 * Otestovat smrt po vybuchu dynamitu - ci mrtvy hrac zahodi karty do kopky
 * (?) kontrola, ci sa striela na mrtveho hraca je zatial client-side. Prerobit na server side?
+* ~~Kontrolovat, ci spravne funguje duel - nie je otestovany zatial~~
+    * ~~myslim, ze funguje~~
+* ~~Zoomovanie na charactery som robil po 4 piffkach, takze je to dost dirty spravene, ale ak to nebudes chciet spravit krajsie, tak tento bod zmaz, dobru nocku idem spinkat~~
+* ~~Nejake normalne zobrazenie konca hry + ukoncit moznost pokracovat v hre, ktora ma vitaza~~
+    * ~~kontrolovat, ci naozaj funguje - ci spravne vyhodnocuje, kto vyhral - myslím, že áno, tak dávam preč~~
 * ~~Oznamenie hracovi, ze na neho bola pouzita panika/catbalou~~
     * ~~Klikanie na log by malo fungovat vzdy, teraz funguje iba ked je hrac na tahu. Da sa to spravit nejako jednoducho? Lebo klikanie handluje server a posiela click accepty~~
 * ~~Mrtvemu hracovi po smrti vykreslilo karty, ktore ma (mal) na ruke - opravit~~

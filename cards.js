@@ -113,12 +113,23 @@ class Vedle extends ActionCard{
                 game.requestedCard = null;
             } 
 
-        }else if(game.requestedPlayer != null){
+        }else if(game.requestedPlayer != null) {
+            discardCard(game, player, card);
+
+            if (game.players[game.turn].character.name == "slab_the_killer") {
+                game.players[game.turn].character.vedleCount++;
+                if (game.players[game.turn].character.vedleCount == 2) {
+                    game.requestedPlayer = null;
+                    game.playedCard = null;
+                    game.requestedCard = null;
+                    ame.players[game.turn].character.vedleCount = 0;
+                }
+                return;
+            }
+
             game.requestedPlayer = null;
             game.playedCard = null;
             game.requestedCard = null;
-            
-            discardCard(game, player, card);
         }
         
     }

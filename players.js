@@ -116,6 +116,7 @@ class Slab_the_killer extends Character{
         super(player);
         this.name = "slab_the_killer";
         this.HP = 4;
+        this.vedleCount = 0;
     }
 }
 

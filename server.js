@@ -107,20 +107,11 @@ io.on("connection", socket =>{
                 game.players[index_sender].cards[card_index].action(game,index_sender,card_index);
                 io.emit("log", card_name + ": (" + game.players[index_sender].name + ")");
             }
-            if (game.players[index_sender].character.name == "calamity_janet") {
+            else if (game.players[index_sender].character.name == "calamity_janet") {
                 if (calamityHandler(index_sender, card_index)) io.emit("log", card_name + ": (" + game.players[index_sender].name + ")");
             }
         }
         gameUpdate();
-
-        //calamity handler
-        // if (game.players[index_sender].character.name == "calamity_janet") {
-        //     //ak calamity nehrala bang alebo vedle, tak sa akcia karty triggerne normalne
-        //     if (!calamityHandler(index_sender, card_index)) game.players[index_sender].cards[card_index].action(game,index_sender,card_index);
-        // } else game.players[index_sender].cards[card_index].action(game,index_sender,card_index);
-
-        // io.emit("log", card_name + ": (" + game.players[index_sender].name + ")");
-        // gameUpdate();
     });
 
     socket.on("loseLife",(id)=>{

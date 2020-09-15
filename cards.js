@@ -10,8 +10,8 @@ class Card {
         //this.available = true;
         this.selected = false; 
         this.onRange = false;
-        this.suit = null;
-        this.rank = null;
+        this.suit = "spades";
+        this.rank = 5;
       
         // this.IMG = null;
     }
@@ -179,10 +179,12 @@ class Pivo extends ActionCard{
 
     }
 
-    action(game, player, card){
+    action(game, player, card, io){
         if(game.requestedPlayer == null && game.players[player].HP < game.players[player].maxHP ){
             game.players[player].HP++;
             discardCard(game, player, card);
+
+            io.to(game.players[player].id).emit("pivoSound");
         }
     }
 
@@ -197,7 +199,7 @@ class Salon extends ActionCard{
         
     }
 
-    action(game, player, card){
+    action(game, player, card, io){
         if (game.requestedPlayer == null) {
             for(var i in game.players) {
                 
@@ -205,6 +207,7 @@ class Salon extends ActionCard{
                     game.players[i].HP++;
                 }
             }
+            io.emit("salonSound");
             discardCard(game, player, card);
         }
     }

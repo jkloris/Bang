@@ -56,8 +56,10 @@ io.on("connection", socket =>{
     socket.on("nextTurn", (id)=>{
         var index_sender = game.players.findIndex(user => user.id === socket.id);
         console.log('next');
-        if (game.nextTurn(index_sender)) gameUpdate();
-        else io.to(id).emit("discardRequest");
+        if (game.nextTurn(index_sender)){
+            io.to(game.players[game.turn].id).emit("onTurnSound");
+            gameUpdate();
+        } else io.to(id).emit("discardRequest");
     });
     
     socket.on("startGame", ()=>{
@@ -98,13 +100,13 @@ io.on("connection", socket =>{
 
         //ak je hrac na tahu a nic sa nedeje zatial
         if (game.requestedPlayer == null && game.turn == index_sender) {
-            game.players[index_sender].cards[card_index].action(game,index_sender,card_index);
+            game.players[index_sender].cards[card_index].action(game, index_sender, card_index, io);
             io.emit("log", card_name + ": (" + game.players[index_sender].name + ")");
         }
         //ak to posiela hrac, od ktoreho je pozadovana akcia
         if (game.requestedPlayer == index_sender) {
             if (card_name == game.requestedCard) {
-                game.players[index_sender].cards[card_index].action(game,index_sender,card_index);
+                game.players[index_sender].cards[card_index].action(game, index_sender, card_index, io);
                 io.emit("log", card_name + ": (" + game.players[index_sender].name + ")");
             }
             else if (game.players[index_sender].character.name == "calamity_janet") {
@@ -274,6 +276,8 @@ io.on("connection", socket =>{
             var checkCard = game.cards[game.cards.length - 1];
 
             if (checkCard.suit == "spades" && checkCard.rank >= 2 && checkCard.rank <= 9 ){
+                socket.emit("dynamitSound");
+
                 game.dynamit = false;
                 game.cards.unshift(game.players[player].blueCards[card]);
                 game.players[player].blueCards.splice(card, 1);

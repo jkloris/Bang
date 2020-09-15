@@ -33,8 +33,8 @@ socket.on("Bang", (arg, index_shooter) =>{
     //presunul som to na server aj kvoli barelu
     socket.emit("RequestedCard", "Vedle");
     socket.emit("PlayedCard", "Bang");
-    let random_bang_sound = Math.round(Math.random());
-    audio.bang[random_bang_sound].play();
+    // let random_bang_sound = Math.round(Math.random());
+    audio.bang.play();
 });
 
 socket.on("Duel", (arg, index_shooter) => {
@@ -46,6 +46,18 @@ socket.on("Duel-announcement", () => {
     audio.duel.play();
 });
 
+socket.on("dynamitSound", ()=>{
+    audio.dynamit.play();
+})
+socket.on("pivoSound", ()=>{
+    audio.pivo.play();
+})
+socket.on("onTurnSound", ()=>{
+    audio.reload.play();
+})
+socket.on("salonSound", ()=>{
+    audio.salon.play();
+})
 
 document.addEventListener("click", e => {
     //ak je zoomnute na nejaku kartu, tak aj LMB click to zrusi

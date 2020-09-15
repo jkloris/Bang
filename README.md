@@ -1,5 +1,6 @@
 TODO
 * Slab the killer vs. barel treba nejako poriesit, ale ja si ani nepamatam ako to byva v normalnej hre :D
+* Fixnut zvuky, obcas to stale zahra random pesnicku, aj ked nema
 * Logovat iba eventy, ktore sa naozaj uskutocnia. Teraz do logu zapise aj "pokus o vystrel", ktory sa realne neuskutocni (ked hrac nema dostrel)
 * ~~Bang aj~~ Barel je zatial mozne pouzit nekonecne vela krat (neponahla to)
 * Otestovat smrt po vybuchu dynamitu - ci mrtvy hrac zahodi karty do kopky

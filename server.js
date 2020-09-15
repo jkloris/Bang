@@ -92,13 +92,25 @@ io.on("connection", socket =>{
     socket.on("useCard", (card_name, card_index)=>{
         console.log(card_name);
         var index_sender = game.players.findIndex(user => user.id === socket.id);
-        //calamity handler
-        if (game.players[index_sender].character.name == "calamity_janet") {
-            //ak calamity nehrala bang alebo vedle, tak sa akcia karty triggerne normalne
-            if (!calamityHandler(index_sender, card_index)) game.players[index_sender].cards[card_index].action(game,index_sender,card_index);
-        } else game.players[index_sender].cards[card_index].action(game,index_sender,card_index);
 
-        io.emit("log", card_name + ": (" + game.players[index_sender].name + ")");
+        var deny_these_cards = ["Catbalou", "Panika", "Vazenie", "Duel"];
+        for (var i in deny_these_cards) if (deny_these_cards[i] == card_name) return;
+
+        //ak je hrac na tahu a nic sa nedeje zatial
+        if (game.requestedPlayer == null && game.turn == index_sender) {
+            game.players[index_sender].cards[card_index].action(game,index_sender,card_index);
+            io.emit("log", card_name + ": (" + game.players[index_sender].name + ")");
+        }
+        //ak to posiela hrac, od ktoreho je pozadovana akcia
+        if (game.requestedPlayer == index_sender) {
+            if (card_name == game.requestedCard) {
+                game.players[index_sender].cards[card_index].action(game,index_sender,card_index);
+                io.emit("log", card_name + ": (" + game.players[index_sender].name + ")");
+            }
+            else if (game.players[index_sender].character.name == "calamity_janet") {
+                if (calamityHandler(index_sender, card_index)) io.emit("log", card_name + ": (" + game.players[index_sender].name + ")");
+            }
+        }
         gameUpdate();
     });
 

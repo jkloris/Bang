@@ -173,8 +173,15 @@ class Tile {
                 socket.emit("prisonClick", player_i, clickedBlue_index);
             }
 
-            if(game_client.players[player_i].cards[card_i] != undefined && game_client.players[player_i].cards[card_i].offensive == true && this.id != socket.id  ){ 
+            if(game_client.players[player_i].cards[card_i] != undefined && game_client.players[player_i].cards[card_i].offensive == true && this.id != socket.id){ 
                 socket.emit("interaction", this.id, game_client.players[player_i].cards[card_i].name, clickedBlue_index, card_i );
+            }
+
+            //specialne pre Calamity, aby mohla pouzivat vedle ako bang:
+            //ak je to Calamity && ak ma selectnutu kartu && ak ma selectnute vedle
+            if(game_client.players[player_i].character.name == "calamity_janet" && game_client.players[player_i].cards[card_i] != undefined && game_client.players[player_i].cards[card_i].name == "Vedle") {
+                //tak sa na server posle interakcia Bang
+                socket.emit("interaction", this.id, "Bang", clickedBlue_index, card_i);
             }
         } else alert('Ten je us mrtef kamosko');
     }

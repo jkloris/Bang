@@ -472,8 +472,38 @@ io.on("connection", socket =>{
                 game.cards.splice(game.cards.length - 1 - dynamit_i, 1);
 
             } else if(event == "barel"){
-                console.log(event); 
+                if (game.barelLimit > 0) {
 
+                    var chosenCard = game.cards[game.cards.length - 1 - card_i];
+                    if (chosenCard.suit == "heart" && game.playedCard == "Gulomet"){
+                        var player_index = game.requestedPlayer;
+    
+                        player_index = (player_index + 1 == game.players.length)? 0 : player_index + 1;
+    
+                        while (!game.players[player_index].alive) {
+                            player_index++;
+                            if (player_index >= game.players.length) player_index = 0;
+                        }
+                        game.requestedPlayer = player_index;
+                        
+                        if(game.requestedPlayer == game.turn){
+                            game.requestedPlayer = null;
+                            game.playedCard = null;
+                            game.requestedCard = null;
+                        } 
+    
+                        game.barelLimitCheck(game.requestedPlayer);
+    
+                    } else if(chosenCard.suit == "heart"){
+                        game.requestedPlayer = null;
+                        game.requestedCard = null;
+                        game.playedCard = null;
+                    }
+
+                    game.barelLimit--;
+                    game.cards.splice(game.cards.length - 1 - card_i, 1);
+                    game.cards.unshift(chosenCard);
+                }
             }
             
         }

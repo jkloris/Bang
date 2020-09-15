@@ -190,7 +190,7 @@ class Lucky_duke extends Character{
                 this.event = "prison";
                 io.to(game.players[player].id).emit("lucky_duke", (player));
             }   
-        } else if (player == game.requestedPlayer && game.requestedCard == "Vedle" && game.players[game.requestedPlayer].blueCards.length > 0){
+        } else if (player == game.requestedPlayer && game.requestedCard == "Vedle" && game.players[game.requestedPlayer].blueCards.length > 0 && game.barelLimit > 0){
             var barel = game.players[game.requestedPlayer].blueCards.findIndex(card => card.name == "Barel");
             if(barel >= 0){
                 this.event = "barel";

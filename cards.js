@@ -252,6 +252,7 @@ class Gulomet extends ActionCard{
     
     action(game, player, card){
         if (game.requestedPlayer == null) {
+            
             var i;
             if (player + 1 == game.players.length) {
                 i = 0;
@@ -268,6 +269,8 @@ class Gulomet extends ActionCard{
             game.requestedCard = "Vedle";
             game.requestedPlayer = i;
             game.playedCard = "Gulomet";
+            
+            game.barelLimitCheck(game.requestedPlayer);
 
             discardCard(game, player, card);
         }

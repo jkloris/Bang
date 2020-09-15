@@ -159,6 +159,8 @@ io.on("connection", socket =>{
                     game.playedCard = null;
                     game.requestedCard = null;
                 } 
+            
+                game.barelLimitCheck(game.requestedPlayer);
     
             } else {
                 game.requestedPlayer = null;  
@@ -215,8 +217,8 @@ io.on("connection", socket =>{
     //mechanika barelu a mozno viac
     socket.on("ownBlueClicked", (arg)=>{
         if (game.players[game.requestedPlayer].blueCards[arg].name == "Barel"){
+            if (game.requestedCard == "Vedle" && game.barelLimit > 0) {
 
-            if (game.requestedCard == "Vedle") {
                 var last = game.cards.pop();
                 if (last.suit == "heart" && game.playedCard == "Gulomet"){
                     var player_index = game.requestedPlayer;
@@ -235,12 +237,14 @@ io.on("connection", socket =>{
                         game.requestedCard = null;
                     } 
 
+                    game.barelLimitCheck(game.requestedPlayer);
+
                 } else if(last.suit == "heart"){
                     game.requestedPlayer = null;
                     game.requestedCard = null;
                     game.playedCard = null;
                 }
-                
+                game.barelLimit--;
                 game.cards.unshift(last);
             }
         }
@@ -345,6 +349,8 @@ io.on("connection", socket =>{
             } else if (event == "Bang" && game.players[index_sender].bangLeft > 0 && !(game.players[index_target].prison && game.players[index_target].character.name == "felipe_prisonero")) {
                 game.requestedPlayer = index_target;
                 game.players[index_sender].bangLeft--;
+
+                game.barelLimitCheck(index_target); // povoleny pocet pouzitia barelu
                 discardCard(index_sender, card_index);
                 gameUpdate();
                 
@@ -617,12 +623,12 @@ function calamityHandler(player, card) {
                 if (player >= game.players.length) player = 0;
             }
             game.requestedPlayer = player;
-
             if(game.requestedPlayer == game.turn){
                 game.requestedPlayer = null;
                 game.playedCard = null;
                 game.requestedCard = null;
             } 
+            game.barelLimitCheck(game.requestedPlayer);
 
         }else if(game.requestedPlayer != null) {
             discardCard(player, card);

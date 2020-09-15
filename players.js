@@ -285,8 +285,7 @@ class Jourdonnais extends Character{
     action(game, player, io){
 
         if (player == game.requestedPlayer){
-
-            if (game.requestedCard == "Vedle") {
+            if (game.requestedCard == "Vedle" && game.barelLimit > 0) {
                 var last = game.cards.pop();
                 if (last.suit == "heart" && game.playedCard == "Gulomet"){
                     var player_index = game.requestedPlayer;
@@ -312,6 +311,7 @@ class Jourdonnais extends Character{
                 }
                 
                 game.cards.unshift(last);
+                game.barelLimit--;
                 io.emit("log", game.players[player].name + " (" + game.players[player].character.name +  ")");
             }
         }

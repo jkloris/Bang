@@ -16,6 +16,7 @@ class Game{
         this.started = false;
         this.deadPlayers = 0;
         this.dynamit = false;
+        this.barelLimit = 0;
     }
     
     dealCharacters(){
@@ -83,7 +84,7 @@ class Game{
             //nastavi na index 0 postavu, ktoru chceme napevno nastavit
 
             if (i == 0) {
-                this.players[i].character = new Lucky_duke(this.players[i]);
+                this.players[i].character = new Jourdonnais(this.players[i]);
                 this.players[i].character.init(this.players[i]);    
             }
 
@@ -276,6 +277,18 @@ class Game{
             }
             this.moveStage = 0;
             return 1;
+        }
+    }
+
+    barelLimitCheck(target){
+        this.barelLimit = 0;
+        if(target != null){
+
+            if(this.players[target].character.name == "jourdonnais")
+            this.barelLimit++;
+            var i = this.players[target].blueCards.findIndex( card => card.name == "Barel");
+            if (i >= 0)
+            this.barelLimit++;
         }
     }
 

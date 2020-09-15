@@ -13,6 +13,7 @@ var cardSelected = false;
 var zoomed = false;
 
 var kit_carlson = false; //neviem jak to spravit krajsie
+var lucky_duke = false; 
 
 socket.on("message", (msg) => {
     console.log(msg);
@@ -78,6 +79,7 @@ socket.on("clickAccept", (mouse)=>{
 socket.on("partial_clickAccept", (mouse)=>{
     game_scene.checkButtons(mouse);
     game_scene.checkCardSelect(mouse);
+    game_scene.luckyDuke(mouse);
 
     var clickedBlue = game_scene.checkBlueCards(mouse, game_scene.tiles[game_client.requestedPlayer], game_client.requestedPlayer);
     if(clickedBlue != null) socket.emit("ownBlueClicked", clickedBlue);
@@ -125,6 +127,11 @@ socket.on("kit_carlson_card_draw", () => {
     kit_carlson = true;
     kit_carlsonDraw();
 });
+
+socket.on("lucky_duke", (player)=>{
+    lucky_duke = true;
+    lucky_dukeDraw();
+})
 
 function updatePlayers(game_server) {
     

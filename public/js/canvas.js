@@ -17,7 +17,7 @@ function clear() {
 }
 
 function drawGame() {
-    if (game_finished || zoomed || kit_carlson) return;
+    if (game_finished || zoomed || kit_carlson || lucky_duke) return;
     clear();
 
 
@@ -248,6 +248,14 @@ function kit_carlsonDraw() {
 
     for(var i = 0; i < 3; i++){
         game_client.cards[game_client.cards.length - i - 1].draw(canvas.width / 2 + (i + 1) * ratio - 3 * ratio, canvas.height / 2 - (Sprites.bang.height / Sprites.bang.width * ratio), ratio);
+    }
+}
+
+function lucky_dukeDraw(){
+    var ratio = canvas.width / 18;
+
+    for(var i = 0; i < 2; i++){
+        game_client.cards[game_client.cards.length - i - 1].draw(canvas.width / 2 + (i + 1) * ratio - 2 * ratio, canvas.height / 2 - (Sprites.bang.height / Sprites.bang.width * ratio), ratio);
     }
 }
 

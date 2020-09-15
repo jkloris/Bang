@@ -79,6 +79,9 @@ class Scene {
             this.kit_carlsonCheck(point);
             return;
         }
+
+        this.luckyDuke(point);
+
         if(game_client.moveStage == 0){
             game_scene.buttons[0].visible = false;
         }
@@ -94,6 +97,13 @@ class Scene {
             this.checkCardSelect(point);
         }
         
+    }
+
+    luckyDuke(point) {
+        if(lucky_duke){
+            this.lucky_dukeCheck(point);
+            return;
+        }
     }
 
     checkCharacters(point){
@@ -216,6 +226,18 @@ class Scene {
             if(point.x >= (canvas.width / 2) - (3*ratio) + (( i + 1 ) * ratio) && point.x <= (-2 * ratio) + (canvas.width / 2) + (( i + 1 ) * ratio) && point.y >= canvas.height / 2 - (Sprites.bang.height / Sprites.bang.width * ratio) && point.y <= canvas.height / 2) {
                 socket.emit("kit_carlson_click", i);
                 kit_carlson = false;
+                return;
+            }
+        }
+    }
+
+    lucky_dukeCheck(point){
+        var ratio = canvas.width / 18;
+
+        for(var i = 0; i < 2; i++){
+            if(point.x >= (canvas.width / 2) - (ratio) + ( i * ratio) && point.x <= (canvas.width / 2) + (i * ratio) && point.y >= canvas.height / 2 - (Sprites.bang.height / Sprites.bang.width * ratio) && point.y <= canvas.height / 2) {
+                socket.emit("lucky_duke_click", i);
+                lucky_duke = false;
                 return;
             }
         }

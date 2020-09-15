@@ -14,6 +14,7 @@ var zoomed = false;
 
 var kit_carlson = false; //neviem jak to spravit krajsie
 var lucky_duke = false; 
+var jesse_jones = false;
 
 socket.on("message", (msg) => {
     console.log(msg);
@@ -131,7 +132,17 @@ socket.on("kit_carlson_card_draw", () => {
 socket.on("lucky_duke", (player)=>{
     lucky_duke = true;
     lucky_dukeDraw();
-})
+});
+
+socket.on("jesse_jones_action", ()=>{
+    jesse_jones = true;
+    ctx.save();
+    ctx.textAlign = "center";
+    ctx.fillStyle = "green";
+    ctx.font = "30px Arial";
+    ctx.fillText(`Vyber si, od ktoreho hraca si chces zobrat kartu`, canvas.width / 2, canvas.height / 2 + 30)
+    ctx.restore();
+});
 
 function updatePlayers(game_server) {
     

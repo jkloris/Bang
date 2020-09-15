@@ -225,6 +225,14 @@ class Jesse_jones extends Character{
         this.name = "jesse_jones";
         this.HP = 4;
     }
+
+    action(game, index_sender, io) {
+        if (game.turn == index_sender && game.moveStage == 0 && game.players[index_sender].prison == false && game.players[index_sender].dynamit == false) {
+            //vyvola akciu, ktora od hraca bude ocakavat, ze vyberie, od koho chce kartu
+            io.to(game.players[index_sender].id).emit("jesse_jones_action");
+            return null;
+        }
+    }
 }
 
 class El_gringo extends Character{

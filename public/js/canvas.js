@@ -17,7 +17,7 @@ function clear() {
 }
 
 function drawGame() {
-    if (game_finished || zoomed || kit_carlson || lucky_duke) return;
+    if (game_finished || zoomed || kit_carlson || lucky_duke || jesse_jones) return;
     clear();
 
 

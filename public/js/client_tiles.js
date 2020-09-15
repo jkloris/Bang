@@ -165,6 +165,14 @@ class Tile {
             var player_i = game_client.players.findIndex(user => user.id === socket.id);
             var card_i = game_client.players[player_i].cards.findIndex(card => card.selected === true);
 
+            if (jesse_jones) {
+                if (this.cards > 0) {
+                    socket.emit("jesse_jones_choice", player_i, this.id);
+                    jesse_jones = false;
+                    return;
+                } else alert("Ten nema ziadne karty, ty deges");
+            }
+
             if(game_client.players[player_i].blueCards[clickedBlue_index] != undefined && game_client.players[player_i].blueCards[clickedBlue_index].name == "Dynamit"){
                 socket.emit("dynamiteClick", player_i, clickedBlue_index);
             }

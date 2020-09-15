@@ -478,7 +478,16 @@ io.on("connection", socket =>{
             
         }
         gameUpdate();
-    })
+    });
+
+    socket.on("jesse_jones_choice", (index_jesse, id_target) => {
+        var index_target = game.players.findIndex(user => user.id === id_target);
+        var rand_card_index = Math.floor(Math.random()*game.players[index_target].cards.length);
+        game.players[index_jesse].cards.push(game.players[index_target].cards[rand_card_index]);
+        game.players[index_target].cards.splice(rand_card_index,1);
+        game.moveStage++;
+        gameUpdate();
+    });
 
     //odpojenie hraca
     socket.on("disconnect",()=>{

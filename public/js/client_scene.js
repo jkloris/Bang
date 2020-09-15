@@ -31,13 +31,13 @@ class Scene {
             //ak je selectnuta karta, tak sa to posle na server, kde sa to bude kontrolovat
             if (card_i != -1) {
                 socket.emit("useCard", game_client.players[player_i].cards[card_i].name, card_i);
+                //po useCard nastavi tieto veci na defaultne resp. opacne hodnoty
+                cardSelected = false;
+                game_client.players[player_i].cards[card_i].selected = false;
+                drawGame();
+                play_audio = true;
             }
 
-            //po useCard nastavi tieto veci na defaultne resp. opacne hodnoty
-            cardSelected = false;
-            game_client.players[player_i].cards[card_i].selected = false;
-            play_audio = true;
-            drawGame();
         }
         this.buttons.push(UseCard);
 

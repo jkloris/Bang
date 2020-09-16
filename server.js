@@ -1,3 +1,7 @@
+const PORT = process.env.PORT || 8888;
+const IP = 'localhost'; 
+//const IP = '10.156.0.2'; //pre Google Cloud VM
+
 const http = require("http");
 const express = require("express");
 const socketIO = require("socket.io");
@@ -551,15 +555,15 @@ io.on("connection", socket =>{
         playerDisconnect(socket.id);
         gameUpdate();
     });
-
+    
     socket.on("restart", (password_hash) => {
         if (game.started) {
             console.log("Zly restart request - hra stale prebieha");
             return; //ak je hra v priebehu, tak sa nestane nic
         }
         //ak sa posle nespravne heslo
-        if (password_hash != "785bb1e5e77a14325fd31ebeae836fff") return;
-
+        if (password_hash != "e1e30c808560586f927324b701345752") return;
+        
         game = new Game();
         
         //loop through connected sockets and add them as players to the next game
@@ -570,16 +574,13 @@ io.on("connection", socket =>{
             //nastavi mu meno podla toho, co je priradene k jeho socketId v poli "names"
             game.players[game.players.length - 1].name = names[socketId];
         }
-
+        
         io.emit("restart");
         gameUpdate();
     });
-
+    
 })
 
-const PORT = process.env.PORT || 8888;
-const IP = 'localhost'; 
-//const IP = '10.156.0.2'; //pre Google Cloud VM
 server.listen(PORT, IP, ()=>console.log(`server running on ${IP}:${PORT}`));
 
 

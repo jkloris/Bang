@@ -1,9 +1,9 @@
 TODO
 * ~~Slab the killer vs. barel treba nejako poriesit, ale ja si ani nepamatam ako to byva v normalnej hre :D~~
     * este Slab the killer vs. Lucky duke s barellom (neviem co bude robit)
-* Fixnut zvuky, obcas to stale zahra random pesnicku, aj ked nema
 * Logovat iba eventy, ktore sa naozaj uskutocnia. Teraz do logu zapise aj "pokus o vystrel", ktory sa realne neuskutocni (ked hrac nema dostrel)
 * Otestovat smrt po vybuchu dynamitu - ci mrtvy hrac zahodi karty do kopky
+* ~~Fixnut zvuky, obcas to stale zahra random pesnicku, aj ked nema~~
 * ~~(?) kontrola, ci sa striela na mrtveho hraca je zatial client-side. Prerobit na server side?~~
 * ~~Kontrolovat, ci spravne funguje duel - nie je otestovany zatial~~
     * ~~myslim, ze funguje~~

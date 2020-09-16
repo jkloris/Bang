@@ -261,7 +261,7 @@ io.on("connection", socket =>{
                         game.playedCard = null;
                     }
                 }
-                if (game.players[game.requestedPlayer].character.name == "jourdonnais" && last.suit == "heart" && game.barelLimit == 4) game.barelLimit -= 2;
+                if (game.requestedPlayer != null && game.players[game.requestedPlayer].character.name == "jourdonnais" && last.suit == "heart" && game.barelLimit == 4) game.barelLimit -= 2;
                 else game.barelLimit--;
                 game.cards.unshift(last);
             }
@@ -622,6 +622,7 @@ function Death(dead_player_index){ //TODO
     io.emit("log", game.players[dead_player_index].name + " je mrtef.");
     game.players[dead_player_index].alive = false;
     game.deadPlayers++;
+    if (game.players[dead_player_index].dynamit) game.dynamit = false;
 
     //karty mrtveho hraca sa poslu do kopky
     var vulture_sam = vulture_samCheck();

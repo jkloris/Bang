@@ -84,10 +84,11 @@ class Game{
             //nastavi na index 0 postavu, ktoru chceme napevno nastavit
 
             if (i == 0) {
-                this.players[i].character = new Calamity_janet(this.players[i]);
-                this.players[i].character.init(this.players[i]);    
-            } else if (i == 1) {
                 this.players[i].character = new Slab_the_killer(this.players[i]);
+                this.players[i].character.init(this.players[i]);    
+            }
+             else if (i == 1) {
+                this.players[i].character = new Lucky_duke(this.players[i]);
                 this.players[i].character.init(this.players[i]);    
             }
 
@@ -290,13 +291,13 @@ class Game{
 
             if(this.players[target].character.name == "jourdonnais") {
                 this.barelLimit++;
-                //ak striela slab the killer, tak je 2nasobny limit na zaklade schopnosti
-                if (this.playedCard == "Bang" && this.players[this.turn].character.name == "slab_the_killer") this.barelLimit++;
+                //ak striela slab the killer, tak je 2nasobny limit na zaklade schopnosti .... nie je
+                // if (this.playedCard == "Bang" && this.players[this.turn].character.name == "slab_the_killer") this.barelLimit++;
             }
             var i = this.players[target].blueCards.findIndex( card => card.name == "Barel");
             if (i >= 0) {
                 this.barelLimit++;
-                if (this.playedCard == "Bang" && this.players[this.turn].character.name == "slab_the_killer") this.barelLimit++;
+                // if (this.playedCard == "Bang" && this.players[this.turn].character.name == "slab_the_killer") this.barelLimit++;
             }
         }
     }

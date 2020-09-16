@@ -10,8 +10,8 @@ class Card {
         //this.available = true;
         this.selected = false; 
         this.onRange = false;
-        this.suit = "spades";
-        this.rank = 5;
+        this.suit = null;
+        this.rank = null;
       
         // this.IMG = null;
     }
@@ -195,7 +195,7 @@ class Salon extends ActionCard{
         super();
         this.name = "Salon";
         this.suit = "heart";
-        this.rank = "5";
+        this.rank = 5;
         
     }
 

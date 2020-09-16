@@ -447,13 +447,13 @@ io.on("connection", socket =>{
                 if (checkCard.suit == "spades" && checkCard.rank >= 2 && checkCard.rank <= 9 ){
                     game.dynamit = false;
                     game.cards.unshift(game.players[player_i].blueCards[dynamit_i]);
-                    game.players[player_i].blueCards.splice(card, 1);
+                    game.players[player_i].blueCards.splice(dynamit_i, 1);
                     game.trashedCards+=2;
                 
                     game.players[player_i].HP = ( game.players[player_i].HP - 3 > 0) ? (game.players[player_i].HP - 3) : 0;
                     if (game.players[player_i].HP == 0){
                         Death(player_i); //aby sa jeho karty zahodili do kopky
-                        game.nextTurn(player, true);
+                        game.nextTurn(player_i, true);
 
                         let result = game.gameOver();
                         console.log("checking for game over... with result: " + result.result);
@@ -485,7 +485,7 @@ io.on("connection", socket =>{
                 }
 
                 game.cards.unshift(checkCard);
-                game.cards.splice(game.cards.length - 1 - dynamit_i, 1);
+                game.cards.splice(game.cards.length - 1 - card_i, 1);
 
             } else if(event == "barel"){
                 if (game.barelLimit > 0) {
@@ -511,9 +511,19 @@ io.on("connection", socket =>{
                         game.barelLimitCheck(game.requestedPlayer);
     
                     } else if(chosenCard.suit == "heart"){
-                        game.requestedPlayer = null;
-                        game.requestedCard = null;
-                        game.playedCard = null;
+                        if (game.players[game.turn].character.name == "slab_the_killer") {
+                            game.players[game.turn].character.vedleCount++;
+                            if (game.players[game.turn].character.vedleCount == 2) {
+                                game.requestedPlayer = null;
+                                game.playedCard = null;
+                                game.requestedCard = null;
+                                game.players[game.turn].character.vedleCount = 0;
+                            }
+                        }else{
+                            game.requestedPlayer = null;
+                            game.requestedCard = null;
+                            game.playedCard = null;
+                        }
                     }
 
                     game.barelLimit--;

@@ -286,19 +286,22 @@ class Game{
 
     barelLimitCheck(target){
         this.barelLimit = 0;
-        console.log("Barel limit check, played card: " + this.playedCard);
+        console.log("barel limit check pred kontrolou, ci ma target");
         if(target != null){
+            console.log("Barel limit check, target: " + this.players[target].character.name);
 
             if(this.players[target].character.name == "jourdonnais") {
                 this.barelLimit++;
-                //ak striela slab the killer, tak je 2nasobny limit na zaklade schopnosti .... nie je
-                // if (this.playedCard == "Bang" && this.players[this.turn].character.name == "slab_the_killer") this.barelLimit++;
+                //ak striela slab the killer, tak je 2nasobny limit na zaklade schopnosti
+                if (this.playedCard == "Bang" && this.players[this.turn].character.name == "slab_the_killer") this.barelLimit++;
             }
             var i = this.players[target].blueCards.findIndex( card => card.name == "Barel");
             if (i >= 0) {
+                console.log("sme tady, vnutri toho, ze ma typek barel");
                 this.barelLimit++;
-                // if (this.playedCard == "Bang" && this.players[this.turn].character.name == "slab_the_killer") this.barelLimit++;
+                if (this.playedCard == "Bang" && this.players[this.turn].character.name == "slab_the_killer") this.barelLimit++;
             }
+            console.log("result: barel limit: ", this.barelLimit);
         }
     }
 

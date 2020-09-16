@@ -329,8 +329,9 @@ class Jourdonnais extends Character{
                     }
                 }
                 
+                if (game.players[game.requestedPlayer].character.name == "jourdonnais" && last.suit == "heart" && game.barelLimit == 4) game.barelLimit -= 2;
+                else game.barelLimit--;
                 game.cards.unshift(last);
-                game.barelLimit--;
                 io.emit("log", game.players[player].name + " (" + game.players[player].character.name +  ")");
             }
         }

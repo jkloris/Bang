@@ -257,7 +257,8 @@ io.on("connection", socket =>{
                         game.playedCard = null;
                     }
                 }
-                game.barelLimit--;
+                if (game.players[game.requestedPlayer].character.name == "jourdonnais" && last.suit == "heart" && game.barelLimit == 4) game.barelLimit -= 2;
+                else game.barelLimit--;
                 game.cards.unshift(last);
             }
         }

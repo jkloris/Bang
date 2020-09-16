@@ -313,9 +313,20 @@ class Jourdonnais extends Character{
                     } 
 
                 } else if(last.suit == "heart"){
-                    game.requestedPlayer = null;
-                    game.requestedCard = null;
-                    game.playedCard = null;
+                    if (game.players[game.turn].character.name == "slab_the_killer") {
+                        game.players[game.turn].character.vedleCount++;
+                        if (game.players[game.turn].character.vedleCount == 2) {
+                            game.requestedPlayer = null;
+                            game.playedCard = null;
+                            game.requestedCard = null;
+                            game.players[game.turn].character.vedleCount = 0;
+                        }
+                        //return;
+                    } else {
+                        game.requestedPlayer = null;
+                        game.requestedCard = null;
+                        game.playedCard = null;
+                    }
                 }
                 
                 game.cards.unshift(last);

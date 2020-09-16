@@ -241,10 +241,21 @@ io.on("connection", socket =>{
 
                     game.barelLimitCheck(game.requestedPlayer);
 
-                } else if(last.suit == "heart"){
-                    game.requestedPlayer = null;
-                    game.requestedCard = null;
-                    game.playedCard = null;
+                } else if(last.suit == "heart") {
+                    if (game.players[game.turn].character.name == "slab_the_killer") {
+                        game.players[game.turn].character.vedleCount++;
+                        if (game.players[game.turn].character.vedleCount == 2) {
+                            game.requestedPlayer = null;
+                            game.playedCard = null;
+                            game.requestedCard = null;
+                            game.players[game.turn].character.vedleCount = 0;
+                        }
+                        //return;
+                    } else {
+                        game.requestedPlayer = null;
+                        game.requestedCard = null;
+                        game.playedCard = null;
+                    }
                 }
                 game.barelLimit--;
                 game.cards.unshift(last);
@@ -353,6 +364,7 @@ io.on("connection", socket =>{
             } else if (event == "Bang" && game.players[index_sender].bangLeft > 0 && !(game.players[index_target].prison && game.players[index_target].character.name == "felipe_prisonero")) {
                 game.requestedPlayer = index_target;
                 game.players[index_sender].bangLeft--;
+                game.playedCard = "Bang";
 
                 game.barelLimitCheck(index_target); // povoleny pocet pouzitia barelu
                 discardCard(index_sender, card_index);

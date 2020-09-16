@@ -83,14 +83,14 @@ class Game{
             
             //nastavi na index 0 postavu, ktoru chceme napevno nastavit
 
-            if (i == 0) {
-                this.players[i].character = new Slab_the_killer(this.players[i]);
-                this.players[i].character.init(this.players[i]);    
-            }
-             else if (i == 1) {
-                this.players[i].character = new Lucky_duke(this.players[i]);
-                this.players[i].character.init(this.players[i]);    
-            }
+            // if (i == 0) {
+            //     this.players[i].character = new Slab_the_killer(this.players[i]);
+            //     this.players[i].character.init(this.players[i]);    
+            // }
+            //  else if (i == 1) {
+            //     this.players[i].character = new Lucky_duke(this.players[i]);
+            //     this.players[i].character.init(this.players[i]);    
+            // }
 
 
             this.players[i].character.init(this.players[i]);

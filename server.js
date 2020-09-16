@@ -541,11 +541,14 @@ io.on("connection", socket =>{
         gameUpdate();
     });
 
-    socket.on("restart", () => {
+    socket.on("restart", (password_hash) => {
         if (game.started) {
             console.log("Zly restart request - hra stale prebieha");
             return; //ak je hra v priebehu, tak sa nestane nic
         }
+        //ak sa posle nespravne heslo
+        if (password_hash != "785bb1e5e77a14325fd31ebeae836fff") return;
+
         game = new Game();
         
         //loop through connected sockets and add them as players to the next game

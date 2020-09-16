@@ -68,6 +68,7 @@ document.addEventListener("click", e => {
     }
     if (game_finished) {
         restartRequest();
+        return;
     }
     var rect = canvas.getBoundingClientRect();
     var mouse = {x: e.clientX-rect.left, y: e.clientY-rect.top};

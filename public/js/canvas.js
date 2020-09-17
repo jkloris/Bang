@@ -50,7 +50,13 @@ function drawGame() {
         
         if(i == game_client.turn){
             ctx.fillStyle = "red";
-            ctx.fillRect(game_scene.tiles[i].x,game_scene.tiles[i].y,10,10);
+            ctx.fillRect(game_scene.tiles[i].x, game_scene.tiles[i].y, 10, 10);
+            ctx.fillStyle = "black";
+        }
+
+        if(i == game_client.requestedPlayer){
+            ctx.fillStyle = "blue";
+            ctx.fillRect(game_scene.tiles[i].x, game_scene.tiles[i].y, 10, 10);
             ctx.fillStyle = "black";
         }
     }

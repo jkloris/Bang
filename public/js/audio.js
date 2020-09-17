@@ -10,3 +10,4 @@ audio.indiani = new Audio('../audio/indiani2.mp3');
 audio.pivo = new Audio('../audio/pifko.mp3');
 audio.salon = new Audio('../audio/vlastoo.mp3')
 audio.dynamit = new Audio('../audio/dynamit.mp3');
+audio.pod = new Audio('../audio/noPod.mp3'); //ked requested player dokonči tah

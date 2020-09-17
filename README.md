@@ -1,5 +1,4 @@
 TODO
-* 3 karty po smrti banditu
 * Pridat nejaky zvuk na hokynarstvo
 * pridat nejaky zvuk (alebo nieco), ked napriklad po niekom strielam a on da vedle, tak ze idem zase ja, chapes :D
 * zachranne pivo
@@ -9,6 +8,7 @@ TODO
     * do logu pridat rozdelenie, kedy zacina kolo
     * celkovo zlepsit log, niektore veci sa loguju zbytocne alebo neuplne informacie
 * Otestovat smrt po vybuchu dynamitu - ci mrtvy hrac zahodi karty do kopky
+* ~~3 karty po smrti banditu, serif zahodi karty ked zabije vica~~
 * ~~Slab the killer vs. barel treba nejako poriesit, ale ja si ani nepamatam ako to byva v normalnej hre :D~~
     * ~~este Slab the killer vs. Lucky duke s barellom (neviem co bude robit)~~
       * uz by to malo vsetko fungovat - TESTOVAT!!!

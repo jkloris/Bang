@@ -624,10 +624,9 @@ function Death(dead_player_index){ //TODO
     game.deadPlayers++;
     if (game.players[dead_player_index].dynamit) game.dynamit = false;
 
-    //karty mrtveho hraca sa poslu do kopky
     var vulture_sam = vulture_samCheck();
-    if( vulture_sam == -1){
-
+    if(vulture_sam == -1){
+        //karty mrtveho hraca sa poslu do kopky, ak valture_sam nie je v hre
         while (game.players[dead_player_index].cards.length > 0) {
             var card = game.players[dead_player_index].cards.pop();
             game.cards.unshift(card);
@@ -640,7 +639,29 @@ function Death(dead_player_index){ //TODO
             game.trashedCards++;
         }
     } else{
+        //trigger valture sam
         game.players[vulture_sam].character.diff_action(vulture_sam, dead_player_index, game);
+    }
+
+    //ak zomrel bandita, tak ten co je na tahu si berie 3 karty
+    if (game.players[dead_player_index].role == "Bandita" && game.turn != dead_player_index) {
+        game.dealOneCard(game.turn);
+        game.dealOneCard(game.turn);
+        game.dealOneCard(game.turn);
+    }
+
+    //ak serif zabije vice-a, zahodi vsetky karty
+    if (game.players[dead_player_index].role == "Vice" && game.players[game.turn].role == "Sheriff") {
+        while (game.players[game.turn].cards.length > 0) {
+            var card = game.players[game.turn].cards.pop();
+            game.cards.unshift(card);
+            game.trashedCards++;
+        }
+        while (game.players[game.turn].blueCards.length > 0){
+            var card = game.players[game.turn].blueCards.pop();
+            game.cards.unshift(card);
+            game.trashedCards++;
+        }
     }
 }
 

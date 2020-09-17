@@ -275,6 +275,11 @@ function lucky_dukeDraw(){
 function drawWinner(winner) {
     clear();
 
+    for(var i in game_scene.tiles){
+        game_scene.tiles[i].drawTile("black");
+        game_scene.tiles[i].drawRole();
+    }
+
     ctx.save();
     ctx.textAlign = "center";
     ctx.fillStyle = "green";

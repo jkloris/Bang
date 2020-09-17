@@ -96,7 +96,7 @@ io.on("connection", socket =>{
     });
 
     socket.on("useCard", (card_name, card_index)=>{
-        console.log(card_name);
+        console.log(card_name, card_index);
         var index_sender = game.players.findIndex(user => user.id === socket.id);
 
         var deny_these_cards = ["Catbalou", "Panika", "Vazenie", "Duel"];
@@ -115,7 +115,7 @@ io.on("connection", socket =>{
             }
             else if (game.players[index_sender].character.name == "calamity_janet") {
                 if (calamityHandler(index_sender, card_index)) io.emit("log", card_name + ": (" + game.players[index_sender].name + ")");
-            }
+            } else if (game.safeBeer && card_name == "Pivo") game.players[index_sender].cards[card_index].action(game, index_sender, card_index, io);
         }
         gameUpdate();
     });
@@ -137,19 +137,26 @@ io.on("connection", socket =>{
         }
 
 
-        if(--game.players[player_index].HP == 0){
+        if(--game.players[player_index].HP <= 0){
+            if (safeBeerCheck(player_index, io)) {
+                console.log("SafeBeerCheck bol true");
+                gameUpdate();
+                return;
+            }
+            console.log("SafeBeerCheck bol false");
             Death(player_index);
             let result = game.gameOver();
             console.log("checking for game over... with result: " + result.result);
             if (result.result){ //ak nastal koniec hry
                 io.emit("winner", result.winner);
                 game.started = false;
-                gameUpdate();
-            } 
+                //gameUpdate();
+            }
         }
         else io.emit("log", " - " + game.players[player_index].name + " sa rozhodol zobrať si život.");
 
         if (game.requestedPlayer != null){
+            console.log("Kontrola posuvania hracov, kto ide dalsi..");
             if (game.playedCard == "Gulomet" || game.playedCard == "Indiani") {
 
                 player_index = (player_index + 1 == game.players.length)? 0 : player_index + 1;
@@ -301,17 +308,24 @@ io.on("connection", socket =>{
                 
                 game.players[player].HP = ( game.players[player].HP - 3 > 0) ? (game.players[player].HP - 3) : 0;
                 if (game.players[player].HP == 0){
-                    //game.players[player].alive = false; //nestaci - nezahodi karty do kopky (ci? - netestoval som)
-                    Death(player); //aby sa jeho karty zahodili do kopky
-                    game.nextTurn(player, true);
-
+                    
+                    if (safeBeerCheck(player_index, io)) {
+                        console.log("SafeBeerCheck bol true");
+                        gameUpdate();
+                        return;
+                    }
+                    console.log("SafeBeerCheck bol false");
+                    Death(player_index);
                     let result = game.gameOver();
                     console.log("checking for game over... with result: " + result.result);
-                    if (result.result) {
+                    if (result.result){ //ak nastal koniec hry
                         io.emit("winner", result.winner);
                         game.started = false;
-                        gameUpdate();
+                        //gameUpdate();
                     }
+                    game.nextTurn(player, true);
+                    
+
                 } else if(game.players[player].character.name == "bart_cassidy"){
                     game.dealOneCard(player);
                     game.dealOneCard(player);
@@ -621,6 +635,7 @@ function Death(dead_player_index){ //TODO
     console.log(game.players[dead_player_index].name + ' died');
     io.emit("log", game.players[dead_player_index].name + " je mrtef.");
     game.players[dead_player_index].alive = false;
+    game.players[dead_player_index].HP = -1;
     game.deadPlayers++;
     if (game.players[dead_player_index].dynamit) game.dynamit = false;
 
@@ -674,8 +689,8 @@ function vulture_samCheck(){
     return -1;
 }
 
-function calamityHandler(player, card) {
-    if (!(game.players[player].cards[card].name == "Bang" || game.players[player].cards[card].name == "Vedle")) {
+function calamityHandler(player, card_i) {
+    if (!(game.players[player].cards[card_i].name == "Bang" || game.players[player].cards[card_i].name == "Vedle")) {
         return false;
     }
 
@@ -742,4 +757,18 @@ function calamityHandler(player, card) {
         }
     }
     return true;
+}
+
+function safeBeerCheck(player_index, io) {
+    var pivo_index = game.players[player_index].cards.findIndex(card => card.name == "Pivo");
+    console.log("safe beer check function ", game.safeBeer, pivo_index);
+
+    if (pivo_index != -1 && !game.safeBeer) {
+        //ak ma pifko, dostane moznost sa zachranit
+        game.safeBeer = true;
+        return true;
+    } else {
+        game.safeBeer = false;
+        return false;
+    }
 }

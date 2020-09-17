@@ -67,7 +67,7 @@ function drawGame() {
         //game_scene.buttons[i].draw();
     }
     //hrac, co je na tahu, ale je v dueli
-    else if (game_client.turn != null && game_client.requestedPlayer != null && socket.id == game_client.players[game_client.turn].id && game_client.players[game_client.requestedPlayer].id == socket.id && game_client.playedCard == "Duel") {
+    else if (game_client.turn != null && game_client.requestedPlayer != null && socket.id == game_client.players[game_client.turn].id && game_client.players[game_client.requestedPlayer].id == socket.id && game_client.playedCard == "Duel" && !game_client.safeBeer) {
         ctx.save();
         ctx.textAlign = "center";
         ctx.fillStyle = "red";
@@ -84,7 +84,14 @@ function drawGame() {
     }
     //hrac, co nie je na tahu, ale je od neho vyzadovana nejaka akcia
     else if(game_client.requestedPlayer != null && socket.id != game_client.players[game_client.turn].id && socket.id == game_client.players[game_client.requestedPlayer].id){
-        if (game_client.playedCard == "Indiani") {
+        if (game_client.safeBeer) {
+            ctx.save();
+            ctx.textAlign = "center";
+            ctx.fillStyle = "red";
+            ctx.font = "40px Arial";
+            ctx.fillText(`CHCES POUZIT ZACHRANNE PIVO?`, canvas.width / 2, canvas.height / 2 - 20);
+            ctx.restore();
+        } else if (game_client.playedCard == "Indiani") {
             ctx.save();
             ctx.textAlign = "center";
             ctx.fillStyle = "red";

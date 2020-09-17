@@ -179,12 +179,47 @@ class Pivo extends ActionCard{
 
     }
 
-    action(game, player, card, io){
-        if(game.requestedPlayer == null && game.players[player].HP < game.players[player].maxHP ){
-            game.players[player].HP++;
-            discardCard(game, player, card);
+    action(game, player_index, card, io){
+        if(game.players[player_index].HP < game.players[player_index].maxHP ){
+            game.players[player_index].HP++;
+            discardCard(game, player_index, card);
 
-            io.to(game.players[player].id).emit("pivoSound");
+            io.to(game.players[player_index].id).emit("pivoSound");
+        }
+
+        //ak to bolo zachranne pivo, 
+        if (game.safeBeer) {
+            game.safeBeer = false;
+            if (game.requestedPlayer != null){
+                console.log("Kontrola posuvania hracov, kto ide dalsi..");
+                if (game.playedCard == "Gulomet" || game.playedCard == "Indiani") {
+    
+                    player_index = (player_index + 1 == game.players.length)? 0 : player_index + 1;
+    
+                    while (!game.players[player_index].alive) {
+                        player_index++;
+                        if (player_index >= game.players.length) player_index = 0;
+                    }
+                    game.requestedPlayer = player_index;
+        
+                    if(game.requestedPlayer == game.turn){
+                        game.requestedPlayer = null;
+                        game.playedCard = null;
+                        game.requestedCard = null;
+                    } 
+                
+                    game.barelLimitCheck(game.requestedPlayer);
+        
+                } else {
+                    game.requestedPlayer = null;  
+                    game.playedCard = null;
+                    game.requestedCard = null;      
+    
+                    if (game.players[game.turn].character.name == "slab_the_killer"){ 
+                        game.players[game.turn].character.vedleCount = 0;
+                    }        
+                }
+            }
         }
     }
 

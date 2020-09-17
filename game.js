@@ -17,6 +17,7 @@ class Game{
         this.deadPlayers = 0;
         this.dynamit = false;
         this.barelLimit = 0;
+        this.safeBeer = false;
     }
     
     dealCharacters(){
@@ -151,7 +152,8 @@ class Game{
 
         var raw_data = null;
         //precita subor a vytvori USPORIADANE pole kariet
-        fs.readFile('./deck_final.txt', 'utf8', (err, data) => {
+        //fs.readFile('./deck_final.txt', 'utf8', (err, data) => {
+        fs.readFile('./deck.txt', 'utf8', (err, data) => {
             if (err) throw err;
             raw_data = data;
         });

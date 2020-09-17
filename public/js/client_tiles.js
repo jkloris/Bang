@@ -8,7 +8,7 @@ class Tile {
         this.cards = cards;
         this.role = role;
         this.character = character;
-        if (this.HP <= 0) this.alive = false;
+        if (this.HP == -1) {this.alive = false; this.HP = 0;}
         else this.alive = true;
     }
 

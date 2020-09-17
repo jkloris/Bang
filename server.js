@@ -672,11 +672,11 @@ function Death(dead_player_index){ //TODO
             game.cards.unshift(card);
             game.trashedCards++;
         }
-        while (game.players[game.turn].blueCards.length > 0){
-            var card = game.players[game.turn].blueCards.pop();
-            game.cards.unshift(card);
-            game.trashedCards++;
-        }
+        // while (game.players[game.turn].blueCards.length > 0){
+        //     var card = game.players[game.turn].blueCards.pop();
+        //     game.cards.unshift(card);
+        //     game.trashedCards++;
+        // }
     }
 }
 

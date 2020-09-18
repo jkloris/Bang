@@ -16,7 +16,7 @@ TODO
     * ~~este Slab the killer vs. Lucky duke s barellom (neviem co bude robit)~~
       * uz by to malo vsetko fungovat - TESTOVAT!!!
 * ~~(?) kontrola, ci sa striela na mrtveho hraca je zatial client-side. Prerobit na server side?~~
-* ~~Zoomovanie na charactery som robil po 4 piffkach, takze je to dost dirty spravene, ale ak to nebudes chciet spravit krajsie, tak tento bod zmaz, dobru nocku idem spinkat~~
+* Hra spadla pri Calamity v dueli 
 
 POZNAMKI
 * Ak niekedy bude blbnut citanie suboru, tak to moze byt kvoli CRLF vs LF. Kod funguje na LF kodovanie

@@ -24,8 +24,8 @@ var names = {};
 io.on("connection", socket =>{
     //niekto sa pripojil
     // io.emit("message", game);
-    playerConnected(socket.id); 
-    gameUpdate();
+        playerConnected(socket.id); 
+        gameUpdate();
 
     //hrac si nastavi meno
     socket.on('set-name', name => {
@@ -146,13 +146,7 @@ io.on("connection", socket =>{
             }
             console.log("SafeBeerCheck bol false");
             Death(player_index);
-            let result = game.gameOver();
-            console.log("checking for game over... with result: " + result.result);
-            if (result.result){ //ak nastal koniec hry
-                io.emit("winner", result.winner);
-                game.started = false;
-                //gameUpdate();
-            }
+            
         }
         else io.emit("log", " - " + game.players[player_index].name + " sa rozhodol zobrať si život.");
 
@@ -322,13 +316,7 @@ io.on("connection", socket =>{
                     }
                     console.log("SafeBeerCheck bol false");
                     Death(player_index);
-                    let result = game.gameOver();
-                    console.log("checking for game over... with result: " + result.result);
-                    if (result.result){ //ak nastal koniec hry
-                        io.emit("winner", result.winner);
-                        game.started = false;
-                        //gameUpdate();
-                    }
+                    
                     game.nextTurn(player, true);
                     
 
@@ -480,13 +468,7 @@ io.on("connection", socket =>{
                         Death(player_i); //aby sa jeho karty zahodili do kopky
                         game.nextTurn(player_i, true);
 
-                        let result = game.gameOver();
-                        console.log("checking for game over... with result: " + result.result);
-                        if (result.result) {
-                            io.emit("winner", result.winner);
-                            game.started = false;
-                            gameUpdate();
-                        }
+                        
                     }
                 } else {
 
@@ -580,9 +562,10 @@ io.on("connection", socket =>{
     });
     
     socket.on("restart", (password_hash) => {
+        //pri testovani zakomentovane
         if (game.started) {
             console.log("Zly restart request - hra stale prebieha");
-            return; //ak je hra v priebehu, tak sa nestane nic
+           //return; //ak je hra v priebehu, tak sa nestane nic
         }
         //ak sa posle nespravne heslo
         if (password_hash != "e1e30c808560586f927324b701345752") return;
@@ -615,12 +598,13 @@ function gameUpdate(){
 
 function playerDisconnect(id){
     var index = game.players.findIndex(user => user.id === id);
-        if(index != -1){
-
-            game.players.splice(index,1);
-            io.emit("message", id + ' disconnected');
-            //console.log(id, 'disconnected');
-        }     
+    if(game.started){
+        Death(index);
+    }else if(index != -1){
+        game.players.splice(index,1);
+        io.emit("message", id + ' disconnected');
+        //console.log(id, 'disconnected');
+    }     
 }
 
 function playerConnected(id){
@@ -641,12 +625,22 @@ function discardCard(player_i, card_i) {
 }
 
 function Death(dead_player_index){ //TODO
+
     console.log(game.players[dead_player_index].name + ' died');
     io.emit("log", game.players[dead_player_index].name + " je mrtef.");
     game.players[dead_player_index].alive = false;
     game.players[dead_player_index].HP = -1;
     game.deadPlayers++;
     if (game.players[dead_player_index].dynamit) game.dynamit = false;
+    if (game.turn == dead_player_index) game.nextTurn(dead_player_index, true);
+
+    let result = game.gameOver();
+    console.log("checking for game over... with result: " + result.result);
+    if (result.result) {
+        io.emit("winner", result.winner);
+        game.started = false;
+        gameUpdate();
+    }
 
     var vulture_sam = vulture_samCheck();
     if(vulture_sam == -1){

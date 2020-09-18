@@ -58,6 +58,9 @@ socket.on("onTurnSound", ()=>{
 socket.on("salonSound", ()=>{
     audio.salon.play();
 })
+socket.on("turnResumeSound", ()=>{
+    audio.pod.play();
+})
 
 document.addEventListener("click", e => {
     //ak je zoomnute na nejaku kartu, tak aj LMB click to zrusi

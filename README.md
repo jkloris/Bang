@@ -1,10 +1,11 @@
 TODO
 * Pridat nejaky zvuk na hokynarstvo
-* pridat nejaky zvuk (alebo nieco), ked napriklad po niekom strielam a on da vedle, tak ze idem zase ja, chapes :D
+* ~~pridat nejaky zvuk (alebo nieco), ked napriklad po niekom strielam a on da vedle, tak ze idem zase ja, chapes :D~~
+    * neviem ci som to dal vsade
 * zachranne pivo
     * pridane, ale treba poriadne otestovat, ci funguje
         * hlavne s dynamitom
-* Upravit game over screen, nech je vidno, kto bol aka postava a tak
+* ~~Upravit game over screen, nech je vidno, kto bol aka postava a tak~~
 * Log
     * logovat iba eventy, ktore sa naozaj uskutocnia. Teraz do logu zapise aj "pokus o vystrel", ktory sa realne neuskutocni (ked hrac nema dostrel)
     * do logu pridat rozdelenie, kedy zacina kolo

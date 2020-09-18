@@ -91,6 +91,7 @@ io.on("connection", socket =>{
         if(game.requestedPlayer == game.turn){
             game.requestedPlayer = null;
             game.playedCard = null;
+            io.to(game.players[game.turn].id).emit("turnResumeSound");
         } 
         gameUpdate();
     });
@@ -171,6 +172,7 @@ io.on("connection", socket =>{
                     game.requestedPlayer = null;
                     game.playedCard = null;
                     game.requestedCard = null;
+                    io.to(game.players[game.turn].id).emit("turnResumeSound");
                 } 
             
                 game.barelLimitCheck(game.requestedPlayer);
@@ -178,7 +180,8 @@ io.on("connection", socket =>{
             } else {
                 game.requestedPlayer = null;  
                 game.playedCard = null;
-                game.requestedCard = null;      
+                game.requestedCard = null;    
+                io.to(game.players[game.turn].id).emit("turnResumeSound");
 
                 if (game.players[game.turn].character.name == "slab_the_killer"){ 
                     game.players[game.turn].character.vedleCount = 0;
@@ -248,6 +251,7 @@ io.on("connection", socket =>{
                         game.requestedPlayer = null;
                         game.playedCard = null;
                         game.requestedCard = null;
+                        io.to(game.players[game.turn].id).emit("turnResumeSound");
                     } 
 
                     game.barelLimitCheck(game.requestedPlayer);
@@ -260,12 +264,14 @@ io.on("connection", socket =>{
                             game.playedCard = null;
                             game.requestedCard = null;
                             game.players[game.turn].character.vedleCount = 0;
+                            io.to(game.players[game.turn].id).emit("turnResumeSound");
                         }
                         //return;
                     } else {
                         game.requestedPlayer = null;
                         game.requestedCard = null;
                         game.playedCard = null;
+                        io.to(game.players[game.turn].id).emit("turnResumeSound");
                     }
                 }
                 if (game.requestedPlayer != null && game.players[game.requestedPlayer].character.name == "jourdonnais" && last.suit == "heart" && game.barelLimit == 4) game.barelLimit -= 2;
@@ -525,6 +531,7 @@ io.on("connection", socket =>{
                             game.requestedPlayer = null;
                             game.playedCard = null;
                             game.requestedCard = null;
+                            io.to(game.players[game.turn].id).emit("turnResumeSound");
                         } 
     
                         game.barelLimitCheck(game.requestedPlayer);
@@ -537,11 +544,13 @@ io.on("connection", socket =>{
                                 game.playedCard = null;
                                 game.requestedCard = null;
                                 game.players[game.turn].character.vedleCount = 0;
+                                io.to(game.players[game.turn].id).emit("turnResumeSound");
                             }
                         }else{
                             game.requestedPlayer = null;
                             game.requestedCard = null;
                             game.playedCard = null;
+                            io.to(game.players[game.turn].id).emit("turnResumeSound");
                         }
                     }
 
@@ -713,6 +722,7 @@ function calamityHandler(player, card_i) {
                 game.requestedPlayer = null;
                 game.playedCard = null;
                 game.requestedCard = null;
+                io.to(game.players[game.turn].id).emit("turnResumeSound");
             } 
         }
         else if (game.playedCard == "Duel") {
@@ -734,6 +744,7 @@ function calamityHandler(player, card_i) {
                 game.requestedPlayer = null;
                 game.playedCard = null;
                 game.requestedCard = null;
+                io.to(game.players[game.turn].id).emit("turnResumeSound");
             } 
             game.barelLimitCheck(game.requestedPlayer);
 
@@ -747,6 +758,7 @@ function calamityHandler(player, card_i) {
                     game.playedCard = null;
                     game.requestedCard = null;
                     game.players[game.turn].character.vedleCount = 0;
+                    io.to(game.players[game.turn].id).emit("turnResumeSound");
                 }
                 return true;
             }
@@ -754,6 +766,7 @@ function calamityHandler(player, card_i) {
             game.requestedPlayer = null;
             game.playedCard = null;
             game.requestedCard = null;
+            io.to(game.players[game.turn].id).emit("turnResumeSound");
         }
     }
     return true;

@@ -63,7 +63,7 @@ class Bang extends ActionCard{
         this.name = "Bang";
         this.onRange = true;
     }
-    action (game, player, card) {
+    action (game, player, card, io) {
         if (game.playedCard == "Indiani") {
             discardCard(game, player, card);
 
@@ -80,6 +80,8 @@ class Bang extends ActionCard{
                 game.requestedPlayer = null;
                 game.playedCard = null;
                 game.requestedCard = null;
+                io.to(game.players[game.turn].id).emit("turnResumeSound");
+
             } 
         }
         else if (game.playedCard == "Duel") {
@@ -96,7 +98,7 @@ class Vedle extends ActionCard{
         super();
         this.name = "Vedle";
     }
-    action(game, player, card){
+    action(game, player, card, io){
         if (game.playedCard == "Gulomet") {
             discardCard(game, player, card);
             player = (player + 1 == game.players.length)? 0 : player + 1;
@@ -111,6 +113,7 @@ class Vedle extends ActionCard{
                 game.requestedPlayer = null;
                 game.playedCard = null;
                 game.requestedCard = null;
+                io.to(game.players[game.turn].id).emit("turnResumeSound");
             } 
 
         }else if(game.requestedPlayer != null) {
@@ -123,6 +126,8 @@ class Vedle extends ActionCard{
                     game.playedCard = null;
                     game.requestedCard = null;
                     game.players[game.turn].character.vedleCount = 0;
+                    io.to(game.players[game.turn].id).emit("turnResumeSound");
+                    
                 }
                 return;
             }
@@ -130,6 +135,8 @@ class Vedle extends ActionCard{
             game.requestedPlayer = null;
             game.playedCard = null;
             game.requestedCard = null;
+            io.to(game.players[game.turn].id).emit("turnResumeSound");
+
         }
         
     }

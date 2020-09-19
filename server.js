@@ -701,7 +701,7 @@ function calamityHandler(player, card_i) {
 
     if (game.requestedCard == "Bang") {
         if (game.playedCard == "Indiani") {
-            discardCard(player, card);
+            discardCard(player, card_i);
 
             player = (player + 1 == game.players.length)? 0 : player + 1;
 
@@ -720,13 +720,13 @@ function calamityHandler(player, card_i) {
             } 
         }
         else if (game.playedCard == "Duel") {
-            discardCard(player, card);
+            discardCard(player, card_i);
             if (game.requestedPlayer == game.duelistPlayer) game.requestedPlayer = game.turn;
             else game.requestedPlayer = game.duelistPlayer;
         }
     } else if (game.requestedCard == "Vedle") {
         if (game.playedCard == "Gulomet") {
-            discardCard(player, card);
+            discardCard(player, card_i);
             player = (player + 1 == game.players.length)? 0 : player + 1;
 
             while (!game.players[player].alive) {
@@ -743,7 +743,7 @@ function calamityHandler(player, card_i) {
             game.barelLimitCheck(game.requestedPlayer);
 
         }else if(game.requestedPlayer != null) {
-            discardCard(player, card);
+            discardCard(player, card_i);
 
             if (game.players[game.turn].character.name == "slab_the_killer") {
                 game.players[game.turn].character.vedleCount++;

@@ -114,10 +114,10 @@ io.on("connection", socket =>{
         else if (game.requestedPlayer == index_sender) {
             if (card_name == game.requestedCard) {
                 game.players[index_sender].cards[card_index].action(game, index_sender, card_index, io);
-                io.emit("log", card_name + ": (" + game.players[index_sender].name + ")");
+                io.emit("log", ` - ${card_name} (${game.players[index_sender].name})`);
             }
             else if (game.players[index_sender].character.name == "calamity_janet") {
-                if (calamityHandler(index_sender, card_index)) io.emit("log", card_name + ": (" + game.players[index_sender].name + ")");
+                if (calamityHandler(index_sender, card_index)) io.emit("log", ` - ${card_name} (${game.players[index_sender].name})`);
             } else if (game.safeBeer && card_name == "Pivo") game.players[index_sender].cards[card_index].action(game, index_sender, card_index, io);
         }
         gameUpdate();

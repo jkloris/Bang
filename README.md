@@ -19,4 +19,3 @@ POZNAMKI
 * Ak niekedy bude blbnut citanie suboru, tak to moze byt kvoli CRLF vs LF. Kod funguje na LF kodovanie
   
     * za poslednou kartou v subore **nesmie** byt newline
-

@@ -360,22 +360,26 @@ io.on("connection", socket =>{
         console.log('interaction ' + event)
         var index_sender = game.players.findIndex(user => user.id === socket.id);
         var index_target = game.players.findIndex(user => user.id === id);
-        io.emit("log", event + ": (" + game.players[index_sender].name + " >>> " + game.players[index_target].name + ")");
+        // io.emit("log", event + ": (" + game.players[index_sender].name + " >>> " + game.players[index_target].name + ")");
 
         if(event == "Vazenie") {
             game.players[index_sender].cards[card_index].action(game, index_sender, index_target, card_index, clickedBlue_index);            
             gameUpdate();
+            io.emit("log", event + ": (" + game.players[index_sender].name + " >>> " + game.players[index_target].name + ")");
         } else if(event == "Catbalou") {
+            io.emit("log", event + ": (" + game.players[index_sender].name + " >>> " + game.players[index_target].name + ")");
             let trashed_card_name = game.players[index_sender].cards[card_index].action(game, index_sender, index_target, card_index, clickedBlue_index);
             io.emit("log", " - zahodena karta: " + trashed_card_name);
             gameUpdate();
         } else if (game.getDistance(index_sender, index_target, card_index) <= 1 || game.players[index_sender].cards[card_index].onRange == false ) {
 
             if(event == "Panika"){
+                io.emit("log", event + ": (" + game.players[index_sender].name + " >>> " + game.players[index_target].name + ")");
                 let stolen_card_name = game.players[index_sender].cards[card_index].action(game, index_sender, index_target, card_index, clickedBlue_index);
                 socket.broadcast.to(game.players[index_target].id).emit("log", " - zobrali ti kartu: " + stolen_card_name);
                 gameUpdate();
             } else if (event == "Bang" && game.players[index_sender].bangLeft > 0 && !(game.players[index_target].prison && game.players[index_target].character.name == "felipe_prisonero")) {
+                io.emit("log", event + ": (" + game.players[index_sender].name + " >>> " + game.players[index_target].name + ")");
                 game.requestedPlayer = index_target;
                 game.players[index_sender].bangLeft--;
                 game.playedCard = "Bang";
@@ -395,6 +399,7 @@ io.on("connection", socket =>{
                     }
                 }
             } else if (event == "Duel") {
+                io.emit("log", event + ": (" + game.players[index_sender].name + " >>> " + game.players[index_target].name + ")");
                 game.duelistPlayer = index_target;
                 game.requestedPlayer = index_target;
                 discardCard(index_sender, card_index);                

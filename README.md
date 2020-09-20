@@ -8,7 +8,7 @@ TODO
 * ~~Upravit game over screen, nech je vidno, kto bol aka postava a tak~~
 * Log
     * logovat iba eventy, ktore sa naozaj uskutocnia. Teraz do logu zapise aj "pokus o vystrel", ktory sa realne neuskutocni (ked hrac nema dostrel)
-    * do logu pridat rozdelenie, kedy zacina kolo
+    * ~~do logu pridat rozdelenie, kedy zacina kolo~~
     * celkovo zlepsit log, niektore veci sa loguju zbytocne alebo neuplne informacie
 * Otestovat smrt po vybuchu dynamitu - ci mrtvy hrac zahodi karty do kopky
 * ~~3 karty po smrti banditu, serif zahodi karty ked zabije vica~~

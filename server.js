@@ -62,6 +62,7 @@ io.on("connection", socket =>{
         console.log('next');
         if (game.nextTurn(index_sender)){
             io.to(game.players[game.turn].id).emit("onTurnSound");
+            io.emit("log", ` ---------- na tahu je: ${game.players[game.turn].name} ---------- `);
             gameUpdate();
         } else io.to(id).emit("discardRequest");
     });
@@ -73,13 +74,14 @@ io.on("connection", socket =>{
         game.dealRoles();
         game.shuffleDeck();
         game.dealCards();
-        // io.emit("message", game);
+        io.emit("log", ` ---------- na tahu je: ${game.players[game.turn].name} ---------- `);
         gameUpdate();
     });
 
     socket.on("hokynarstvo", (card)=>{
         game.dealAnyCard(game.requestedPlayer, card);
-        
+        io.emit("log", ` - ${game.players[game.requestedPlayer].name} si zobral kartu: ${game.players[game.requestedPlayer].cards[game.players[game.requestedPlayer].cards.length - 1].name}`);
+
         var player_index = (game.requestedPlayer + 1 == game.players.length)? 0 : game.requestedPlayer + 1;
  
         while (!game.players[player_index].alive) {
@@ -109,13 +111,13 @@ io.on("connection", socket =>{
             io.emit("log", card_name + ": (" + game.players[index_sender].name + ")");
         }
         //ak to posiela hrac, od ktoreho je pozadovana akcia
-        if (game.requestedPlayer == index_sender) {
+        else if (game.requestedPlayer == index_sender) {
             if (card_name == game.requestedCard) {
                 game.players[index_sender].cards[card_index].action(game, index_sender, card_index, io);
-                io.emit("log", card_name + ": (" + game.players[index_sender].name + ")");
+                io.emit("log", ` - ${card_name} (${game.players[index_sender].name})`);
             }
             else if (game.players[index_sender].character.name == "calamity_janet") {
-                if (calamityHandler(index_sender, card_index)) io.emit("log", card_name + ": (" + game.players[index_sender].name + ")");
+                if (calamityHandler(index_sender, card_index)) io.emit("log", ` - ${card_name} (${game.players[index_sender].name})`);
             } else if (game.safeBeer && card_name == "Pivo") game.players[index_sender].cards[card_index].action(game, index_sender, card_index, io);
         }
         gameUpdate();
@@ -288,6 +290,7 @@ io.on("connection", socket =>{
 
             if(game.cards[0].suit != "heart"){
                 game.nextTurn(player, true);
+                io.emit("log", ` ---------- na tahu je: ${game.players[game.turn].name} ---------- `);
             }
             gameUpdate(); 
         }
@@ -318,7 +321,7 @@ io.on("connection", socket =>{
                     Death(player_index);
                     
                     game.nextTurn(player, true);
-                    
+                    io.emit("log", ` ---------- na tahu je: ${game.players[game.turn].name} ---------- `);
 
                 } else if(game.players[player].character.name == "bart_cassidy"){
                     game.dealOneCard(player);
@@ -452,6 +455,7 @@ io.on("connection", socket =>{
 
                 if(game.cards[0].suit != "heart"){
                     game.nextTurn(player_i, true);
+                    io.emit("log", ` ---------- na tahu je: ${game.players[game.turn].name} ---------- `);
                 }
             } else if(event == "dynamit"){
                 game.players[player_i].dynamit = false;
@@ -467,7 +471,7 @@ io.on("connection", socket =>{
                     if (game.players[player_i].HP == 0){
                         Death(player_i); //aby sa jeho karty zahodili do kopky
                         game.nextTurn(player_i, true);
-
+                        io.emit("log", ` ---------- na tahu je: ${game.players[game.turn].name} ---------- `);
                         
                     }
                 } else {
@@ -693,6 +697,7 @@ function vulture_samCheck(){
 }
 
 function calamityHandler(player, card_i) {
+    console.log("calamity handler", player, card_i);
     if (!(game.players[player].cards[card_i].name == "Bang" || game.players[player].cards[card_i].name == "Vedle")) {
         return false;
     }
@@ -701,7 +706,7 @@ function calamityHandler(player, card_i) {
 
     if (game.requestedCard == "Bang") {
         if (game.playedCard == "Indiani") {
-            discardCard(player, card);
+            discardCard(player, card_i);
 
             player = (player + 1 == game.players.length)? 0 : player + 1;
 
@@ -720,13 +725,13 @@ function calamityHandler(player, card_i) {
             } 
         }
         else if (game.playedCard == "Duel") {
-            discardCard(player, card);
+            discardCard(player, card_i);
             if (game.requestedPlayer == game.duelistPlayer) game.requestedPlayer = game.turn;
             else game.requestedPlayer = game.duelistPlayer;
         }
     } else if (game.requestedCard == "Vedle") {
         if (game.playedCard == "Gulomet") {
-            discardCard(player, card);
+            discardCard(player, card_i);
             player = (player + 1 == game.players.length)? 0 : player + 1;
 
             while (!game.players[player].alive) {
@@ -743,7 +748,7 @@ function calamityHandler(player, card_i) {
             game.barelLimitCheck(game.requestedPlayer);
 
         }else if(game.requestedPlayer != null) {
-            discardCard(player, card);
+            discardCard(player, card_i);
 
             if (game.players[game.turn].character.name == "slab_the_killer") {
                 game.players[game.turn].character.vedleCount++;

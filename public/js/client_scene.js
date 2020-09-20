@@ -243,6 +243,7 @@ class Scene {
     }
 
     rightClickCheck(point) {
+        console.log("rightclick");
         //skontroluje, ci neklikame na kartu charakteru (ako je calamity a pod.)
         for (var i in game_client.players) {
             

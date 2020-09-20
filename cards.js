@@ -83,12 +83,16 @@ class Bang extends ActionCard{
                 io.to(game.players[game.turn].id).emit("turnResumeSound");
 
             } 
+            return true;
         }
         else if (game.playedCard == "Duel") {
             discardCard(game, player, card);
             if (game.requestedPlayer == game.duelistPlayer) game.requestedPlayer = game.turn;
             else game.requestedPlayer = game.duelistPlayer;
+
+            return true;
         }
+        return false;
     }
    
 }
@@ -114,6 +118,8 @@ class Vedle extends ActionCard{
                 game.playedCard = null;
                 game.requestedCard = null;
                 io.to(game.players[game.turn].id).emit("turnResumeSound");
+
+                return true;
             } 
 
         }else if(game.requestedPlayer != null) {
@@ -129,7 +135,7 @@ class Vedle extends ActionCard{
                     io.to(game.players[game.turn].id).emit("turnResumeSound");
                     
                 }
-                return;
+                return true;
             }
 
             game.requestedPlayer = null;
@@ -137,8 +143,10 @@ class Vedle extends ActionCard{
             game.requestedCard = null;
             io.to(game.players[game.turn].id).emit("turnResumeSound");
 
+            return true;
         }
         
+        return false;
     }
     
 }
@@ -156,7 +164,10 @@ class Dostavnik extends ActionCard{
             game.dealOneCard(player);
             game.dealOneCard(player);
             discardCard(game, player, card);
+
+            return true;
         }
+        return false;
     }
 }
 
@@ -174,7 +185,10 @@ class Wellsfargo extends ActionCard{
             game.dealOneCard(player);
             game.dealOneCard(player);
             discardCard(game, player, card);
+
+            return true;
         }
+        return false;
     }
 }
 
@@ -187,11 +201,13 @@ class Pivo extends ActionCard{
     }
 
     action(game, player_index, card, io){
+        var boo = false;
         if(game.players[player_index].HP < game.players[player_index].maxHP ){
             game.players[player_index].HP++;
             discardCard(game, player_index, card);
 
             io.to(game.players[player_index].id).emit("pivoSound");
+            boo = true;
         }
 
         //ak to bolo zachranne pivo, 
@@ -227,7 +243,9 @@ class Pivo extends ActionCard{
                     }        
                 }
             }
+            return true;
         }
+        return boo;
     }
 
 }
@@ -251,7 +269,9 @@ class Salon extends ActionCard{
             }
             io.emit("salonSound");
             discardCard(game, player, card);
+            return true;
         }
+        return false;
     }
     
 }
@@ -283,7 +303,9 @@ class Indiani extends ActionCard{
             game.playedCard = "Indiani";
 
             discardCard(game, player, card);
+            return true;
         }
+        return false;
     }
 }
 
@@ -318,7 +340,9 @@ class Gulomet extends ActionCard{
             game.barelLimitCheck(game.requestedPlayer);
 
             discardCard(game, player, card);
+            return true;
         }
+        return false;
     }
 }
 
@@ -350,6 +374,7 @@ class Schofield extends Gun{
         this.checkGuns(game, player);
         this.use(game, player, card);
         game.players[player].scope.gun = 1;
+        return true;
     }
 }
 
@@ -365,6 +390,7 @@ class Remington extends Gun{
         this.checkGuns(game, player);
         this.use(game, player, card);
         game.players[player].scope.gun = 2;
+        return true;
     }
 }
 
@@ -380,6 +406,7 @@ class Carabine extends Gun{
         this.checkGuns(game, player);
         this.use(game, player, card);
         game.players[player].scope.gun = 3;
+        return true;
     }
 }
 
@@ -395,6 +422,7 @@ class Winchester extends Gun{
         this.checkGuns(game, player);
         this.use(game, player, card);
         game.players[player].scope.gun = 4;
+        return true;
     }
 }
 
@@ -410,6 +438,7 @@ class Volcanic extends Gun{
         game.players[player].scope.gun = 0;
         game.players[player].bangLimit = 100;
         game.players[player].bangLeft = 100;
+        return true;
     }
 }
 
@@ -424,7 +453,9 @@ class Mustang extends BlueCard{
         if(this.checkMustang(game, player)){
             this.use(game, player, card); 
             game.players[player].scope.mustang = 1;
+            return true;
         }
+        return false;
     }
     
     checkMustang(game, player){
@@ -449,7 +480,9 @@ class Appaloosa extends BlueCard{
         if(this.checkAppaloosa(game, player)){
             this.use(game, player, card); 
             game.players[player].scope.appaloosa = 1;
+            return true;
         }
+        return false;
     }
     
     checkAppaloosa(game, player){
@@ -523,6 +556,7 @@ class Hokynarstvo extends ActionCard{
         game.requestedPlayer = player;
 
         discardCard(game, player, card);
+        return true;
     }
 }
 
@@ -536,7 +570,9 @@ class Barel extends BlueCard{
     action(game, player, card){
         if(this.checkBarel(game, player)){
             this.use(game, player, card); 
+            return true;
         }
+        return false;
     }
 
     checkBarel(game, player){
@@ -581,7 +617,9 @@ class Dynamit extends BlueCard{
             game.dynamit = true;
             game.players[player].dynamit = true;
             this.use(game, player, card); 
+            return true;
         }
+        return false;
     }
 }
 

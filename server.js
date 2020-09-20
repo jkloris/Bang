@@ -551,6 +551,7 @@ io.on("connection", socket =>{
         var rand_card_index = Math.floor(Math.random()*game.players[index_target].cards.length);
         game.players[index_jesse].cards.push(game.players[index_target].cards[rand_card_index]);
         game.players[index_target].cards.splice(rand_card_index,1);
+        game.dealOneCard(index_jesse);
         game.moveStage++;
         gameUpdate();
     });

@@ -298,9 +298,11 @@ io.on("connection", socket =>{
         if(game.moveStage == 0 && game.dynamit == true){
             game.players[player].dynamit = false;
             var checkCard = game.cards[game.cards.length - 1];
+            io.emit("log", `Dynamit ... ${checkCard.name}`);
 
             if (checkCard.suit == "spades" && checkCard.rank >= 2 && checkCard.rank <= 9 ){
-                socket.emit("dynamitSound");
+                io.emit("dynamitSound");
+                io.emit("log", ` - Dynamit vybuchol...`);
 
                 game.dynamit = false;
                 game.cards.unshift(game.players[player].blueCards[card]);
@@ -310,11 +312,11 @@ io.on("connection", socket =>{
                 game.players[player].HP = ( game.players[player].HP - 3 > 0) ? (game.players[player].HP - 3) : 0;
                 if (game.players[player].HP == 0){
                     
-                    if (safeBeerCheck(player_index, io)) {
+                    if (safeBeerCheck(player, io)) {
                         gameUpdate();
                         return;
                     }
-                    Death(player_index);
+                    Death(player);
                     
                     game.nextTurn(player, true);
                     io.emit("log", ` ---------- na tahu je: ${game.players[game.turn].name} ---------- `);

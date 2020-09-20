@@ -7,7 +7,7 @@ TODO
     * vybuch dynamitu logovat
     * pri tahani na vazenie, dynamit, barel - logovat, aka karta bola potiahnuta
     * logovat discardovanie kariet
-    * ~~logovat iba eventy, ktore sa naozaj uskutocnia. Teraz do logu zapise aj "pokus o vystrel", ktory sa realne neuskutocni (ked hrac nema dostrel)~~
+    * logovat iba eventy, ktore sa naozaj uskutocnia. Teraz do logu zapise aj "pokus o vystrel", ktory sa realne neuskutocni (ked hrac nema dostrel)
 * Otestovat smrt po vybuchu dynamitu - ci mrtvy hrac zahodi karty do kopky
 * ~~Slab the killer vs. barel treba nejako poriesit, ale ja si ani nepamatam ako to byva v normalnej hre :D~~
     * ~~este Slab the killer vs. Lucky duke s barellom (neviem co bude robit)~~

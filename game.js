@@ -161,13 +161,43 @@ class Game{
         while (raw_data == null) deasync.runLoopOnce(); //wait na callback funkciu kym skonci
         
         //nacita karty do game.cards, cize do hlavneho balicka
-        var card_from_file = "";
+        var line_from_file = "";
+        var card = "";
         for (i in raw_data) {
             if (raw_data[i] === "\n" || i >= raw_data.length - 1) {
                 //zapocitanie posledneho pismena
-                if (i >= raw_data.length - 1) card_from_file = card_from_file + raw_data[i];
+                if (i >= raw_data.length - 1) line_from_file = line_from_file + raw_data[i];
 
-                switch (card_from_file) {
+                //line_from_file ma v sebe cely riadok zo suboru
+
+                //do var card dame nazov karty
+                var char_index = 0;
+                while (line_from_file[char_index] != ',') {
+                    card = card + line_from_file[char_index];
+                    char_index++;
+                }
+                char_index++;
+
+                //nastavenie suit (znaku) karty
+                var suit;
+                switch (line_from_file[char_index]) {
+                    case "S": suit = "spades"; break;
+                    case "C": suit = "clubs"; break;
+                    case "H": suit = "heart"; break;
+                    case "D": suit = "diamonds"; break;
+                }
+                
+                char_index++; char_index++; //posun cez dalsiu ciarku
+
+                var rank = "";
+                while (line_from_file[char_index] != '.') {
+                    rank = rank + line_from_file[char_index];
+                    char_index++;
+                }
+                rank = parseInt(rank);
+
+
+                switch (card) {
                     case "BANG": this.cards.push(new Bang()); break;
                     case "VEDLE": this.cards.push(new Vedle()); break;
                     case "DOSTAVNIK": this.cards.push(new Dostavnik()); break;
@@ -193,9 +223,15 @@ class Game{
                     default: break;
                 };
 
-                card_from_file = "";
+                //teraz je do decku pushnuta nova karta, tak jej iba zmenime suit a cislo:
+                var last_card_index = this.cards.length - 1;
+                this.cards[last_card_index].suit = suit;
+                this.cards[last_card_index].rank = rank;
+
+                card = "";
+                line_from_file = "";
             } else {
-                card_from_file = card_from_file + raw_data[i];
+                line_from_file = line_from_file + raw_data[i];
             }
         }
         
@@ -288,9 +324,7 @@ class Game{
 
     barelLimitCheck(target){
         this.barelLimit = 0;
-        console.log("barel limit check pred kontrolou, ci ma target");
         if(target != null){
-            console.log("Barel limit check, target: " + this.players[target].character.name);
 
             if(this.players[target].character.name == "jourdonnais") {
                 this.barelLimit++;
@@ -299,11 +333,9 @@ class Game{
             }
             var i = this.players[target].blueCards.findIndex( card => card.name == "Barel");
             if (i >= 0) {
-                console.log("sme tady, vnutri toho, ze ma typek barel");
                 this.barelLimit++;
                 if (this.playedCard == "Bang" && this.players[this.turn].character.name == "slab_the_killer") this.barelLimit++;
             }
-            console.log("result: barel limit: ", this.barelLimit);
         }
     }
 

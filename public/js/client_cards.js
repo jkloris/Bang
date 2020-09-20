@@ -34,18 +34,28 @@ class Card {
         ctx.save();
         ctx.drawImage(this.IMG, x, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio); 
         if (this.rank != null){
-
+            var text;
+            switch (this.rank) {
+                case 11: text = "J"; break;
+                case 12: text = "Q"; break;
+                case 13: text = "K"; break;
+                case 14: text = "A"; break;
+                default: text = this.rank;
+            }
             var fontSize = ratio / 9 ;
             ctx.lineWidth = ratio / 40;
             ctx.strokeStyle = "white";
             ctx.fillStyle = "black";
-            // ctx.lineJoin="round";
-            // ctx.miterLimit=2;
             ctx.font = `bold ${fontSize}px Comic Sans MS`;
-            ctx.strokeText(this.rank, x + ratio / 12 - 1, y + Sprites.bang.height / Sprites.bang.width * ratio - ratio / 5 + ratio / 10 - 1)
-            ctx.fillText(this.rank, x + ratio / 12 - 1, y + Sprites.bang.height / Sprites.bang.width * ratio - ratio / 5 + ratio / 10 - 1)
+            ctx.strokeText(text, x + ratio / 12 - 1, y + Sprites.bang.height / Sprites.bang.width * ratio - ratio / 5 + ratio / 10 - 1)
+            ctx.fillText(text, x + ratio / 12 - 1, y + Sprites.bang.height / Sprites.bang.width * ratio - ratio / 5 + ratio / 10 - 1)
         }
-        if (cardSuit != null)    ctx.drawImage(cardSuit, x + ratio / 6, y + Sprites.bang.height / Sprites.bang.width * ratio - ratio / 5, ratio / 10, ratio / 10); 
+        if (cardSuit != null) {
+            var move_a_bit = 0;
+            //ak je rank karty 2ciferny, tak sa znak kusocek posunie doprava, aby sa neprekryvali
+            if (this.rank != null && this.rank == 10) move_a_bit = 5;
+            ctx.drawImage(cardSuit, x + move_a_bit + ratio / 6, y + Sprites.bang.height / Sprites.bang.width * ratio - ratio / 5, ratio / 10, ratio / 10); 
+        }
         
         if (this.selected){
             ctx.strokeStyle = "red";

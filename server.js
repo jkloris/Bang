@@ -99,7 +99,7 @@ io.on("connection", socket =>{
     });
 
     socket.on("useCard", (card_name, card_index)=>{
-        console.log(card_name, card_index);
+        console.log("useCard", card_name);
         var index_sender = game.players.findIndex(user => user.id === socket.id);
 
         var deny_these_cards = ["Catbalou", "Panika", "Vazenie", "Duel"];
@@ -142,11 +142,9 @@ io.on("connection", socket =>{
 
         if(--game.players[player_index].HP <= 0){
             if (safeBeerCheck(player_index, io)) {
-                console.log("SafeBeerCheck bol true");
                 gameUpdate();
                 return;
             }
-            console.log("SafeBeerCheck bol false");
             Death(player_index);
             
         }
@@ -313,11 +311,9 @@ io.on("connection", socket =>{
                 if (game.players[player].HP == 0){
                     
                     if (safeBeerCheck(player_index, io)) {
-                        console.log("SafeBeerCheck bol true");
                         gameUpdate();
                         return;
                     }
-                    console.log("SafeBeerCheck bol false");
                     Death(player_index);
                     
                     game.nextTurn(player, true);
@@ -697,7 +693,7 @@ function vulture_samCheck(){
 }
 
 function calamityHandler(player, card_i) {
-    console.log("calamity handler", player, card_i);
+    //console.log("calamity handler", player, card_i);
     if (!(game.players[player].cards[card_i].name == "Bang" || game.players[player].cards[card_i].name == "Vedle")) {
         return false;
     }
@@ -773,7 +769,6 @@ function calamityHandler(player, card_i) {
 
 function safeBeerCheck(player_index, io) {
     var pivo_index = game.players[player_index].cards.findIndex(card => card.name == "Pivo");
-    console.log("safe beer check function ", game.safeBeer, pivo_index);
 
     if (pivo_index != -1 && !game.safeBeer) {
         //ak ma pifko, dostane moznost sa zachranit

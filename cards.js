@@ -12,21 +12,6 @@ class Card {
         this.onRange = false;
         this.suit = null;
         this.rank = null;
-      
-        // this.IMG = null;
-    }
-    acion(){
-
-    }
-    draw = function(x, y, ratio){
-        ctx.save();
-        ctx.drawImage(this.IMG, x, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio); 
-        if(this.selected){
-            ctx.strokeStyle = "red";
-            ctx.lineWidth = 4;
-            ctx.strokeRect(x, y, ratio, Sprites.bang.height / Sprites.bang.width * ratio);
-        }
-        ctx.restore();
     }
 }
 

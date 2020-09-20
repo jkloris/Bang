@@ -166,8 +166,15 @@ socket.on("jesse_jones_action", ()=>{
 function updatePlayers(game_server) {
     
     //z game objektu, ktory pride zo servera spravi FUNKCNY objekt s kartami pre kazdeho hraca
-    for (i in game_client.players) game_client.players[i].cards.length = 0;
+    //zmazu sa povodne karty
+    for (i in game_client.players) {
+        game_client.players[i].cards.length = 0;
+        game_client.players[i].blueCards.length = 0;
+    }
+
+    //prejdeme vsetkych hracov
     for (i in game_server.players) {
+        //vytvoria sa objekty pre karty na ruke
         for (card in game_server.players[i].cards) {
             switch (game_server.players[i].cards[card].name) {
                 case "Bang":
@@ -240,47 +247,51 @@ function updatePlayers(game_server) {
                 default:
                     break;
             }
+            //nastavi sa aj suit a rank
+            game_client.players[i].cards[card].suit = game_server.players[i].cards[card].suit;
+            game_client.players[i].cards[card].rank = game_server.players[i].cards[card].rank;
         }
-        for (i in game_client.players) {
-            game_client.players[i].blueCards.length = 0;
 
-            for (card in game_server.players[i].blueCards) {
-                switch (game_server.players[i].blueCards[card].name) {
-                    case "Schofield":
-                        game_client.players[i].blueCards.push(new Schofield());                    
-                        break;
-                    case "Volcanic":
-                        game_client.players[i].blueCards.push(new Volcanic());                    
-                        break;
-                    case "Remington":
-                        game_client.players[i].blueCards.push(new Remington());                    
-                        break;
-                    case "Carabine":
-                        game_client.players[i].blueCards.push(new Carabine());                    
-                        break;
-                    case "Winchester":
-                        game_client.players[i].blueCards.push(new Winchester());                    
-                        break;
-                    case "Mustang":
-                        game_client.players[i].blueCards.push(new Mustang());                    
-                        break;
-                    case "Appaloosa":
-                        game_client.players[i].blueCards.push(new Appaloosa());                    
-                        break;    
-                    case "Barel":
-                        game_client.players[i].blueCards.push(new Barel());                    
-                        break;    
-                    case "Vazenie":
-                        game_client.players[i].blueCards.push(new Vazenie());                    
-                        break;    
-                    case "Dynamit":
-                        game_client.players[i].blueCards.push(new Dynamit());                    
-                        break;    
-                        
-                    default:
-                        break;
-                }
+        //vytvoria sa objekty pre modre karty
+        for (card in game_server.players[i].blueCards) {
+            switch (game_server.players[i].blueCards[card].name) {
+                case "Schofield":
+                    game_client.players[i].blueCards.push(new Schofield());                    
+                    break;
+                case "Volcanic":
+                    game_client.players[i].blueCards.push(new Volcanic());                    
+                    break;
+                case "Remington":
+                    game_client.players[i].blueCards.push(new Remington());                    
+                    break;
+                case "Carabine":
+                    game_client.players[i].blueCards.push(new Carabine());                    
+                    break;
+                case "Winchester":
+                    game_client.players[i].blueCards.push(new Winchester());                    
+                    break;
+                case "Mustang":
+                    game_client.players[i].blueCards.push(new Mustang());                    
+                    break;
+                case "Appaloosa":
+                    game_client.players[i].blueCards.push(new Appaloosa());                    
+                    break;    
+                case "Barel":
+                    game_client.players[i].blueCards.push(new Barel());                    
+                    break;    
+                case "Vazenie":
+                    game_client.players[i].blueCards.push(new Vazenie());                    
+                    break;    
+                case "Dynamit":
+                    game_client.players[i].blueCards.push(new Dynamit());                    
+                    break;    
+                    
+                default:
+                    break;
             }
+            //nastavi sa aj suit a rank
+            game_client.players[i].blueCards[card].suit = game_server.players[i].blueCards[card].suit;
+            game_client.players[i].blueCards[card].rank = game_server.players[i].blueCards[card].rank;
         }
     }
     //YES KONECNE TOTO VYZERA ZE FUNGUJE
@@ -387,6 +398,9 @@ function copyDeck(game_server){
             default:
                 break;
         }
+        //nastavi sa aj suit a rank
+        game_client.cards[card].suit = game_server.cards[card].suit;
+        game_client.cards[card].rank = game_server.cards[card].rank;
     }
 }
 

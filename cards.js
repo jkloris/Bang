@@ -652,9 +652,13 @@ function discardBlueCard(game, player_i, card_i) {
         game.players.forEach((player)=>{
             player.dynamit = false;
         })
-    } else if (game.players[player_i].blueCards[card_i].name == "Volcanic"){
+    } else if (game.players[player_i].blueCards[card_i].name == "Volcanic") {
         game.players[player_i].bangLimit = 1;
         game.players[player_i].bangLeft = 1;
+        if (game.players[player_i].character.name == "willy_the_kid") {
+            game.players[player_i].bangLimit = 100;
+            game.players[player_i].bangLeft = 100;
+        }
     }
 
     game.players[player_i].blueCards.splice(card_i,1);

@@ -18,8 +18,12 @@ TODO
 
 Zistene pocas hrania s chalosmi:
 * Hráč vybuchol na dynamit, ďalšieho to preskočilo a dalo mu to 3 karty
+
 * Double click na next preskoci dalsieho hraca?
     * stalo sa, ze to preskocilo komplet tah niekoho
+
+* Ked sa hrac odpoji, nemalo by to triggernut Death() - lebo to potom robi, akoby ho niekto zabil
+* ~~Willy the kid ked zahra vulcanic a potom si ho zmeni, tak mu to deaktivuje schopnost ?~~
 
 
 POZNAMKI

@@ -22,18 +22,21 @@ var game = new Game();
 var names = {};
 
 io.on("connection", socket =>{
+    console.log("somebody connected");
     //niekto sa pripojil
     // io.emit("message", game);
-        playerConnected(socket.id); 
-        gameUpdate();
+    playerConnected(socket.id); 
+    gameUpdate();
 
     //hrac si nastavi meno
     socket.on('set-name', name => {
         names[`${socket.id}`] = name; //priradi do pola "names" k socket.id meno, ake si vybral
 
         let index = game.players.findIndex(user => user.id === socket.id);
-        game.players[index].name = name;
-        gameUpdate();
+        if (index != -1) {
+            game.players[index].name = name;
+            gameUpdate();
+        }
     });
 
     //zachytenie suradnice kliknutia

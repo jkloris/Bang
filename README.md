@@ -16,7 +16,7 @@ TODO
 * Hra spadla pri Calamity v dueli 
 
 
-* Zistene pocas hrania s chalosmi:
+Zistene pocas hrania s chalosmi:
 * Hráč vybuchol na dynamit, ďalšieho to preskočilo a dalo mu to 3 karty
 * Double click na next preskoci dalsieho hraca?
     * stalo sa, ze to preskocilo komplet tah niekoho
@@ -26,3 +26,5 @@ POZNAMKI
 * Ak niekedy bude blbnut citanie suboru, tak to moze byt kvoli CRLF vs LF. Kod funguje na LF kodovanie
   
     * za poslednou kartou v subore **nesmie** byt newline
+
+* Dynamit odstraneny z decku

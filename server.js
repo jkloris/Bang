@@ -565,6 +565,7 @@ io.on("connection", socket =>{
 
     //odpojenie hraca
     socket.on("disconnect",()=>{
+        console.log("somebody disconnected");
         playerDisconnect(socket.id);
         gameUpdate();
     });
@@ -606,12 +607,12 @@ function gameUpdate(){
 
 function playerDisconnect(id){
     var index = game.players.findIndex(user => user.id === id);
-    if(game.started){
+    if(game.started && index != -1) {
         Death(index);
     }else if(index != -1){
         game.players.splice(index,1);
         io.emit("message", id + ' disconnected');
-        //console.log(id, 'disconnected');
+        console.log(id, 'disconnected');
     }     
 }
 

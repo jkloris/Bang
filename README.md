@@ -15,6 +15,13 @@ TODO
 * ~~(?) kontrola, ci sa striela na mrtveho hraca je zatial client-side. Prerobit na server side?~~
 * Hra spadla pri Calamity v dueli 
 
+
+* Zistene pocas hrania s chalosmi:
+* Hráč vybuchol na dynamit, ďalšieho to preskočilo a dalo mu to 3 karty
+* Double click na next preskoci dalsieho hraca?
+    * stalo sa, ze to preskocilo komplet tah niekoho
+
+
 POZNAMKI
 * Ak niekedy bude blbnut citanie suboru, tak to moze byt kvoli CRLF vs LF. Kod funguje na LF kodovanie
   

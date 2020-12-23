@@ -17,7 +17,7 @@ Zistene bugy pocas hrania s chalosmi:
 * Ked sa hrac odpoji, nemalo by to triggernut Death() - lebo to potom robi, akoby ho niekto zabil
 * ~~Willy the kid ked zahra vulcanic a potom si ho zmeni, tak mu to deaktivuje schopnost ?~~
     * malo by byt fixnute
-* Ked serif zabije vicea, mal by stratit vsetky karty (aj tie co ma na stole)
+* ~~Ked serif zabije vicea, mal by stratit vsetky karty (aj tie co ma na stole)~~
 * Na Calamity Janet neslo pouzit zachranne pivo (na ruke mal 2 piva)
 * nie som si isty, ci toto je pravda:
     * server.js:475: ak hrac zomrie na dynamit, malo by sa cakat, kym sa vykona kod jeho smrti, predtym ako to pusti dalsieho hraca na tah

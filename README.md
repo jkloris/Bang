@@ -29,4 +29,4 @@ POZNAMKI
   
     * za poslednou kartou v subore **nesmie** byt newline
 
-* Dynamit odstraneny z decku
+* *deck_final.txt* nebabrať - to je finálna verzia decku. Testy robiť s *deck.txt*

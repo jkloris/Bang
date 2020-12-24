@@ -227,12 +227,20 @@ function drawGame() {
             ctx.fillText(`Du bist im Gefängnis!`, canvas.width / 2, canvas.height / 2 - 20)
             ctx.restore();
         } 
-        else if (game_client.moveStage == 0 && index == game_client.turn) {
+        else if (game_client.moveStage == 0 && index == game_client.turn && !game_client.safeBeer) {
             ctx.save();
             ctx.textAlign = "center";
             ctx.fillStyle = "green";
             ctx.font = "30px Arial";
             ctx.fillText(`Bitte starte bei Karten nehmen!`, canvas.width / 2, canvas.height / 2 - 20)
+            ctx.restore();
+        }
+        else if (index == game_client.turn && game_client.safeBeer) {
+            ctx.save();
+            ctx.textAlign = "center";
+            ctx.fillStyle = "red";
+            ctx.font = "40px Arial";
+            ctx.fillText(`CHCES POUZIT ZACHRANNE PIVO?`, canvas.width / 2, canvas.height / 2 - 20);
             ctx.restore();
         }
 

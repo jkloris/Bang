@@ -101,12 +101,15 @@ io.on("connection", socket =>{
         gameUpdate();
     });
 
-    socket.on("useCard", (card_name, card_index)=>{
+    socket.on("useCard", (card_name, card_index)=> {
         console.log("useCard", card_name);
         var index_sender = game.players.findIndex(user => user.id === socket.id);
 
         var deny_these_cards = ["Catbalou", "Panika", "Vazenie", "Duel"];
         for (var i in deny_these_cards) if (deny_these_cards[i] == card_name) return;
+
+        //ak je nastavene safeBeer na true a pride ina karta, v automaticky ju zakaze:
+        if (game.safeBeer && card_name != "Pivo") return;
 
         //ak je hrac na tahu a nic sa nedeje zatial
         if (game.requestedPlayer == null && game.turn == index_sender) {
@@ -190,6 +193,10 @@ io.on("connection", socket =>{
     });
 
     socket.on("discard", (id, card_i) => {
+        if (game.safeBeer) {
+            console.log("Niekto sa snazi discardovat, ked ma dat safebeer");
+            return;
+        }
         var player_index = game.players.findIndex(user => user.id === socket.id);
         if (game.players[player_index].cards.length > game.players[player_index].HP) {
             discardCard(player_index, card_i);
@@ -208,8 +215,10 @@ io.on("connection", socket =>{
     });
 
     socket.on("dealOneCard", (player_i)=>{
-        game.dealOneCard(player_i);
-        gameUpdate();
+        if (!game.safeBeer) { //iba ak nie je aktualne safebeer...
+            game.dealOneCard(player_i);
+            gameUpdate();
+        }
     })
 
     socket.on("moveStage++", ()=>{
@@ -306,6 +315,7 @@ io.on("connection", socket =>{
             if (checkCard.suit == "spades" && checkCard.rank >= 2 && checkCard.rank <= 9 ){
                 io.emit("dynamitSound");
                 io.emit("log", ` - Dynamit vybuchol...`);
+                console.log("Dynamit vybuchol...");
 
                 game.dynamit = false;
                 game.cards.unshift(game.players[player].blueCards[card]);

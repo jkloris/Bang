@@ -19,6 +19,7 @@ Zistene bugy pocas hrania s chalosmi:
     * malo by byt fixnute
 * ~~Ked serif zabije vicea, mal by stratit vsetky karty (aj tie co ma na stole)~~
 * Na Calamity Janet neslo pouzit zachranne pivo (na ruke mal 2 piva)
+    * server.js:122 - asi tuto bude problem
 * nie som si isty, ci toto je pravda:
     * server.js:475: ak hrac zomrie na dynamit, malo by sa cakat, kym sa vykona kod jeho smrti, predtym ako to pusti dalsieho hraca na tah
 

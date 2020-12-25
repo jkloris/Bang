@@ -336,7 +336,7 @@ io.on("connection", socket =>{
                         gameUpdate();
                         return;
                     }
-                    game.nextTurn(player, true); //nie som si isty, ci to tu musi byt, ale ak ano, tak v tomto poradi
+                    //game.nextTurn(player, true); //nie som si isty, ci to tu musi byt, ale ak ano, tak v tomto poradi
                     Death(player);
                     
                     io.emit("log", ` ---------- na tahu je: ${game.players[game.turn].name} ---------- `);
@@ -655,6 +655,13 @@ function discardCard(player_i, card_i) {
 
 function Death(dead_player_index){ //TODO
 
+    //ak zomrel bandita, tak ten co je na tahu si berie 3 karty
+    if (game.players[dead_player_index].role == "Bandita" && game.turn != dead_player_index) {
+        game.dealOneCard(game.turn);
+        game.dealOneCard(game.turn);
+        game.dealOneCard(game.turn);
+    }
+
     console.log(game.players[dead_player_index].name + ' died');
     io.emit("log", game.players[dead_player_index].name + " je mrtef.");
     game.players[dead_player_index].alive = false;
@@ -690,12 +697,7 @@ function Death(dead_player_index){ //TODO
         game.players[vulture_sam].character.diff_action(vulture_sam, dead_player_index, game);
     }
 
-    //ak zomrel bandita, tak ten co je na tahu si berie 3 karty
-    if (game.players[dead_player_index].role == "Bandita" && game.turn != dead_player_index) {
-        game.dealOneCard(game.turn);
-        game.dealOneCard(game.turn);
-        game.dealOneCard(game.turn);
-    }
+    
 
     //ak serif zabije vice-a, zahodi vsetky karty
     if (game.players[dead_player_index].role == "Vice" && game.players[game.turn].role == "Sheriff") {

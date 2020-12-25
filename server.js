@@ -114,7 +114,7 @@ io.on("connection", socket =>{
         //ak je hrac na tahu a nic sa nedeje zatial
         if (game.requestedPlayer == null && game.turn == index_sender) {
             var bool = game.players[index_sender].cards[card_index].action(game, index_sender, card_index, io);
-            if (bool) io.emit("log", card_name + ": (" + game.players[index_sender].name + ")"); //loguje len ak zahranie karty prebehlo uspesne
+            if (bool) io.emit("log", card_name); //loguje len ak zahranie karty prebehlo uspesne
         }
         //ak to posiela hrac, od ktoreho je pozadovana akcia
         else if (game.requestedPlayer == index_sender) {

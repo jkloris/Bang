@@ -300,11 +300,11 @@ io.on("connection", socket =>{
         if(game.moveStage == 0 && game.players[player].prison == true){
             game.players[player].prison = false;
                 
-            game.cards.unshift(game.players[player].blueCards[card]);    
             game.cards.unshift(game.cards[game.cards.length - 1]);            
+            game.cards.unshift(game.players[player].blueCards[card]);    
             game.players[player].blueCards.splice(card,1);
             game.cards.splice(game.cards.length - 1 , 1);
-            game.trashedCards+2;
+            game.trashedCards+=2;
 
             io.emit("log", `Vazenie potiahnuta karta: ${game.cards[0].name}`);
 

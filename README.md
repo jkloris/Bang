@@ -28,8 +28,9 @@ Zistene bugy pocas hrania s chalosmi:
 * dat deasync wait na miesta, kde to vyzera, ze treba...
 * ~~ked hracovi vybuchne dynamit (resp na zaciatku tahu) ked mu dovoli zahrat safe beer, tak zakazat vsetky ostatne akcie - napr. nesmie mat moznost tahat si karty~~
     * malo by byt fixnute
-* vazenie - ked sa hrac nedostane z vazenia, v odhadzovacej kopke by malo na vrchu zostat vazenie, nie ta karta, ktora sa tahala
-    * cize zmenit poradie - najprv sa tam hodi potiahnuta karta, az potom sa zahodi vazenie
+* ~~vazenie - ked sa hrac nedostane z vazenia, v odhadzovacej kopke by malo na vrchu zostat vazenie, nie ta karta, ktora sa tahala~~
+    * ~~cize zmenit poradie - najprv sa tam hodi potiahnuta karta, az potom sa zahodi vazenie~~
+    * ~~ak je kopka prazdna a taha sa na vazenie, potiahnutu karut a vazenie v kopke neukaze~~
 * suzy - ked jej el-gringo zobral kartu a nezostalo jej nic na ruke, tak sa jej nepotiahla karta
     * malo by to byt aj fixnute - skontrolovat
 

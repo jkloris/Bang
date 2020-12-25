@@ -11,15 +11,17 @@ TODO
 
 
 Zistene bugy pocas hrania s chalosmi:
-* Hráč vybuchol na dynamit (zomrel), ďalšieho to preskočilo a dalo mu to 3 karty (znova sa to stalo - fakt skontrolovat!!!)
+* ~~Hráč vybuchol na dynamit (zomrel), ďalšieho to preskočilo a dalo mu to 3 karty (znova sa to stalo - fakt skontrolovat!!!)~~
+    * malo by to by ok
 * Double click na next preskoci dalsieho hraca?
     * stalo sa, ze to preskocilo komplet tah niekoho
 * Ked sa hrac odpoji, nemalo by to triggernut Death() - lebo to potom robi, akoby ho niekto zabil
 * ~~Willy the kid ked zahra vulcanic a potom si ho zmeni, tak mu to deaktivuje schopnost ?~~
     * malo by byt fixnute
 * ~~Ked serif zabije vicea, mal by stratit vsetky karty (aj tie co ma na stole)~~
-* Na Calamity Janet neslo pouzit zachranne pivo (na ruke mal 2 piva)
-    * server.js:122 - asi tuto bude problem
+* ~~Na Calamity Janet neslo pouzit zachranne pivo (na ruke mal 2 piva)~~
+    * ~~server.js:122 - asi tuto bude problem~~
+    * len par x testovane
 * ~~Ked chcem zahrat zachranne pivo po dynamite, treba klinut na kopku~~
 * nie som si isty, ci toto je pravda:
     * server.js:475: ak hrac zomrie na dynamit, malo by sa cakat, kym sa vykona kod jeho smrti, predtym ako to pusti dalsieho hraca na tah

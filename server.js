@@ -725,8 +725,13 @@ function vulture_samCheck(){
 
 function calamityHandler(player, card_i) {
     //console.log("calamity handler", player, card_i);
-    if (!(game.players[player].cards[card_i].name == "Bang" || game.players[player].cards[card_i].name == "Vedle")) {
+    if (!(game.players[player].cards[card_i].name == "Bang" || game.players[player].cards[card_i].name == "Vedle" || game.players[player].cards[card_i].name == "Pivo")) {
         return false;
+    }
+
+    //ak je to zahrala zachranne pivo
+    if(game.safeBeer){
+        game.players[player].cards[card_i].action(game, player, c, io);
     }
 
     //ak zahrala Bang alebo vedle, tak sa iba cekne, ktore z toho mala zahrat a triggerne sa akcia tej karty:

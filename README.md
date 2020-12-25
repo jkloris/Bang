@@ -12,6 +12,7 @@ Zistene bugy pocas hrania s chalosmi:
 * Calamity sa opravovalo zachranne pivo - testovat, ci Calamity funguje spravne
 * suzy - ked jej el-gringo zobral kartu a nezostalo jej nic na ruke, tak sa jej nepotiahla karta
     * malo by to byt aj fixnute - skontrolovat
+* dostrel zle vypocitany: http://prntscr.com/w9wt77
 
 
 POZNAMKI

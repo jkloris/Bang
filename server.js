@@ -204,6 +204,7 @@ io.on("connection", socket =>{
         }
         var player_index = game.players.findIndex(user => user.id === socket.id);
         if (game.players[player_index].cards.length > game.players[player_index].HP) {
+            io.emit("log", `Zahodena karta: ${game.players[player_index].cards[card_i].name}`);
             discardCard(player_index, card_i);
 
             if(game.players[player_index].character.name == "sid_ketchum"){
@@ -212,6 +213,7 @@ io.on("connection", socket =>{
             gameUpdate();
         }
         else if (game.players[player_index].character.name == "sid_ketchum" && game.players[player_index].HP < game.players[player_index].maxHP) {
+            io.emit("log", `Zahodena karta: ${game.players[player_index].cards[card_i].name}`);
             discardCard(player_index, card_i);
             game.players[player_index].character.discartedCards++;
             gameUpdate();
@@ -249,7 +251,7 @@ io.on("connection", socket =>{
             if (game.requestedCard == "Vedle" && game.barelLimit > 0) {
 
                 var last = game.cards.pop();
-                io.emit("log", `Barel potiahnuta karta: ${last.name}`);
+                io.emit("log", `- Barel potiahnuta karta: ${last.name}`);
                 if (last.suit == "heart" && game.playedCard == "Gulomet"){
                     var player_index = game.requestedPlayer;
 
@@ -675,7 +677,6 @@ function playerConnected(id){
 }
 
 function discardCard(player_i, card_i) {
-    io.emit("log", `Zahodena karta: ${game.players[player_i].cards[card_i].name}`);
     game.cards.unshift(game.players[player_i].cards[card_i]);    
     game.trashedCards++;
     game.players[player_i].cards.splice(card_i,1);
@@ -686,7 +687,6 @@ function discardCard(player_i, card_i) {
 }
 
 function Death(dead_player_index) {
-
     //ak zomrel bandita, tak ten co je na tahu si berie 3 karty
     if (game.players[dead_player_index].role == "Bandita" && game.turn != dead_player_index) {
         game.dealOneCard(game.turn);

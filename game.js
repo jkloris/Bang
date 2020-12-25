@@ -84,7 +84,7 @@ class Game{
             
             //nastavi na index 0 postavu, ktoru chceme napevno nastavit
             // if (i == 0) {
-            //     this.players[i].character = new Willy_the_kid(this.players[i]);
+            //     this.players[i].character = new Jourdonnais(this.players[i]);
             //     this.players[i].character.init(this.players[i]);    
             // }
 

@@ -292,7 +292,7 @@ class Jourdonnais extends Character{
 
     action(game, player, io){
 
-        if (player == game.requestedPlayer){
+        if (player == game.requestedPlayer) {
             if (game.requestedCard == "Vedle" && game.barelLimit > 0) {
                 var last = game.cards.pop();
                 if (last.suit == "heart" && game.playedCard == "Gulomet"){
@@ -332,7 +332,7 @@ class Jourdonnais extends Character{
                 if (game.requestedPlayer != null && game.players[game.requestedPlayer].character.name == "jourdonnais" && last.suit == "heart" && game.barelLimit == 4) game.barelLimit -= 2;
                 else game.barelLimit--;
                 game.cards.unshift(last);
-                io.emit("log", game.players[player].name + " (" + game.players[player].character.name +  ")");
+                io.emit("log", "- " + game.players[player].character.name + " (barel) potiahnuta karta: " + last.name);
             }
         }
     }

@@ -1,7 +1,8 @@
 TODO
 * Pridat nejaky zvuk na hokynarstvo ?
 * Log
-    * pri tahani na barel - logovat, aka karta bola potiahnuta
+    * ~~pri tahani na barel - logovat, aka karta bola potiahnuta~~
+    * Lucky Duke logovanie nejako spravit
 
 
 Zistene bugy pocas hrania s chalosmi:

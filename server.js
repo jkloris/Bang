@@ -334,9 +334,9 @@ io.on("connection", socket =>{
                         gameUpdate();
                         return;
                     }
+                    game.nextTurn(player, true); //nie som si isty, ci to tu musi byt, ale ak ano, tak v tomto poradi
                     Death(player);
                     
-                    game.nextTurn(player, true);
                     io.emit("log", ` ---------- na tahu je: ${game.players[game.turn].name} ---------- `);
 
                 } else if(game.players[player].character.name == "bart_cassidy"){

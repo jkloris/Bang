@@ -92,7 +92,7 @@ class Scene {
         this.checkTiles(point);
         this.checkButtons(point);
         
-        if(game_client.moveStage == 1 || (game_client.safeBeer && game_client.player_i == game_client.turn)) {
+        if(game_client.moveStage == 1 || (game_client.safeBeer && player_i == game_client.turn)) {
             this.checkCardSelect(point);
         }
         

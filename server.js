@@ -227,8 +227,10 @@ io.on("connection", socket =>{
     })
 
     socket.on("moveStage++", ()=>{
-        game.moveStage++;
-        gameUpdate();
+        if (!game.safeBeer) { //tiez iba ak nie je aktualne safebeer
+            game.moveStage++;
+            gameUpdate();
+        }
     })
 
     socket.on("RequestedCard", card=>{

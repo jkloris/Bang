@@ -7,7 +7,6 @@ TODO
     * **pri tahani na vazenie, dynamit, barel - logovat, aka karta bola potiahnuta**
     * logovat discardovanie kariet?
     * ~~logovat iba eventy, ktore sa naozaj uskutocnia. Teraz do logu zapise aj "pokus o vystrel", ktory sa realne neuskutocni (ked hrac nema dostrel)~~
-* Otestovat smrt po vybuchu dynamitu - ci mrtvy hrac zahodi karty do kopky
 
 
 Zistene bugy pocas hrania s chalosmi:

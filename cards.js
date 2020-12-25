@@ -98,6 +98,8 @@ class Vedle extends ActionCard{
             }
             game.requestedPlayer = player;
 
+            game.barelLimitCheck(game.requestedPlayer); //toto by malo fixnut, ze sa neda tahat na barel niekedy
+
             if(game.requestedPlayer == game.turn){
                 game.requestedPlayer = null;
                 game.playedCard = null;

@@ -136,12 +136,17 @@ io.on("connection", socket =>{
             game.dealOneCard(player_index);
         }
 
-        if(game.players[player_index].character.name == "el_gringo"){
+        if(game.players[player_index].character.name == "el_gringo") {
             if(game.turn != player_index){
                 game.players[player_index].character.reaction(game, player_index, game.turn);
+                
+                //ak zobral kartu suzy a nezostala jej ziadna
+                if (game.players[game.turn].character.name == "suzy_lafayette" && game.players[game.turn].cards.length == 0) game.dealOneCard(game.turn);
             }else{
                 game.players[player_index].character.reaction(game, player_index, game.duelistPlayer);
-
+                
+                //ak zobral kartu suzy a nezostala jej ziadna
+                if (game.players[game.duelistPlayer].character.name == "suzy_lafayette" && game.players[game.duelistPlayer].cards.length == 0) game.dealOneCard(game.duelistPlayer);
             }
         }
 

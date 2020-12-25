@@ -4,14 +4,14 @@ TODO
     * pridane, ale treba poriadne otestovat, ci funguje - nefunguje poriadne - vid dole bugy
 * Log
     * ~~vybuch dynamitu logovat~~
-    * pri tahani na vazenie, dynamit, barel - logovat, aka karta bola potiahnuta
+    * **pri tahani na vazenie, dynamit, barel - logovat, aka karta bola potiahnuta**
     * logovat discardovanie kariet?
-    * logovat iba eventy, ktore sa naozaj uskutocnia. Teraz do logu zapise aj "pokus o vystrel", ktory sa realne neuskutocni (ked hrac nema dostrel)
+    * ~~logovat iba eventy, ktore sa naozaj uskutocnia. Teraz do logu zapise aj "pokus o vystrel", ktory sa realne neuskutocni (ked hrac nema dostrel)~~
 * Otestovat smrt po vybuchu dynamitu - ci mrtvy hrac zahodi karty do kopky
 
 
 Zistene bugy pocas hrania s chalosmi:
-* Hráč vybuchol na dynamit, ďalšieho to preskočilo a dalo mu to 3 karty
+* Hráč vybuchol na dynamit (zomrel), ďalšieho to preskočilo a dalo mu to 3 karty (znova sa to stalo - fakt skontrolovat!!!)
 * Double click na next preskoci dalsieho hraca?
     * stalo sa, ze to preskocilo komplet tah niekoho
 * Ked sa hrac odpoji, nemalo by to triggernut Death() - lebo to potom robi, akoby ho niekto zabil
@@ -23,7 +23,12 @@ Zistene bugy pocas hrania s chalosmi:
 * nie som si isty, ci toto je pravda:
     * server.js:475: ak hrac zomrie na dynamit, malo by sa cakat, kym sa vykona kod jeho smrti, predtym ako to pusti dalsieho hraca na tah
 * dat deasync wait na miesta, kde to vyzera, ze treba...
-* ked hracovi vybuchne dynamit (resp na zaciatku tahu) ked mu dovoli zahrat safe beer, tak zakazat vsetky ostatne akcie - napr. nesmie mat moznost tahat si karty
+* ~~ked hracovi vybuchne dynamit (resp na zaciatku tahu) ked mu dovoli zahrat safe beer, tak zakazat vsetky ostatne akcie - napr. nesmie mat moznost tahat si karty~~
+    * malo by byt fixnute
+* vazenie - ked sa hrac nedostane z vazenia, v odhadzovacej kopke by malo na vrchu zostat vazenie, nie ta karta, ktora sa tahala
+    * cize zmenit poradie - najprv sa tam hodi potiahnuta karta, az potom sa zahodi vazenie
+* suzy - ked jej el-gringo zobral kartu a nezostalo jej nic na ruke, tak sa jej nepotiahla karta
+    * malo by to byt aj fixnute - skontrolovat
 
 
 POZNAMKI

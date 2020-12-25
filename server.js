@@ -249,6 +249,7 @@ io.on("connection", socket =>{
             if (game.requestedCard == "Vedle" && game.barelLimit > 0) {
 
                 var last = game.cards.pop();
+                io.emit("log", `Barel potiahnuta karta: ${last.name}`);
                 if (last.suit == "heart" && game.playedCard == "Gulomet"){
                     var player_index = game.requestedPlayer;
 
@@ -300,10 +301,12 @@ io.on("connection", socket =>{
             game.players[player].prison = false;
                 
             game.cards.unshift(game.players[player].blueCards[card]);    
-            game.cards.unshift(game.cards[game.cards.length - 1]);
+            game.cards.unshift(game.cards[game.cards.length - 1]);            
             game.players[player].blueCards.splice(card,1);
             game.cards.splice(game.cards.length - 1 , 1);
             game.trashedCards+2;
+
+            io.emit("log", `Vazenie potiahnuta karta: ${game.cards[0].name}`);
 
             if(game.cards[0].suit != "heart"){
                 game.nextTurn(player, true);
@@ -317,7 +320,7 @@ io.on("connection", socket =>{
         if(game.moveStage == 0 && game.dynamit == true){
             game.players[player].dynamit = false;
             var checkCard = game.cards[game.cards.length - 1];
-            io.emit("log", `Dynamit ... ${checkCard.name}`);
+            io.emit("log", `Dynamit potiahnuta karta: ${checkCard.name}`);
 
             if (checkCard.suit == "spades" && checkCard.rank >= 2 && checkCard.rank <= 9 ){
                 io.emit("dynamitSound");

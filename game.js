@@ -84,8 +84,8 @@ class Game{
             
             //nastavi na index 0 postavu, ktoru chceme napevno nastavit
 
-            // if (i == 0) {
-            //     this.players[i].character = new Calamity_janet(this.players[i]);
+            // if (i == 1) {
+            //     this.players[i].character = new El_gringo(this.players[i]);
             //     this.players[i].character.init(this.players[i]);    
             // }
 

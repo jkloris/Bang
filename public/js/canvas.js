@@ -97,6 +97,7 @@ function drawGame() {
             ctx.font = "40px Arial";
             ctx.fillText(`CHCES POUZIT ZACHRANNE PIVO?`, canvas.width / 2, canvas.height / 2 - 20);
             ctx.restore();
+            game_scene.buttons[3].visible = true;
         } else if (game_client.playedCard == "Indiani") {
             ctx.save();
             ctx.textAlign = "center";
@@ -157,7 +158,7 @@ function drawGame() {
     if (game_client.started) game_scene.buttons[1].visible = false; //ak je zacata hra, nezobrazuje sa Start button
     game_scene.buttons[5].visible = true; //log button je visible vzdy
     
-    //teraz su nastavene visibility na buttonoch a iba ich vykreslime
+    //teraz su nastavene visibility na buttonoch a iba ich vykreslime (na konci funkcie)
     for (var i in game_scene.buttons) game_scene.buttons[i].draw();
 
 
@@ -242,7 +243,11 @@ function drawGame() {
             ctx.font = "40px Arial";
             ctx.fillText(`CHCES POUZIT ZACHRANNE PIVO?`, canvas.width / 2, canvas.height / 2 - 20);
             ctx.restore();
+            game_scene.buttons[3].visible = true;
         }
+
+        //presunute sem, kvoli zachrannemu pivu na zaciatku kola
+        for (var i in game_scene.buttons) game_scene.buttons[i].draw();
 
         //draw emporio (hokynarstvi)
         if(game_client.playedCard == "Hokynarstvo"){

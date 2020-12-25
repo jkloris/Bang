@@ -136,7 +136,7 @@ io.on("connection", socket =>{
             game.dealOneCard(player_index);
         }
 
-        if(game.players[player_index].character.name == "el_gringo") {
+        if(game.players[player_index].character.name == "el_gringo" && !game.safeBeer) {
             if(game.turn != player_index){
                 game.players[player_index].character.reaction(game, player_index, game.turn);
                 

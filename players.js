@@ -248,8 +248,6 @@ class El_gringo extends Character{
             var rand = Math.floor(Math.random(game.players[sender].cards.length - 1));
             game.players[target].cards.push(game.players[sender].cards[rand]);
             game.players[sender].cards.splice(rand, 1);
-
-            //if (game.players[sender].character.name == "suzy_lafayette")
         }
     }
 }

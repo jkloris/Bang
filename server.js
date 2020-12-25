@@ -631,8 +631,36 @@ function gameUpdate(){
 function playerDisconnect(id){
     var index = game.players.findIndex(user => user.id === id);
     if(game.started && index != -1) {
-        Death(index);
-    }else if(index != -1){
+        //Death(index); //toto davam prec, lebo to robi sarapatu
+
+        console.log(game.players[index].name + ' disconnected');
+        io.emit("log", game.players[index].name + " sa odpojil.");
+        game.players[index].alive = false;
+        game.players[index].HP = -1;
+        game.deadPlayers++;
+        if (game.players[index].dynamit) game.dynamit = false;
+        if (game.turn == index) game.nextTurn(index, true);
+
+        let result = game.gameOver();
+        console.log("checking for game over... with result: " + result.result);
+        if (result.result) {
+            io.emit("winner", result.winner);
+            game.started = false;
+            gameUpdate();
+        }
+
+        //karty odpojeneho hraca sa zahodia do kopky
+        while (game.players[index].cards.length > 0) {
+            var card = game.players[index].cards.pop();
+            game.cards.unshift(card);
+            game.trashedCards++;
+        }
+        while (game.players[index].blueCards.length > 0){
+            var card = game.players[index].blueCards.pop();
+            game.cards.unshift(card);
+            game.trashedCards++;
+        }
+    } else if(index != -1) { //ak sa odpaja hrac, ked este nebola zacata hra
         game.players.splice(index,1);
         io.emit("message", id + ' disconnected');
         console.log(id, 'disconnected');
@@ -656,7 +684,7 @@ function discardCard(player_i, card_i) {
     }
 }
 
-function Death(dead_player_index){ //TODO
+function Death(dead_player_index) {
 
     //ak zomrel bandita, tak ten co je na tahu si berie 3 karty
     if (game.players[dead_player_index].role == "Bandita" && game.turn != dead_player_index) {

@@ -39,6 +39,22 @@ io.on("connection", socket =>{
         }
     });
 
+    //kickovanie hracov
+    socket.on("kick", (name, password_hash) => {
+        if (password_hash != "48ad3b40215797a91101191f40f320ca") {
+            console.log("kick request, zle heslo");
+            return;
+        }
+
+        let index = game.players.findIndex(user => user.name === name);
+        if (index != -1) {
+            console.log("kick request " + name + "  index: " + index);
+            console.log("malo by ho to kicknut");
+            socket.broadcast.to(game.players[index].id).emit("kick");
+        }
+        else console.log("Kick request, ale hrac nebol najedny");
+    });
+
     //zachytenie suradnice kliknutia
     socket.on("clicked", (mouse, id)=>{
         if(game.requestedPlayer == null && game.players[game.turn].id == id){
@@ -57,8 +73,7 @@ io.on("connection", socket =>{
             }
         }
         socket.emit("logClick", mouse);
-        
-    })
+    });
 
     socket.on("nextTurn", (id)=>{
         if (game.moveStage == 0) {

@@ -20,6 +20,11 @@ socket.on("message", (msg) => {
     console.log(msg);
 });
 
+socket.on("kick", () => {
+    console.log("byls kicknut");
+    window.close();
+})
+
 socket.on("update", game => {
     game_client = {}; //zmaze to co tam bolo doteraz
     game_client = $.extend(true, {}, game); //skopiruje tam novy stav pomocou jQuery.extend()

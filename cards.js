@@ -640,7 +640,7 @@ function discardBlueCard(game, player_i, card_i) {
         game.trashedCards++;
     }
 
-    if (game.players[player_i].blueCards.gun == true) 
+    if (game.players[player_i].blueCards[card_i].gun == true) 
         game.players[player_i].scope.gun = 0;
     else if(game.players[player_i].blueCards[card_i].name == "Appaloosa"){
         game.players[player_i].scope.appaloosa = 0;

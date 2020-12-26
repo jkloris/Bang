@@ -1,4 +1,5 @@
 TODO
+* Pridat kickovanie hracov (pomocou window.close();)
 * Pridat nejaky zvuk na hokynarstvo ?
 * Log
     * ~~pri tahani na barel - logovat, aka karta bola potiahnuta~~
@@ -7,15 +8,11 @@ TODO
 
 
 Zistene bugy pocas hrania s chalosmi:
-* Double click na next preskoci dalsieho hraca?
-    * stalo sa, ze to preskocilo komplet tah niekoho
-    * odvtedy sa to nestalo, tak neviem...
-* Calamity sa opravovalo zachranne pivo - testovat, ci Calamity funguje spravne
 * suzy - ked jej el-gringo zobral kartu a nezostalo jej nic na ruke, tak sa jej nepotiahla karta
     * malo by to byt aj fixnute - skontrolovat
-* Barel postava nejde pouzit schopnost proti gulometu
-    * pri klikani barelu sa na zaciatku ma vypocitat barelLimit ?
-* Do nextTurn() pridat podmienku, ze sa to udeje iba ked NIE JE moveStage = 0 (aby sa nedal triggernut 2x nextTurn() po sebe - zda sa, ze sa to stava, ked laguje niekto)
+* ~~Barel postava nejde pouzit schopnost proti gulometu~~
+    * ~~pri klikani barelu sa na zaciatku ma vypocitat barelLimit ?~~
+    * malo by byt fixnute
 * dostrel zle vypocitany: http://prntscr.com/w9wt77
 
 

@@ -69,8 +69,12 @@ function drawGame() {
             game_scene.buttons[i].visible = true;
             //game_scene.buttons[i].draw();
         }         
-        game_scene.buttons[3].visible = false;  //3 je index lose life     
-        //game_scene.buttons[i].draw();
+        game_scene.buttons[3].visible = false; //3 je index lose life
+        if (game_client.moveStage == 0) {
+            game_scene.buttons[0].visible = false; //0 je next
+            if (!game_client.safeBeer) game_scene.buttons[2].visible = false; //2 je use card
+            game_scene.buttons[4].visible = false; //4 je Discard
+        }
     }
     //hrac, co je na tahu, ale je v dueli
     else if (game_client.turn != null && game_client.requestedPlayer != null && socket.id == game_client.players[game_client.turn].id && game_client.players[game_client.requestedPlayer].id == socket.id && game_client.playedCard == "Duel" && !game_client.safeBeer) {

@@ -81,9 +81,6 @@ class Scene {
 
         this.luckyDuke(point);
 
-        if(game_client.moveStage == 0){
-            game_scene.buttons[0].visible = false;
-        }
         var player_i = game_client.players.findIndex(user => user.id === socket.id);
 
         if(game_client.players[player_i].prison == false && game_client.players[player_i].dynamit == false){

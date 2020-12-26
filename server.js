@@ -61,8 +61,12 @@ io.on("connection", socket =>{
     })
 
     socket.on("nextTurn", (id)=>{
+        if (game.moveStage == 0) {
+            console.log("next request, ale moveStage == 0, takze nic sa nerobi");
+            return;
+        }
         var index_sender = game.players.findIndex(user => user.id === socket.id);
-        console.log('next');
+        console.log('next request');
         if (game.nextTurn(index_sender)){
             io.to(game.players[game.turn].id).emit("onTurnSound");
             io.emit("log", ` ---------- na tahu je: ${game.players[game.turn].name} ---------- `);

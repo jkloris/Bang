@@ -24,7 +24,6 @@ var names = {};
 io.on("connection", socket =>{
     console.log("somebody connected");
     //niekto sa pripojil
-    // io.emit("message", game);
     playerConnected(socket.id); 
     gameUpdate();
 
@@ -435,11 +434,6 @@ io.on("connection", socket =>{
                 for(i in game.players){
                     if(game.players[i].id == id){ //info pre targeta, ze co sa deje (ze nanho ide BANG alebo Duello)
                         socket.broadcast.to(id).emit(event, clickedBlue_index, index_sender);
-                        socket.broadcast.to(id).emit("message", game.players[index_sender].name + ' used card ' + event + ' -> you');
-                    }else if(game.players[i].id == socket.id){
-                        socket.emit("message", "you used card " + event + ' -> ' + game.players[index_target].name);
-                    }else{
-                        socket.broadcast.to(game.players[i].id).emit("message", game.players[index_sender].name + " used card " + event + ' -> ' + game.players[index_target].name);
                     }
                 }
             } else if (event == "Duel") {
@@ -453,7 +447,6 @@ io.on("connection", socket =>{
                 for(i in game.players){
                     if(game.players[i].id == id){ //info pre targeta, ze co sa deje (ze nanho ide BANG alebo Duello)
                         socket.broadcast.to(id).emit(event, clickedBlue_index, index_sender);
-                        socket.broadcast.to(id).emit("message", game.players[index_sender].name + ' used card ' + event + ' -> you');
                     }
                 }
             }
@@ -683,16 +676,12 @@ function playerDisconnect(id){
         }
     } else if(index != -1) { //ak sa odpaja hrac, ked este nebola zacata hra
         game.players.splice(index,1);
-        io.emit("message", id + ' disconnected');
         console.log(id, 'disconnected');
     }     
 }
 
 function playerConnected(id){
-    //io.emit("message", id+ "connected");
-    //console.log(id, 'connected');
     if (!game.started) game.players.push(new Player(id, 1, null, null, null));
-    //io.emit("message", game);
 }
 
 function discardCard(player_i, card_i) {

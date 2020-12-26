@@ -16,10 +16,6 @@ var kit_carlson = false; //neviem jak to spravit krajsie
 var lucky_duke = false; 
 var jesse_jones = false;
 
-socket.on("message", (msg) => {
-    console.log(msg);
-});
-
 socket.on("kick", () => {
     console.log("byls kicknut");
     window.close();

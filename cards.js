@@ -488,7 +488,7 @@ class Catbalou extends ActionCard{
     }
 
     action(game, sender, target, card, clickedBlue_index){
-        discardCard(game, sender, card);
+        discardCard(game, sender, card); //zahodi sa ta zahrata catbalou
         var trashed_card_name;
         if(clickedBlue_index != null){
             trashed_card_name = game.players[target].blueCards[clickedBlue_index].name;
@@ -642,7 +642,8 @@ function discardBlueCard(game, player_i, card_i) {
 
     if (game.players[player_i].blueCards[card_i].gun == true) 
         game.players[player_i].scope.gun = 0;
-    else if(game.players[player_i].blueCards[card_i].name == "Appaloosa"){
+    
+    if(game.players[player_i].blueCards[card_i].name == "Appaloosa"){
         game.players[player_i].scope.appaloosa = 0;
     }
     else if(game.players[player_i].blueCards[card_i].name == "Mustang"){

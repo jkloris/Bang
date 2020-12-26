@@ -1,5 +1,4 @@
 TODO
-* Pridat kickovanie hracov (pomocou window.close();)
 * Pridat nejaky zvuk na hokynarstvo ?
 * Log
     * ~~pri tahani na barel - logovat, aka karta bola potiahnuta~~
@@ -8,12 +7,11 @@ TODO
 
 
 Zistene bugy pocas hrania s chalosmi:
-* suzy - ked jej el-gringo zobral kartu a nezostalo jej nic na ruke, tak sa jej nepotiahla karta
-    * malo by to byt aj fixnute - skontrolovat
-* ~~Barel postava nejde pouzit schopnost proti gulometu~~
-    * ~~pri klikani barelu sa na zaciatku ma vypocitat barelLimit ?~~
+* ~~dostrel zle vypocitany: http://prntscr.com/w9wt77~~
     * malo by byt fixnute
-* dostrel zle vypocitany: http://prntscr.com/w9wt77
+* volcanic limit bangov zostal 100, aj ked vulcanic uz zmizol
+    * ked volcanic zobrali catbalou , tak zostal limit 100
+
 
 
 POZNAMKI

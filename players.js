@@ -355,6 +355,7 @@ class Jose_delgado extends Character{
     }
 
 }
+
 class Pixie_pete extends Character{
     constructor(player){
         super(player);
@@ -372,5 +373,13 @@ class Pixie_pete extends Character{
     // }
 
 }
+class Bill_noface extends Character{
+    constructor(player){
+        super(player);
+        this.name = "bill_noface";
+        this.HP = 4;
+    }
 
-module.exports = [Player, Pixie_pete, Jose_delgado, Paul_regret, Rose_doolan, Bart_cassidy, Suzy_lafayette, Willy_the_kid, Vulture_sam, Slab_the_killer, Sid_ketchum, Pedro_ramirez, Lucky_duke, Kit_carlson, Jesse_jones, El_gringo, Calamity_janet, Jourdonnais, Black_jack, Felipe_prisonero];
+}
+
+module.exports = [Player, Bill_noface, Pixie_pete, Jose_delgado, Paul_regret, Rose_doolan, Bart_cassidy, Suzy_lafayette, Willy_the_kid, Vulture_sam, Slab_the_killer, Sid_ketchum, Pedro_ramirez, Lucky_duke, Kit_carlson, Jesse_jones, El_gringo, Calamity_janet, Jourdonnais, Black_jack, Felipe_prisonero];

@@ -155,6 +155,9 @@ class Tile {
             case "pixie_pete":
                 character = Sprites.pixie_pete;
                 break;
+            case "bill_noface":
+                character = Sprites.bill_noface;
+                break;
 
             default:
                 break;

@@ -164,11 +164,18 @@ class Scene {
         if (point.x >= current.x && point.x <= current.x + ratio && point.y >= current.y && point.y <= current.y + Sprites.bang.height / Sprites.bang.width * ratio) {
             if(game_client.moveStage == 0){
                 var index = game_client.players.findIndex(user => user.id === socket.id);
-                if(game_client.players[index].character.name == "pixie_pete"){
+                if(game_client.players[index].character.name == "bill_noface"){
+                    for(var i = 0; i <= game_client.players[index].maxHP - game_client.players[index].HP; i++){
+                        socket.emit("dealOneCard", index);
+                    }
+                }else{
+
+                    if(game_client.players[index].character.name == "pixie_pete"){
+                        socket.emit("dealOneCard", index);
+                    }
+                    socket.emit("dealOneCard", index);
                     socket.emit("dealOneCard", index);
                 }
-                socket.emit("dealOneCard", index);
-                socket.emit("dealOneCard", index);
                 socket.emit("moveStage++");
             }
         }
@@ -312,6 +319,9 @@ class Scene {
                         break;
                     case "pixie_pete":
                         character_img = Sprites.pixie_pete;
+                        break;
+                    case "bill_noface":
+                        character_img = Sprites.bill_noface;
                         break;
                         
                     default:

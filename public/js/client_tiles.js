@@ -158,6 +158,9 @@ class Tile {
             case "bill_noface":
                 character = Sprites.bill_noface;
                 break;
+            case "sean_mallory":
+                character = Sprites.sean_mallory;
+                break;
 
             default:
                 break;

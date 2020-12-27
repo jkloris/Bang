@@ -323,6 +323,9 @@ class Scene {
                     case "bill_noface":
                         character_img = Sprites.bill_noface;
                         break;
+                    case "sean_mallory":
+                        character_img = Sprites.sean_mallory;
+                        break;
                         
                     default:
                         break;

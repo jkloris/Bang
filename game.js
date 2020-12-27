@@ -21,7 +21,7 @@ class Game{
     }
     
     dealCharacters(){
-        let characters = ["paul_regret", "vera_custer","greg_digger", "sean_mallory","bill_noface","pixie_pete","jose_delgado", "bart_cassidy", "suzy_lafayette", "willy_the_kid" , "vulture_sam", "slab_the_killer", "sid_ketchum", "rose_doolan" , "pedro_ramirez", "lucky_duke", "kit_carlson", "jesse_jones", "el_gringo", "calamity_janet", "black_jack","jourdonnais", "felipe_prisonero"];        
+        let characters = ["paul_regret", "greg_digger", "sean_mallory","bill_noface","pixie_pete","jose_delgado", "bart_cassidy", "suzy_lafayette", "willy_the_kid" , "vulture_sam", "slab_the_killer", "sid_ketchum", "rose_doolan" , "pedro_ramirez", "lucky_duke", "kit_carlson", "jesse_jones", "el_gringo", "calamity_janet", "black_jack","jourdonnais", "felipe_prisonero"];        
         for(var i in this.players){
             var rand_i = Math.floor(Math.random() * (characters.length));
 

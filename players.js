@@ -351,7 +351,9 @@ class Jose_delgado extends Character{
         super(player);
         this.name = "jose_delgado";
         this.HP = 4;
+        this.useLeft = 2;
     }
+
 }
 
 module.exports = [Player,Jose_delgado, Paul_regret, Rose_doolan, Bart_cassidy, Suzy_lafayette, Willy_the_kid, Vulture_sam, Slab_the_killer, Sid_ketchum, Pedro_ramirez, Lucky_duke, Kit_carlson, Jesse_jones, El_gringo, Calamity_janet, Jourdonnais, Black_jack, Felipe_prisonero];

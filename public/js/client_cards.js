@@ -77,6 +77,7 @@ class Back extends Card{
 class BlueCard extends Card{
     constructor(){
         super();
+        this.isBlue = true;
     }
     effect(){
 

@@ -150,8 +150,8 @@ class Game{
 
         var raw_data = null;
         //precita subor a vytvori USPORIADANE pole kariet
-        fs.readFile('./deck_final.txt', 'utf8', (err, data) => {
-        //fs.readFile('./deck.txt', 'utf8', (err, data) => {
+        //fs.readFile('./deck_final.txt', 'utf8', (err, data) => {
+        fs.readFile('./deck.txt', 'utf8', (err, data) => {
             if (err) throw err;
             raw_data = data;
         });
@@ -314,6 +314,10 @@ class Game{
 
             if (this.players[this.turn].character.name == "sid_ketchum"){
                 this.players[this.turn].character.discartedCards = 0;
+            }
+            if (this.players[this.turn].character.name == "jose_delgado"){
+                this.players[this.turn].character.useLeft = 2;
+                console.log(this.players[this.turn].character.useLeft);
             }
             this.moveStage = 0;
             return 1;

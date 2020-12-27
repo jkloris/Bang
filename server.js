@@ -223,11 +223,19 @@ io.on("connection", socket =>{
         var player_index = game.players.findIndex(user => user.id === socket.id);
         if (game.players[player_index].cards.length > game.players[player_index].HP) {
             io.emit("log", `Zahodena karta: ${game.players[player_index].cards[card_i].name}`);
-            discardCard(player_index, card_i);
-
+            
             if(game.players[player_index].character.name == "sid_ketchum"){
                 game.players[player_index].character.discartedCards++;
+            }   //game.turn sa vzdy rovna player_index?
+            else if(game.turn == player_index && game.players[player_index].character.name == "jose_delgado" && game.players[player_index].character.useLeft > 0){
+                if(game.players[player_index].cards[card_i].isBlue){
+                    game.players[player_index].character.useLeft--;
+                    game.dealOneCard(player_index);
+                    io.emit("log", game.players[player_index].name + " vyuzil schopnost (" + game.players[player_index].character.name +  ")");
+                }
             }
+            
+            discardCard(player_index, card_i);
             gameUpdate();
         }
         else if (game.players[player_index].character.name == "sid_ketchum" && game.players[player_index].HP < game.players[player_index].maxHP) {
@@ -235,6 +243,14 @@ io.on("connection", socket =>{
             discardCard(player_index, card_i);
             game.players[player_index].character.discartedCards++;
             gameUpdate();
+        }
+        else if(game.turn == player_index && game.players[player_index].character.name == "jose_delgado" && game.players[player_index].character.useLeft > 0){
+            if(game.players[player_index].cards[card_i].isBlue){
+                game.players[player_index].character.useLeft--;
+                game.dealOneCard(player_index);
+                io.emit("log", `Zahodena karta: ${game.players[player_index].cards[card_i].name}`);
+                io.emit("log", game.players[player_index].name + " vyuzil schopnost (" + game.players[player_index].character.name +  ")");
+            }
         }
         else io.to(id).emit("discardDeny");
     });

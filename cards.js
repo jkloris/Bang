@@ -18,6 +18,7 @@ class Card {
 class BlueCard extends Card{
     constructor(){
         super();
+        this.isBlue = true;
     }
     action (game, player, card){
         this.use(game, player, card);

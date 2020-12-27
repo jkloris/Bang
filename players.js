@@ -399,6 +399,7 @@ class Greg_digger extends Character{
     action(game, player, io, force){
         if(force == true){
             game.players[player].HP = game.players[player].HP + 2 > game.players[player].maxHP ? game.players[player].maxHP : game.players[player].HP + 2;
+            io.emit("log", game.players[player].name + " pouzil schopnost (" + game.players[player].character.name +  ")"); io.emit("log", game.players[player].name + " (" + game.players[player].character.name +  ")");
         }
     }
 

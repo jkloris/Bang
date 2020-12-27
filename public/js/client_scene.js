@@ -169,12 +169,10 @@ class Scene {
                     for(var i = 0; i <= game_client.players[index].maxHP - game_client.players[index].HP; i++){
                         socket.emit("dealOneCard", index);
                     }
-                    io.emit("log", game.players[player].name + " pouzil schopnost (" + game.players[player].character.name +  ")");
                 }
                 else{
                     if (game_client.players[index].character.name == "pixie_pete"){
                         socket.emit("dealOneCard", index);
-                        io.emit("log", game.players[player].name + " pouzil schopnost (" + game.players[player].character.name +  ")"); 
                     }
                     socket.emit("dealOneCard", index);
                     socket.emit("dealOneCard", index);

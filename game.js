@@ -21,7 +21,8 @@ class Game{
     }
     
     dealCharacters(){
-        let characters = ["paul_regret", "greg_digger", "sean_mallory","bill_noface","pixie_pete","jose_delgado", "bart_cassidy", "suzy_lafayette", "willy_the_kid" , "vulture_sam", "slab_the_killer", "sid_ketchum", "rose_doolan" , "pedro_ramirez", "lucky_duke", "kit_carlson", "jesse_jones", "el_gringo", "calamity_janet", "black_jack","jourdonnais", "felipe_prisonero"];        
+        // bez greg_digger, vera nejaka
+        let characters = ["paul_regret", "sean_mallory","bill_noface","pixie_pete","jose_delgado", "bart_cassidy", "suzy_lafayette", "willy_the_kid" , "vulture_sam", "slab_the_killer", "sid_ketchum", "rose_doolan" , "pedro_ramirez", "lucky_duke", "kit_carlson", "jesse_jones", "el_gringo", "calamity_janet", "black_jack","jourdonnais", "felipe_prisonero"];        
         for(var i in this.players){
             var rand_i = Math.floor(Math.random() * (characters.length));
 
@@ -100,11 +101,11 @@ class Game{
                     break;
             }
             
-            // //nastavi na index 0 postavu, ktoru chceme napevno nastavit
-            // if (i == 0) {
-            //     this.players[i].character = new Vera_custer(this.players[i]);
-            //     this.players[i].character.init(this.players[i]);    
-            // }
+            //nastavi na index 0 postavu, ktoru chceme napevno nastavit
+            if (i == 0) {
+                this.players[i].character = new Greg_digger(this.players[i]);
+                this.players[i].character.init(this.players[i]); 
+            }
 
 
             this.players[i].character.init(this.players[i]);

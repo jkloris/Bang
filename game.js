@@ -100,11 +100,11 @@ class Game{
                     break;
             }
             
-            //nastavi na index 0 postavu, ktoru chceme napevno nastavit
-            if (i == 0) {
-                this.players[i].character = new Vera_custer(this.players[i]);
-                this.players[i].character.init(this.players[i]);    
-            }
+            // //nastavi na index 0 postavu, ktoru chceme napevno nastavit
+            // if (i == 0) {
+            //     this.players[i].character = new Vera_custer(this.players[i]);
+            //     this.players[i].character.init(this.players[i]);    
+            // }
 
 
             this.players[i].character.init(this.players[i]);

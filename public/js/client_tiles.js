@@ -149,6 +149,9 @@ class Tile {
             case "felipe_prisonero":
                 character = Sprites.felipe_prisonero;
                 break;
+            case "jose_delgado":
+                character = Sprites.jose_delgado;
+                break;
 
             default:
                 break;

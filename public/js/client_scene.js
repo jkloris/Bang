@@ -304,7 +304,10 @@ class Scene {
                     case "felipe_prisonero":
                         character_img = Sprites.felipe_prisonero;
                         break;
-
+                    case "jose_delgado":
+                        character_img = Sprites.jose_delgado;
+                        break;
+                        
                     default:
                         break;
                 }

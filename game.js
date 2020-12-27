@@ -102,10 +102,10 @@ class Game{
             }
             
             //nastavi na index 0 postavu, ktoru chceme napevno nastavit
-            if (i == 0) {
-                this.players[i].character = new Greg_digger(this.players[i]);
-                this.players[i].character.init(this.players[i]); 
-            }
+            // if (i == 0) {
+            //     this.players[i].character = new Greg_digger(this.players[i]);
+            //     this.players[i].character.init(this.players[i]); 
+            // }
 
 
             this.players[i].character.init(this.players[i]);
@@ -166,8 +166,8 @@ class Game{
 
         var raw_data = null;
         //precita subor a vytvori USPORIADANE pole kariet
-        //fs.readFile('./deck_final.txt', 'utf8', (err, data) => {
-        fs.readFile('./deck.txt', 'utf8', (err, data) => {
+        fs.readFile('./deck_final.txt', 'utf8', (err, data) => {
+        //fs.readFile('./deck.txt', 'utf8', (err, data) => {
             if (err) throw err;
             raw_data = data;
         });

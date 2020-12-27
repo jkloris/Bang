@@ -164,14 +164,15 @@ class Scene {
         if (point.x >= current.x && point.x <= current.x + ratio && point.y >= current.y && point.y <= current.y + Sprites.bang.height / Sprites.bang.width * ratio) {
             if(game_client.moveStage == 0){
                 var index = game_client.players.findIndex(user => user.id === socket.id);
-                if(game_client.players[index].character.name == "bill_noface"){
+
+                if (game_client.players[index].character.name == "bill_noface"){
                     for(var i = 0; i <= game_client.players[index].maxHP - game_client.players[index].HP; i++){
                         socket.emit("dealOneCard", index);
                     }
                     io.emit("log", game.players[player].name + " pouzil schopnost (" + game.players[player].character.name +  ")"); io.emit("log", game.players[player].name + " (" + game.players[player].character.name +  ")");
-                }else{
-
-                    if(game_client.players[index].character.name == "pixie_pete"){
+                }
+                else{
+                    if (game_client.players[index].character.name == "pixie_pete"){
                         socket.emit("dealOneCard", index);
                         io.emit("log", game.players[player].name + " pouzil schopnost (" + game.players[player].character.name +  ")"); io.emit("log", game.players[player].name + " (" + game.players[player].character.name +  ")");
                     }
@@ -330,6 +331,9 @@ class Scene {
                         break;
                     case "greg_digger":
                         character_img = Sprites.greg_digger;
+                        break;
+                    case "vera_custer":
+                        character_img = Sprites.vera_custer;
                         break;
                         
                     default:

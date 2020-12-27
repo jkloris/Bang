@@ -83,6 +83,7 @@ function loadAssets(){
     Sprites.bill_noface = loadIMG("imgs/", "bill_noface.png");
     Sprites.sean_mallory = loadIMG("imgs/", "sean_mallory.png");
     Sprites.greg_digger = loadIMG("imgs/", "greg_digger.png");
+    Sprites.vera_custer = loadIMG("imgs/", "vera_custer.png");
  
 
     AssetsLoading_loop();

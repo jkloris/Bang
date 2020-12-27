@@ -385,7 +385,7 @@ class Sean_mallory extends Character{
     constructor(player){
         super(player);
         this.name = "sean_mallory";
-        this.HP = 4;
+        this.HP = 3;
     }
 
 }
@@ -404,5 +404,19 @@ class Greg_digger extends Character{
     }
 
 }
+class Vera_custer extends Character{
+    constructor(player){
+        super(player);
+        this.name = "vera_custer";
+        this.HP = 3;
+    }
 
-module.exports = [Player, Greg_digger, Sean_mallory, Bill_noface, Pixie_pete, Jose_delgado, Paul_regret, Rose_doolan, Bart_cassidy, Suzy_lafayette, Willy_the_kid, Vulture_sam, Slab_the_killer, Sid_ketchum, Pedro_ramirez, Lucky_duke, Kit_carlson, Jesse_jones, El_gringo, Calamity_janet, Jourdonnais, Black_jack, Felipe_prisonero];
+    action(game, player, io){
+       if(game.moveStage == 0){
+           
+       }
+    }
+
+}
+
+module.exports = [Player, Vera_custer, Greg_digger, Sean_mallory, Bill_noface, Pixie_pete, Jose_delgado, Paul_regret, Rose_doolan, Bart_cassidy, Suzy_lafayette, Willy_the_kid, Vulture_sam, Slab_the_killer, Sid_ketchum, Pedro_ramirez, Lucky_duke, Kit_carlson, Jesse_jones, El_gringo, Calamity_janet, Jourdonnais, Black_jack, Felipe_prisonero];

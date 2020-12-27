@@ -164,6 +164,9 @@ class Tile {
             case "greg_digger":
                 character = Sprites.greg_digger;
                 break;
+            case "vera_custer":
+                character = Sprites.vera_custer;
+                break;
 
             default:
                 break;

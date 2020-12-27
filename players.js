@@ -5,7 +5,7 @@ class Player{
         this.id = id;
         
         //docasne kvoli dev
-        //this.HP = 5;
+        // this.HP = 1;
         this.HP = maxHP; //inak to je takto
 
         this.alive = true;
@@ -389,5 +389,19 @@ class Sean_mallory extends Character{
     }
 
 }
+class Greg_digger extends Character{
+    constructor(player){
+        super(player);
+        this.name = "greg_digger";
+        this.HP = 4;
+    }
 
-module.exports = [Player, Sean_mallory, Bill_noface, Pixie_pete, Jose_delgado, Paul_regret, Rose_doolan, Bart_cassidy, Suzy_lafayette, Willy_the_kid, Vulture_sam, Slab_the_killer, Sid_ketchum, Pedro_ramirez, Lucky_duke, Kit_carlson, Jesse_jones, El_gringo, Calamity_janet, Jourdonnais, Black_jack, Felipe_prisonero];
+    action(game, player, io, force){
+        if(force == true){
+            game.players[player].HP = game.players[player].HP + 2 > game.players[player].maxHP ? game.players[player].maxHP : game.players[player].HP + 2;
+        }
+    }
+
+}
+
+module.exports = [Player, Greg_digger, Sean_mallory, Bill_noface, Pixie_pete, Jose_delgado, Paul_regret, Rose_doolan, Bart_cassidy, Suzy_lafayette, Willy_the_kid, Vulture_sam, Slab_the_killer, Sid_ketchum, Pedro_ramirez, Lucky_duke, Kit_carlson, Jesse_jones, El_gringo, Calamity_janet, Jourdonnais, Black_jack, Felipe_prisonero];

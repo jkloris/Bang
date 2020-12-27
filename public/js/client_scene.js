@@ -326,6 +326,9 @@ class Scene {
                     case "sean_mallory":
                         character_img = Sprites.sean_mallory;
                         break;
+                    case "greg_digger":
+                        character_img = Sprites.greg_digger;
+                        break;
                         
                     default:
                         break;

@@ -753,6 +753,7 @@ function Death(dead_player_index) {
         game.players[vulture_sam].character.diff_action(vulture_sam, dead_player_index, game);
     }
 
+    greg_diggerCheck();
     
 
     //ak serif zabije vice-a, zahodi vsetky karty
@@ -766,6 +767,14 @@ function Death(dead_player_index) {
             var card = game.players[game.turn].blueCards.pop();
             game.cards.unshift(card);
             game.trashedCards++;
+        }
+    }
+}
+
+function greg_diggerCheck(){
+    for(var i in game.players){
+        if(game.players[i].alive && game.players[i].character.name == "greg_digger"){
+            game.players[i].character.action(game, i, io, true);   
         }
     }
 }

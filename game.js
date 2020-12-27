@@ -1,5 +1,5 @@
 const [Bang, Vedle, Dostavnik, Wellsfargo, Pivo, Salon, Indiani, Schofield, Remington, Carabine, Winchester, Volcanic, Appaloosa, Mustang, Catbalou, Panika, Gulomet, Hokynarstvo, Barel, Vazenie, Dynamit, Duel] = require("./cards.js");
-const [Player, Jose_delgado, Paul_regret, Rose_doolan, Bart_cassidy, Suzy_lafayette, Willy_the_kid, Vulture_sam, Slab_the_killer, Sid_ketchum, Pedro_ramirez, Lucky_duke, Kit_carlson, Jesse_jones, El_gringo, Calamity_janet, Jourdonnais, Black_jack, Felipe_prisonero] = require("./players.js");
+const [Player, Pixie_pete, Jose_delgado, Paul_regret, Rose_doolan, Bart_cassidy, Suzy_lafayette, Willy_the_kid, Vulture_sam, Slab_the_killer, Sid_ketchum, Pedro_ramirez, Lucky_duke, Kit_carlson, Jesse_jones, El_gringo, Calamity_janet, Jourdonnais, Black_jack, Felipe_prisonero] = require("./players.js");
 const fs = require("fs");
 
 class Game{
@@ -21,7 +21,7 @@ class Game{
     }
     
     dealCharacters(){
-        let characters = ["paul_regret","jose_delgado", "bart_cassidy", "suzy_lafayette", "willy_the_kid" , "vulture_sam", "slab_the_killer", "sid_ketchum", "rose_doolan" , "pedro_ramirez", "lucky_duke", "kit_carlson", "jesse_jones", "el_gringo", "calamity_janet", "black_jack","jourdonnais", "felipe_prisonero"];        
+        let characters = ["paul_regret","pixie_pete","jose_delgado", "bart_cassidy", "suzy_lafayette", "willy_the_kid" , "vulture_sam", "slab_the_killer", "sid_ketchum", "rose_doolan" , "pedro_ramirez", "lucky_duke", "kit_carlson", "jesse_jones", "el_gringo", "calamity_janet", "black_jack","jourdonnais", "felipe_prisonero"];        
         for(var i in this.players){
             var rand_i = Math.floor(Math.random() * (characters.length));
 
@@ -80,6 +80,9 @@ class Game{
                 case "jose_delgado":
                     this.players[i].character = new Jose_delgado(this.players[i]);
                     break;
+                case "pixie_pete":
+                    this.players[i].character = new Pixie_pete(this.players[i]);
+                    break;
                 
                 default:
                     break;
@@ -87,7 +90,7 @@ class Game{
             
             //nastavi na index 0 postavu, ktoru chceme napevno nastavit
             if (i == 0) {
-                this.players[i].character = new Jose_delgado(this.players[i]);
+                this.players[i].character = new Pixie_pete(this.players[i]);
                 this.players[i].character.init(this.players[i]);    
             }
 

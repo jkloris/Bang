@@ -355,5 +355,22 @@ class Jose_delgado extends Character{
     }
 
 }
+class Pixie_pete extends Character{
+    constructor(player){
+        super(player);
+        this.name = "pixie_pete";
+        this.HP = 3;
+    }
 
-module.exports = [Player,Jose_delgado, Paul_regret, Rose_doolan, Bart_cassidy, Suzy_lafayette, Willy_the_kid, Vulture_sam, Slab_the_killer, Sid_ketchum, Pedro_ramirez, Lucky_duke, Kit_carlson, Jesse_jones, El_gringo, Calamity_janet, Jourdonnais, Black_jack, Felipe_prisonero];
+    // action(game, player, io){
+    //     if(game.turn == player && game.moveStage == 0){
+    //         dealOneCard(player);
+    //         dealOneCard(player);
+    //         dealOneCard(player);
+    //         game.moveStage++;
+    //     }
+    // }
+
+}
+
+module.exports = [Player, Pixie_pete, Jose_delgado, Paul_regret, Rose_doolan, Bart_cassidy, Suzy_lafayette, Willy_the_kid, Vulture_sam, Slab_the_killer, Sid_ketchum, Pedro_ramirez, Lucky_duke, Kit_carlson, Jesse_jones, El_gringo, Calamity_janet, Jourdonnais, Black_jack, Felipe_prisonero];

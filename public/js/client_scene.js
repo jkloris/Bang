@@ -164,6 +164,9 @@ class Scene {
         if (point.x >= current.x && point.x <= current.x + ratio && point.y >= current.y && point.y <= current.y + Sprites.bang.height / Sprites.bang.width * ratio) {
             if(game_client.moveStage == 0){
                 var index = game_client.players.findIndex(user => user.id === socket.id);
+                if(game_client.players[index].character.name == "pixie_pete"){
+                    socket.emit("dealOneCard", index);
+                }
                 socket.emit("dealOneCard", index);
                 socket.emit("dealOneCard", index);
                 socket.emit("moveStage++");
@@ -306,6 +309,9 @@ class Scene {
                         break;
                     case "jose_delgado":
                         character_img = Sprites.jose_delgado;
+                        break;
+                    case "pixie_pete":
+                        character_img = Sprites.pixie_pete;
                         break;
                         
                     default:

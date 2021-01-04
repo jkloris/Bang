@@ -83,6 +83,11 @@ class Scene {
 
         var player_i = game_client.players.findIndex(user => user.id === socket.id);
 
+        if(game_client.players[player_i].prison == false && game_client.players[player_i].dynamit == false && game_client.started &&  player_i >= 0 && game_client.players[player_i].character.realName != null && game_client.turn == player_i && game_client.moveStage == 0){
+            console.log("vera");
+            this.checkTiles(point);
+        }
+
         if(game_client.players[player_i].prison == false && game_client.players[player_i].dynamit == false){
             this.checkDeck(point);
         }

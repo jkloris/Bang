@@ -188,6 +188,12 @@ class Tile {
 
             var player_i = game_client.players.findIndex(user => user.id === socket.id);
             var card_i = game_client.players[player_i].cards.findIndex(card => card.selected === true);
+            var target_i = game_client.players.findIndex(user => user.id === this.id);
+            console.log(target_i);
+
+            if(game_client.started &&  player_i >= 0 && game_client.players[player_i].character.realName != null && game_client.turn == player_i && game_client.moveStage == 0 && game_client.players[target_i].character.realName == null){
+                socket.emit("vera_custerPlay", player_i, this.id);  
+            }
 
             if (jesse_jones) {
                 if (this.cards > 0) {

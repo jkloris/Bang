@@ -616,6 +616,15 @@ io.on("connection", socket =>{
         gameUpdate();
     });
 
+    socket.on("vera_custerPlay", (index_vera, id_target) =>{
+        var index_target = game.players.findIndex(user => user.id === id_target);
+        console.log( game.players[index_target].character);
+        game.players[index_vera].character.tempCharacter = game.players[index_target].character;
+        game.players[index_vera].character.name = game.players[index_target].character.name;
+        //game.players[index_vera].character.action(game, index_vera, io);
+        gameUpdate();
+    })
+
     //odpojenie hraca
     socket.on("disconnect",()=>{
         console.log("somebody disconnected");
@@ -788,6 +797,9 @@ function vulture_samCheck(){
     return -1;
 }
 
+
+
+
 function calamityHandler(player, card_i) {
     //console.log("calamity handler", player, card_i);
     if (!(game.players[player].cards[card_i].name == "Bang" || game.players[player].cards[card_i].name == "Vedle" || game.players[player].cards[card_i].name == "Pivo")) {
@@ -796,7 +808,7 @@ function calamityHandler(player, card_i) {
 
     //ak je to zahrala zachranne pivo
     if(game.safeBeer){
-        game.players[player].cards[card_i].action(game, player, c, io);
+        game.players[player].cards[card_i].action(game, player, card_i, io); // neviem co je to "c", padol program kvoli tomu... asi to malo byt card_i
     }
 
     //ak zahrala Bang alebo vedle, tak sa iba cekne, ktore z toho mala zahrat a triggerne sa akcia tej karty:

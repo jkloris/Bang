@@ -409,12 +409,12 @@ class Vera_custer extends Character{
         super(player);
         this.name = "vera_custer";
         this.HP = 3;
+        this.realName = "vera_custer";
+        this.tempCharacter = null;
     }
 
-    action(game, player, io){
-       if(game.moveStage == 0){
-
-       }
+    action(game, player, io, force){ //force je pre grega
+        this.tempCharacter.action(game, player, io, force);
     }
 
 }

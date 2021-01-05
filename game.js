@@ -339,6 +339,9 @@ class Game{
                 this.players[this.turn].character.useLeft = 2;
                 console.log(this.players[this.turn].character.useLeft);
             }
+            if (this.players[this.turn].character.realName == "vera_custer"){
+                this.players[this.turn].character.reset();
+            }
             this.moveStage = 0;
             return 1;
         }

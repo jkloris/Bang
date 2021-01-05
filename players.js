@@ -407,13 +407,21 @@ class Greg_digger extends Character{
 class Vera_custer extends Character{
     constructor(player){
         super(player);
-        this.name = "vera_custer";
-        this.HP = 3;
         this.realName = "vera_custer";
+        this.HP = 3;
+        this.reset();
+    }
+
+    reset(){
+        this.name = "vera_custer";
         this.tempCharacter = null;
     }
 
     veraInit(game, i_vera, i_target, io){
+
+        game.players[i_vera].character.tempCharacter = game.players[i_target].character;
+        game.players[i_vera].character.name = game.players[i_target].character.name;
+
         if(this.name == "willy_the_kid") {
             game.players[i_vera].bangLimit = 100;
             game.players[i_vera].bangLeft = 100;
@@ -421,7 +429,8 @@ class Vera_custer extends Character{
     }
 
     action(game, player, io, force){ //force je pre grega
-        this.tempCharacter.action(game, player, io, force);
+        if(this.tempCharacter != null)
+            this.tempCharacter.action(game, player, io, force);
     }
 
 }

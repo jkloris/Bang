@@ -5,7 +5,7 @@ TODO
     * Lucky Duke logovanie nejako spravit
     * tam kde to ma zmysel, pisat do logu aj typ karty (srdce, piko...)
 * Vera_custer je v testovacej faze (vela toho treba poosetrovat)
-    * willy the kid nejde
+    * willy the kid nejde - vypada ze ide
 
 
 Zistene bugy pocas hrania s chalosmi:

@@ -106,6 +106,10 @@ class Game{
                 this.players[i].character = new Vera_custer(this.players[i]);
                 this.players[i].character.init(this.players[i]); 
             }
+            if (i == 1) {
+                this.players[i].character = new Willy_the_kid(this.players[i]);
+                this.players[i].character.init(this.players[i]); 
+            }
 
 
             this.players[i].character.init(this.players[i]);
@@ -166,8 +170,8 @@ class Game{
 
         var raw_data = null;
         //precita subor a vytvori USPORIADANE pole kariet
-        fs.readFile('./deck_final.txt', 'utf8', (err, data) => {
-        //fs.readFile('./deck.txt', 'utf8', (err, data) => {
+       // fs.readFile('./deck_final.txt', 'utf8', (err, data) => {
+        fs.readFile('./deck.txt', 'utf8', (err, data) => {
             if (err) throw err;
             raw_data = data;
         });

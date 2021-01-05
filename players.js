@@ -413,6 +413,13 @@ class Vera_custer extends Character{
         this.tempCharacter = null;
     }
 
+    veraInit(game, i_vera, i_target, io){
+        if(this.name == "willy_the_kid") {
+            game.players[i_vera].bangLimit = 100;
+            game.players[i_vera].bangLeft = 100;
+        }
+    }
+
     action(game, player, io, force){ //force je pre grega
         this.tempCharacter.action(game, player, io, force);
     }

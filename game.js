@@ -107,7 +107,7 @@ class Game{
                 this.players[i].character.init(this.players[i]); 
             }
             if (i == 1) {
-                this.players[i].character = new Willy_the_kid(this.players[i]);
+                this.players[i].character = new Paul_regret(this.players[i]);
                 this.players[i].character.init(this.players[i]); 
             }
 

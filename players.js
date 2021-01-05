@@ -426,6 +426,12 @@ class Vera_custer extends Character{
             game.players[i_vera].bangLimit = 100;
             game.players[i_vera].bangLeft = 100;
         }
+        if(this.name == "paul_regret"){
+            game.players[i_vera].scope.paul_regret = 1;
+        }
+        if(this.name == "rose_doolan"){
+            game.players[i_vera].scope.rose_doolan = 1;
+        }
     }
 
     action(game, player, io, force){ //force je pre grega

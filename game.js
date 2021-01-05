@@ -28,70 +28,70 @@ class Game{
 
             switch (characters[rand_i]){
                 case "paul_regret":
-                    this.players[i].character = new Paul_regret(this.players[i]);
+                    this.players[i].character = new Paul_regret(this.players[i]); //jo
                     break;
                 case "bart_cassidy":
-                    this.players[i].character = new Bart_cassidy(this.players[i]);
+                    this.players[i].character = new Bart_cassidy(this.players[i]); //jo
                     break;
                 case "suzy_lafayette":
-                    this.players[i].character = new Suzy_lafayette(this.players[i]);
+                    this.players[i].character = new Suzy_lafayette(this.players[i]); //asi jo
                     break;
                 case "willy_the_kid":
-                    this.players[i].character = new Willy_the_kid(this.players[i]);
+                    this.players[i].character = new Willy_the_kid(this.players[i]);//jo
                     break;
                 case "vulture_sam":
-                    this.players[i].character = new Vulture_sam(this.players[i]);
+                    this.players[i].character = new Vulture_sam(this.players[i]);//zrusene
                     break;
                 case "slab_the_killer":
-                    this.players[i].character = new Slab_the_killer(this.players[i]);
+                    this.players[i].character = new Slab_the_killer(this.players[i]); //nop
                     break;
                 case "sid_ketchum":
-                    this.players[i].character = new Sid_ketchum(this.players[i]);
+                    this.players[i].character = new Sid_ketchum(this.players[i]); //jo
                     break;
                 case "rose_doolan":
-                    this.players[i].character = new Rose_doolan(this.players[i]);       
+                    this.players[i].character = new Rose_doolan(this.players[i]); //jo
                     break;
                 case "pedro_ramirez":
-                    this.players[i].character = new Pedro_ramirez(this.players[i]);
+                    this.players[i].character = new Pedro_ramirez(this.players[i]);//jo
                     break;
                 case "lucky_duke":
-                    this.players[i].character = new Lucky_duke(this.players[i]);
+                    this.players[i].character = new Lucky_duke(this.players[i]); //nop
                     break;
                 case "kit_carlson":
-                    this.players[i].character = new Kit_carlson(this.players[i]);
+                    this.players[i].character = new Kit_carlson(this.players[i]);//jo
                     break;
                 case "jesse_jones":
-                    this.players[i].character = new Jesse_jones(this.players[i]);
+                    this.players[i].character = new Jesse_jones(this.players[i]);//jo
                     break;
                 case "jourdonnais":
-                    this.players[i].character = new Jourdonnais(this.players[i]);
+                    this.players[i].character = new Jourdonnais(this.players[i]);//jo
                     break;
                 case "calamity_janet":
-                    this.players[i].character = new Calamity_janet(this.players[i]);
+                    this.players[i].character = new Calamity_janet(this.players[i]);//jo
                     break;
                 case "black_jack":
-                    this.players[i].character = new Black_jack(this.players[i]);
+                    this.players[i].character = new Black_jack(this.players[i]); //jo
                     break;
                 case "el_gringo":
-                    this.players[i].character = new El_gringo(this.players[i]);
+                    this.players[i].character = new El_gringo(this.players[i]); //nop
                     break;
                 case "felipe_prisonero":
-                    this.players[i].character = new Felipe_prisonero(this.players[i]);
+                    this.players[i].character = new Felipe_prisonero(this.players[i]);//jo
                     break;
                 case "jose_delgado":
-                    this.players[i].character = new Jose_delgado(this.players[i]);
+                    this.players[i].character = new Jose_delgado(this.players[i]); //jo
                     break;
                 case "pixie_pete":
-                    this.players[i].character = new Pixie_pete(this.players[i]);
+                    this.players[i].character = new Pixie_pete(this.players[i]);//jo
                     break;
                 case "bill_noface":
-                    this.players[i].character = new Bill_noface(this.players[i]);
+                    this.players[i].character = new Bill_noface(this.players[i]); //jo
                     break;
                 case "sean_mallory":
-                    this.players[i].character = new Sean_mallory(this.players[i]);
+                    this.players[i].character = new Sean_mallory(this.players[i]);//jo
                     break;
                 case "greg_digger":
-                    this.players[i].character = new Greg_digger(this.players[i]);
+                    this.players[i].character = new Greg_digger(this.players[i]);//nop
                     break;
                 case "vera_custer":
                     this.players[i].character = new Vera_custer(this.players[i]);
@@ -103,11 +103,15 @@ class Game{
             
            // nastavi na index 0 postavu, ktoru chceme napevno nastavit
             if (i == 0) {
-                this.players[i].character = new Vera_custer(this.players[i]);
+                this.players[i].character = new Pixie_pete(this.players[i]);
                 this.players[i].character.init(this.players[i]); 
             }
             if (i == 1) {
-                this.players[i].character = new Paul_regret(this.players[i]);
+                this.players[i].character = new Vera_custer(this.players[i]);
+                this.players[i].character.init(this.players[i]); 
+            }
+            if (i == 2) {
+                this.players[i].character = new Greg_digger(this.players[i]);
                 this.players[i].character.init(this.players[i]); 
             }
 

@@ -432,6 +432,7 @@ class Vera_custer extends Character{
         if(this.name == "rose_doolan"){
             game.players[i_vera].scope.rose_doolan = 1;
         }
+        
     }
 
     action(game, player, io, force){ //force je pre grega

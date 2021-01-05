@@ -619,7 +619,10 @@ io.on("connection", socket =>{
     socket.on("vera_custerPlay", (index_vera, id_target) =>{
 
         var index_target = game.players.findIndex(user => user.id === id_target);
-        game.players[index_vera].character.veraInit(game, index_vera, index_target, io);
+        if (game.players[index_target].character.name != "vulture_sam"){
+            game.players[index_vera].character.veraInit(game, index_vera, index_target, io);
+        }
+        
         gameUpdate();
     })
 

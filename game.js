@@ -107,8 +107,8 @@ class Game{
                 this.players[i].character.init(this.players[i]); 
             }
             if (i == 1) {
-                this.players[i].character = new Slab_the_killer(this.players[i]);
-                this.players[i].character.init(this.players[i]); 
+                this.players[i].character = new El_gringo(this.players[i]);
+                this.players[i].character.init(this.players[i]);
             }
 
 

@@ -410,6 +410,7 @@ class Vera_custer extends Character{
         this.realName = "vera_custer";
         this.HP = 3;
         this.reset();
+        
     }
 
     reset(){
@@ -433,11 +434,17 @@ class Vera_custer extends Character{
             game.players[i_vera].scope.rose_doolan = 1;
         }
         
+        
     }
 
     action(game, player, io, force){ //force je pre grega
-        if(this.tempCharacter != null)
+        if(this.tempCharacter != null){
             this.tempCharacter.action(game, player, io, force);
+
+            if(this.name = "lucky_duke"){
+                this.event = this.tempCharacter.event;
+            }
+        }
     }
 
 }

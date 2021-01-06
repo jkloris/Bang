@@ -498,6 +498,7 @@ io.on("connection", socket =>{
         var prison_i = game.players[player_i].blueCards.findIndex(card => card.name == "Vazenie" );
         var dynamit_i = game.players[player_i].blueCards.findIndex(card => card.name == "Dynamit");
 
+        
         if(game.players[player_i].character.name == "lucky_duke"){
             var event = game.players[player_i].character.event;
             if(event == "prison"){

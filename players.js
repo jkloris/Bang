@@ -433,6 +433,9 @@ class Vera_custer extends Character{
         if(this.name == "rose_doolan"){
             game.players[i_vera].scope.rose_doolan = 1;
         }
+        if(this.name = "slab_the_killer"){
+            this.vedleCount = 0;
+        }
         
         
     }

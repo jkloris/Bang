@@ -6,7 +6,7 @@ TODO
     * tam kde to ma zmysel, pisat do logu aj typ karty (srdce, piko...)
 * Vera_custer je v testovacej faze (vela toho treba poosetrovat)
     * ~~willy the kid nejde - vypada ze ide~~
-    * slab the killer - ani barel ani vedle nepomahaju na bang
+    * ~~slab the killer - ani barel ani vedle nepomahaju na bang~~
     * ~~greg digger - prida zivoty len jednemu gregovi~~
     * el_gringo - padne hra, lebo el gringo vola inu funkciu
     * ~~lucky duke - ukaze karty, ale po kliku ju nezoberie~~ 

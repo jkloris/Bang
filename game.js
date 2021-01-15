@@ -101,15 +101,15 @@ class Game{
                     break;
             }
             
-           // nastavi na index 0 postavu, ktoru chceme napevno nastavit
-            // if (i == 0) {
-            //     this.players[i].character = new Vera_custer(this.players[i]);
-            //     this.players[i].character.init(this.players[i]); 
-            // }
-            // if (i == 1) {
-            //     this.players[i].character = new El_gringo(this.players[i]);
-            //     this.players[i].character.init(this.players[i]);
-            // }
+           //nastavi na index 0 postavu, ktoru chceme napevno nastavit
+            if (i == 0) {
+                this.players[i].character = new Vera_custer(this.players[i]);
+                this.players[i].character.init(this.players[i]); 
+            }
+            if (i == 1) {
+                this.players[i].character = new Jesse_jones(this.players[i]);
+                this.players[i].character.init(this.players[i]);
+            }
 
 
             this.players[i].character.init(this.players[i]);

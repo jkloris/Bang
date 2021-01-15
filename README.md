@@ -10,6 +10,7 @@ TODO
     * ~~greg digger - prida zivoty len jednemu gregovi~~
     * ~~el_gringo - padne hra, lebo el gringo vola inu funkciu~~
     * ~~lucky duke - ukaze karty, ale po kliku ju nezoberie~~ 
+    * ~jesse jones - ked klikne na hraca, od ktoreho si chce brat kartu, zmeni sa postava na danu postavu~
     * vulture sam - zrusene, neviem ako by si 2 rozdelili karty mrtveho a aj ak si to nikto neda
     * vsetky postavy by mali fungovat, ale boli spravene len male testy
 
@@ -20,6 +21,7 @@ Zistene bugy pocas hrania s chalosmi:
 * volcanic limit bangov zostal 100, aj ked vulcanic uz zmizol
     * ked volcanic zobrali catbalou , tak zostal limit 100
 * ak je odhadzovaci balicek prazdy a taha sa na vazenie, neukaze odhodene karty
+* jose delgado - nešiel zrušiť ťah, ked mal 3 karty a 3 životy, tak vyhodil barel a dalo mu to 2 karty
 
 
 

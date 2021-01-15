@@ -449,7 +449,7 @@ class Vera_custer extends Character{
         if(this.tempCharacter != null){
             this.tempCharacter.action(game, player, io, force);
 
-            if(this.name = "lucky_duke"){
+            if(this.name == "lucky_duke"){
                 this.event = this.tempCharacter.event;
             }
         }

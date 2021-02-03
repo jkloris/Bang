@@ -22,5 +22,7 @@ POZNAMKI
 * *deck_final.txt* nebabrať - to je finálna verzia decku. Testy robiť s *deck.txt*
 
 Posledné slová pred smrťou
-*"Len to skús..."* -Filip
-*"Ja mám fakt dobrú postavu."* -Jerguš
+
+* *"Len to skús..."* -Filip
+
+* *"Nevadí, ja mám dobrú postavu."* -Jerguš

@@ -11,6 +11,9 @@ Zistene bugy pocas hrania s chalosmi:
     * malo by byt fixnute
 * volcanic limit bangov zostal 100, aj ked vulcanic uz zmizol
     * ked volcanic zobrali catbalou , tak zostal limit 100
+* pri gulomete ak barel uspeje, hracovi po nom nejde barel pouzit
+* Bart Cassidy si taha kartu aj pri ubrani posledneho života a je mozne, ze dostane pivo, cim sa zachrani
+
 
 
 

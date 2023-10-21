@@ -397,12 +397,10 @@ class Game {
 
 				//randomize game.cards
 				shuffle(this.cards);
-				console.log(this.cards, 'dddcards');
 			})
 			.catch((err) => {
 				console.error('An error occurred:', err);
 			});
-
 
 		//nacita karty do game.cards, cize do hlavneho balicka
 	}
@@ -411,10 +409,8 @@ class Game {
 		for (var i in this.players) {
 			for (var e = 0; e < this.players[i].HP; e++) {
 				//moj kod.... je dobry dufam
-				console.log(this.cards);
 				var drawn_card = this.cards.pop();
 				this.players[i].cards.push(drawn_card);
-				console.log(this.players[i.cards], drawn_card);
 			}
 		}
 	}

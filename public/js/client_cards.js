@@ -101,10 +101,6 @@ class Bang extends ActionCard{
         this.offensive = true;
         this.onRange = true;
     }
-    action(){
-        // alert("bang");
-        // socket.emit("bang", );
-    }
    
 }
 
@@ -114,11 +110,7 @@ class Vedle extends ActionCard{
         this.name = "Vedle";
         this.IMG = Sprites.vedle;
     }
-    action(){
-        // alert("vedle");
-        // socket.emit("", );
-    }
-    
+  
 }
 
 class Dostavnik extends ActionCard{
@@ -130,10 +122,6 @@ class Dostavnik extends ActionCard{
         this.rank = "9";
     }
 
-    // action(game, player, card){
-    //     game.dealOneCard(player);
-    //     game.dealOneCard(player);
-    // }
 }
 
 class Wellsfargo extends ActionCard{
@@ -145,15 +133,7 @@ class Wellsfargo extends ActionCard{
         this.rank = "3";
 
     }
-    
-    // action(game, player, card){
-    //     if(game.requestedPlayer == null){
-    //         game.dealOneCard(player);
-    //         game.dealOneCard(player);
-    //         game.dealOneCard(player);
-    //         discardCard(game, player, card);
-    //     }
-    // }
+
 }
 
 class Pivo extends ActionCard{
@@ -163,13 +143,6 @@ class Pivo extends ActionCard{
         this.IMG = Sprites.pivo;
         this.suit = "heart";
     }
-
-    // action(game, player, card){
-    //     if(game.requestedPlayer == null && game.player[player].HP < game.player[player].maxHP ){
-    //         game.player[player].HP++;
-    //         discardCard(game, player, card);
-    //     }
-    // }
 
 }
 
@@ -182,16 +155,6 @@ class Salon extends ActionCard{
         this.rank = "5";
 
     }
-
-    // action(game, player, card){
-    //     if(game.requestedPlayer == null){
-    //         for(var i in game.players){
-                
-    //             if( game.players[i].HP < game.players[i].maxHP ){
-    //                 game.players[i].HP++;
-    //             }
-    //     }
-    // }
 
 }
 

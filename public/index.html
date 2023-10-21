@@ -1,49 +1,51 @@
 <!DOCTYPE html>
 <html lang="sk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bang</title>
-    <link rel="stylesheet" href="./CSS/style.css">
-    <link rel="icon" type="image/png" href="imgs/favicon.png"/>
-</head>
-<body>
-    <H1>BANG</H1>
-    <div id="canvas_container">
-        <canvas id="canvas"></canvas>
-    </div>
-    
-    <!-- log -->
-    <!-- <button id="myBtn">Open Modal</button> -->
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Bang</title>
+		<link rel="stylesheet" href="./CSS/style.css" />
+		<link rel="icon" type="image/png" href="imgs/favicon.png" />
+	</head>
+	<body>
+		<h1>BANG</h1>
+		<div id="canvas_container">
+			<canvas id="canvas"></canvas>
+		</div>
 
-    <!-- Modal content -->
-    <div class="modal-content">
-        <div class="modal-header">
-        <span class="close">&times;</span>
-        <h2>Log</h2>
-        </div>
-        <div id="scrollable-modal" class="modal-body">
-        <p id="log_paragraph">
-            <!-- Ked v JS appendujeme do tohto paragraphu, treba namiesto <br> pisat "\r\n" (ako newline) -->
-        </p>
-        </div>
-    </div>
+		<!-- log -->
+		<!-- <button id="myBtn">Open Modal</button> -->
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+			<!-- Modal content -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<span class="close">&times;</span>
+					<h2>Log</h2>
+				</div>
+				<div id="scrollable-modal" class="modal-body">
+					<p id="log_paragraph">
+						<!-- Ked v JS appendujeme do tohto paragraphu, treba namiesto <br> pisat "\r\n" (ako newline) -->
+					</p>
+				</div>
+			</div>
+		</div>
 
-    </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="./js/Assets.js"></script> <!-- load images -->
-    <script src="./js/audio.js"></script>
-    <script src="./js/objects.js"></script>
-    <script src="./js/canvas.js"></script>
-    <script src="./js/client_tiles.js"></script>
-    <script src="./js/client_scene.js"></script>
-    <script src="./js/client.js"></script>
-    <script src="./js/client_cards.js"></script>
-    <script src="./js/objects.js"></script>
-    <script> loadAssets(); </script>
-</body>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="./js/Assets.js"></script>
+		<!-- load images -->
+		<script src="./js/audio.js"></script>
+		<script src="./js/objects.js"></script>
+		<script src="./js/canvas.js"></script>
+		<script src="./js/client_tiles.js"></script>
+		<script src="./js/client_scene.js"></script>
+		<script src="./js/client.js"></script>
+		<script src="./js/client_cards.js"></script>
+		<script src="./js/objects.js"></script>
+		<script src="./js/md5.js"></script>
+		<script>
+			loadAssets();
+		</script>
+	</body>
 </html>

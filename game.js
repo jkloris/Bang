@@ -171,11 +171,11 @@ class Game {
 					break;
 			}
 
-			//nastavi na index 0 postavu, ktoru chceme napevno nastavit
-			// if (i == 0) {
-			//     this.players[i].character = new Bart_cassidy(this.players[i]);
-			//     this.players[i].character.init(this.players[i]);
-			// }
+			// nastavi na index 0 postavu, ktoru chceme napevno nastavit
+			if (i == 1) {
+				this.players[i].character = new Lucky_duke(this.players[i]);
+				this.players[i].character.init(this.players[i]);
+			}
 
 			this.players[i].character.init(this.players[i]);
 
@@ -247,7 +247,7 @@ class Game {
 	async readFileAsync() {
 		const fs = require('fs').promises;
 		try {
-			const raw_data = await fs.readFile('./deck_final.txt', 'utf8');
+			const raw_data = await fs.readFile('./deck.txt', 'utf8');
 			return raw_data;
 		} catch (err) {
 			console.error('Error reading file:', err);
@@ -560,6 +560,27 @@ class Game {
 
 	isInRange(sender, target, card) {
 		return this.getDistance(sender, target, card) <= 1 || this.players[sender].cards[card].onRange == false;
+	}
+
+	trashCard(card) {
+		this.cards.unshift(card);
+		this.trashedCards += 1;
+	}
+
+	getNextPlayer(player) {
+		var nextPlayer = player;
+		if (nextPlayer + 1 < this.players.length) {
+			nextPlayer++;
+		} else {
+			nextPlayer = 0;
+		}
+
+		//preskoci hracov, ktori su mrtvi
+		while (!this.players[nextPlayer].alive) {
+			nextPlayer++;
+			if (nextPlayer >= this.players.length) nextPlayer = 0;
+		}
+		return nextPlayer;
 	}
 }
 

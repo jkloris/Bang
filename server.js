@@ -34,6 +34,7 @@ const [
 ] = require('./players.js');
 
 const [Logger] = require('./logger.js');
+const DynamitHandler = require('./dymamit_handler.js');
 const [
 	Bang,
 	Vedle,
@@ -183,16 +184,16 @@ io.on('connection', (socket) => {
 		//ak je hrac na tahu a nic sa nedeje zatial
 		if (game.requestedPlayer == null && game.turn == index_sender) {
 			var bool = game.players[index_sender].cards[card_index].action(game, index_sender, card_index, io);
-			if (bool) io.emit('log', card_name); //loguje len ak zahranie karty prebehlo uspesne
+			if (bool) Logger.emit(card_name); //loguje len ak zahranie karty prebehlo uspesne
 		}
 		//ak to posiela hrac, od ktoreho je pozadovana akcia
 		else if (game.requestedPlayer == index_sender) {
 			if (card_name == game.requestedCard) {
 				game.players[index_sender].cards[card_index].action(game, index_sender, card_index, io);
-				io.emit('log', ` - ${card_name} (${game.players[index_sender].name})`);
+				Logger.emit(` - ${card_name} (${game.players[index_sender].name})`);
 			} else if (game.players[index_sender].character.name == 'calamity_janet') {
 				if (calamityHandler(index_sender, card_index))
-					io.emit('log', ` - ${card_name} (${game.players[index_sender].name})`);
+					Logger.emit(` - ${card_name} (${game.players[index_sender].name})`);
 			} else if (game.safeBeer && card_name == 'Pivo')
 				game.players[index_sender].cards[card_index].action(game, index_sender, card_index, io);
 		}
@@ -413,84 +414,39 @@ io.on('connection', (socket) => {
 		gameUpdate();
 	});
 
-	socket.on('prisonClick', (player, card) => {
-		if (game.moveStage == 0 && game.players[player].prison == true) {
-			game.players[player].prison = false;
+	function prisonClick(player_i, prison_i) {
+		if (game.moveStage > 0 || game.players[player_i].prison == false) return false;
 
-			game.cards.unshift(game.cards[game.cards.length - 1]);
-			game.cards.unshift(game.players[player].blueCards[card]);
-			game.players[player].blueCards.splice(card, 1);
-			game.cards.splice(game.cards.length - 1, 1);
-			game.trashedCards += 2;
+		Logger.emit(`Vazenie potiahnuta karta: ${game.cards[0].name}`);
+		game.players[player_i].prison = false;
 
-			io.emit('log', `Vazenie potiahnuta karta: ${game.cards[0].name}`);
+		game.trashCard(game.players[player_i].blueCards[prison_i]);
+		game.players[player_i].blueCards.splice(prison_i, 1);
 
-			if (game.cards[0].suit != 'heart') {
-				game.nextTurn(player, true);
-				io.emit('log', ` ---------- na tahu je: ${game.players[game.turn].name} ---------- `);
-			}
-			gameUpdate();
+		if (game.cards[0].suit != 'heart') {
+			game.nextTurn(player_i, true);
+			Logger.emit(` ---------- na tahu je: ${game.players[game.turn].name} ---------- `);
 		}
+		return true;
+	}
+
+	socket.on('prisonClick', (player, card) => {
+		if (!prisonClick(player, card)) return;
+
+		game.trashCard(game.cards[game.cards.length - 1]);
+		game.cards.splice(game.cards.length - 1, 1);
+		gameUpdate();
 	});
 
 	socket.on('dynamiteClick', (player, card) => {
-		if (game.moveStage == 0 && game.dynamit == true) {
-			game.players[player].dynamit = false;
-			var checkCard = game.cards[game.cards.length - 1];
-			io.emit('log', `Dynamit potiahnuta karta: ${checkCard.name}`);
+		let checkCard = game.cards[game.cards.length - 1];
+		DynamitHandler.dynamitClick(game, player, card, checkCard, io);
+		game.trashCard(checkCard);
+		game.cards.splice(game.cards.length - 1, 1);
 
-			if (checkCard.suit == 'spades' && checkCard.rank >= 2 && checkCard.rank <= 9) {
-				io.emit('dynamitSound');
-				io.emit('log', ` - Dynamit vybuchol...`);
-				console.log('Dynamit vybuchol...');
-
-				game.dynamit = false;
-				game.cards.unshift(game.players[player].blueCards[card]);
-				game.players[player].blueCards.splice(card, 1);
-				game.trashedCards += 2;
-
-				game.players[player].HP = game.players[player].HP - 3 > 0 ? game.players[player].HP - 3 : 0;
-				if (game.players[player].HP == 0) {
-					if (safeBeerCheck(player, io)) {
-						gameUpdate();
-						return;
-					}
-					//game.nextTurn(player, true); //nie som si isty, ci to tu musi byt, ale ak ano, tak v tomto poradi
-					Death(player);
-
-					io.emit('log', ` ---------- na tahu je: ${game.players[game.turn].name} ---------- `);
-				} else if (game.players[player].character.name == 'bart_cassidy') {
-					game.dealOneCard(player);
-					game.dealOneCard(player);
-					game.dealOneCard(player);
-				}
-			} else {
-				var nextPlayer = player;
-				if (nextPlayer + 1 < game.players.length) {
-					nextPlayer++;
-				} else {
-					nextPlayer = 0;
-				}
-
-				//preskoci hracov, ktori su mrtvi
-				while (!game.players[nextPlayer].alive) {
-					nextPlayer++;
-					if (nextPlayer >= game.players.length) nextPlayer = 0;
-				}
-
-				game.players[nextPlayer].blueCards.push(game.players[player].blueCards[card]);
-				game.players[player].blueCards.splice(card, 1);
-				game.players[nextPlayer].dynamit = true;
-				game.trashedCards++;
-			}
-			game.cards.unshift(checkCard);
-			game.cards.splice(game.cards.length - 1, 1);
-
-			gameUpdate();
-		}
+		gameUpdate();
 	});
 
-	
 	socket.on('interaction', (id, event, clickedBlue_index, card_index) => {
 		console.log('interaction ' + event);
 		var index_sender = game.players.findIndex((user) => user.id === socket.id);
@@ -558,105 +514,60 @@ io.on('connection', (socket) => {
 		var prison_i = game.players[player_i].blueCards.findIndex((card) => card.name == 'Vazenie');
 		var dynamit_i = game.players[player_i].blueCards.findIndex((card) => card.name == 'Dynamit');
 
-		if (game.players[player_i].character.name == 'lucky_duke') {
-			var event = game.players[player_i].character.event;
-			if (event == 'prison') {
-				game.players[player_i].prison = false;
+		if (game.players[player_i].character.name != 'lucky_duke') return;
 
-				game.cards.unshift(game.players[player_i].blueCards[prison_i]);
-				game.cards.unshift(game.cards[game.cards.length - 1 - card_i]);
-				game.players[player_i].blueCards.splice(prison_i, 1);
-				game.cards.splice(game.cards.length - 1 - card_i, 1);
-				game.trashedCards + 2;
+		var chosenCard = game.cards[game.cards.length - 1 - card_i];
 
-				if (game.cards[0].suit != 'heart') {
-					game.nextTurn(player_i, true);
-					io.emit('log', ` ---------- na tahu je: ${game.players[game.turn].name} ---------- `);
-				}
-			} else if (event == 'dynamit') {
-				game.players[player_i].dynamit = false;
-				var checkCard = game.cards[game.cards.length - 1 - card_i];
+		var event = game.players[player_i].character.event;
 
-				if (checkCard.suit == 'spades' && checkCard.rank >= 2 && checkCard.rank <= 9) {
-					game.dynamit = false;
-					game.cards.unshift(game.players[player_i].blueCards[dynamit_i]);
-					game.players[player_i].blueCards.splice(dynamit_i, 1);
-					game.trashedCards += 2;
+		if (event == 'prison') {
+			prisonClick(player_i, prison_i);
+		} else if (event == 'dynamit') {
+			DynamitHandler.dynamitClick(game, player_i, dynamit_i, chosenCard, io);
+		} else if (event == 'barel') {
+			if (game.barelLimit > 0) {
+				if (chosenCard.suit == 'heart' && game.playedCard == 'Gulomet') {
+					var player_index = game.requestedPlayer;
 
-					game.players[player_i].HP = game.players[player_i].HP - 3 > 0 ? game.players[player_i].HP - 3 : 0;
-					if (game.players[player_i].HP == 0) {
-						Death(player_i); //aby sa jeho karty zahodili do kopky
-						game.nextTurn(player_i, true);
-						io.emit('log', ` ---------- na tahu je: ${game.players[game.turn].name} ---------- `);
+					player_index = player_index + 1 == game.players.length ? 0 : player_index + 1;
+
+					while (!game.players[player_index].alive) {
+						player_index++;
+						if (player_index >= game.players.length) player_index = 0;
 					}
-				} else {
-					var nextPlayer = player_i;
-					if (nextPlayer + 1 < game.players.length) {
-						nextPlayer++;
+					game.requestedPlayer = player_index;
+
+					if (game.requestedPlayer == game.turn) {
+						game.requestedPlayer = null;
+						game.playedCard = null;
+						game.requestedCard = null;
+						io.to(game.players[game.turn].id).emit('turnResumeSound');
+					}
+
+					game.barelLimitCheck(game.requestedPlayer);
+				} else if (chosenCard.suit == 'heart') {
+					if (game.players[game.turn].character.name == 'slab_the_killer') {
+						game.players[game.turn].character.vedleCount++;
+						if (game.players[game.turn].character.vedleCount == 2) {
+							game.requestedPlayer = null;
+							game.playedCard = null;
+							game.requestedCard = null;
+							game.players[game.turn].character.vedleCount = 0;
+							io.to(game.players[game.turn].id).emit('turnResumeSound');
+						}
 					} else {
-						nextPlayer = 0;
+						game.requestedPlayer = null;
+						game.requestedCard = null;
+						game.playedCard = null;
+						io.to(game.players[game.turn].id).emit('turnResumeSound');
 					}
-
-					//preskoci hracov, ktori su mrtvi
-					while (!game.players[nextPlayer].alive) {
-						nextPlayer++;
-						if (nextPlayer >= game.players.length) nextPlayer = 0;
-					}
-
-					game.players[nextPlayer].blueCards.push(game.players[player_i].blueCards[dynamit_i]);
-					game.players[player_i].blueCards.splice(dynamit_i, 1);
-					game.players[nextPlayer].dynamit = true;
-					game.trashedCards++;
 				}
 
-				game.cards.unshift(checkCard);
-				game.cards.splice(game.cards.length - 1 - card_i, 1);
-			} else if (event == 'barel') {
-				if (game.barelLimit > 0) {
-					var chosenCard = game.cards[game.cards.length - 1 - card_i];
-					if (chosenCard.suit == 'heart' && game.playedCard == 'Gulomet') {
-						var player_index = game.requestedPlayer;
-
-						player_index = player_index + 1 == game.players.length ? 0 : player_index + 1;
-
-						while (!game.players[player_index].alive) {
-							player_index++;
-							if (player_index >= game.players.length) player_index = 0;
-						}
-						game.requestedPlayer = player_index;
-
-						if (game.requestedPlayer == game.turn) {
-							game.requestedPlayer = null;
-							game.playedCard = null;
-							game.requestedCard = null;
-							io.to(game.players[game.turn].id).emit('turnResumeSound');
-						}
-
-						game.barelLimitCheck(game.requestedPlayer);
-					} else if (chosenCard.suit == 'heart') {
-						if (game.players[game.turn].character.name == 'slab_the_killer') {
-							game.players[game.turn].character.vedleCount++;
-							if (game.players[game.turn].character.vedleCount == 2) {
-								game.requestedPlayer = null;
-								game.playedCard = null;
-								game.requestedCard = null;
-								game.players[game.turn].character.vedleCount = 0;
-								io.to(game.players[game.turn].id).emit('turnResumeSound');
-							}
-						} else {
-							game.requestedPlayer = null;
-							game.requestedCard = null;
-							game.playedCard = null;
-							io.to(game.players[game.turn].id).emit('turnResumeSound');
-						}
-					}
-
-					game.barelLimit--;
-					game.cards.splice(game.cards.length - 1 - card_i, 1);
-					game.cards.unshift(chosenCard);
-				}
+				game.barelLimit--;
 			}
 		}
+		game.trashCard(chosenCard);
+		game.cards.splice(game.cards.length - 1 - card_i, 1);
 		gameUpdate();
 	});
 
@@ -852,7 +763,7 @@ function calamityHandler(player, card_i) {
 		return false;
 	}
 
-	//ak je to zahrala zachranne pivo
+	//ak je to zachranne pivo
 	if (game.safeBeer) {
 		game.players[player].cards[card_i].action(game, player, c, io);
 	}

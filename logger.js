@@ -1,4 +1,5 @@
 class Logger {
+	static io = null;
 	static setIo(io) {
 		this.io = io;
 	}

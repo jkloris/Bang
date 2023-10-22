@@ -553,6 +553,14 @@ class Game {
 		//ak zatial nie je vitaz:
 		return { result: false, winner: null };
 	}
+
+	isFelipePrisonero(target) {
+		return this.players[target].prison && this.players[target].character.name == 'felipe_prisonero';
+	}
+
+	isInRange(sender, target, card) {
+		return this.getDistance(sender, target, card) <= 1 || this.players[sender].cards[card].onRange == false;
+	}
 }
 
 //shamelessly stolen from the internet

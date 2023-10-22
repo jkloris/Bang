@@ -490,70 +490,42 @@ io.on('connection', (socket) => {
 		}
 	});
 
-	//basic layout pre buducu komunikaciu medzi clientami
+	
 	socket.on('interaction', (id, event, clickedBlue_index, card_index) => {
 		console.log('interaction ' + event);
 		var index_sender = game.players.findIndex((user) => user.id === socket.id);
 		var index_target = game.players.findIndex((user) => user.id === id);
-		// io.emit("log", event + ": (" + game.players[index_sender].name + " >>> " + game.players[index_target].name + ")");
+		let card = game.players[index_sender].cards[card_index];
 
-		if (event == 'Vazenie') {
-			Vazenie.action(game, index_sender, index_target, card_index, clickedBlue_index);
-			gameUpdate();
-			io.emit(
-				'log',
-				event + ': (' + game.players[index_sender].name + ' >>> ' + game.players[index_target].name + ')'
-			);
-		} else if (event == 'Catbalou') {
-			io.emit(
-				'log',
-				event + ': (' + game.players[index_sender].name + ' >>> ' + game.players[index_target].name + ')'
-			);
-			let trashed_card_name = Catbalou.action(game, index_sender, index_target, card_index, clickedBlue_index);
-
-			io.emit('log', ' - zahodena karta: ' + trashed_card_name);
-
-			gameUpdate();
-		} else if (isInRange(index_sender, index_target, card_index)) {
-			Logger.logInteraction(event, game.players[index_sender].name, game.players[index_target].name);
-
-			if (event == 'Panika') {
-				let stolen_card_name = Panika.action(game, index_sender, index_target, card_index, clickedBlue_index);
-
-				socket.broadcast
-					.to(game.players[index_target].id)
-					.emit('log', ' - zobrali ti kartu: ' + stolen_card_name);
-
-				gameUpdate();
-			} else if (
-				event == 'Bang' &&
-				game.players[index_sender].bangLeft > 0 &&
-				!(game.players[index_target].prison && game.players[index_target].character.name == 'felipe_prisonero')
-			) {
-				Bang.attack(game, index_sender, card_index, index_target);
-				socket.broadcast.to(id).emit('Bang');
-
-				gameUpdate();
-			} else if (event == 'Duel') {
-				game.duelistPlayer = index_target;
-				game.requestedPlayer = index_target;
-				discardCard(index_sender, card_index);
-				gameUpdate();
-				io.emit('Duel-announcement');
-
-				for (i in game.players) {
-					if (game.players[i].id == id) {
-						//info pre targeta, ze co sa deje (ze nanho ide BANG alebo Duello)
-						socket.broadcast.to(id).emit(event, clickedBlue_index, index_sender);
-					}
-				}
-			}
+		if (card.onRange && !game.isInRange(index_sender, index_target, card_index)) {
+			return;
 		}
-	});
+		const result = card.action(game, index_sender, card_index, index_target, clickedBlue_index);
+		if (result == false) return;
 
-	function isInRange(sender, target, card) {
-		return game.getDistance(sender, target, card) <= 1 || game.players[sender].cards[card].onRange == false;
-	}
+		Logger.logInteraction(event, game.players[index_sender].name, game.players[index_target].name);
+
+		switch (event) {
+			case 'Catbalou':
+				Logger.emit(' - zahodena karta: ' + result);
+				break;
+			case 'Duel':
+				socket.broadcast.to(id).emit(event, clickedBlue_index, index_sender);
+				io.emit('Duel-announcement');
+				break;
+			case 'Panika':
+				Logger.emitTo(socket, game.players[index_target].id, ' - zobrali ti kartu: ' + result);
+				break;
+			case 'Bang':
+				socket.broadcast.to(id).emit('Bang');
+				break;
+
+			default:
+				break;
+		}
+
+		gameUpdate();
+	});
 
 	socket.on('characterAction', () => {
 		var index_sender = game.players.findIndex((user) => user.id === socket.id);

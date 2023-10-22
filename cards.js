@@ -47,14 +47,19 @@ class Bang extends ActionCard {
 		this.name = 'Bang';
 		this.onRange = true;
 	}
-	action(game, player, card, io) {
+	action(game, player, card, arg) {
 		let res = false;
-		switch (game.playedCard) {
+		const flag = typeof arg === 'number' ? 'Bang' : game.playedCard;
+
+		switch (flag) {
 			case 'Indiani':
-				res = this.#indians(game, player, card, io);
+				res = this.#indians(game, player, card, arg);
 				break;
 			case 'Duel':
 				res = this.#duel(game, player, card);
+				break;
+			case 'Bang':
+				res = this.#attack(game, player, card, arg);
 				break;
 			default:
 				break;
@@ -63,7 +68,9 @@ class Bang extends ActionCard {
 		return res;
 	}
 
-	static attack(game, player, card, target_i) {
+	#attack(game, player, card, target_i) {
+		if (game.players[player].bangLeft <= 0 || game.isFelipePrisonero(target_i)) return false;
+
 		game.requestedPlayer = target_i;
 		game.players[player].bangLeft--;
 		game.playedCard = 'Bang';
@@ -71,7 +78,7 @@ class Bang extends ActionCard {
 
 		game.barelLimitCheck(target_i); // povoleny pocet pouzitia barelu
 		discardCard(game, player, card);
-		// gameUpdate();
+		return true;
 	}
 
 	#indians(game, player, card, io) {
@@ -493,7 +500,7 @@ class Catbalou extends ActionCard {
 		this.name = 'Catbalou';
 	}
 
-	static action(game, sender, target, card, clickedBlue_index) {
+	action(game, sender, card, target, clickedBlue_index) {
 		discardCard(game, sender, card); //zahodi sa ta zahrata catbalou
 		var trashed_card_name;
 		if (clickedBlue_index != null) {
@@ -516,7 +523,7 @@ class Panika extends ActionCard {
 	}
 
 	//card je ta panika, ktoru zahral niekto
-	static action(game, sender, target, card, clickedBlue_index) {
+	action(game, sender, card, target, clickedBlue_index) {
 		discardCard(game, sender, card); //hodi paniku do kopky zahodenych
 		var stolen_card_name;
 		game.playedCard = 'Panika';
@@ -581,7 +588,7 @@ class Vazenie extends BlueCard {
 		this.name = 'Vazenie';
 	}
 
-	static action(game, sender, target, card) {
+	action(game, sender, card, target) {
 		game.playedCard = 'Vazenie';
 		if (game.players[target].prison == false && game.players[target].role != 'Sheriff') {
 			var prison = game.players[sender].cards[card];
@@ -591,6 +598,7 @@ class Vazenie extends BlueCard {
 			discardCard(game, sender, card);
 		}
 		game.playedCard = null;
+		return true;
 	}
 }
 
@@ -617,7 +625,12 @@ class Duel extends ActionCard {
 		this.name = 'Duel';
 		this.onRange = false;
 	}
-	action(game, player, card) {}
+	action(game, sender, card, target) {
+		game.duelistPlayer = target;
+		game.requestedPlayer = target;
+		discardCard(game, sender, card);
+		return true;
+	}
 }
 
 function discardCard(game, player_i, card_i) {

@@ -35,30 +35,7 @@ const [
 
 const [Logger] = require('./logger.js');
 const DynamitHandler = require('./dymamit_handler.js');
-const [
-	Bang,
-	Vedle,
-	Dostavnik,
-	Wellsfargo,
-	Pivo,
-	Salon,
-	Indiani,
-	Schofield,
-	Remington,
-	Carabine,
-	Winchester,
-	Volcanic,
-	Appaloosa,
-	Mustang,
-	Catbalou,
-	Panika,
-	Gulomet,
-	Hokynarstvo,
-	Barel,
-	Vazenie,
-	Dynamit,
-	Duel,
-] = require('./cards.js');
+
 const Game = require('./game.js');
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -73,7 +50,7 @@ io.on('connection', (socket) => {
 	console.log('somebody connected');
 	//niekto sa pripojil
 	playerConnected(socket.id);
-	gameUpdate();
+	game.update(io);
 
 	//hrac si nastavi meno
 	socket.on('set-name', (name) => {
@@ -82,7 +59,7 @@ io.on('connection', (socket) => {
 		let index = game.players.findIndex((user) => user.id === socket.id);
 		if (index != -1) {
 			game.players[index].name = name;
-			gameUpdate();
+			game.update(io);
 		}
 	});
 
@@ -128,7 +105,7 @@ io.on('connection', (socket) => {
 		if (game.nextTurn(index_sender)) {
 			io.to(game.players[game.turn].id).emit('onTurnSound');
 			io.emit('log', ` ---------- na tahu je: ${game.players[game.turn].name} ---------- `);
-			gameUpdate();
+			game.update(io);
 		} else io.to(id).emit('discardRequest');
 	});
 
@@ -143,7 +120,7 @@ io.on('connection', (socket) => {
 		}
 		game.dealCards();
 		io.emit('log', ` ---------- na tahu je: ${game.players[game.turn].name} ---------- `);
-		gameUpdate();
+		game.update(io);
 	});
 
 	socket.on('hokynarstvo', (card) => {
@@ -168,7 +145,7 @@ io.on('connection', (socket) => {
 			game.playedCard = null;
 			io.to(game.players[game.turn].id).emit('turnResumeSound');
 		}
-		gameUpdate();
+		game.update(io);
 	});
 
 	socket.on('useCard', (card_name, card_index) => {
@@ -179,7 +156,7 @@ io.on('connection', (socket) => {
 		for (var i in deny_these_cards) if (deny_these_cards[i] == card_name) return;
 
 		//ak je nastavene safeBeer na true a pride ina karta, v automaticky ju zakaze:
-		if (game.safeBeer && card_name != 'Pivo') return;
+		if (game.safeBeer > -1 && card_name != 'Pivo') return;
 
 		//ak je hrac na tahu a nic sa nedeje zatial
 		if (game.requestedPlayer == null && game.turn == index_sender) {
@@ -194,10 +171,10 @@ io.on('connection', (socket) => {
 			} else if (game.players[index_sender].character.name == 'calamity_janet') {
 				if (calamityHandler(index_sender, card_index))
 					Logger.emit(` - ${card_name} (${game.players[index_sender].name})`);
-			} else if (game.safeBeer && card_name == 'Pivo')
+			} else if (game.safeBeer > -1 && card_name == 'Pivo')
 				game.players[index_sender].cards[card_index].action(game, index_sender, card_index, io);
 		}
-		gameUpdate();
+		game.update(io);
 	});
 
 	socket.on('loseLife', (id) => {
@@ -207,7 +184,7 @@ io.on('connection', (socket) => {
 			game.dealOneCard(player_index);
 		}
 
-		if (game.players[player_index].character.name == 'el_gringo' && !game.safeBeer) {
+		if (game.players[player_index].character.name == 'el_gringo' && game.safeBeer < 0) {
 			if (game.turn != player_index) {
 				game.players[player_index].character.reaction(game, player_index, game.turn);
 
@@ -230,8 +207,8 @@ io.on('connection', (socket) => {
 		}
 
 		if (--game.players[player_index].HP <= 0) {
-			if (safeBeerCheck(player_index, io)) {
-				gameUpdate();
+			if (game.safeBeerCheck(player_index)) {
+				game.update(io);
 				return;
 			}
 			Death(player_index);
@@ -268,11 +245,11 @@ io.on('connection', (socket) => {
 			}
 		}
 
-		gameUpdate();
+		game.update(io);
 	});
 
 	socket.on('discard', (id, card_i) => {
-		if (game.safeBeer) {
+		if (game.safeBeer > -1) {
 			console.log('Niekto sa snazi discardovat, ked ma dat safebeer');
 			return;
 		}
@@ -302,7 +279,7 @@ io.on('connection', (socket) => {
 			}
 
 			discardCard(player_index, card_i);
-			gameUpdate();
+			game.update(io);
 		} else if (
 			game.players[player_index].character.name == 'sid_ketchum' &&
 			game.players[player_index].HP < game.players[player_index].maxHP
@@ -310,7 +287,7 @@ io.on('connection', (socket) => {
 			io.emit('log', `Zahodena karta: ${game.players[player_index].cards[card_i].name}`);
 			discardCard(player_index, card_i);
 			game.players[player_index].character.discartedCards++;
-			gameUpdate();
+			game.update(io);
 		} else if (
 			game.turn == player_index &&
 			game.players[player_index].character.name == 'jose_delgado' &&
@@ -332,29 +309,29 @@ io.on('connection', (socket) => {
 	});
 
 	socket.on('dealOneCard', (player_i) => {
-		if (!game.safeBeer) {
+		if (game.safeBeer < 0) {
 			//iba ak nie je aktualne safebeer...
 			game.dealOneCard(player_i);
-			gameUpdate();
+			game.update(io);
 		}
 	});
 
 	socket.on('moveStage++', () => {
-		if (!game.safeBeer) {
+		if (game.safeBeer < 0) {
 			//tiez iba ak nie je aktualne safebeer
 			game.moveStage++;
-			gameUpdate();
+			game.update(io);
 		}
 	});
 
 	socket.on('RequestedCard', (card) => {
 		game.requestedCard = card;
-		gameUpdate();
+		game.update(io);
 	});
 
 	socket.on('PlayedCard', (card) => {
 		game.playedCard = card;
-		gameUpdate();
+		game.update(io);
 	});
 
 	//mechanika barelu a mozno viac
@@ -411,7 +388,7 @@ io.on('connection', (socket) => {
 				game.cards.unshift(last);
 			}
 		}
-		gameUpdate();
+		game.update(io);
 	});
 
 	function prisonClick(player_i, prison_i) {
@@ -435,7 +412,7 @@ io.on('connection', (socket) => {
 
 		game.trashCard(game.cards[game.cards.length - 1]);
 		game.cards.splice(game.cards.length - 1, 1);
-		gameUpdate();
+		game.update(io);
 	});
 
 	socket.on('dynamiteClick', (player, card) => {
@@ -444,7 +421,7 @@ io.on('connection', (socket) => {
 		game.trashCard(checkCard);
 		game.cards.splice(game.cards.length - 1, 1);
 
-		gameUpdate();
+		game.update(io);
 	});
 
 	socket.on('interaction', (id, event, clickedBlue_index, card_index) => {
@@ -480,7 +457,7 @@ io.on('connection', (socket) => {
 				break;
 		}
 
-		gameUpdate();
+		game.update(io);
 	});
 
 	socket.on('characterAction', () => {
@@ -491,7 +468,7 @@ io.on('connection', (socket) => {
 				'log',
 				game.players[index_sender].name + ' (' + game.players[index_sender].character.name + ') ... ' + result
 			);
-		gameUpdate();
+		game.update(io);
 	});
 
 	socket.on('kit_carlson_click', (card_i) => {
@@ -506,7 +483,7 @@ io.on('connection', (socket) => {
 		game.cards.push(card_to_put_back);
 
 		game.moveStage++;
-		gameUpdate();
+		game.update(io);
 	});
 
 	socket.on('lucky_duke_click', (card_i) => {
@@ -568,7 +545,7 @@ io.on('connection', (socket) => {
 		}
 		game.trashCard(chosenCard);
 		game.cards.splice(game.cards.length - 1 - card_i, 1);
-		gameUpdate();
+		game.update(io);
 	});
 
 	socket.on('jesse_jones_choice', (index_jesse, id_target) => {
@@ -578,14 +555,14 @@ io.on('connection', (socket) => {
 		game.players[index_target].cards.splice(rand_card_index, 1);
 		game.dealOneCard(index_jesse);
 		game.moveStage++;
-		gameUpdate();
+		game.update(io);
 	});
 
 	//odpojenie hraca
 	socket.on('disconnect', () => {
 		console.log('somebody disconnected');
 		playerDisconnect(socket.id);
-		gameUpdate();
+		game.update(io);
 	});
 
 	socket.on('restart', (password_hash) => {
@@ -609,17 +586,11 @@ io.on('connection', (socket) => {
 		}
 
 		io.emit('restart');
-		gameUpdate();
+		game.update(io);
 	});
 });
 
 server.listen(PORT, IP, () => console.log(`server running on ${IP}:${PORT}`));
-
-//update hry
-function gameUpdate() {
-	io.emit('update', game);
-	// io.emit("log", "Der updater"); //tymto sposobom sa posiela klientovi nejaky text, ktory sa u klienta zapise do logu
-}
 
 function playerDisconnect(id) {
 	var index = game.players.findIndex((user) => user.id === id);
@@ -639,7 +610,7 @@ function playerDisconnect(id) {
 		if (result.result) {
 			io.emit('winner', result.winner);
 			game.started = false;
-			gameUpdate();
+			game.update(io);
 		}
 
 		//karty odpojeneho hraca sa zahodia do kopky
@@ -695,7 +666,7 @@ function Death(dead_player_index) {
 	if (result.result) {
 		io.emit('winner', result.winner);
 		game.started = false;
-		gameUpdate();
+		game.update(io);
 	}
 
 	var vulture_sam = vulture_samCheck();
@@ -764,7 +735,7 @@ function calamityHandler(player, card_i) {
 	}
 
 	//ak je to zachranne pivo
-	if (game.safeBeer) {
+	if (game.safeBeer > -1) {
 		game.players[player].cards[card_i].action(game, player, c, io);
 	}
 
@@ -832,17 +803,4 @@ function calamityHandler(player, card_i) {
 		}
 	}
 	return true;
-}
-
-function safeBeerCheck(player_index, io) {
-	var pivo_index = game.players[player_index].cards.findIndex((card) => card.name == 'Pivo');
-
-	if (pivo_index != -1 && !game.safeBeer) {
-		//ak ma pifko, dostane moznost sa zachranit
-		game.safeBeer = true;
-		return true;
-	} else {
-		game.safeBeer = false;
-		return false;
-	}
 }

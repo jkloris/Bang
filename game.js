@@ -65,7 +65,7 @@ class Game {
 		this.deadPlayers = 0;
 		this.dynamit = false;
 		this.barelLimit = 0;
-		this.safeBeer = false;
+		this.safeBeer = -1; //player index
 	}
 
 	dealCharacters() {
@@ -172,8 +172,8 @@ class Game {
 			}
 
 			// nastavi na index 0 postavu, ktoru chceme napevno nastavit
-			if (i == 1) {
-				this.players[i].character = new Lucky_duke(this.players[i]);
+			if (i == 1 || i == 0) {
+				this.players[i].character = new Sean_mallory(this.players[i]);
 				this.players[i].character.init(this.players[i]);
 			}
 
@@ -581,6 +581,23 @@ class Game {
 			if (nextPlayer >= this.players.length) nextPlayer = 0;
 		}
 		return nextPlayer;
+	}
+
+	safeBeerCheck(player_index) {
+		var pivo_index = this.players[player_index].cards.findIndex((card) => card.name == 'Pivo');
+
+		if (pivo_index != -1) {
+			//ak ma pifko, dostane moznost sa zachranit
+			this.safeBeer = player_index;
+			return true;
+		} else {
+			this.safeBeer = -1;
+			return false;
+		}
+	}
+
+	update(io) {
+		io.emit('update', this);
 	}
 }
 

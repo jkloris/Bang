@@ -222,8 +222,8 @@ class Pivo extends ActionCard {
 		}
 
 		//ak to bolo zachranne pivo,
-		if (game.safeBeer) {
-			game.safeBeer = false;
+		if (game.safeBeer >= 0) {
+			game.safeBeer = -1;
 			if (game.requestedPlayer != null) {
 				console.log('Kontrola posuvania hracov, kto ide dalsi..');
 				if (game.playedCard == 'Gulomet' || game.playedCard == 'Indiani') {

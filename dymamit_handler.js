@@ -25,7 +25,7 @@ class DynamitHandler {
 
 				game.players[player].loseHp(3);
 				if (game.players[player].HP == 0) {
-					if (safeBeerCheck(player, io)) {
+					if (game.safeBeerCheck(player, io)) {
 						return;
 					}
 					game.nextTurn(player, true);

@@ -13,7 +13,12 @@ const io = socketIO(server);
 
 const [
 	Player,
+	Vera_custer,
+	Greg_digger,
+	Sean_mallory,
 	Bill_noface,
+	Pixie_pete,
+	Jose_delgado,
 	Paul_regret,
 	Rose_doolan,
 	Bart_cassidy,
@@ -169,8 +174,8 @@ io.on('connection', (socket) => {
 				game.players[index_sender].cards[card_index].action(game, index_sender, card_index, io);
 				Logger.emit(` - ${card_name} (${game.players[index_sender].name})`);
 			} else if (game.players[index_sender].character.name == 'calamity_janet') {
-				if (calamityHandler(index_sender, card_index))
-					Logger.emit(` - ${card_name} (${game.players[index_sender].name})`);
+				if (game.players[index_sender].character.calamityHandler(game, index_sender, card_index, io))
+					Logger.emit(`(Calamity) - ${card_name} (${game.players[index_sender].name})`);
 			} else if (game.safeBeer > -1 && card_name == 'Pivo')
 				game.players[index_sender].cards[card_index].action(game, index_sender, card_index, io);
 		}
@@ -211,7 +216,7 @@ io.on('connection', (socket) => {
 				game.update(io);
 				return;
 			}
-			Death(player_index);
+			game.death(player_index, io);
 		} else io.emit('log', ' - ' + game.players[player_index].name + ' sa rozhodol zobrať si život.');
 
 		if (game.requestedPlayer != null) {
@@ -278,14 +283,14 @@ io.on('connection', (socket) => {
 				}
 			}
 
-			discardCard(player_index, card_i);
+			game.discardCard(player_index, card_i);
 			game.update(io);
 		} else if (
 			game.players[player_index].character.name == 'sid_ketchum' &&
 			game.players[player_index].HP < game.players[player_index].maxHP
 		) {
-			io.emit('log', `Zahodena karta: ${game.players[player_index].cards[card_i].name}`);
-			discardCard(player_index, card_i);
+			Logger.emit(`Zahodena karta: ${game.players[player_index].cards[card_i].name}`);
+			game.discardCard(player_index, card_i);
 			game.players[player_index].character.discartedCards++;
 			game.update(io);
 		} else if (
@@ -429,6 +434,10 @@ io.on('connection', (socket) => {
 		var index_sender = game.players.findIndex((user) => user.id === socket.id);
 		var index_target = game.players.findIndex((user) => user.id === id);
 		let card = game.players[index_sender].cards[card_index];
+        
+        if(event == "Calamity"){
+            card = game.players[index_sender].character.bang
+        }   
 
 		if (card.onRange && !game.isInRange(index_sender, index_target, card_index)) {
 			return;
@@ -595,8 +604,6 @@ server.listen(PORT, IP, () => console.log(`server running on ${IP}:${PORT}`));
 function playerDisconnect(id) {
 	var index = game.players.findIndex((user) => user.id === id);
 	if (game.started && index != -1) {
-		//Death(index); //toto davam prec, lebo to robi sarapatu
-
 		console.log(game.players[index].name + ' disconnected');
 		io.emit('log', game.players[index].name + ' sa odpojil.');
 		game.players[index].alive = false;
@@ -633,174 +640,4 @@ function playerDisconnect(id) {
 
 function playerConnected(id) {
 	if (!game.started) game.players.push(new Player(id, 1, null, null, null));
-}
-
-function discardCard(player_i, card_i) {
-	game.cards.unshift(game.players[player_i].cards[card_i]);
-	game.trashedCards++;
-	game.players[player_i].cards.splice(card_i, 1);
-
-	if (game.players[player_i].character.name == 'suzy_lafayette') {
-		game.players[player_i].character.action(player_i, game);
-	}
-}
-
-function Death(dead_player_index) {
-	//ak zomrel bandita, tak ten co je na tahu si berie 3 karty
-	if (game.players[dead_player_index].role == 'Bandita' && game.turn != dead_player_index) {
-		game.dealOneCard(game.turn);
-		game.dealOneCard(game.turn);
-		game.dealOneCard(game.turn);
-	}
-
-	console.log(game.players[dead_player_index].name + ' died');
-	io.emit('log', game.players[dead_player_index].name + ' je mrtef.');
-	game.players[dead_player_index].alive = false;
-	game.players[dead_player_index].HP = -1;
-	game.deadPlayers++;
-	if (game.players[dead_player_index].dynamit) game.dynamit = false;
-	if (game.turn == dead_player_index) game.nextTurn(dead_player_index, true);
-
-	let result = game.gameOver();
-	console.log('checking for game over... with result: ' + result.result);
-	if (result.result) {
-		io.emit('winner', result.winner);
-		game.started = false;
-		game.update(io);
-	}
-
-	var vulture_sam = vulture_samCheck();
-	if (vulture_sam == -1) {
-		//karty mrtveho hraca sa poslu do kopky, ak valture_sam nie je v hre
-		while (game.players[dead_player_index].cards.length > 0) {
-			var card = game.players[dead_player_index].cards.pop();
-			game.cards.unshift(card);
-			game.trashedCards++;
-			//game.players[game.turn].cards.push(card);
-		}
-		while (game.players[dead_player_index].blueCards.length > 0) {
-			var card = game.players[dead_player_index].blueCards.pop();
-			game.cards.unshift(card);
-			game.trashedCards++;
-		}
-	} else {
-		//trigger valture sam
-		game.players[vulture_sam].character.diff_action(vulture_sam, dead_player_index, game);
-	}
-
-	greg_diggerCheck();
-
-	//ak serif zabije vice-a, zahodi vsetky karty
-	if (game.players[dead_player_index].role == 'Vice' && game.players[game.turn].role == 'Sheriff') {
-		while (game.players[game.turn].cards.length > 0) {
-			var card = game.players[game.turn].cards.pop();
-			game.cards.unshift(card);
-			game.trashedCards++;
-		}
-		while (game.players[game.turn].blueCards.length > 0) {
-			var card = game.players[game.turn].blueCards.pop();
-			game.cards.unshift(card);
-			game.trashedCards++;
-		}
-	}
-}
-
-function greg_diggerCheck() {
-	for (var i in game.players) {
-		if (game.players[i].alive && game.players[i].character.name == 'greg_digger') {
-			game.players[i].character.action(game, i, io, true);
-		}
-	}
-}
-
-function vulture_samCheck() {
-	for (var i in game.players) {
-		if (game.players[i].alive && game.players[i].character.name == 'vulture_sam') {
-			return i;
-		}
-	}
-	return -1;
-}
-
-function calamityHandler(player, card_i) {
-	//console.log("calamity handler", player, card_i);
-	if (
-		!(
-			game.players[player].cards[card_i].name == 'Bang' ||
-			game.players[player].cards[card_i].name == 'Vedle' ||
-			game.players[player].cards[card_i].name == 'Pivo'
-		)
-	) {
-		return false;
-	}
-
-	//ak je to zachranne pivo
-	if (game.safeBeer > -1) {
-		game.players[player].cards[card_i].action(game, player, c, io);
-	}
-
-	//ak zahrala Bang alebo vedle, tak sa iba cekne, ktore z toho mala zahrat a triggerne sa akcia tej karty:
-
-	if (game.requestedCard == 'Bang') {
-		if (game.playedCard == 'Indiani') {
-			discardCard(player, card_i);
-
-			player = player + 1 == game.players.length ? 0 : player + 1;
-
-			while (!game.players[player].alive) {
-				player++;
-				if (player >= game.players.length) player = 0;
-			}
-			game.requestedPlayer = player;
-
-			if (game.requestedPlayer == game.turn) {
-				game.requestedPlayer = null;
-				game.playedCard = null;
-				game.requestedCard = null;
-				io.to(game.players[game.turn].id).emit('turnResumeSound');
-			}
-		} else if (game.playedCard == 'Duel') {
-			discardCard(player, card_i);
-			if (game.requestedPlayer == game.duelistPlayer) game.requestedPlayer = game.turn;
-			else game.requestedPlayer = game.duelistPlayer;
-		}
-	} else if (game.requestedCard == 'Vedle') {
-		if (game.playedCard == 'Gulomet') {
-			discardCard(player, card_i);
-			player = player + 1 == game.players.length ? 0 : player + 1;
-
-			while (!game.players[player].alive) {
-				player++;
-				if (player >= game.players.length) player = 0;
-			}
-			game.requestedPlayer = player;
-			if (game.requestedPlayer == game.turn) {
-				game.requestedPlayer = null;
-				game.playedCard = null;
-				game.requestedCard = null;
-				io.to(game.players[game.turn].id).emit('turnResumeSound');
-			}
-			game.barelLimitCheck(game.requestedPlayer);
-		} else if (game.requestedPlayer != null) {
-			discardCard(player, card_i);
-
-			if (game.players[game.turn].character.name == 'slab_the_killer') {
-				game.players[game.turn].character.vedleCount++;
-				if (game.players[game.turn].character.vedleCount == 2) {
-					game.requestedPlayer = null;
-					game.playedCard = null;
-					game.requestedCard = null;
-					game.players[game.turn].character.vedleCount = 0;
-					io.to(game.players[game.turn].id).emit('turnResumeSound');
-				}
-				return true;
-			}
-
-			game.requestedPlayer = null;
-			game.playedCard = null;
-			game.requestedCard = null;
-			io.to(game.players[game.turn].id).emit('turnResumeSound');
-		}
-	}
-	return true;
 }

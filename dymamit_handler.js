@@ -29,7 +29,7 @@ class DynamitHandler {
 						return;
 					}
 					game.nextTurn(player, true);
-					Death(player);
+					game.death(player, io);
 					Logger.emit(` ---------- na tahu je: ${game.players[game.turn].name} ---------- `);
 
 					// TODO do it differently

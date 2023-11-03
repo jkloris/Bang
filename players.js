@@ -1,4 +1,5 @@
 //const Game = require("./game");
+const [Bang, Vedle] = require('./cards.js');
 
 class Player {
 	constructor(id, maxHP, role, character) {
@@ -104,14 +105,17 @@ class Vulture_sam extends Character {
 	}
 
 	diff_action(player, dead_player_index, game) {
-		while (game.players[dead_player_index].cards.length > 0) {
-			var card = game.players[dead_player_index].cards.pop();
-			game.players[player].cards.unshift(card);
+		game.moveAllPlayersCards(dead_player_index, game.players[player].cards);
+	}
+
+	static checkAndAct(game, dead_player_index) {
+		for (var i in game.players) {
+			if (game.players[i].alive && game.players[i].character.name == 'vulture_sam') {
+				game.players[i].character.diff_action(i, dead_player_index, game);
+				return true;
+			}
 		}
-		while (game.players[dead_player_index].blueCards.length > 0) {
-			var card = game.players[dead_player_index].blueCards.pop();
-			game.players[player].cards.unshift(card);
-		}
+		return false;
 	}
 }
 
@@ -278,7 +282,29 @@ class Calamity_janet extends Character {
 		super(player);
 		this.name = 'calamity_janet';
 		this.HP = 4;
+		this.bang = new Bang();
+		this.vedle = new Vedle();
 	}
+	fakeBangAction(game, player, card, arg) {
+		return this.bang.action(game, player, card, arg);
+	}
+
+	fakeVedleAction(game, player, card, io) {
+		this.vedle.action(game, player, card, io);
+	}
+
+	calamityHandler(game, player, card_i, io) {
+		if (game.requestedCard == 'Bang' && game.players[player].cards[card_i].name == 'Vedle') {
+			game.players[player].character.fakeBangAction(game, player, card_i, io);
+			return true;
+		} else if (game.requestedCard == 'Vedle' && game.players[player].cards[card_i].name == 'Bang') {
+			game.players[player].character.fakeVedleAction(game, player, card_i, io);
+			return true;
+		} else {
+			return false;
+		}
+	}
+    
 }
 
 class Black_jack extends Character {
@@ -432,6 +458,13 @@ class Greg_digger extends Character {
 				'log',
 				game.players[player].name + ' pouzil schopnost (' + game.players[player].character.name + ')'
 			);
+		}
+	}
+	static checkAndAct(game, io) {
+		for (var i in game.players) {
+			if (game.players[i].alive && game.players[i].character.name == 'greg_digger') {
+				game.players[i].character.action(game, i, io, true);
+			}
 		}
 	}
 }

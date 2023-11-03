@@ -172,8 +172,8 @@ class Game {
 			}
 
 			// nastavi na index 0 postavu, ktoru chceme napevno nastavit
-			if (i == 1 || i == 0) {
-				this.players[i].character = new Sean_mallory(this.players[i]);
+			if (i == 1) {
+				this.players[i].character = new Calamity_janet(this.players[i]);
 				this.players[i].character.init(this.players[i]);
 			}
 
@@ -197,7 +197,7 @@ class Game {
 				[
 					new Sheriff(this.players[0]),
 					new Bandita(this.players[1]),
-					new Odpadlik(this.players[2]),
+					new Vice(this.players[2]), //tmp
 					new Bandita(this.players[3]),
 				];
 				break;
@@ -567,6 +567,16 @@ class Game {
 		this.trashedCards += 1;
 	}
 
+	discardCard(player_i, card_i) {
+		this.cards.unshift(this.players[player_i].cards[card_i]);
+		this.trashedCards++;
+		this.players[player_i].cards.splice(card_i, 1);
+
+		if (this.players[player_i].character.name == 'suzy_lafayette') {
+			this.players[player_i].character.action(player_i, this);
+		}
+	}
+
 	getNextPlayer(player) {
 		var nextPlayer = player;
 		if (nextPlayer + 1 < this.players.length) {
@@ -581,6 +591,20 @@ class Game {
 			if (nextPlayer >= this.players.length) nextPlayer = 0;
 		}
 		return nextPlayer;
+	}
+
+	moveAllPlayersCards(player_i, destination, trashing = false) {
+		let card;
+		while (this.players[player_i].cards.length > 0) {
+			card = this.players[player_i].cards.pop();
+			destination.unshift(card);
+			this.trashedCard += trashing;
+		}
+		while (this.players[player_i].blueCards.length > 0) {
+			card = this.players[player_i].blueCards.pop();
+			destination.unshift(card);
+			this.trashedCard += trashing;
+		}
 	}
 
 	safeBeerCheck(player_index) {
@@ -598,6 +622,41 @@ class Game {
 
 	update(io) {
 		io.emit('update', this);
+	}
+
+	death(dead_player_index, io) {
+		//ak zomrel bandita, tak ten co je na tahu si berie 3 karty
+		if (this.players[dead_player_index].role == 'Bandita' && this.turn != dead_player_index) {
+			this.dealOneCard(this.turn);
+			this.dealOneCard(this.turn);
+			this.dealOneCard(this.turn);
+		}
+
+		// Logger.emit(this.players[dead_player_index].name + ' je mrtef.'); TODO
+		this.players[dead_player_index].alive = false;
+		this.players[dead_player_index].HP = -1;
+		this.deadPlayers++;
+		if (this.players[dead_player_index].dynamit) this.dynamit = false;
+		if (this.turn == dead_player_index) this.nextTurn(dead_player_index, true);
+
+		let result = this.gameOver();
+		console.log('checking for game over... with result: ' + result.result);
+		if (result.result) {
+			io.emit('winner', result.winner);
+			this.started = false;
+			this.update(io);
+		}
+
+		if (!Vulture_sam.checkAndAct(this, dead_player_index)) {
+			this.moveAllPlayersCards(dead_player_index, this.cards, true);
+		}
+
+		Greg_digger.checkAndAct(this, io);
+
+		//ak serif zabije vice-a, zahodi vsetky karty
+		if (this.players[dead_player_index].role == 'Vice' && this.players[this.turn].role == 'Sheriff') {
+			this.moveAllPlayersCards(this.turn, this.cards, true);
+		}
 	}
 }
 

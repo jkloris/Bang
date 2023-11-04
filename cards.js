@@ -69,7 +69,11 @@ class Bang extends ActionCard {
 	}
 
 	#attack(game, player, card, target_i) {
-		if (game.players[player].bangLeft <= 0 || game.isFelipePrisonero(target_i)) return false;
+		if (
+			game.players[player].bangLeft <= 0 ||
+			(game.players[target_i].prison && game.players[target_i].character.name == 'felipe_prisonero')
+		)
+			return false;
 
 		game.requestedPlayer = target_i;
 		game.players[player].bangLeft--;
@@ -565,20 +569,31 @@ class Barel extends BlueCard {
 	}
 
 	action(game, player, card) {
-		if (this.checkBarel(game, player)) {
+		if (!Barel.checkBarel(game, player)) {
 			this.use(game, player, card);
 			return true;
 		}
 		return false;
 	}
 
-	checkBarel(game, player) {
+	static checkBarel(game, player) {
 		for (var i in game.players[player].blueCards) {
 			if (game.players[player].blueCards[i].name == 'Barel') {
-				return false;
+				return true;
 			}
 		}
-		return true;
+		return false;
+	}
+
+	static getBarelLimit(game, target) {
+		if (target == null) return 0;
+		let barelLimit = 0;
+		let isSlabTheKiller = game.players[game.turn].character.name == 'slab_the_killer' && game.playedCard == 'Bang';
+		let isBarel = Barel.checkBarel(game, target);
+		let isJourdonnais = game.players[target].character.name == 'jourdonnais';
+
+		barelLimit += (isBarel + isJourdonnais) * (isSlabTheKiller + 1);
+		return barelLimit;
 	}
 }
 

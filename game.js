@@ -173,7 +173,11 @@ class Game {
 
 			// nastavi na index 0 postavu, ktoru chceme napevno nastavit
 			if (i == 1) {
-				this.players[i].character = new Calamity_janet(this.players[i]);
+				this.players[i].character = new Slab_the_killer(this.players[i]);
+				this.players[i].character.init(this.players[i]);
+			}
+			if (i == 0) {
+				this.players[i].character = new Jourdonnais(this.players[i]);
 				this.players[i].character.init(this.players[i]);
 			}
 
@@ -185,7 +189,7 @@ class Game {
 
 	dealRoles() {
 		//nahodne poradie hracov bez ohladu na poradie prihlasenia sa
-		shuffle(this.players);
+		this.shuffle(this.players);
 		switch (this.players.length) {
 			case 2:
 				[new Sheriff(this.players[0]), new Bandita(this.players[1])];
@@ -236,7 +240,7 @@ class Game {
 				break;
 		}
 		//nahodne poradie postav
-		shuffle(this.players);
+		this.shuffle(this.players);
 		//prehodenie sheriffa na prve miesto
 		var sheriff_i = this.players.findIndex((player) => player.role == 'Sheriff');
 		var temp = this.players[0];
@@ -252,6 +256,170 @@ class Game {
 		} catch (err) {
 			console.error('Error reading file:', err);
 		}
+	}
+
+	getDistance(sender_i, target_i, card) {
+		var turn = sender_i;
+		var distance = 0;
+		while (turn != target_i) {
+			turn++;
+			if (turn >= this.players.length) turn = 0;
+			if (this.players[turn].alive) distance++;
+		}
+
+		var turn = sender_i;
+		var distance2 = 0;
+		while (turn != target_i) {
+			turn--;
+			if (turn < 0) turn = this.players.length - 1;
+			if (this.players[turn].alive) distance2++;
+		}
+		if (distance2 < distance) distance = distance2;
+
+		if (this.players[sender_i].cards[card].name == 'Bang') {
+			distance =
+				distance -
+				this.players[sender_i].scope.gun -
+				this.players[sender_i].scope.appaloosa +
+				this.players[target_i].scope.mustang +
+				this.players[target_i].scope.paul_regret -
+				this.players[sender_i].scope.rose_doolan;
+		} else if (this.players[sender_i].cards[card].name == 'Panika') {
+			distance =
+				distance -
+				this.players[sender_i].scope.appaloosa +
+				this.players[target_i].scope.mustang +
+				this.players[target_i].scope.paul_regret -
+				this.players[sender_i].scope.rose_doolan;
+		}
+
+		return distance;
+	}
+
+	nextTurn(index_sender, force) {
+		//kontrola, ci moze ukoncit kolo
+		if (
+			this.players[index_sender].character.name != 'sean_mallory' &&
+			this.players[index_sender].cards.length > this.players[index_sender].HP &&
+			force != true
+		) {
+			return 0;
+		} else {
+			this.players[index_sender].bangLeft = this.players[index_sender].bangLimit;
+
+			if (this.turn + 1 < this.players.length) {
+				this.turn++;
+			} else {
+				this.turn = 0;
+			}
+
+			//preskoci hracov, ktori su mrtvi
+			while (!this.players[this.turn].alive) {
+				this.turn++;
+				if (this.turn >= this.players.length) this.turn = 0;
+			}
+
+			if (this.players[this.turn].character.name == 'sid_ketchum') {
+				this.players[this.turn].character.discartedCards = 0;
+			}
+			if (this.players[this.turn].character.name == 'jose_delgado') {
+				this.players[this.turn].character.useLeft = 2;
+				console.log(this.players[this.turn].character.useLeft);
+			}
+			this.moveStage = 0;
+			return 1;
+		}
+	}
+
+	barelLimitCheck(target) {
+		this.barelLimit = Barel.getBarelLimit(this, target);
+	}
+
+	//checks for game over
+	gameOver() {
+		var sheriff_i = this.players.findIndex((player) => player.role == 'Sheriff');
+		var odpadlik_i = this.players.findIndex((player) => player.role == 'Odpadlik'); //vrati -1, ak nenajde odpadlika
+
+		//kontrola vyhry odpadlika:
+		let odpadlik_win = true;
+		if (odpadlik_i != -1) {
+			//ak je odpadlik v hre
+			for (var i in this.players) {
+				if (i == odpadlik_i) continue;
+				if (this.players[i].alive) {
+					odpadlik_win = false;
+					break;
+				}
+			}
+			if (odpadlik_win) return { result: true, winner: 'der Odpadlik' };
+		}
+
+		//kontrola vyhry banditov:
+		//ak nevyhral odpadlik a je mrtvy serif, znamena to, ze vyhrali banditi
+		if (!this.players[sheriff_i].alive) return { result: true, winner: 'banditas' };
+
+		//kontrola vyhry serifa
+		let sheriff_win = true;
+		for (var i in this.players) {
+			if (this.players[i].role == 'Bandita' && this.players[i].alive) sheriff_win = false;
+		}
+		//ak aj su mrtvi banditi a este zije odpadlik, tak serif stale nevyhral:
+		if (odpadlik_i != -1 && this.players[odpadlik_i].alive) sheriff_win = false;
+		if (sheriff_win) return { result: true, winner: 'Die Polizeiten' };
+
+		//ak zatial nie je vitaz:
+		return { result: false, winner: null };
+	}
+
+	isInRange(sender, target, card) {
+		return this.getDistance(sender, target, card) <= 1 || this.players[sender].cards[card].onRange == false;
+	}
+
+	getNextPlayer(player) {
+		var nextPlayer = player;
+		if (nextPlayer + 1 < this.players.length) {
+			nextPlayer++;
+		} else {
+			nextPlayer = 0;
+		}
+
+		//preskoci hracov, ktori su mrtvi
+		while (!this.players[nextPlayer].alive) {
+			nextPlayer++;
+			if (nextPlayer >= this.players.length) nextPlayer = 0;
+		}
+		return nextPlayer;
+	}
+
+	moveAllPlayersCards(player_i, destination, trashing = false) {
+		let card;
+		while (this.players[player_i].cards.length > 0) {
+			card = this.players[player_i].cards.pop();
+			destination.unshift(card);
+			this.trashedCard += trashing;
+		}
+		while (this.players[player_i].blueCards.length > 0) {
+			card = this.players[player_i].blueCards.pop();
+			destination.unshift(card);
+			this.trashedCard += trashing;
+		}
+	}
+
+	safeBeerCheck(player_index) {
+		var pivo_index = this.players[player_index].cards.findIndex((card) => card.name == 'Pivo');
+
+		if (pivo_index != -1) {
+			//ak ma pifko, dostane moznost sa zachranit
+			this.safeBeer = player_index;
+			return true;
+		} else {
+			this.safeBeer = -1;
+			return false;
+		}
+	}
+
+	update(io) {
+		io.emit('update', this);
 	}
 
 	//naplni deck nejakymi kartami
@@ -396,19 +564,16 @@ class Game {
 				}
 
 				//randomize game.cards
-				shuffle(this.cards);
+				this.shuffle(this.cards);
 			})
 			.catch((err) => {
 				console.error('An error occurred:', err);
 			});
-
-		//nacita karty do game.cards, cize do hlavneho balicka
 	}
 
 	dealCards() {
 		for (var i in this.players) {
 			for (var e = 0; e < this.players[i].HP; e++) {
-				//moj kod.... je dobry dufam
 				var drawn_card = this.cards.pop();
 				this.players[i].cards.push(drawn_card);
 			}
@@ -425,203 +590,6 @@ class Game {
 			this.players[player].cards.push(this.cards[card]);
 			this.cards.splice(card, 1);
 		}
-	}
-
-	getDistance(sender_i, target_i, card) {
-		var turn = sender_i;
-		var distance = 0;
-		while (turn != target_i) {
-			turn++;
-			if (turn >= this.players.length) turn = 0;
-			if (this.players[turn].alive) distance++;
-		}
-
-		var turn = sender_i;
-		var distance2 = 0;
-		while (turn != target_i) {
-			turn--;
-			if (turn < 0) turn = this.players.length - 1;
-			if (this.players[turn].alive) distance2++;
-		}
-		if (distance2 < distance) distance = distance2;
-
-		if (this.players[sender_i].cards[card].name == 'Bang') {
-			distance =
-				distance -
-				this.players[sender_i].scope.gun -
-				this.players[sender_i].scope.appaloosa +
-				this.players[target_i].scope.mustang +
-				this.players[target_i].scope.paul_regret -
-				this.players[sender_i].scope.rose_doolan;
-		} else if (this.players[sender_i].cards[card].name == 'Panika') {
-			distance =
-				distance -
-				this.players[sender_i].scope.appaloosa +
-				this.players[target_i].scope.mustang +
-				this.players[target_i].scope.paul_regret -
-				this.players[sender_i].scope.rose_doolan;
-		}
-
-		return distance;
-	}
-
-	nextTurn(index_sender, force) {
-		//kontrola, ci moze ukoncit kolo
-		if (
-			this.players[index_sender].character.name != 'sean_mallory' &&
-			this.players[index_sender].cards.length > this.players[index_sender].HP &&
-			force != true
-		) {
-			return 0;
-		} else {
-			this.players[index_sender].bangLeft = this.players[index_sender].bangLimit;
-
-			if (this.turn + 1 < this.players.length) {
-				this.turn++;
-			} else {
-				this.turn = 0;
-			}
-
-			//preskoci hracov, ktori su mrtvi
-			while (!this.players[this.turn].alive) {
-				this.turn++;
-				if (this.turn >= this.players.length) this.turn = 0;
-			}
-
-			if (this.players[this.turn].character.name == 'sid_ketchum') {
-				this.players[this.turn].character.discartedCards = 0;
-			}
-			if (this.players[this.turn].character.name == 'jose_delgado') {
-				this.players[this.turn].character.useLeft = 2;
-				console.log(this.players[this.turn].character.useLeft);
-			}
-			this.moveStage = 0;
-			return 1;
-		}
-	}
-
-	barelLimitCheck(target) {
-		this.barelLimit = 0;
-		if (target != null) {
-			if (this.players[target].character.name == 'jourdonnais') {
-				this.barelLimit++;
-				//ak striela slab the killer, tak je 2nasobny limit na zaklade schopnosti
-				if (this.playedCard == 'Bang' && this.players[this.turn].character.name == 'slab_the_killer')
-					this.barelLimit++;
-			}
-			var i = this.players[target].blueCards.findIndex((card) => card.name == 'Barel');
-			if (i >= 0) {
-				this.barelLimit++;
-				if (this.playedCard == 'Bang' && this.players[this.turn].character.name == 'slab_the_killer')
-					this.barelLimit++;
-			}
-		}
-	}
-
-	//checks for game over
-	gameOver() {
-		var sheriff_i = this.players.findIndex((player) => player.role == 'Sheriff');
-		var odpadlik_i = this.players.findIndex((player) => player.role == 'Odpadlik'); //vrati -1, ak nenajde odpadlika
-
-		//kontrola vyhry odpadlika:
-		let odpadlik_win = true;
-		if (odpadlik_i != -1) {
-			//ak je odpadlik v hre
-			for (var i in this.players) {
-				if (i == odpadlik_i) continue;
-				if (this.players[i].alive) {
-					odpadlik_win = false;
-					break;
-				}
-			}
-			if (odpadlik_win) return { result: true, winner: 'der Odpadlik' };
-		}
-
-		//kontrola vyhry banditov:
-		//ak nevyhral odpadlik a je mrtvy serif, znamena to, ze vyhrali banditi
-		if (!this.players[sheriff_i].alive) return { result: true, winner: 'banditas' };
-
-		//kontrola vyhry serifa
-		let sheriff_win = true;
-		for (var i in this.players) {
-			if (this.players[i].role == 'Bandita' && this.players[i].alive) sheriff_win = false;
-		}
-		//ak aj su mrtvi banditi a este zije odpadlik, tak serif stale nevyhral:
-		if (odpadlik_i != -1 && this.players[odpadlik_i].alive) sheriff_win = false;
-		if (sheriff_win) return { result: true, winner: 'Die Polizeiten' };
-
-		//ak zatial nie je vitaz:
-		return { result: false, winner: null };
-	}
-
-	isFelipePrisonero(target) {
-		return this.players[target].prison && this.players[target].character.name == 'felipe_prisonero';
-	}
-
-	isInRange(sender, target, card) {
-		return this.getDistance(sender, target, card) <= 1 || this.players[sender].cards[card].onRange == false;
-	}
-
-	trashCard(card) {
-		this.cards.unshift(card);
-		this.trashedCards += 1;
-	}
-
-	discardCard(player_i, card_i) {
-		this.cards.unshift(this.players[player_i].cards[card_i]);
-		this.trashedCards++;
-		this.players[player_i].cards.splice(card_i, 1);
-
-		if (this.players[player_i].character.name == 'suzy_lafayette') {
-			this.players[player_i].character.action(player_i, this);
-		}
-	}
-
-	getNextPlayer(player) {
-		var nextPlayer = player;
-		if (nextPlayer + 1 < this.players.length) {
-			nextPlayer++;
-		} else {
-			nextPlayer = 0;
-		}
-
-		//preskoci hracov, ktori su mrtvi
-		while (!this.players[nextPlayer].alive) {
-			nextPlayer++;
-			if (nextPlayer >= this.players.length) nextPlayer = 0;
-		}
-		return nextPlayer;
-	}
-
-	moveAllPlayersCards(player_i, destination, trashing = false) {
-		let card;
-		while (this.players[player_i].cards.length > 0) {
-			card = this.players[player_i].cards.pop();
-			destination.unshift(card);
-			this.trashedCard += trashing;
-		}
-		while (this.players[player_i].blueCards.length > 0) {
-			card = this.players[player_i].blueCards.pop();
-			destination.unshift(card);
-			this.trashedCard += trashing;
-		}
-	}
-
-	safeBeerCheck(player_index) {
-		var pivo_index = this.players[player_index].cards.findIndex((card) => card.name == 'Pivo');
-
-		if (pivo_index != -1) {
-			//ak ma pifko, dostane moznost sa zachranit
-			this.safeBeer = player_index;
-			return true;
-		} else {
-			this.safeBeer = -1;
-			return false;
-		}
-	}
-
-	update(io) {
-		io.emit('update', this);
 	}
 
 	death(dead_player_index, io) {
@@ -658,27 +626,42 @@ class Game {
 			this.moveAllPlayersCards(this.turn, this.cards, true);
 		}
 	}
-}
 
-//shamelessly stolen from the internet
-function shuffle(array) {
-	var currentIndex = array.length,
-		temporaryValue,
-		randomIndex;
-
-	// While there remain elements to shuffle...
-	while (0 !== currentIndex) {
-		// Pick a remaining element...
-		randomIndex = Math.floor(Math.random() * currentIndex);
-		currentIndex -= 1;
-
-		// And swap it with the current element.
-		temporaryValue = array[currentIndex];
-		array[currentIndex] = array[randomIndex];
-		array[randomIndex] = temporaryValue;
+	//throws card to deck
+	trashCard(card) {
+		this.cards.unshift(card);
+		this.trashedCards += 1;
 	}
 
-	return array;
+	discardCard(player_i, card_i) {
+		this.cards.unshift(this.players[player_i].cards[card_i]);
+		this.trashedCards++;
+		this.players[player_i].cards.splice(card_i, 1);
+
+		if (this.players[player_i].character.name == 'suzy_lafayette') {
+			this.players[player_i].character.action(player_i, this);
+		}
+	}
+	//shamelessly stolen from the internet
+	shuffle(array) {
+		var currentIndex = array.length,
+			temporaryValue,
+			randomIndex;
+
+		// While there remain elements to shuffle...
+		while (0 !== currentIndex) {
+			// Pick a remaining element...
+			randomIndex = Math.floor(Math.random() * currentIndex);
+			currentIndex -= 1;
+
+			// And swap it with the current element.
+			temporaryValue = array[currentIndex];
+			array[currentIndex] = array[randomIndex];
+			array[randomIndex] = temporaryValue;
+		}
+
+		return array;
+	}
 }
 
 class Role {

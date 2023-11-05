@@ -1,5 +1,6 @@
 //const Game = require("./game");
 const [Bang, Vedle] = require('./cards.js');
+const DynamitHandler = require('./dymamit_handler.js');
 
 class Player {
 	constructor(id, maxHP, role, character) {
@@ -44,6 +45,16 @@ class Character {
 	action(game, index_sender) {
 		console.log(this.name + ' action request.');
 	}
+}
+
+class MultiselectAbility extends Character{
+    constructor(player){
+        super(player)
+    }
+
+    click(){
+        throw Error("Click method not implemted")
+    }
 }
 
 class Paul_regret extends Character {
@@ -196,7 +207,7 @@ class Pedro_ramirez extends Character {
 		}
 	}
 }
-class Lucky_duke extends Character {
+class Lucky_duke extends MultiselectAbility {
 	constructor(player) {
 		super(player);
 		this.name = 'lucky_duke';
@@ -225,9 +236,42 @@ class Lucky_duke extends Character {
 			}
 		}
 	}
+
+	click(game, io, card_i, player_i) {
+		if (game.players[player_i].character.name != 'lucky_duke') return;
+
+		// put card on the top
+		var chosenCard = game.cards[game.cards.length - 1 - card_i];
+		game.cards.splice(game.cards.length - 1 - card_i, 1);
+		game.cards.push(chosenCard);
+
+		var event = game.players[player_i].character.event;
+
+		switch (event) {
+			case 'prison':
+				let prison_i = game.players[player_i].blueCards.findIndex((card) => card.name == 'Vazenie');
+				game.players[player_i].blueCards[prison_i].click(game, io, player_i, prison_i);
+				break;
+			case 'dynamit':
+				let dynamit_i = game.players[player_i].blueCards.findIndex((card) => card.name == 'Dynamit');
+				DynamitHandler.dynamitClick(game, player_i, dynamit_i, chosenCard, io);
+				game.trashCard(chosenCard);
+				game.cards.splice(game.cards.length - 1, 1);
+				break;
+			case 'barel':
+				let barel_i = game.players[player_i].blueCards.findIndex((card) => card.name == 'Barel');
+				game.players[player_i].blueCards[barel_i].click(game, io);
+				break;
+
+			default:
+				break;
+		}
+
+		game.update(io);
+	}
 }
 
-class Kit_carlson extends Character {
+class Kit_carlson extends MultiselectAbility {
 	constructor(player) {
 		super(player);
 		this.name = 'kit_carlson';
@@ -246,9 +290,22 @@ class Kit_carlson extends Character {
 			return null;
 		}
 	}
+
+	click(game, io, card_i, kit_index) {
+		for (var i = 0; i < 3; i++) {
+			var drawn_card = game.cards.pop();
+			if (card_i == i) {
+				var card_to_put_back = drawn_card;
+			} else game.players[kit_index].cards.push(drawn_card);
+		}
+		game.cards.push(card_to_put_back);
+
+		game.moveStage++;
+		game.update(io);
+	}
 }
 
-class Jesse_jones extends Character {
+class Jesse_jones extends MultiselectAbility {
 	constructor(player) {
 		super(player);
 		this.name = 'jesse_jones';
@@ -266,6 +323,17 @@ class Jesse_jones extends Character {
 			io.to(game.players[index_sender].id).emit('jesse_jones_action');
 			return null;
 		}
+	}
+
+	click(game, io, target_id, jesse) {
+		let target = game.players.findIndex((user) => user.id === target_id);
+		let rand_card_index = Math.floor(Math.random() * game.players[target].cards.length);
+		let stolen_card = game.players[target].cards[rand_card_index];
+		game.players[jesse].cards.push(stolen_card);
+		game.players[target].cards.splice(rand_card_index, 1);
+		game.dealOneCard(jesse);
+		game.moveStage++;
+		game.update(io);
 	}
 }
 

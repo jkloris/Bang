@@ -303,7 +303,7 @@ class ServerController {
 				break;
 			case 'Duel':
 				socket.broadcast.to(id).emit(event, clickedBlue_i, index_sender);
-				io.emit('Duel-announcement');
+				this.io.emit('Duel-announcement');
 				break;
 			case 'Panika':
 				Logger.emitTo(socket, this.game.players[index_target].id, ' - zobrali ti kartu: ' + result);
@@ -349,13 +349,18 @@ class ServerController {
 		}
 
 		this.io.emit('restart');
-		this.game.update(io);
+		this.game.update(this.io);
 	}
 
 	ownBlueClicked(player, card) {
 		if (player == null || player == undefined) player = this.game.requestedPlayer;
 		this.game.players[player].blueCards[card].click(this.game, this.io, player, card);
 		this.game.update(this.io);
+	}
+
+	multiselectAbilityClick(socket, arg) {
+		let player_i = this.game.players.findIndex((user) => user.id === socket.id);
+		this.game.players[player_i].character.click(this.game, this.io, arg, player_i);
 	}
 }
 

@@ -210,7 +210,7 @@ class Tile {
 
 			if (jesse_jones) {
 				if (this.cards > 0) {
-					socket.emit('jesse_jones_choice', player_i, this.id);
+					socket.emit('multiselectAbilityClick', this.id);
 					jesse_jones = false;
 					return;
 				} else alert('Ten nema ziadne karty, ty deges');

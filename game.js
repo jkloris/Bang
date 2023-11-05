@@ -173,11 +173,15 @@ class Game {
 
 			// nastavi na index 0 postavu, ktoru chceme napevno nastavit
 			if (i == 1) {
-				this.players[i].character = new Slab_the_killer(this.players[i]);
+				this.players[i].character = new Jesse_jones(this.players[i]);
 				this.players[i].character.init(this.players[i]);
 			}
 			if (i == 0) {
-				this.players[i].character = new Jourdonnais(this.players[i]);
+				this.players[i].character = new Kit_carlson(this.players[i]);
+				this.players[i].character.init(this.players[i]);
+			}
+			if (i == 2) {
+				this.players[i].character = new Lucky_duke(this.players[i]);
 				this.players[i].character.init(this.players[i]);
 			}
 
@@ -422,9 +426,6 @@ class Game {
 		io.emit('update', this);
 	}
 
-
-
-    
 	//naplni deck nejakymi kartami
 	async shuffleDeck() {
 		var i;

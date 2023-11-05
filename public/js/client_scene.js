@@ -262,7 +262,7 @@ class Scene {
 				point.y >= canvas.height / 2 - (Sprites.bang.height / Sprites.bang.width) * ratio &&
 				point.y <= canvas.height / 2
 			) {
-				socket.emit('kit_carlson_click', i);
+				socket.emit('multiselectAbilityClick', i);
 				kit_carlson = false;
 				return;
 			}
@@ -279,7 +279,7 @@ class Scene {
 				point.y >= canvas.height / 2 - (Sprites.bang.height / Sprites.bang.width) * ratio &&
 				point.y <= canvas.height / 2
 			) {
-				socket.emit('lucky_duke_click', i);
+				socket.emit('multiselectAbilityClick', i);
 				lucky_duke = false;
 				return;
 			}

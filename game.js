@@ -422,6 +422,9 @@ class Game {
 		io.emit('update', this);
 	}
 
+
+
+    
 	//naplni deck nejakymi kartami
 	async shuffleDeck() {
 		var i;

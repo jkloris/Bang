@@ -1,5 +1,4 @@
-const socketIO = require('socket.io');
-const express = require('express');
+const DynamitHandler = require('./dymamit_handler.js');
 
 class Card {
 	constructor() {
@@ -29,6 +28,7 @@ class BlueCard extends Card {
 			game.players[player].character.action(player, game);
 		}
 	}
+	click() {}
 }
 
 class ActionCard extends Card {
@@ -576,6 +576,45 @@ class Barel extends BlueCard {
 		return false;
 	}
 
+	click(game, io) {
+		if (game.requestedCard != 'Vedle' || game.barelLimit <= 0) return;
+
+		let last = game.cards.pop();
+		io.emit('log', `- Barel potiahnuta karta: ${last.name}`);
+		game.trashCard(last);
+
+		if (last.suit != 'heart') {
+			game.barelLimit--;
+			return;
+		}
+
+		if (
+			game.requestedPlayer != null &&
+			game.players[game.requestedPlayer].character.name == 'jourdonnais' &&
+			game.barelLimit == 4
+		)
+			game.barelLimit -= 2;
+		else game.barelLimit--;
+
+		if (game.playedCard == 'Gulomet') {
+			game.requestedPlayer = game.getNextPlayer(game.requestedPlayer);
+			game.barelLimitCheck(game.requestedPlayer);
+
+			if (game.requestedPlayer != game.turn) return;
+		} else if (game.players[game.turn].character.name == 'slab_the_killer') {
+			game.players[game.turn].character.vedleCount++;
+			if (game.players[game.turn].character.vedleCount < 2) {
+				return;
+			}
+			game.players[game.turn].character.vedleCount = 0;
+		}
+
+		game.requestedPlayer = null;
+		game.playedCard = null;
+		game.requestedCard = null;
+		io.to(game.players[game.turn].id).emit('turnResumeSound');
+	}
+
 	static checkBarel(game, player) {
 		for (var i in game.players[player].blueCards) {
 			if (game.players[player].blueCards[i].name == 'Barel') {
@@ -615,6 +654,24 @@ class Vazenie extends BlueCard {
 		game.playedCard = null;
 		return true;
 	}
+
+	click(game, io, player_i, prison_i) {
+		if (game.moveStage > 0 || game.players[player_i].prison == false) return false;
+		const heartCard = game.cards[game.cards.length - 1];
+		io.emit('log', `Vazenie potiahnuta karta: ${heartCard.name}`);
+		game.players[player_i].prison = false;
+
+		game.trashCard(game.players[player_i].blueCards[prison_i]);
+		game.players[player_i].blueCards.splice(prison_i, 1);
+		// todo check [0]
+		if (heartCard.suit != 'heart') {
+			game.nextTurn(player_i, true);
+			io.emit('log', ` ---------- na tahu je: ${game.players[game.turn].name} ---------- `);
+		}
+		game.trashCard(heartCard);
+		game.cards.splice(game.cards.length - 1, 1);
+		return true;
+	}
 }
 
 class Dynamit extends BlueCard {
@@ -631,6 +688,14 @@ class Dynamit extends BlueCard {
 			return true;
 		}
 		return false;
+	}
+	click(game, io, player, card) {
+		let checkCard = game.cards[game.cards.length - 1];
+		DynamitHandler.dynamitClick(game, player, card, checkCard, io);
+		game.trashCard(checkCard);
+		game.cards.splice(game.cards.length - 1, 1);
+
+		game.update(io);
 	}
 }
 

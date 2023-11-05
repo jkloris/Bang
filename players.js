@@ -137,17 +137,25 @@ class Sid_ketchum extends Character {
 	}
 
 	action(game, player, io) {
-		if (game.turn == player) {
-			if (
-				game.players[player].character.discartedCards >= 2 &&
-				game.players[player].HP < game.players[player].maxHP
-			) {
-				game.players[player].HP++;
-				game.players[player].character.discartedCards -= 2;
+		if (game.turn != player) return;
 
-				io.emit('log', game.players[player].name + ' (' + game.players[player].character.name + ')');
-			}
+		if (
+			game.players[player].character.discartedCards >= 2 &&
+			game.players[player].HP < game.players[player].maxHP
+		) {
+			game.players[player].HP++;
+			game.players[player].character.discartedCards -= 2;
+
+			io.emit('log', game.players[player].name + ' (' + game.players[player].character.name + ')');
 		}
+	}
+
+	static checkAndAct(game, player) {
+		if (game.players[player].character.name == 'sid_ketchum') {
+			game.players[player].character.discartedCards++;
+			return true;
+		}
+		return false;
 	}
 }
 
@@ -304,7 +312,6 @@ class Calamity_janet extends Character {
 			return false;
 		}
 	}
-    
 }
 
 class Black_jack extends Character {
@@ -408,6 +415,22 @@ class Jose_delgado extends Character {
 		this.name = 'jose_delgado';
 		this.HP = 4;
 		this.useLeft = 2;
+	}
+
+	static checkAndAct(game, player, card_i, io) {
+		if (
+			game.turn != player ||
+			game.players[player].character.name != 'jose_delgado' ||
+			game.players[player].character.useLeft <= 0
+		)
+			return false;
+
+		if (!game.players[player].cards[card_i].isBlue) return false;
+
+		game.players[player].character.useLeft--;
+		game.dealOneCard(player);
+		io.emit('log', game.players[player].name + ' vyuzil schopnost (' + game.players[player].character.name + ')');
+		return true;
 	}
 }
 

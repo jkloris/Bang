@@ -220,7 +220,7 @@ class Tile {
 				game_client.players[player_i].blueCards[clickedBlue_index] != undefined &&
 				game_client.players[player_i].blueCards[clickedBlue_index].name == 'Dynamit'
 			) {
-				socket.emit('dynamiteClick', player_i, clickedBlue_index);
+				socket.emit('ownBlueClicked', player_i, clickedBlue_index);
 			}
 
 			if (
@@ -228,7 +228,7 @@ class Tile {
 				game_client.players[player_i].blueCards[clickedBlue_index].name == 'Vazenie' &&
 				game_client.players[player_i].dynamit == false
 			) {
-				socket.emit('prisonClick', player_i, clickedBlue_index);
+				socket.emit('ownBlueClicked', player_i, clickedBlue_index);
 			}
 
 			if (

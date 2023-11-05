@@ -109,7 +109,8 @@ socket.on('partial_clickAccept', (mouse) => {
 		game_scene.tiles[game_client.requestedPlayer],
 		game_client.requestedPlayer
 	);
-	if (clickedBlue != null) socket.emit('ownBlueClicked', clickedBlue);
+	console.log(game_scene.requestedPlayer);
+	if (clickedBlue != null) socket.emit('ownBlueClicked', game_scene.requestedPlayer, clickedBlue);
 });
 
 socket.on('logClick', (point) => {
